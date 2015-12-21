@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9059" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gTV-IL-0wX" customClass="ColCell2InputVc" customModule="ChatVc" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="70" height="96"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="70" height="96"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" translatesAutoresizingMaskIntoConstraints="NO" id="d9v-uM-pmr">
+                        <rect key="frame" x="5" y="9" width="60" height="60"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="60" id="1a6-rA-xB4"/>
+                            <constraint firstAttribute="height" constant="60" id="6QD-Et-Uzc"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="发送地图" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2Ti-xu-1bI">
+                        <rect key="frame" x="5" y="76" width="60" height="20"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="60" id="566-Pz-Qoj"/>
+                            <constraint firstAttribute="height" constant="20" id="9Rw-O2-J5p"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            </view>
+            <constraints>
+                <constraint firstAttribute="centerX" secondItem="2Ti-xu-1bI" secondAttribute="centerX" id="NEB-bh-QNf"/>
+                <constraint firstAttribute="bottom" secondItem="2Ti-xu-1bI" secondAttribute="bottom" id="UW8-RE-HMy"/>
+                <constraint firstItem="d9v-uM-pmr" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="9" id="ZBB-0F-Ici"/>
+                <constraint firstAttribute="centerX" secondItem="d9v-uM-pmr" secondAttribute="centerX" id="mtx-WP-Kxq"/>
+            </constraints>
+            <size key="customSize" width="70" height="96"/>
+            <connections>
+                <outlet property="imgOfMoreAction" destination="d9v-uM-pmr" id="1qO-b2-ibr"/>
+                <outlet property="lblOfMoreAction" destination="2Ti-xu-1bI" id="ovI-uy-qZ4"/>
+            </connections>
+            <point key="canvasLocation" x="171" y="229"/>
+        </collectionViewCell>
+    </objects>
+</document>
