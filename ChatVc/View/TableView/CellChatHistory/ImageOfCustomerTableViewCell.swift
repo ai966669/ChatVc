@@ -11,8 +11,6 @@ import UIKit
 class ImageOfCustomerTableViewCell: ChatTableViewCell {
     @IBOutlet var imageMine: UIImageView!
     var aModelOfMsgCellImg:ModelOfMsgCellImg!
-    weak var oneImageMineTableViewCellDelegate:ImageMineTableViewCellDelegate!
-    @IBOutlet var lblOftimeNSLayoutConstraintheight: NSLayoutConstraint!
     override func awakeFromNib() {
         super.awakeFromNib()
         imageMine.layer.masksToBounds=true
@@ -32,7 +30,7 @@ class ImageOfCustomerTableViewCell: ChatTableViewCell {
     func biggerImage(){
         if imageMine.image != nil{
 
-            oneImageMineTableViewCellDelegate.ImageBigger(imageMine.image!,frame:ToolOfCellInChat.getCGRectInWindow(imageMine))
+//            oneImageMineTableViewCellDelegate.ImageBigger(imageMine.image!,frame:ToolOfCellInChat.getCGRectInWindow(imageMine))
         }
     }
     func resetCell(){
@@ -49,33 +47,6 @@ class ImageOfCustomerTableViewCell: ChatTableViewCell {
         
     }
 
-//    func setLblOftime(){
-//        let str = aModelOfMsgCellImg.timeCreate
-//        if str==""{
-//            lblOftime.hidden=true
-//            imageOfUserNSLayoutConstraintTopToContentView.constant=ToolOfCellInChat.imageOfUserNSLayoutConstraintTopToContentViewWhenlblOftimeNoVisble
-//            self.layoutIfNeeded()
-//        }else{
-//            //            nzzlb 多次重用一个cell如果被重用的cell中的某些控件被隐藏，则之后必须要true下不然不会显示
-//            lblOftime.hidden=false
-//            lblOftime.text=str
-//            //            当有时间戳的时候头像image最上方与cell的高度需要改变，为时间戳留出空间
-//            imageOfUserNSLayoutConstraintTopToContentView.constant=ToolOfCellInChat.imageOfUserNSLayoutConstraintTopToContentViewWhenlblOftimeVisble
-//            let sizeOfNew=ToolOfCellInChat.getTimeSize(str)
-//            lblOftimeNSLayoutConstraintWidth.constant=sizeOfNew.width+(2*lblOftime.frame.height)
-//            self.layoutIfNeeded()
-//        }
-//    }
-//    func resetLayOut(){
-//        if (aModelOfMsgCellImg.sizeCell.height > aModelOfMsgCellImg.sizeCell.width){
-//            widthOfImage.constant=aModelOfMsgCellImg.sizeCell.width*(150/aModelOfMsgCellImg.sizeCell.height)
-//            heightOfImage.constant=150
-//        }else {
-//            heightOfImage.constant=aModelOfMsgCellImg.sizeCell.height*(150/aModelOfMsgCellImg.sizeCell.width)
-//            widthOfImage.constant=150
-//        }
-//        setLblOftime()
-//    }
     override func setSelected(selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
         

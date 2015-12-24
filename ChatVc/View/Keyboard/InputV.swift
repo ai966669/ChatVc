@@ -23,6 +23,7 @@ enum  StatusOfKeyboard {
     case None
     case Voice
     case MoreAction
+    case MsgWant
     case TypeOrder
 }
 class InputV: UIView {
@@ -91,6 +92,7 @@ class InputV: UIView {
     var clvOfKeyBoard : UICollectionView!
     var clvOfRecent : UICollectionView!
     var clvOfMoreAction : UICollectionView!
+    var clvMsgWantSend : UICollectionView!
     var pageControl : UIPageControl!
     weak var oneInputVcDelegate:InputVcDelegate?
     var imagenameCellInClvOfMoreAction:[String]=[]
@@ -111,8 +113,8 @@ class InputV: UIView {
     private let clvOfKeyBoardNSLayoutConstraintToR:CGFloat = 0
     private let clvOfKeyBoardNSLayoutConstraintToT:CGFloat = 15
     //   关于pageControl表情的约束参数
-    private let pageControlNSLayoutConstraintHeight:CGFloat = 15
-    private let pageControlNSLayoutConstraintToT:CGFloat = 10
+    private let pageControlNSLayoutConstraintHeight:CGFloat = 10
+    private let pageControlNSLayoutConstraintToT:CGFloat = 20
     //    clvOfKeyBoard的高度，为了和之前的heightOfKeyBoard区别所以取名这个，后期取名需要重新设置
     private let heightOfKeyBoardReal:CGFloat=150
     //    clvOfMoreAction的高度，为了和之前的heightOfKeyBoard区别所以取名这个，后期取名需要重新设置
@@ -152,7 +154,7 @@ class InputV: UIView {
                     boundOfView.origin.y = 0
                     self.superview!.bounds = boundOfView
                 })
-                
+
             case .None:
                 btnOfChangingMsgStyle.setImage(UIImage(named: "record"), forState: UIControlState.Normal)
                 btnOfShowEmoji.setImage(UIImage(named: "emoji"), forState: UIControlState.Normal)
@@ -176,9 +178,12 @@ class InputV: UIView {
                 btnOfSend.hidden=false
                 clvOfMenu.hidden=false
                 btnOfVoice.hidden=true
+                clvMsgWantSend.hidden=true
                 emojiRecent[23]="@"
                 clvOfRecent.reloadData()
             case .Emoji:
+                NSLayoutConstraintPageControlToTop.constant=20
+                pageControl.numberOfPages=nbOfPageEmoji
                 btnOfChangingMsgStyle.setImage(UIImage(named: "record"), forState: UIControlState.Normal)
                 btnOfShowEmoji.setImage(UIImage(named: "keyboard"), forState: UIControlState.Normal)
                 clvOfRecent.hidden=true
@@ -189,6 +194,7 @@ class InputV: UIView {
                 btnOfSend.hidden=false
                 clvOfMenu.hidden=false
                 btnOfVoice.hidden=true
+                clvMsgWantSend.hidden=true
                 txtViewOfMsg.resignFirstResponder()
                 UIView.animateWithDuration(0.25, animations: { () -> Void in
                     var boundOfView = self.superview!.bounds
@@ -196,7 +202,7 @@ class InputV: UIView {
                     boundOfView.origin.y = offsetY
                     self.superview!.bounds = boundOfView
                 })
-                            oneInputVcDelegate!.goLastMsg()
+                oneInputVcDelegate!.goLastMsg()
             case .MoreAction:
                 btnOfChangingMsgStyle.setImage(UIImage(named: "record"), forState: UIControlState.Normal)
                 btnOfShowEmoji.setImage(UIImage(named: "emoji"), forState: UIControlState.Normal)
@@ -207,6 +213,27 @@ class InputV: UIView {
                 pageControl.hidden=true
                 btnOfSend.hidden=true
                 clvOfMenu.hidden=true
+                clvMsgWantSend.hidden=true
+                txtViewOfMsg.resignFirstResponder()
+                UIView.animateWithDuration(0.25, animations: { () -> Void in
+                    var boundOfView = self.superview!.bounds
+                    let offsetY:CGFloat = self.heightOfView-self.heightOfUnderView
+                    boundOfView.origin.y = offsetY
+                    self.superview!.bounds = boundOfView
+                })
+                oneInputVcDelegate!.goLastMsg()
+            case .MsgWant:
+                NSLayoutConstraintPageControlToTop.constant=40
+                pageControl.numberOfPages=3
+                btnOfChangingMsgStyle.setImage(UIImage(named: "record"), forState: UIControlState.Normal)
+                btnOfShowEmoji.setImage(UIImage(named: "emoji"), forState: UIControlState.Normal)
+                clvOfRecent.hidden=true
+                clvOfMoreAction.hidden = true
+                clvOfKeyBoard.hidden=true
+                pageControl.hidden=false
+                btnOfSend.hidden=true
+                clvOfMenu.hidden=true
+                clvMsgWantSend.hidden=false
                 txtViewOfMsg.resignFirstResponder()
                 UIView.animateWithDuration(0.25, animations: { () -> Void in
                     var boundOfView = self.superview!.bounds
@@ -222,13 +249,6 @@ class InputV: UIView {
             
         }
     }
-    //    func changeSuperClassBound(heightAdd:CGFloat){
-    //        var boundOfView = self.superview!.bounds
-    //        //后面的45是输入框的高度
-    //        let offsetY:CGFloat = self.frame.height-45
-    //        boundOfView.origin.y = offsetY+heightAdd
-    //        self.superview!.bounds = boundOfView
-    //    }
     
     override func awakeFromNib() {
         
@@ -306,9 +326,56 @@ class InputV: UIView {
         initClvOfMenu()
         initClvOfRecent()
         initClvOfMoreAction()
+        initClvMsgWantSend()
         initCell()
         initPageControl()
         initBtnOfVoice()
+
+    }
+    var aMMsgWantSendCollectionViewDelegateNzz=MMsgWantSendCollectionViewDelegateNzz()
+    var msgs=["asdf","asdf","fffffasdffffffasdffffffasdffffffasdf","asdf","fffffasdf","asfffffasdffffffasdffffffasdfdf","asdf","asasdfjkjklkjlkljasdfdf","asdf","asdf","asasdfjkjklkjlkljasdfdf","asdf","asdf","asasdfjkjklkjlkljasdfdf","asdf","asdf","asasdfjkjklkjlkljasdfdf","asdf","asdf"]
+    
+    func initClvMsgWantSend(){
+        
+        let  aCustomLayoutNzz=CustomLayoutNzz()
+        
+        aMMsgWantSendCollectionViewDelegateNzz.calculate(CGSizeMake(UIScreen.mainScreen().bounds.size.width, 162), msgs:msgs)
+        
+        aCustomLayoutNzz.msgSizes=aMMsgWantSendCollectionViewDelegateNzz.msgSizes
+        aCustomLayoutNzz.contentView=aMMsgWantSendCollectionViewDelegateNzz.contentView
+
+        clvMsgWantSend = UICollectionView(frame: CGRectMake(0,0,0,0), collectionViewLayout: aCustomLayoutNzz)
+
+        clvMsgWantSend.dataSource=self
+        clvMsgWantSend.delegate=self
+        clvMsgWantSend.bounces=false
+        let flowLayoutClvOfKeyBoard = UICollectionViewFlowLayout()
+        
+        flowLayoutClvOfKeyBoard.scrollDirection = UICollectionViewScrollDirection.Horizontal
+        
+        clvMsgWantSend.collectionViewLayout=flowLayoutClvOfKeyBoard
+
+        
+        
+        addSubview(clvMsgWantSend)
+        clvMsgWantSend.translatesAutoresizingMaskIntoConstraints=false
+        clvMsgWantSend.collectionViewLayout=aCustomLayoutNzz
+        //增加下方emoji表情列表的autolayout约束
+        addConstraint(NSLayoutConstraint(item: clvMsgWantSend, attribute: NSLayoutAttribute.Left, relatedBy: NSLayoutRelation.Equal, toItem: self, attribute: NSLayoutAttribute.Left, multiplier: 1, constant: clvOfKeyBoardNSLayoutConstraintToL))
+        
+        addConstraint(NSLayoutConstraint(item: clvMsgWantSend, attribute: NSLayoutAttribute.Bottom, relatedBy: NSLayoutRelation.Equal, toItem: self, attribute: NSLayoutAttribute.Bottom, multiplier: 1, constant: 0))
+        
+        addConstraint(NSLayoutConstraint(item: clvMsgWantSend, attribute: NSLayoutAttribute.Right, relatedBy: NSLayoutRelation.Equal, toItem: self, attribute: NSLayoutAttribute.Right, multiplier: 1, constant:-clvOfKeyBoardNSLayoutConstraintToR))
+        
+        addConstraint(NSLayoutConstraint(item: clvMsgWantSend, attribute: NSLayoutAttribute.Top, relatedBy: NSLayoutRelation.Equal, toItem: viewUnder, attribute: NSLayoutAttribute.Bottom, multiplier: 1, constant: clvOfKeyBoardNSLayoutConstraintToT))
+        
+        clvMsgWantSend.showsHorizontalScrollIndicator = false
+        
+        clvMsgWantSend.pagingEnabled=true
+        
+        clvMsgWantSend.backgroundColor=UIColor.whiteColor()
+
+
     }
     func initBtnOfVoice(){
         if oneRecordAndPlay == nil{
@@ -390,7 +457,11 @@ class InputV: UIView {
         clvOfRecent.dataSource=self
         
     }
+    
+    private let MsgWantSendCollectionViewCellIdentifier="MsgWantSendCollectionViewCell"
+    
     func initCell(){
+        
         let uiNibColCell1InputVc=UINib(nibName: "ColCell1InputVc", bundle: NSBundle.mainBundle())
         
         clvOfKeyBoard.registerNib(uiNibColCell1InputVc, forCellWithReuseIdentifier: "ColCell1InputVc")
@@ -402,6 +473,9 @@ class InputV: UIView {
         let uiNibColCell2InputVc=UINib(nibName: "ColCell2InputVc", bundle: NSBundle.mainBundle())
         
         clvOfMoreAction.registerNib(uiNibColCell2InputVc, forCellWithReuseIdentifier: "ColCell2InputVc")
+        
+        clvMsgWantSend.registerNib(UINib(nibName: "MsgWantSendCollectionViewCell", bundle: NSBundle.mainBundle()), forCellWithReuseIdentifier: MsgWantSendCollectionViewCellIdentifier)
+        
     }
     
     func initClvOfKeyBoard(){
@@ -479,15 +553,20 @@ class InputV: UIView {
         btnOfSend.layer.borderColor=UIColor.lightGrayColor().CGColor
         
     }
+    var NSLayoutConstraintPageControlToTop:NSLayoutConstraint!
     func initPageControl(){
         
         pageControl = UIPageControl(frame: CGRectMake(0, 0, 100, 100))
         
         pageControl.translatesAutoresizingMaskIntoConstraints=false
         
+//        pageControl.backgroundColor=UIColor.yellowColor()
+        
         self.addSubview(pageControl)
         
-        self.addConstraint(NSLayoutConstraint(item: pageControl, attribute: NSLayoutAttribute.Bottom, relatedBy: NSLayoutRelation.Equal, toItem: clvOfKeyBoard, attribute: NSLayoutAttribute.Bottom, multiplier: 1, constant: pageControlNSLayoutConstraintToT))
+        NSLayoutConstraintPageControlToTop=NSLayoutConstraint(item: pageControl, attribute: NSLayoutAttribute.Bottom, relatedBy: NSLayoutRelation.Equal, toItem: clvOfKeyBoard, attribute: NSLayoutAttribute.Bottom, multiplier: 1, constant: pageControlNSLayoutConstraintToT)
+        
+        self.addConstraint(NSLayoutConstraintPageControlToTop)
         
         self.addConstraint(NSLayoutConstraint(item: pageControl, attribute: NSLayoutAttribute.CenterX, relatedBy: NSLayoutRelation.Equal, toItem: clvOfKeyBoard, attribute: NSLayoutAttribute.CenterX, multiplier: 1, constant: 0))
         
@@ -616,7 +695,10 @@ extension InputV:UICollectionViewDelegate,UICollectionViewDataSource,UICollectio
             return 8
         }else if collectionView == clvOfMoreAction{
             return 4
-        }else{
+        }else if collectionView == clvMsgWantSend{
+            return 1
+        }
+        else{
             return 0
         }
     }
@@ -630,6 +712,8 @@ extension InputV:UICollectionViewDelegate,UICollectionViewDataSource,UICollectio
             return 3
         }else if collectionView == clvOfMoreAction{
             return 2
+        }else if collectionView == clvMsgWantSend{
+            return msgs.count
         }else{
             return 0
         }
@@ -708,6 +792,12 @@ extension InputV:UICollectionViewDelegate,UICollectionViewDataSource,UICollectio
             let cell = collectionView.dequeueReusableCellWithReuseIdentifier(ColCell2InputVcIdentifier, forIndexPath: indexPath) as! ColCell2InputVc
             cell.lblOfMoreAction.text = titleCellInClvOfMoreAction[indexPath.row + indexPath.section*2]
             cell.imgOfMoreAction.image = UIImage(named: imagenameCellInClvOfMoreAction[indexPath.row + indexPath.section*2])
+            return cell
+        }else if collectionView == clvMsgWantSend{
+            let cell = collectionView.dequeueReusableCellWithReuseIdentifier(MsgWantSendCollectionViewCellIdentifier, forIndexPath: indexPath) as! MsgWantSendCollectionViewCell
+            cell.lblTxt.text = msgs[indexPath.row]
+            cell.layer.borderColor=UIColor.redColor().CGColor
+            cell.layer.borderWidth=1
             return cell
         }else{
             return ColCell1InputVc()
@@ -840,7 +930,12 @@ extension InputV:UICollectionViewDelegate,UICollectionViewDataSource,UICollectio
 }
 extension InputV:UIScrollViewDelegate{
     func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
+        if scrollView == clvMsgWantSend{
+        pageControl.currentPage = Int(clvMsgWantSend.contentOffset.x / clvMsgWantSend.frame.size.width)
+        }
+        else{
         pageControl.currentPage = Int(clvOfKeyBoard.contentOffset.x / clvOfKeyBoard.frame.size.width)
+        }
     }
 }
 extension InputV:UITextViewDelegate{

@@ -82,21 +82,17 @@
                 <outlet property="NSLayoutConstraintMsgW" destination="xW0-CA-H25" id="PFB-Br-B1E"/>
                 <outlet property="btnOfSendStatus" destination="WFs-lD-ga6" id="J3E-3W-Lq1"/>
                 <outlet property="imageCover" destination="dM8-oM-aWx" id="wHZ-Vw-GkB"/>
-                <outlet property="imageMineNSLayoutConstraintTopToContentView" destination="bhg-E9-abC" id="GWn-mQ-198"/>
                 <outlet property="imgHead" destination="6Ee-Qs-2vv" id="6T6-DR-dhh"/>
                 <outlet property="imgHeadNSLayoutConstraintTopToContentView" destination="bhg-E9-abC" id="cYw-2C-sFH"/>
                 <outlet property="imgOfVoicePlaying" destination="p2a-7U-iZv" id="z9U-gZ-Wm2"/>
                 <outlet property="lblOftime" destination="sqt-1p-X2x" id="DU0-LP-7QE"/>
                 <outlet property="lblOftimeNSLayoutConstraintWidth" destination="9CH-fb-xa7" id="loS-yr-qYa"/>
-                <outlet property="lblOftimeNSLayoutConstraintheight" destination="Y3P-iB-6wG" id="ESq-8L-hfk"/>
                 <outlet property="textOfMsg" destination="M0g-Tp-QbR" id="WVr-bM-x5J"/>
-                <outlet property="textOfMsgNSLayoutConstraintHeight" destination="fF3-Qg-Fsh" id="e1C-nL-Vmp"/>
-                <outlet property="textOfMsgNSLayoutConstraintWidth" destination="xW0-CA-H25" id="qEY-kv-myh"/>
             </connections>
             <point key="canvasLocation" x="147.5" y="212"/>
         </tableViewCell>
     </objects>
     <resources>
-        <image name="meizi1.jpg" width="481" height="720"/>
+        <image name="meizi1.jpg" width="329" height="362"/>
     </resources>
 </document>

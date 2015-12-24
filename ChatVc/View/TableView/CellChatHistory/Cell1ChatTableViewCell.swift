@@ -11,10 +11,6 @@ import UIKit
 class Cell1ChatTableViewCell: ChatTableViewCell {
     @IBOutlet var imgOfVoicePlaying: UIImageView!
     @IBOutlet var textOfMsg:UITextView!
-    @IBOutlet var textOfMsgNSLayoutConstraintWidth: NSLayoutConstraint!
-    @IBOutlet var textOfMsgNSLayoutConstraintHeight: NSLayoutConstraint!
-    @IBOutlet var imageMineNSLayoutConstraintTopToContentView: NSLayoutConstraint!
-    @IBOutlet var lblOftimeNSLayoutConstraintheight: NSLayoutConstraint!
     var aModelOfMsgCellVoice:ModelOfMsgCellVoice!
     var aModelOfMsgCellTxt:ModelOfMsgCellTxt!
     var playVoiceGestureRecognizer:UITapGestureRecognizer!
@@ -133,9 +129,14 @@ class Cell1ChatTableViewCell: ChatTableViewCell {
     }
     func resetCellTxt(){
         aModelOfMsgCellVoice=nil
-        textOfMsg!.text = aModelOfMsgCellTxt.txt
-        textOfMsg.textColor=UIColor.whiteColor()
-//        不是语言信息需要重新处理语音播放，把手势去掉，由于cell重用的问题，会导致点击后语言还会播放
+//        if aModelOfMsgCellTxt.isSend{
+            textOfMsg!.text = aModelOfMsgCellTxt.txt
+            textOfMsg.textColor=UIColor.blackColor()
+//        }else{
+//            textOfMsg!.text = aModelOfMsgCellTxt.txt
+//            textOfMsg.textColor=UIColor.whiteColor()
+//        }
+        //        不是语言信息需要重新处理语音播放，把手势去掉，由于cell重用的问题，会导致点击后语言还会播放
         setVoicePlayImg()
         resetCellUniversity(aModelOfMsgCellTxt)
         
@@ -146,7 +147,7 @@ class Cell1ChatTableViewCell: ChatTableViewCell {
         textOfMsg.textColor=UIColor.whiteColor()
         setVoicePlayImg()
         setPlayMusic()
-        resetCellUniversity(aModelOfMsgCellTxt)
+        resetCellUniversity(aModelOfMsgCellVoice)
     }
     override func setSelected(selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
@@ -158,10 +159,10 @@ class Cell1ChatTableViewCell: ChatTableViewCell {
     func playRecordStop() {
         print("停止播放")
         if (aRecordAndPlay != nil)&&((aRecordAndPlay.avPlay) != nil) && aRecordAndPlay.avPlay.playing {
-//            执行了，但是stop后没有执行代理。
+            //            执行了，但是stop后没有执行代理。
             aRecordAndPlay.avPlay.stop()
             stopAnimotion()
-//            NSNotificationCenter.defaultCenter().removeObserver(self, name: NotificationPlayVoice, object: nil)
+            //            NSNotificationCenter.defaultCenter().removeObserver(self, name: NotificationPlayVoice, object: nil)
         }
     }
     func playRecord(data: NSData) {
@@ -192,9 +193,9 @@ extension Cell1ChatTableViewCell:AVAudioPlayerDelegate{
     func audioPlayerDidFinishPlaying(player: AVAudioPlayer, successfully flag: Bool) {
         stopAnimotion()
     }
-//    func audioPlayerEndInterruption(player: AVAudioPlayer, withOptions flags: Int){
-//        
-//    }
+    //    func audioPlayerEndInterruption(player: AVAudioPlayer, withOptions flags: Int){
+    //
+    //    }
     //    nzz为什么暂停时不执行
     //    func   audioPlayerBeginInterruption(player: AVAudioPlayer) {
     //        if nSTimerPlayingVoice!.valid {
@@ -212,7 +213,7 @@ extension Cell1ChatTableViewCell : UITextViewDelegate {
             return false
         }
     }
-
+    
 }
 
 

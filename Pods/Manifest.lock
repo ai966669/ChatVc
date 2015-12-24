@@ -18,11 +18,6 @@ PODS:
   - JTSImageViewController (1.5.1)
   - MJRefresh (1.4.7)
   - NSDate-Extensions (0.0.1)
-  - Pingpp/Alipay (2.1.4):
-    - Pingpp/Core
-  - Pingpp/Core (2.1.4)
-  - Pingpp/Wx (2.1.4):
-    - Pingpp/Core
   - pop (1.0.8)
   - RSKImageCropper (1.4.1)
   - SDWebImage (3.7.3):
@@ -36,8 +31,6 @@ DEPENDENCIES:
   - JTSImageViewController
   - MJRefresh (~> 1.4.7)
   - NSDate-Extensions
-  - Pingpp/Alipay (~> 2.1.4)
-  - Pingpp/Wx (~> 2.1.4)
   - pop
   - RSKImageCropper
   - SDWebImage (~> 3.7)
@@ -49,7 +42,6 @@ SPEC CHECKSUMS:
   JTSImageViewController: 1f8ce1cc93dab0d0af8e53badeea7528560cfec9
   MJRefresh: 6b140993028fa30f1fcb88e82925a7c7911415cf
   NSDate-Extensions: cbd68ecf5cf8a150644e184b4521d7734fea5ace
-  Pingpp: 08415163eb1791bc07d7d939f1648d2e36a30eda
   pop: bb773ae2c791ca2629de13b347e7a8b450fa6a57
   RSKImageCropper: 98ae426eb4eb11b733ff87f8e2542a480f4fa8e6
   SDWebImage: 1d2b1a1efda1ade1b00b6f8498865f8ddedc8a84

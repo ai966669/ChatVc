@@ -76,7 +76,6 @@
                 <outlet property="imgHeadNSLayoutConstraintTopToContentView" destination="J8k-1E-wdH" id="xKd-PX-Sav"/>
                 <outlet property="lblOftime" destination="Ds3-f9-zuF" id="pfs-RL-dTg"/>
                 <outlet property="lblOftimeNSLayoutConstraintWidth" destination="3Ia-0b-82p" id="soD-fy-W6D"/>
-                <outlet property="lblOftimeNSLayoutConstraintheight" destination="gvc-dA-Wth" id="fqr-Tk-INq"/>
             </connections>
             <point key="canvasLocation" x="377.5" y="177"/>
         </tableViewCell>

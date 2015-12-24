@@ -8,7 +8,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="125" id="KGk-i7-Jjw" customClass="ImageOfCustomerTableViewCell" customModule="ChatVc" customModuleProvider="target">
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="125" id="KGk-i7-Jjw" customClass="ImageMineTableViewCell" customModule="ChatVc" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="375" height="222"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
@@ -60,12 +60,11 @@
                 <outlet property="NSLayoutConstraintMsgH" destination="uXi-Je-VEy" id="t0T-or-RQ6"/>
                 <outlet property="NSLayoutConstraintMsgW" destination="DRU-ZX-h46" id="8Eo-Z1-OtV"/>
                 <outlet property="imageCover" destination="xfY-Qi-DFc" id="PGa-KN-k6V"/>
-                <outlet property="imageMine" destination="kb1-ec-q3a" id="06A-Kc-oit"/>
+                <outlet property="imageMine" destination="kb1-ec-q3a" id="euT-Ac-rVT"/>
                 <outlet property="imgHead" destination="BGL-7O-SH1" id="yKf-2k-kpA"/>
                 <outlet property="imgHeadNSLayoutConstraintTopToContentView" destination="oOT-4T-o3C" id="WFW-XQ-RTo"/>
                 <outlet property="lblOftime" destination="VGu-HG-vcg" id="2Te-aV-fAm"/>
                 <outlet property="lblOftimeNSLayoutConstraintWidth" destination="8sg-cq-nJd" id="tWW-1G-88p"/>
-                <outlet property="lblOftimeNSLayoutConstraintheight" destination="p73-Ec-wcZ" id="XTR-v5-gEz"/>
             </connections>
             <point key="canvasLocation" x="279.5" y="232"/>
         </tableViewCell>

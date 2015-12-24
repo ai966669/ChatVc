@@ -53,10 +53,6 @@ class ChatViewController: UIViewController {
         
         aInputV.oneInputVcDelegate = self
         
-        //        chatTableView = tvcChat
-        //
-        //        addChildViewController(chatTableView)
-        //        aInputV.initClv()
         view.addSubview(aInputV)
         
         //Log("\(aInputV.heightOfUnderView)")
@@ -92,7 +88,7 @@ class ChatViewController: UIViewController {
     func initTbvChatHistory(){
         
         aTableviewDelegateNzz.initTableviewDelegateNzz(tbvChatHistory)
-        
+
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -174,7 +170,8 @@ extension  ChatViewController:InputVcDelegate{
         view.layoutIfNeeded()
     }
     @IBAction func someFunc(sender: AnyObject) {
-        NSNotificationCenter.defaultCenter().postNotificationName(NotificationPlayVoice, object: nil)
+//        NSNotificationCenter.defaultCenter().postNotificationName(NotificationPlayVoice, object: nil)
+        aInputV.statusOfKeyboard = StatusOfKeyboard.MsgWant
     }
     
     func sendMsg(txt:String){
@@ -187,13 +184,22 @@ extension  ChatViewController:InputVcDelegate{
         }
     }
     func finishVoice(infosVoice: NSArray) {
-        let dataInVoice = infosVoice[0] as! NSData
-        let voicePath=HelpFromOc.getMsgPath("1111", false)
-        //将图片保存到本地image文件夹下
-        dataInVoice.writeToFile(voicePath, atomically: true)
         
-        aTableviewDelegateNzz.addAnewMsgVoice(infosVoice[1] as! Float, aVoiceUrlOrPath: voicePath, aStatusOfSend: StatusOfSend.success, aImgHeadUrlOrFilePath: DefaultHeadImgPath, isSend: true)
+        if isSend{
+            isSend=false
+            let dataInVoice = infosVoice[0] as! NSData
+            let voicePath=HelpFromOc.getMsgPath("1111", false)
+            //将图片保存到本地image文件夹下
+            dataInVoice.writeToFile(voicePath, atomically: true)
+            
+            aTableviewDelegateNzz.addAnewMsgVoice(infosVoice[1] as! Float, aVoiceUrlOrPath: voicePath, aStatusOfSend: StatusOfSend.success, aImgHeadUrlOrFilePath: DefaultHeadImgPath, isSend: true)
+        }else{
+            isSend=true
+            receiveMsgVoice(infosVoice)
+        }
+
         
+       
         
     }
     
@@ -229,5 +235,13 @@ extension ChatViewController{
             }
         }
         
+    }
+    func receiveMsgVoice(infosVoice: NSArray){
+        let dataInVoice = infosVoice[0] as! NSData
+        let voicePath=HelpFromOc.getMsgPath("1111", false)
+        //将图片保存到本地image文件夹下
+        dataInVoice.writeToFile(voicePath, atomically: true)
+        
+        aTableviewDelegateNzz.addAnewMsgVoice(infosVoice[1] as! Float, aVoiceUrlOrPath: voicePath, aStatusOfSend: StatusOfSend.success, aImgHeadUrlOrFilePath: DefaultHeadImgPath, isSend: false)
     }
 }

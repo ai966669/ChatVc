@@ -12,7 +12,8 @@ protocol ChatTableViewCellDelegate:NSObjectProtocol{
     func ShowAssistantInfor(aAssistantId:Int64)
     func ShowUserInfor()
     func ShowWeb(url:String)
-    func keyboardChangeToSmall()
+    func KeyboardChangeToSmall()
+    func ImageBigger(imageBigger:UIImage,frame:CGRect)
 }
 let heightToBot:CGFloat=10
 class ChatTableViewCell: UITableViewCell {
@@ -40,6 +41,7 @@ class ChatTableViewCell: UITableViewCell {
     }
     //    设置通用cell结构
     func resetCellUniversity(aModelOfMsgCellBasic:ModelOfMsgCellBasic!){
+        selectionStyle = UITableViewCellSelectionStyle.None
         //        发送状态设置
         if aModelOfMsgCellBasic.isSend{
             setBtnOfSendStatus(aModelOfMsgCellBasic.statusOfSend)

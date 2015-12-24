@@ -12,7 +12,7 @@
 		45422EAB1C201D1C00F74D30 /* Cell1ChatTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 45422EA61C201D1C00F74D30 /* Cell1ChatTableViewCell.xib */; };
 		45422EAC1C201D1C00F74D30 /* Cell2ChatTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 45422EA71C201D1C00F74D30 /* Cell2ChatTableViewCell.xib */; };
 		45422EAD1C201D1C00F74D30 /* ChatTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45422EA81C201D1C00F74D30 /* ChatTableViewCell.swift */; };
-		45422EAE1C201D1C00F74D30 /* Cell2ChatTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45422EA91C201D1C00F74D30 /* Cell2ChatTableViewCell.swift */; };
+		45431E2A1C27E4DD00D47BCA /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 45431E291C27E4DD00D47BCA /* libsqlite3.tbd */; };
 		454B8F561C27ABEF00DA9EF8 /* msgTxtChatTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 454B8F551C27ABEF00DA9EF8 /* msgTxtChatTableViewCell.swift */; };
 		456187B51C1E9C0D00AE5801 /* ColCell1InputVc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 456187A51C1E9C0D00AE5801 /* ColCell1InputVc.swift */; };
 		456187B61C1E9C0D00AE5801 /* ColCell1InputVc.xib in Resources */ = {isa = PBXBuildFile; fileRef = 456187A61C1E9C0D00AE5801 /* ColCell1InputVc.xib */; };
@@ -32,8 +32,11 @@
 		456187E41C1EA04C00AE5801 /* AUITableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 456187E31C1EA04C00AE5801 /* AUITableView.swift */; };
 		456187F11C1EAC7000AE5801 /* ModelOfMsgSend.swift in Sources */ = {isa = PBXBuildFile; fileRef = 456187F01C1EAC7000AE5801 /* ModelOfMsgSend.swift */; };
 		457E29461C22D01000CDE1EE /* databaseGet.m in Sources */ = {isa = PBXBuildFile; fileRef = 457E29451C22D01000CDE1EE /* databaseGet.m */; };
+		45B27B3E1C2A43B400D5C22E /* CustomLayoutNzz.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45B27B3A1C2A43B400D5C22E /* CustomLayoutNzz.swift */; };
+		45B27B3F1C2A43B400D5C22E /* MMsgWantSendCollectionViewDelegateNzz.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45B27B3B1C2A43B400D5C22E /* MMsgWantSendCollectionViewDelegateNzz.swift */; };
+		45B27B401C2A43B400D5C22E /* MsgWantSendCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45B27B3C1C2A43B400D5C22E /* MsgWantSendCollectionViewCell.swift */; };
+		45B27B411C2A43B400D5C22E /* MsgWantSendCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 45B27B3D1C2A43B400D5C22E /* MsgWantSendCollectionViewCell.xib */; };
 		45B581021C23D78000608982 /* ImageMineTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45B580FE1C23D78000608982 /* ImageMineTableViewCell.swift */; };
-		45B581031C23D78000608982 /* ImageOfCustomerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45B580FF1C23D78000608982 /* ImageOfCustomerTableViewCell.swift */; };
 		45B581041C23D78000608982 /* ImageOfCustomerTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 45B581001C23D78000608982 /* ImageOfCustomerTableViewCell.xib */; };
 		45B581051C23D78000608982 /* ImageMineTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 45B581011C23D78000608982 /* ImageMineTableViewCell.xib */; };
 		45B705091C1E64BC00B0E8C2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45B705081C1E64BC00B0E8C2 /* AppDelegate.swift */; };
@@ -80,7 +83,7 @@
 		45422EA61C201D1C00F74D30 /* Cell1ChatTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Cell1ChatTableViewCell.xib; sourceTree = "<group>"; };
 		45422EA71C201D1C00F74D30 /* Cell2ChatTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Cell2ChatTableViewCell.xib; sourceTree = "<group>"; };
 		45422EA81C201D1C00F74D30 /* ChatTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatTableViewCell.swift; sourceTree = "<group>"; };
-		45422EA91C201D1C00F74D30 /* Cell2ChatTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Cell2ChatTableViewCell.swift; sourceTree = "<group>"; };
+		45431E291C27E4DD00D47BCA /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 		454B8F551C27ABEF00DA9EF8 /* msgTxtChatTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = msgTxtChatTableViewCell.swift; sourceTree = "<group>"; };
 		456187A51C1E9C0D00AE5801 /* ColCell1InputVc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColCell1InputVc.swift; sourceTree = "<group>"; };
 		456187A61C1E9C0D00AE5801 /* ColCell1InputVc.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ColCell1InputVc.xib; sourceTree = "<group>"; };
@@ -106,8 +109,11 @@
 		456187F01C1EAC7000AE5801 /* ModelOfMsgSend.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModelOfMsgSend.swift; sourceTree = "<group>"; };
 		457E29441C22D01000CDE1EE /* databaseGet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = databaseGet.h; sourceTree = "<group>"; };
 		457E29451C22D01000CDE1EE /* databaseGet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = databaseGet.m; sourceTree = "<group>"; };
+		45B27B3A1C2A43B400D5C22E /* CustomLayoutNzz.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomLayoutNzz.swift; sourceTree = "<group>"; };
+		45B27B3B1C2A43B400D5C22E /* MMsgWantSendCollectionViewDelegateNzz.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMsgWantSendCollectionViewDelegateNzz.swift; sourceTree = "<group>"; };
+		45B27B3C1C2A43B400D5C22E /* MsgWantSendCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MsgWantSendCollectionViewCell.swift; sourceTree = "<group>"; };
+		45B27B3D1C2A43B400D5C22E /* MsgWantSendCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MsgWantSendCollectionViewCell.xib; sourceTree = "<group>"; };
 		45B580FE1C23D78000608982 /* ImageMineTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageMineTableViewCell.swift; sourceTree = "<group>"; };
-		45B580FF1C23D78000608982 /* ImageOfCustomerTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageOfCustomerTableViewCell.swift; sourceTree = "<group>"; };
 		45B581001C23D78000608982 /* ImageOfCustomerTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ImageOfCustomerTableViewCell.xib; sourceTree = "<group>"; };
 		45B581011C23D78000608982 /* ImageMineTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ImageMineTableViewCell.xib; sourceTree = "<group>"; };
 		45B705051C1E64BC00B0E8C2 /* ChatVc.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ChatVc.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -145,6 +151,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				45431E2A1C27E4DD00D47BCA /* libsqlite3.tbd in Frameworks */,
 				56CC9D0B72DF5DC68A9BD578 /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -169,6 +176,7 @@
 		1A7C112E50151452708D7DD0 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				45431E291C27E4DD00D47BCA /* libsqlite3.tbd */,
 				7A29A8436616C07C7243E176 /* libPods.a */,
 			);
 			name = Frameworks;
@@ -181,10 +189,8 @@
 				454B8F551C27ABEF00DA9EF8 /* msgTxtChatTableViewCell.swift */,
 				45422EA51C201D1C00F74D30 /* Cell1ChatTableViewCell.swift */,
 				45422EA61C201D1C00F74D30 /* Cell1ChatTableViewCell.xib */,
-				45422EA91C201D1C00F74D30 /* Cell2ChatTableViewCell.swift */,
 				45422EA71C201D1C00F74D30 /* Cell2ChatTableViewCell.xib */,
 				45B580FE1C23D78000608982 /* ImageMineTableViewCell.swift */,
-				45B580FF1C23D78000608982 /* ImageOfCustomerTableViewCell.swift */,
 				45B581001C23D78000608982 /* ImageOfCustomerTableViewCell.xib */,
 				45B581011C23D78000608982 /* ImageMineTableViewCell.xib */,
 			);
@@ -226,6 +232,7 @@
 		456187A41C1E9C0D00AE5801 /* Keyboard */ = {
 			isa = PBXGroup;
 			children = (
+				45B27B391C2A43B400D5C22E /* MsgWantSendCollectionView */,
 				45BBD9D61C228C0C0038A6AC /* VolView.swift */,
 				456187A51C1E9C0D00AE5801 /* ColCell1InputVc.swift */,
 				456187A61C1E9C0D00AE5801 /* ColCell1InputVc.xib */,
@@ -334,6 +341,17 @@
 				457E29451C22D01000CDE1EE /* databaseGet.m */,
 			);
 			path = Database;
+			sourceTree = "<group>";
+		};
+		45B27B391C2A43B400D5C22E /* MsgWantSendCollectionView */ = {
+			isa = PBXGroup;
+			children = (
+				45B27B3A1C2A43B400D5C22E /* CustomLayoutNzz.swift */,
+				45B27B3B1C2A43B400D5C22E /* MMsgWantSendCollectionViewDelegateNzz.swift */,
+				45B27B3C1C2A43B400D5C22E /* MsgWantSendCollectionViewCell.swift */,
+				45B27B3D1C2A43B400D5C22E /* MsgWantSendCollectionViewCell.xib */,
+			);
+			path = MsgWantSendCollectionView;
 			sourceTree = "<group>";
 		};
 		45B704FC1C1E64BC00B0E8C2 = {
@@ -541,6 +559,7 @@
 				456187CB1C1E9CA200AE5801 /* ZYQAssetPicker.Bundle in Resources */,
 				45B705101C1E64BC00B0E8C2 /* Assets.xcassets in Resources */,
 				45422EAC1C201D1C00F74D30 /* Cell2ChatTableViewCell.xib in Resources */,
+				45B27B411C2A43B400D5C22E /* MsgWantSendCollectionViewCell.xib in Resources */,
 				45422EAB1C201D1C00F74D30 /* Cell1ChatTableViewCell.xib in Resources */,
 				45B7050E1C1E64BC00B0E8C2 /* Main.storyboard in Resources */,
 				456187BD1C1E9C0D00AE5801 /* InputV.xib in Resources */,
@@ -609,7 +628,6 @@
 				45422EAD1C201D1C00F74D30 /* ChatTableViewCell.swift in Sources */,
 				45B581021C23D78000608982 /* ImageMineTableViewCell.swift in Sources */,
 				45BBD9FB1C228E3D0038A6AC /* SGFileManage.swift in Sources */,
-				45B581031C23D78000608982 /* ImageOfCustomerTableViewCell.swift in Sources */,
 				45BBD9D71C228C0C0038A6AC /* VolView.swift in Sources */,
 				45BBD9F81C228E3D0038A6AC /* UIColor+QuickTool.swift in Sources */,
 				457E29461C22D01000CDE1EE /* databaseGet.m in Sources */,
@@ -617,13 +635,15 @@
 				45422E871C2004D300F74D30 /* MTableviewDelegateNzz.swift in Sources */,
 				456187E21C1E9E7400AE5801 /* MChatView.swift in Sources */,
 				456187D31C1E9D1A00AE5801 /* TableViewDelegateNzz.swift in Sources */,
+				45B27B3E1C2A43B400D5C22E /* CustomLayoutNzz.swift in Sources */,
 				45422EAA1C201D1C00F74D30 /* Cell1ChatTableViewCell.swift in Sources */,
 				456187CA1C1E9CA200AE5801 /* AssetPicker.m in Sources */,
 				45BBD9F91C228E3D0038A6AC /* UIImage+QuickTool.swift in Sources */,
+				45B27B401C2A43B400D5C22E /* MsgWantSendCollectionViewCell.swift in Sources */,
 				456187BC1C1E9C0D00AE5801 /* InputV.swift in Sources */,
 				456187CD1C1E9CA200AE5801 /* RecordAndPlay.m in Sources */,
 				45BBD9F41C228E3D0038A6AC /* CGSize+QuickTool.swift in Sources */,
-				45422EAE1C201D1C00F74D30 /* Cell2ChatTableViewCell.swift in Sources */,
+				45B27B3F1C2A43B400D5C22E /* MMsgWantSendCollectionViewDelegateNzz.swift in Sources */,
 				45BBD9F71C228E3D0038A6AC /* String+QuickTool.swift in Sources */,
 				456187E41C1EA04C00AE5801 /* AUITableView.swift in Sources */,
 				45BBD9FC1C228E3D0038A6AC /* UITableViewController+Quick.swift in Sources */,
@@ -779,6 +799,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = ChatVc/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.anve.ChatVc;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -794,6 +815,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = ChatVc/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.anve.ChatVc;
 				PRODUCT_NAME = "$(TARGET_NAME)";
