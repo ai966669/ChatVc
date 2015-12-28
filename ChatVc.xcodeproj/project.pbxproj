@@ -32,6 +32,7 @@
 		456187E41C1EA04C00AE5801 /* AUITableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 456187E31C1EA04C00AE5801 /* AUITableView.swift */; };
 		456187F11C1EAC7000AE5801 /* ModelOfMsgSend.swift in Sources */ = {isa = PBXBuildFile; fileRef = 456187F01C1EAC7000AE5801 /* ModelOfMsgSend.swift */; };
 		457E29461C22D01000CDE1EE /* databaseGet.m in Sources */ = {isa = PBXBuildFile; fileRef = 457E29451C22D01000CDE1EE /* databaseGet.m */; };
+		45A64D101C2CE85F005433C4 /* MMSright@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 45A64D0F1C2CE85F005433C4 /* MMSright@2x.png */; };
 		45B27B3E1C2A43B400D5C22E /* CustomLayoutNzz.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45B27B3A1C2A43B400D5C22E /* CustomLayoutNzz.swift */; };
 		45B27B3F1C2A43B400D5C22E /* MMsgWantSendCollectionViewDelegateNzz.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45B27B3B1C2A43B400D5C22E /* MMsgWantSendCollectionViewDelegateNzz.swift */; };
 		45B27B401C2A43B400D5C22E /* MsgWantSendCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45B27B3C1C2A43B400D5C22E /* MsgWantSendCollectionViewCell.swift */; };
@@ -109,6 +110,7 @@
 		456187F01C1EAC7000AE5801 /* ModelOfMsgSend.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModelOfMsgSend.swift; sourceTree = "<group>"; };
 		457E29441C22D01000CDE1EE /* databaseGet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = databaseGet.h; sourceTree = "<group>"; };
 		457E29451C22D01000CDE1EE /* databaseGet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = databaseGet.m; sourceTree = "<group>"; };
+		45A64D0F1C2CE85F005433C4 /* MMSright@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MMSright@2x.png"; sourceTree = "<group>"; };
 		45B27B3A1C2A43B400D5C22E /* CustomLayoutNzz.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomLayoutNzz.swift; sourceTree = "<group>"; };
 		45B27B3B1C2A43B400D5C22E /* MMsgWantSendCollectionViewDelegateNzz.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMsgWantSendCollectionViewDelegateNzz.swift; sourceTree = "<group>"; };
 		45B27B3C1C2A43B400D5C22E /* MsgWantSendCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MsgWantSendCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -185,6 +187,7 @@
 		45422E881C20185900F74D30 /* CellChatHistory */ = {
 			isa = PBXGroup;
 			children = (
+				45A64D0F1C2CE85F005433C4 /* MMSright@2x.png */,
 				45422EA81C201D1C00F74D30 /* ChatTableViewCell.swift */,
 				454B8F551C27ABEF00DA9EF8 /* msgTxtChatTableViewCell.swift */,
 				45422EA51C201D1C00F74D30 /* Cell1ChatTableViewCell.swift */,
@@ -551,6 +554,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				45A64D101C2CE85F005433C4 /* MMSright@2x.png in Resources */,
 				45B581051C23D78000608982 /* ImageMineTableViewCell.xib in Resources */,
 				456187B61C1E9C0D00AE5801 /* ColCell1InputVc.xib in Resources */,
 				45B705131C1E64BC00B0E8C2 /* LaunchScreen.storyboard in Resources */,
@@ -801,7 +805,7 @@
 				INFOPLIST_FILE = ChatVc/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.anve.ChatVc;
+				PRODUCT_BUNDLE_IDENTIFIER = com.anve.bumblebee;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "ChatVc-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -817,7 +821,7 @@
 				INFOPLIST_FILE = ChatVc/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.anve.ChatVc;
+				PRODUCT_BUNDLE_IDENTIFIER = com.anve.bumblebee;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "ChatVc-Bridging-Header.h";
 			};

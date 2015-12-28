@@ -96,7 +96,7 @@ class ModelOfMsgCellTxt: ModelOfMsgCellBasic {
 }
 class ModelOfMsgCellImg: ModelOfMsgCellBasic {
     var imgUrlOrPath:String?
-    func initModelOfMsgCellTxt(aImgUrlOrPath:String,aModelOfMsgCellBasic:ModelOfMsgCellBasic)->ModelOfMsgCellImg{
+    func initModelOfMsgCellImg(aImgUrlOrPath:String,aModelOfMsgCellBasic:ModelOfMsgCellBasic)->ModelOfMsgCellImg{
         imgUrlOrPath=aImgUrlOrPath
         initBasicCell(aModelOfMsgCellBasic.timeCreate,aIsSend: aModelOfMsgCellBasic.isSend,aStatusOfSend: aModelOfMsgCellBasic.statusOfSend,aSizeCell:aModelOfMsgCellBasic.sizeCell,aImgHeadUrlOrFilePath: aModelOfMsgCellBasic.imgHeadUrlOrFilePath,aTypeOfMsg:aModelOfMsgCellBasic.typeMsg)
         return self

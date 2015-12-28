@@ -131,7 +131,6 @@ class ToolOfCellInChat: NSObject {
         if fileData != nil{
             success(fileData: fileData!)
         }else{
-            
             fileData=NSData(contentsOfURL: NSURL(string:url)!)
             
             if fileData != nil{
@@ -143,6 +142,9 @@ class ToolOfCellInChat: NSObject {
             }else{
                 fail()
             }
+//            dispatch_async下不能对界面进行修改
+
+            
             
         }
         

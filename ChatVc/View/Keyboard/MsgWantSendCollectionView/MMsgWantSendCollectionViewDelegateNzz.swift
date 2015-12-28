@@ -66,7 +66,7 @@ class MMsgWantSendCollectionViewDelegateNzz: NSObject {
                 nowX = xWillBe
             }
         }
-        //        对最后一则消息处理，如果最后一个消息不满一行，设置成一行
+        //对最后一则消息处理，如果最后一个消息不满一行，设置成一行
         if nowX<originX+CGSizeClv.width-distanceToR{
             msgSizes[msgSizes.count-1].size.width +=  originX+CGSizeClv.width - nowX - distanceToR
         }

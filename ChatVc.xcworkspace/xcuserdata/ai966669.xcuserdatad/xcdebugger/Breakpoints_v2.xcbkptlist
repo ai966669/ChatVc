@@ -9,13 +9,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "ChatVc/View/TableView/CellChatHistory/ImageMineTableViewCell.swift"
-            timestampString = "472370843.128436"
+            filePath = "ChatVc/View/TableView/CellChatHistory/Cell1ChatTableViewCell.swift"
+            timestampString = "472979992.641466"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "37"
-            endingLineNumber = "37"
-            landmarkName = "resetCell()"
+            startingLineNumber = "232"
+            endingLineNumber = "232"
+            landmarkName = "copyByMenuControll(_:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -25,13 +25,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "ChatVc/View/TableView/CellChatHistory/ImageMineTableViewCell.swift"
-            timestampString = "472370844.522136"
+            filePath = "ChatVc/View/TableView/CellChatHistory/Cell1ChatTableViewCell.swift"
+            timestampString = "472979992.641466"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "35"
-            endingLineNumber = "35"
-            landmarkName = "resetCell()"
+            startingLineNumber = "235"
+            endingLineNumber = "235"
+            landmarkName = "delteByMenuControll(_:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -41,13 +41,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "ChatVc/View/Keyboard/InputV.swift"
-            timestampString = "472549666.282568"
+            filePath = "ChatVc/View/TableView/CellChatHistory/Cell1ChatTableViewCell.swift"
+            timestampString = "472981171.430905"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "945"
-            endingLineNumber = "945"
-            landmarkName = "scrollViewDidEndDecelerating(_:)"
+            startingLineNumber = "241"
+            endingLineNumber = "241"
+            landmarkName = "canBecomeFirstResponder()"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -57,13 +57,29 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "ChatVc/View/Keyboard/InputV.swift"
-            timestampString = "472549666.282568"
+            filePath = "ChatVc/ChatViewController.swift"
+            timestampString = "472983036.861816"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "942"
-            endingLineNumber = "942"
-            landmarkName = "scrollViewDidEndDecelerating(_:)"
+            startingLineNumber = "181"
+            endingLineNumber = "181"
+            landmarkName = "canBecomeFirstResponder()"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ChatVc/ChatViewController.swift"
+            timestampString = "472983438.170966"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "188"
+            endingLineNumber = "188"
+            landmarkName = "someFunc(_:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

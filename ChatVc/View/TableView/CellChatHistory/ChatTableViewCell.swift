@@ -14,6 +14,7 @@ protocol ChatTableViewCellDelegate:NSObjectProtocol{
     func ShowWeb(url:String)
     func KeyboardChangeToSmall()
     func ImageBigger(imageBigger:UIImage,frame:CGRect)
+    func ShowMenu(aNSIndexPath: NSIndexPath,aUILongPressGestureRecognizer:UILongPressGestureRecognizer)
 }
 let heightToBot:CGFloat=10
 class ChatTableViewCell: UITableViewCell {
@@ -31,16 +32,34 @@ class ChatTableViewCell: UITableViewCell {
     @IBOutlet var imgHead: UIImageView!
     var aModelOfMsgCellBasic:ModelOfMsgCellBasic!
     @IBOutlet var imageCover:UIImageView!
+    static var aCALayerL:CALayer!
+    static var aCALayerR:CALayer!
     override func awakeFromNib() {
         super.awakeFromNib()
+        self.layer
         setBtnOfSendStatusEvent()
+        
+        var onceToken=dispatch_once_t()
+        dispatch_once(&onceToken) { () -> Void in
+            let aImgVL = UIImageView(image:UIImage(named: "MMSright")?.resizableImageWithCapInsets(UIEdgeInsetsMake(15,15,15,25)))
+            ChatTableViewCell.aCALayerL=aImgVL.layer
+            
+            let aImgVR = UIImageView(image:UIImage(named: "MMSright")?.resizableImageWithCapInsets(UIEdgeInsetsMake(15,15,15,25)))
+            ChatTableViewCell.aCALayerR=aImgVR.layer
+            //            let aImgVL = UIImageView(image:UIImage(named: "mmsl")?.resizableImageWithCapInsets(UIEdgeInsetsMake(35,20,5,5)))
+            //            ChatTableViewCell.aCALayerL=aImgVL.layer
+            //
+            //            let aImgVR = UIImageView(image:UIImage(named: "mmsr")?.resizableImageWithCapInsets(UIEdgeInsetsMake(35,20,5,5)))
+            //            ChatTableViewCell.aCALayerR=aImgVR.layer
+        }
         // Initialization code
     }
     deinit{
-        
     }
     //    设置通用cell结构
     func resetCellUniversity(aModelOfMsgCellBasic:ModelOfMsgCellBasic!){
+        //        获取基础对象
+        self.aModelOfMsgCellBasic=aModelOfMsgCellBasic
         selectionStyle = UITableViewCellSelectionStyle.None
         //        发送状态设置
         if aModelOfMsgCellBasic.isSend{
@@ -50,6 +69,10 @@ class ChatTableViewCell: UITableViewCell {
         resetLblOftime(aModelOfMsgCellBasic.timeCreate)
         //        cell长宽设置
         resetAutolayoutUniversity(aModelOfMsgCellBasic)
+        //        设置背景颜色
+        backgroundColor=BackGroundColor
+        //        cell类型
+        selectionStyle = UITableViewCellSelectionStyle.None
     }
     func resetLblOftime(timeCreate:String){
         if timeCreate==""{
@@ -111,7 +134,6 @@ class ChatTableViewCell: UITableViewCell {
                 
                 imgHead.addGestureRecognizer(oneGestureRecognizer)
                 
-                
             }else{
                 let urlAvatar  = aModelOfMsgCellBasic?.imgHeadUrlOrFilePath
                 if (urlAvatar != "" ) && (urlAvatar != nil){
@@ -137,21 +159,29 @@ class ChatTableViewCell: UITableViewCell {
         }
     }
     
-    func setImageCover(){
+    func setMsgLayer(viewSetLayer:UIView){
         
         if imageCover != nil{
+            
+            if aModelOfMsgCellBasic.typeMsg == TypeOfMsg.TxtMine ||  aModelOfMsgCellBasic.typeMsg == TypeOfMsg.TxtOfCustomer || aModelOfMsgCellBasic.typeMsg == TypeOfMsg.VoiceOfCustomer ||  aModelOfMsgCellBasic.typeMsg == TypeOfMsg.VoiceMine {
+                imageCover.userInteractionEnabled=true
+                if  aModelOfMsgCellBasic.typeMsg == TypeOfMsg.TxtMine ||  aModelOfMsgCellBasic.typeMsg == TypeOfMsg.TxtOfCustomer{
+                    let aUILongPressGestureRecognizer=UILongPressGestureRecognizer(target: self, action: "showMenu:")
+                    imageCover.addGestureRecognizer(aUILongPressGestureRecognizer)
+                }
+            }
+            
             if !aModelOfMsgCellBasic.isSend{
-                //                if aModelOfMsgBasic.type == 2{
-                                    imageCover.image=UIImage(named: "mmsl")?.resizableImageWithCapInsets(UIEdgeInsetsMake(35,20,5,5))
-                //                }else{
-//                imageCover.image=UIImage(named: "MMSleft")?.resizableImageWithCapInsets(UIEdgeInsetsMake(20,15,15,15))
-                //                }
+                
+                ChatTableViewCell.aCALayerL.frame=CGRect(origin: CGPointZero, size: viewSetLayer.frame.size)
+                viewSetLayer.layer.mask=ChatTableViewCell.aCALayerL
+                
             }else{
-                //                if aModelOfMsgBasic.type == 2{
-                                    imageCover.image=UIImage(named: "mmsr")?.resizableImageWithCapInsets(UIEdgeInsetsMake(35,5,5,20))
-                //                }else{
-//                imageCover.image=UIImage(named: "MMSright")?.resizableImageWithCapInsets(UIEdgeInsetsMake(15,15,20,15))
-                //                }
+                
+                let aSize =  CGSizeMake(aModelOfMsgCellBasic.sizeCell.width+12, aModelOfMsgCellBasic.sizeCell.height+8)
+                ChatTableViewCell.aCALayerR.frame=CGRect(origin: CGPointZero, size: aSize)
+                imageCover.layer.mask=ChatTableViewCell.aCALayerR
+                imageCover.backgroundColor=UIColor.yellowColor()
             }
         }
     }

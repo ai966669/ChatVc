@@ -55,7 +55,7 @@ class MTableviewDelegateNzz: NSObject {
         nbOfMsg++
         chatHistory.append(aModelOfMsgCellVoice)
     }
-    func addAnewMsgImg(aImgSize:CGSize,aImgUrlOrPath:String,aStatusOfSend:StatusOfSend,aImgHeadUrlOrFilePath:String?,isSend:Bool){
+    func addAnewMsgImg(aImgSize:CGSize,fullImgUrlOrPath:String,aStatusOfSend:StatusOfSend,aImgHeadUrlOrFilePath:String?,isSend:Bool){
         let strSec="\(NSDate().timeIntervalSince1970*1000)"
         let timeCreateInTxt=ToolOfCellInChat.getTxtOfTime(strSec)
         if timeCreateInTxt==""{
@@ -68,8 +68,25 @@ class MTableviewDelegateNzz: NSObject {
         }else{
             typeOfMsgs.append(TypeOfMsg.ImgOfCustomer)
         }
-        let aModelOfMsgCellImg:ModelOfMsgCellImg=ModelOfMsgCellImg().initModelOfMsgCellTxt(aImgUrlOrPath, aModelOfMsgCellBasic: ModelOfMsgCellBasic().initBasicCell(timeCreateInTxt, aIsSend: isSend, aStatusOfSend: aStatusOfSend, aSizeCell: aImgSize, aImgHeadUrlOrFilePath: aImgUrlOrPath, aTypeOfMsg: typeOfMsgs.last!))
+        let aModelOfMsgCellImg:ModelOfMsgCellImg=ModelOfMsgCellImg().initModelOfMsgCellImg(fullImgUrlOrPath, aModelOfMsgCellBasic: ModelOfMsgCellBasic().initBasicCell(timeCreateInTxt, aIsSend: isSend, aStatusOfSend: aStatusOfSend, aSizeCell: aImgSize, aImgHeadUrlOrFilePath: aImgHeadUrlOrFilePath, aTypeOfMsg: typeOfMsgs.last!))
         nbOfMsg++
         chatHistory.append(aModelOfMsgCellImg)
+        if !isSend{
+//                            let aUIImageView=UIImageView(frame: CGRectMake(0,0,0,0))
+//                            aUIImageView.sd_setImageWithURL(NSURL(string: aModelOfMsgCellImg.imgUrlOrPath!), completed: { (aImg, aNSError,_,_) -> Void in
+//                                if (aNSError == nil){
+//                                    var a = UIImageJPEGRepresentation(aImg, 1)
+//                                }
+//                            })
+//            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH,0), { () -> Void in
+//                let aUIImageView=UIImageView(frame: CGRectMake(0,0,0,0))
+//                aUIImageView.sd_setImageWithURL(NSURL(string: aModelOfMsgCellImg.imgUrlOrPath!), completed: { (aImg, aNSError,_,_) -> Void in
+//                    if (aNSError == nil){
+//                        var a = UIImageJPEGRepresentation(aImg, 1)
+//                    }
+//                })
+//            })
+//           
+        }
     }
 }

@@ -32,16 +32,17 @@ class ImageMineTableViewCell: ChatTableViewCell {
     }
     func resetCell(){
         resetCellUniversity(aModelOfMsgCellImg)
-        if (aModelOfMsgCellImg.imgUrlOrPath != nil){
-            ToolOfCellInChat.getData(aModelOfMsgCellImg.imgUrlOrPath!, pathOfFile: aModelOfMsgCellImg.imgUrlOrPath!, success: { (fileData) -> Void in
-                self.imageMine.image = UIImage(data:fileData)
-                }) { () -> Void in
-                    SVProgressHUD.showErrorWithStatus("抱歉，图片不见了")
-            }
+        let fileData=NSData(contentsOfFile: aModelOfMsgCellImg.imgUrlOrPath!)
+        if (fileData != nil){
+            imageMine.image = UIImage(data: fileData!)
         }else{
-            SVProgressHUD.showErrorWithStatus("抱歉，图片不见了")
+            imageMine.sd_setImageWithURL(NSURL(string: aModelOfMsgCellImg.imgUrlOrPath!), placeholderImage: UIImage(named: "HomeDefaultHead"), completed: { (aImg, aNSError,_,_) -> Void in
+                if (aNSError == nil){
+//                    将图片写入到文件中去
+//                    var a = UIImageJPEGRepresentation(aImg, 1)
+                }
+            })
         }
-        
     }
     
     override func setSelected(selected: Bool, animated: Bool) {

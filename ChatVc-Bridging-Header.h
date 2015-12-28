@@ -11,3 +11,7 @@
 #import "SDWebImageDownloader.h"
 // 图片加载
 #import "UIImageView+WebCache.h"
+//融云
+#import <RongIMKit/RongIMKit.h>
+//图片放大
+#import <JTSImageViewController.h>

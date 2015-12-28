@@ -367,13 +367,13 @@ class InputV: UIView {
         
         addConstraint(NSLayoutConstraint(item: clvMsgWantSend, attribute: NSLayoutAttribute.Right, relatedBy: NSLayoutRelation.Equal, toItem: self, attribute: NSLayoutAttribute.Right, multiplier: 1, constant:-clvOfKeyBoardNSLayoutConstraintToR))
         
-        addConstraint(NSLayoutConstraint(item: clvMsgWantSend, attribute: NSLayoutAttribute.Top, relatedBy: NSLayoutRelation.Equal, toItem: viewUnder, attribute: NSLayoutAttribute.Bottom, multiplier: 1, constant: clvOfKeyBoardNSLayoutConstraintToT))
+        addConstraint(NSLayoutConstraint(item: clvMsgWantSend, attribute: NSLayoutAttribute.Top, relatedBy: NSLayoutRelation.Equal, toItem: viewUnder, attribute: NSLayoutAttribute.Bottom, multiplier: 1, constant: 0))
         
         clvMsgWantSend.showsHorizontalScrollIndicator = false
         
         clvMsgWantSend.pagingEnabled=true
         
-        clvMsgWantSend.backgroundColor=UIColor.whiteColor()
+        clvMsgWantSend.backgroundColor = UIColor.clearColor()
 
 
     }
@@ -797,6 +797,7 @@ extension InputV:UICollectionViewDelegate,UICollectionViewDataSource,UICollectio
             let cell = collectionView.dequeueReusableCellWithReuseIdentifier(MsgWantSendCollectionViewCellIdentifier, forIndexPath: indexPath) as! MsgWantSendCollectionViewCell
             cell.lblTxt.text = msgs[indexPath.row]
             cell.layer.borderColor=UIColor.redColor().CGColor
+            
             cell.layer.borderWidth=1
             return cell
         }else{
@@ -1042,10 +1043,6 @@ extension InputV{
 //            NSTimer.scheduledTimerWithTimeInterval(1.5, target: self, selector: "HideViewOfVol", userInfo: nil, repeats: false)
         }
     }
-//    func HideViewOfVol(){
-//        oneInputVcDelegate?.recording("", txt: "", isHide: true)
-//        showImgVol("", txt: "", isHide: true)
-//    }
     func stopRecord(){
         if voiceStart{
             self.btnOfVoice.backgroundColor=UIColor.whiteColor()

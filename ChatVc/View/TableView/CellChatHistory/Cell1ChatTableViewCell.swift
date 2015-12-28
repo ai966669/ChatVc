@@ -19,9 +19,9 @@ class Cell1ChatTableViewCell: ChatTableViewCell {
         super.awakeFromNib()
         textOfMsg.scrollEnabled=false
         textOfMsg.layer.masksToBounds = true
-        textOfMsg.layer.cornerRadius = 4
         textOfMsg.editable = false
         textOfMsg.delegate = self
+        textOfMsg.userInteractionEnabled=false 
     }
     func setVoicePlayImg(){
         
@@ -213,7 +213,33 @@ extension Cell1ChatTableViewCell : UITextViewDelegate {
             return false
         }
     }
-    
+}
+//长按文字出现复制
+extension Cell1ChatTableViewCell{
+//    一次长按会多次触发，UIGestureRecognizerState状态改变就会触发
+    func showMenu(sender:UILongPressGestureRecognizer){
+        
+        aChatTableViewCellDelegate.ShowMenu(NSIndexPath.init(forRow: 0, inSection: 0),aUILongPressGestureRecognizer: sender)
+        if (sender.state == UIGestureRecognizerState.Began) {
+            imageCover.backgroundColor=UIColor.lightGrayColor()
+            
+        }else if (sender.state == UIGestureRecognizerState.Ended) {
+            
+            imageCover.backgroundColor=UIColor.yellowColor()
+        }
+    }
+    func copyByMenuControll(item:UIMenuItem){
+        
+    }
+    func delteByMenuControll(item:UIMenuItem){
+        
+    }
+    func moreActionByMenuControll(item:UIMenuItem){
+        
+    }
+    override func canBecomeFirstResponder() -> Bool {
+        return true
+    }
 }
 
 
