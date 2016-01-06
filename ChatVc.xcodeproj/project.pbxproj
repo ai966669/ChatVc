@@ -62,7 +62,6 @@
 		459EEE321C321A9100B93CFF /* ChatTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 459EEE141C321A9100B93CFF /* ChatTableViewCell.swift */; };
 		459EEE331C321A9100B93CFF /* ImageMineTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 459EEE151C321A9100B93CFF /* ImageMineTableViewCell.swift */; };
 		459EEE341C321A9100B93CFF /* ImageMineTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 459EEE161C321A9100B93CFF /* ImageMineTableViewCell.xib */; };
-		459EEE351C321A9100B93CFF /* ImageOfCustomerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 459EEE171C321A9100B93CFF /* ImageOfCustomerTableViewCell.swift */; };
 		459EEE361C321A9100B93CFF /* ImageOfCustomerTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 459EEE181C321A9100B93CFF /* ImageOfCustomerTableViewCell.xib */; };
 		459EEE381C321A9100B93CFF /* msgTxtChatTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 459EEE1A1C321A9100B93CFF /* msgTxtChatTableViewCell.swift */; };
 		459EEE391C321A9100B93CFF /* TableViewDelegateNzz.swift in Sources */ = {isa = PBXBuildFile; fileRef = 459EEE1B1C321A9100B93CFF /* TableViewDelegateNzz.swift */; };
@@ -175,7 +174,6 @@
 		459EEE141C321A9100B93CFF /* ChatTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatTableViewCell.swift; sourceTree = "<group>"; };
 		459EEE151C321A9100B93CFF /* ImageMineTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageMineTableViewCell.swift; sourceTree = "<group>"; };
 		459EEE161C321A9100B93CFF /* ImageMineTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ImageMineTableViewCell.xib; sourceTree = "<group>"; };
-		459EEE171C321A9100B93CFF /* ImageOfCustomerTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageOfCustomerTableViewCell.swift; sourceTree = "<group>"; };
 		459EEE181C321A9100B93CFF /* ImageOfCustomerTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ImageOfCustomerTableViewCell.xib; sourceTree = "<group>"; };
 		459EEE1A1C321A9100B93CFF /* msgTxtChatTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = msgTxtChatTableViewCell.swift; sourceTree = "<group>"; };
 		459EEE1B1C321A9100B93CFF /* TableViewDelegateNzz.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewDelegateNzz.swift; sourceTree = "<group>"; };
@@ -464,7 +462,6 @@
 				459EEE141C321A9100B93CFF /* ChatTableViewCell.swift */,
 				459EEE151C321A9100B93CFF /* ImageMineTableViewCell.swift */,
 				459EEE161C321A9100B93CFF /* ImageMineTableViewCell.xib */,
-				459EEE171C321A9100B93CFF /* ImageOfCustomerTableViewCell.swift */,
 				459EEE181C321A9100B93CFF /* ImageOfCustomerTableViewCell.xib */,
 				459EEE1A1C321A9100B93CFF /* msgTxtChatTableViewCell.swift */,
 			);
@@ -859,7 +856,6 @@
 				450A51491C33854F00CDEF34 /* Request.swift in Sources */,
 				459EEE2E1C321A9100B93CFF /* Cell1ChatTableViewCell.swift in Sources */,
 				450A514B1C33854F00CDEF34 /* Result.swift in Sources */,
-				459EEE351C321A9100B93CFF /* ImageOfCustomerTableViewCell.swift in Sources */,
 				45B705091C1E64BC00B0E8C2 /* AppDelegate.swift in Sources */,
 				450A51421C33854F00CDEF34 /* Alamofire.swift in Sources */,
 				45BBD9F51C228E3D0038A6AC /* Double+QuickTool.swift in Sources */,

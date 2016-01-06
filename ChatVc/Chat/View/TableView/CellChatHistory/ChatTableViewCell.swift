@@ -152,28 +152,35 @@ class ChatTableViewCell: UITableViewCell {
         
         if imageCover != nil{
             
-            if aModelOfMsgCellBasic.typeMsg == TypeOfMsg.TxtMine ||  aModelOfMsgCellBasic.typeMsg == TypeOfMsg.TxtOfCustomer || aModelOfMsgCellBasic.typeMsg == TypeOfMsg.VoiceOfCustomer ||  aModelOfMsgCellBasic.typeMsg == TypeOfMsg.VoiceMine {
-                imageCover.userInteractionEnabled=true
-                if  aModelOfMsgCellBasic.typeMsg == TypeOfMsg.TxtMine ||  aModelOfMsgCellBasic.typeMsg == TypeOfMsg.TxtOfCustomer{
-                    let aUILongPressGestureRecognizer=UILongPressGestureRecognizer(target: self, action: "showMenu:")
-                    imageCover.addGestureRecognizer(aUILongPressGestureRecognizer)
-                }
-            }
-            let aSize =  CGSizeMake(aModelOfMsgCellBasic.sizeCell.width+12, aModelOfMsgCellBasic.sizeCell.height+8)
+            imageCover.userInteractionEnabled=true
+            let aUILongPressGestureRecognizer=UILongPressGestureRecognizer(target: self, action: "showMenu:")
+            imageCover.addGestureRecognizer(aUILongPressGestureRecognizer)
             
+            var  aSize =  CGSizeMake(aModelOfMsgCellBasic.sizeCell.width, aModelOfMsgCellBasic.sizeCell.height)
+            if aModelOfMsgCellBasic.typeMsg == TypeOfMsg.TxtMine ||  aModelOfMsgCellBasic.typeMsg == TypeOfMsg.TxtOfCustomer || aModelOfMsgCellBasic.typeMsg == TypeOfMsg.VoiceOfCustomer ||  aModelOfMsgCellBasic.typeMsg == TypeOfMsg.VoiceMine {
+                    aSize =  CGSizeMake(aModelOfMsgCellBasic.sizeCell.width+12, aModelOfMsgCellBasic.sizeCell.height+8)
+                if aModelOfMsgCellBasic.isSend{
+                    imageCover.backgroundColor=UIColor.blackColor()
+                }else{
+                    imageCover.backgroundColor=UIColor.whiteColor()
+                }
+            }else{
+                imageCover.backgroundColor=UIColor.clearColor()
+            }
             
             if aModelOfMsgCellBasic.isSend{
                 let aImgVR = UIImageView(image:UIImage(named: "mmsright")?.resizableImageWithCapInsets(UIEdgeInsetsMake(28,10,10,15)))
                 aImgVR.layer.frame=CGRect(origin: CGPointZero, size: aSize)
                 imageCover.layer.mask=aImgVR.layer
-                imageCover.backgroundColor=UIColor.blackColor()
+
             }else{
                 let aImgVL = UIImageView(image:UIImage(named: "mmsleft")?.resizableImageWithCapInsets(UIEdgeInsetsMake(28,15,10,10)))
                 aImgVL.layer.frame=CGRect(origin: CGPointZero, size: aSize)
                 imageCover.layer.mask=aImgVL.layer
-                imageCover.backgroundColor=UIColor.whiteColor()
+
             }
         }
+        
     }
     func showUserInfor(){
         //        aChatTableViewCellDelegate.ShowUserInfor()

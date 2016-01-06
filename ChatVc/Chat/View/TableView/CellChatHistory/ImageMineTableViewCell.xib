@@ -15,15 +15,15 @@
                 <rect key="frame" x="0.0" y="0.0" width="375" height="169.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ULP-iw-nxe">
-                        <rect key="frame" x="177" y="6" width="150" height="150"/>
-                    </imageView>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="R7i-fW-Iqp">
                         <rect key="frame" x="177" y="6" width="150" height="150"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="150" id="3Qc-cL-7Qm"/>
                             <constraint firstAttribute="width" constant="150" id="uH1-Hh-LI8"/>
                         </constraints>
+                    </imageView>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ULP-iw-nxe">
+                        <rect key="frame" x="177" y="6" width="150" height="150"/>
                     </imageView>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nsd-f8-Vv5">
                         <rect key="frame" x="153" y="70" width="22" height="22"/>

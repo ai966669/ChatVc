@@ -111,7 +111,19 @@ class MTableviewDelegateNzz: NSObject {
         }else{
             aTypeOfMsg=TypeOfMsg.ImgOfCustomer
         }
-        let aModelOfMsgCellImg:ModelOfMsgCellImg=ModelOfMsgCellImg().initModelOfMsgCellImg(aMMsgImg.fullImgUrlOrPath, aModelOfMsgCellBasic: ModelOfMsgCellBasic().initBasicCell(timeCreateInTxt, aIsSend: aMMsgImg.isSend, aStatusOfSend: aMMsgImg.statusOfSend, aSizeCell: aMMsgImg.thumbnailImage!.size, aImgHeadUrlOrFilePath: aMMsgImg.imgHeadUrlOrFilePath, aTypeOfMsg: aTypeOfMsg))
+        var cellSize = CGSizeMake(0, 0)
+        if (aMMsgImg.thumbnailImage != nil){
+            if aMMsgImg.thumbnailImage!.size.height > aMMsgImg.thumbnailImage!.size.width{
+                cellSize=CGSizeMake(150*aMMsgImg.thumbnailImage!.size.width/aMMsgImg.thumbnailImage!.size.height, 150)
+            }else{
+                cellSize=CGSizeMake(150,150*aMMsgImg.thumbnailImage!.size.height/aMMsgImg.thumbnailImage!.size.width)
+            }
+        }else{
+            //    todo        缩略图不存在的情况
+            
+        }
+        
+        let aModelOfMsgCellImg:ModelOfMsgCellImg=ModelOfMsgCellImg().initModelOfMsgCellImg(aMMsgImg.fullImgUrlOrPath, aModelOfMsgCellBasic: ModelOfMsgCellBasic().initBasicCell(timeCreateInTxt, aIsSend: aMMsgImg.isSend, aStatusOfSend: aMMsgImg.statusOfSend, aSizeCell: cellSize, aImgHeadUrlOrFilePath: aMMsgImg.imgHeadUrlOrFilePath, aTypeOfMsg: aTypeOfMsg))
         
         funLater(aTypeOfMsg: aTypeOfMsg,aTimeVisiable: aTimeVisiable,aModelOfMsgCellBasic: aModelOfMsgCellImg)
     }

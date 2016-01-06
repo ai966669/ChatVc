@@ -73,13 +73,29 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "ChatVc/Chat/ChatViewController.swift"
-            timestampString = "473778300.850451"
+            filePath = "ChatVc/Chat/View/TableView/CellChatHistory/ImageMineTableViewCell.swift"
+            timestampString = "473791102.065732"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "538"
-            endingLineNumber = "538"
-            landmarkName = "loadOldMsg()"
+            startingLineNumber = "18"
+            endingLineNumber = "18"
+            landmarkName = "awakeFromNib()"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ChatVc/Chat/View/TableView/CellChatHistory/ImageMineTableViewCell.swift"
+            timestampString = "473791324.619382"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "30"
+            endingLineNumber = "30"
+            landmarkName = "biggerImage()"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
