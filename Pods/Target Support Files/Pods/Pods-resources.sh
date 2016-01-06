@@ -59,20 +59,24 @@ install_resource()
 }
 if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_resource "MJRefresh/MJRefreshExample/MJRefreshExample/MJRefresh/MJRefresh.bundle"
+  install_resource "Pingpp/lib/Channels/Alipay/AlipaySDK.bundle"
+  install_resource "Pingpp/lib/Pingpp.bundle"
   install_resource "RSKImageCropper/RSKImageCropper/RSKImageCropperStrings.bundle"
-  install_resource "RongCloudIMKit/Rong_Cloud_iOS_SDK_v2_4_0_stable/RongCloud.bundle"
-  install_resource "RongCloudIMKit/Rong_Cloud_iOS_SDK_v2_4_0_stable/en.lproj"
-  install_resource "RongCloudIMKit/Rong_Cloud_iOS_SDK_v2_4_0_stable/zh-Hans.lproj"
-  install_resource "RongCloudIMKit/Rong_Cloud_iOS_SDK_v2_4_0_stable/Emoji.plist"
+  install_resource "RongCloudIMKit/Rong_Cloud_iOS_SDK_v2_4_2_stable/RongCloud.bundle"
+  install_resource "RongCloudIMKit/Rong_Cloud_iOS_SDK_v2_4_2_stable/en.lproj"
+  install_resource "RongCloudIMKit/Rong_Cloud_iOS_SDK_v2_4_2_stable/zh-Hans.lproj"
+  install_resource "RongCloudIMKit/Rong_Cloud_iOS_SDK_v2_4_2_stable/Emoji.plist"
   install_resource "SVProgressHUD/SVProgressHUD/SVProgressHUD.bundle"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_resource "MJRefresh/MJRefreshExample/MJRefreshExample/MJRefresh/MJRefresh.bundle"
+  install_resource "Pingpp/lib/Channels/Alipay/AlipaySDK.bundle"
+  install_resource "Pingpp/lib/Pingpp.bundle"
   install_resource "RSKImageCropper/RSKImageCropper/RSKImageCropperStrings.bundle"
-  install_resource "RongCloudIMKit/Rong_Cloud_iOS_SDK_v2_4_0_stable/RongCloud.bundle"
-  install_resource "RongCloudIMKit/Rong_Cloud_iOS_SDK_v2_4_0_stable/en.lproj"
-  install_resource "RongCloudIMKit/Rong_Cloud_iOS_SDK_v2_4_0_stable/zh-Hans.lproj"
-  install_resource "RongCloudIMKit/Rong_Cloud_iOS_SDK_v2_4_0_stable/Emoji.plist"
+  install_resource "RongCloudIMKit/Rong_Cloud_iOS_SDK_v2_4_2_stable/RongCloud.bundle"
+  install_resource "RongCloudIMKit/Rong_Cloud_iOS_SDK_v2_4_2_stable/en.lproj"
+  install_resource "RongCloudIMKit/Rong_Cloud_iOS_SDK_v2_4_2_stable/zh-Hans.lproj"
+  install_resource "RongCloudIMKit/Rong_Cloud_iOS_SDK_v2_4_2_stable/Emoji.plist"
   install_resource "SVProgressHUD/SVProgressHUD/SVProgressHUD.bundle"
 fi
 

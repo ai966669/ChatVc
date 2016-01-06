@@ -9,13 +9,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "ChatVc/View/TableView/CellChatHistory/Cell1ChatTableViewCell.swift"
-            timestampString = "472979992.641466"
+            filePath = "ChatVc/ThirdPartTool/NzzHelp/HelpFromOc.m"
+            timestampString = "473584596.317888"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "232"
-            endingLineNumber = "232"
-            landmarkName = "copyByMenuControll(_:)"
+            startingLineNumber = "309"
+            endingLineNumber = "309"
+            landmarkName = "+getObjectData:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -25,13 +25,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "ChatVc/View/TableView/CellChatHistory/Cell1ChatTableViewCell.swift"
-            timestampString = "472979992.641466"
+            filePath = "ChatVc/Chat/View/TableView/CellChatHistory/Cell2ChatTableViewCell.swift"
+            timestampString = "473566512.743603"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "235"
-            endingLineNumber = "235"
-            landmarkName = "delteByMenuControll(_:)"
+            startingLineNumber = "32"
+            endingLineNumber = "32"
+            landmarkName = "resetCellTxt()"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -41,13 +41,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "ChatVc/View/TableView/CellChatHistory/Cell1ChatTableViewCell.swift"
-            timestampString = "472981171.430905"
+            filePath = "ChatVc/AppDelegate.swift"
+            timestampString = "473745285.19495"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "241"
-            endingLineNumber = "241"
-            landmarkName = "canBecomeFirstResponder()"
+            startingLineNumber = "158"
+            endingLineNumber = "158"
+            landmarkName = "application(_:didRegisterForRemoteNotificationsWithDeviceToken:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -57,13 +57,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "ChatVc/ChatViewController.swift"
-            timestampString = "472983036.861816"
+            filePath = "ChatVc/Model/TopModel.swift"
+            timestampString = "473744399.226885"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "181"
-            endingLineNumber = "181"
-            landmarkName = "canBecomeFirstResponder()"
+            startingLineNumber = "142"
+            endingLineNumber = "142"
+            landmarkName = "universalRequest(requestMethod:dic:urlMethod:success:failure:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -73,13 +73,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "ChatVc/ChatViewController.swift"
-            timestampString = "472983438.170966"
+            filePath = "ChatVc/Chat/ChatViewController.swift"
+            timestampString = "473778300.850451"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "188"
-            endingLineNumber = "188"
-            landmarkName = "someFunc(_:)"
+            startingLineNumber = "538"
+            endingLineNumber = "538"
+            landmarkName = "loadOldMsg()"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

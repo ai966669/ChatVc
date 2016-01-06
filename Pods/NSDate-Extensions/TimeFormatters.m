@@ -204,9 +204,9 @@ NSString *LocStr(NSString *const key) {
     minutesFormatter.style = style;
     
     NSString *formatKey;
-    BOOL noDays = (days == 0 || days == NSUndefinedDateComponent);
-    BOOL noHours = (hours == 0 || hours == NSUndefinedDateComponent);
-    BOOL noSeconds = (seconds == 0 || seconds == NSUndefinedDateComponent);
+    BOOL noDays = (days == 0 || days == NSDateComponentUndefined);
+    BOOL noHours = (hours == 0 || hours == NSDateComponentUndefined);
+    BOOL noSeconds = (seconds == 0 || seconds == NSDateComponentUndefined);
     
     if (noDays && noHours && minutes == 0 && !noSeconds) {
         formatKey = Str_TimeComponentsSubMinute_M;

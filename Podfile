@@ -1,16 +1,19 @@
 source 'https://github.com/CocoaPods/Specs.git'
-inhibit_all_warnings!
+#inhibit_all_warnings!
+#use_frameworks!
+platform :ios, '7.0'
 
 pod 'SVProgressHUD'
 pod 'pop'
-pod 'AFNetworking'
-#pod 'Pingpp/Alipay', '~> 2.1.4'
-#pod 'Pingpp/Wx', '~> 2.1.4'
+pod 'AFNetworking','~> 2.0'
+pod 'Pingpp/Alipay', '~> 2.1.4'
+pod 'Pingpp/Wx', '~> 2.1.4'
 pod 'RSKImageCropper'
 pod 'CocoaSecurity'
 pod 'MJRefresh', '~> 1.4.7'
 pod 'NSDate-Extensions'
 pod 'SDWebImage', '~>3.7'
 pod 'JTSImageViewController'
-pod 'RongCloudIMKit', '2.4.0'
+pod 'RongCloudIMKit', '2.4.2'
 pod 'JTSImageViewController'
+pod 'Qiniu', '~> 7.0'

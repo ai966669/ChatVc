@@ -11,28 +11,27 @@ import Foundation
 //根据不同环境变化账号和地址的数据 切换bundleid时需要修改1.CertName2.EaseMobAppKey3.个推appid等
 //Product
 //bug 当地址不对时，网页打不开。没有任何提示。可以用非公司网络 环境下用Development做测试看效果
-var BaseURL =  "http://"
-let URLBasic = "basic.pig.ai"
-let URLOrder = "order.pig.ai"
-let URLHowHow = "howhow.pig.ai"
-let URLHaiTao = "haitao.pig.ai"
-let URLToken = "token.pig.ai"
-let URLUC = "uc.pig.ai"
-let CertName = "companyPushForEaseMobDevelop"
-let EaseMobAppKey = "330108000146751#supergina"
 
 
-
+var EnvironmentisDevelop = true
 //Development
-//var BaseURL =  "http://10.0.1.247:8080"
-//let URLBasic = ""
-//let URLOrder = ""
-//let URLHowHow = ""
-//let URLHaiTao = ""
-//let URLToken = ""
-//let URLUC = ""
-//let EaseMobAppKey = "330108000146751#surftest"
-//let CertName = "companyPushForEaseMobDevelop"
+//0105get方法的使用
+var BaseURL:String {
+    get{
+        return "https://app.ultimavip.cn" // http://121.43.233.86:9911/
+    }
+}
+
+
+let interfaceVersion = "/1.0"
+let URLBasic = ""
+let URLOrder = ""
+let URLHowHow = ""
+let URLHaiTao = ""
+let URLToken = ""
+let URLUC = ""
+let EaseMobAppKey = "330108000146751#surftest"
+var CertName = "companyPushForEaseMobDevelop"
 
 //-------------------------------------
 
@@ -69,12 +68,13 @@ let NotificationGetMsgFromAssistant="GetMsgFromAssistan"
 /**
 * 本地存储的数据都用SG_开头
 */
+
 //记录Token的key
-let SG_LastTimeSignToken = "SG_LastTimeSignToken"
+let UD_LastTimeSignToken = "UD_LastTimeSignToken"
 //记录上一次Tel的key
 let SG_LastTimeSignInPhoneNum = "SG_LastTimeSignInPhoneNum"
 //记录上次登录的UserId
-let SG_LastTimeLoginInUserId = "SG_LastTimeLoginInUserId"
+let UD_LastTimeLoginInUserId = "SG_LastTimeLoginInUserId"
 //记录上一次登录方式 1.手机 2.微博，3.微信
 let SG_LastLoginType = "SG_LastLoginType"
 //记录是否已经设置过密码
@@ -108,6 +108,9 @@ let DefaultGroupHuli="DefaultGroupHuli"
 //let DefaultGroupIdHaitao="DefaultGroupIdHaitao"
 ////默认护理助理id
 //let DefaultGroupIdHuli="DefaultGroupIdHuli"
+
+
+
 
 //是否是提交appStore版本
 let SG_ISTestVersion = "SG_ISTestVersion"
@@ -179,7 +182,7 @@ let SystemVersion = UIDevice.currentDevice().systemVersion._bridgeToObjectiveC()
 //默认用户头像地址
 var DefaultHeadImgPath = NSBundle.mainBundle().pathForResource("HomeDefaultHead", ofType: "png")
 //导航栏的颜色
-let NavColor = UIColor(red: 248.0/255.0, green: 248.0/255.0, blue: 248.0/255.0, alpha: 1.0)
+let NavColor = UIColor(red: 0/255.0, green: 0/255.0, blue: 0/255.0, alpha: 1.0)
 let BackGroundColor = UIColor(red: 239.0/255.0, green: 239.0/255.0, blue: 244.0/255.0, alpha: 1.0)
 let TitleColor = UIColor(red: 48.0/255.0, green: 50.0/255.0, blue: 62.0/255.0, alpha: 1.0)
 let DetailTitleColor = UIColor(red: 131.0/255.0, green: 132.0/255.0, blue: 139.0/255.0, alpha: 1.0)
@@ -190,3 +193,9 @@ let ColorUnSelectedBtnCodeTitle = UIColor(red: 212.0/255.0, green: 212.0/255.0, 
 let ColorUnSelected = UIColor(red: 225.0/255.0, green: 220.0/255.0, blue: 153.0/255.0 , alpha: 1.0)
 let ColorSelected = UIColor(red: 255.0/255.0, green: 168.0/255.0, blue: 0/255.0 , alpha: 1.0)
 let CellBackgroundColor=UIColor(red: 232.0 / 255.0, green: 232.0 / 255.0, blue: 232.0 / 255.0, alpha: 1)
+
+//UIStoryboard中界面的标识
+let UIStoryboardIDChat="Chat"
+//通知名  
+//通知会话界面拉取聊天记录
+let NSNotificationLoadOldMsg="NSNotificationLoadOldMsg"

@@ -71,4 +71,8 @@ extension UIColor {
         }
         self.init(red:red, green:green, blue:blue, alpha:alpha)
     }
+    
+//    convenience init(r255:Int,g255:Int,b255:Int,aAlpha:alpha) {
+//         self.init(red:r255, green:g255, blue:b255, alpha:alpha)
+//    }
 }

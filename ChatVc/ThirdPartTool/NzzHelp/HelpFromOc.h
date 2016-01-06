@@ -20,4 +20,19 @@
 + (void)redirectNSlogToDocumentFolder;
 + (UIViewController *)getCurrentVC;
 + (UIViewController *)getPresentedViewController;
+
+//通过对象返回一个NSDictionary，键是属性名称，值是属性值。
++ (NSDictionary*)getObjectData:(id)obj;
+
+//将getObjectData方法返回的NSDictionary转化成JSON
++ (NSData*)getJSON:(id)obj options:(NSJSONWritingOptions)options error:(NSError**)error;
+
+//直接通过NSLog输出getObjectData方法返回的NSDictionary
++ (void)print:(id)obj;
+
+//通过颜色来生成一个纯色图片
++ (UIImage *)buttonImageFromColor:(UIColor *)color :(CGSize)imgSize;
+
++(NSString*)getDeveicePlatform;
+
 @end
