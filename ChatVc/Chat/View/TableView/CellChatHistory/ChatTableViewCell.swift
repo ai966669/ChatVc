@@ -15,9 +15,12 @@ protocol ChatTableViewCellDelegate:NSObjectProtocol{
     func KeyboardChangeToSmall()
     func ImageBigger(imageBigger:UIImage,frame:CGRect)
     func ShowMenu(aNSIndexPath: NSIndexPath,aUILongPressGestureRecognizer:UILongPressGestureRecognizer)
+    func showOrderDetail(orderId:Int64)
 }
 let heightToBot:CGFloat=10
 class ChatTableViewCell: UITableViewCell {
+    /// 当前弹出menu的cell的row
+    static var indexPathShowMenu:NSIndexPath?
     let imgHeadH:CGFloat = 40
     @IBOutlet var lblOftime: UILabel!
     @IBOutlet var NSLayoutConstraintMsgH: NSLayoutConstraint!

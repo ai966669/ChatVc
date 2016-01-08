@@ -20,6 +20,7 @@ PODS:
   - AFNetworking/UIKit (2.6.3):
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
+  - BaiduMapKit (2.9.1)
   - CocoaSecurity (1.2.4)
   - HappyDNS (0.2.3)
   - JTSImageViewController (1.5.1)
@@ -43,6 +44,7 @@ PODS:
 
 DEPENDENCIES:
   - AFNetworking (~> 2.0)
+  - BaiduMapKit
   - CocoaSecurity
   - JTSImageViewController
   - MJRefresh (~> 1.4.7)
@@ -58,6 +60,7 @@ DEPENDENCIES:
 
 SPEC CHECKSUMS:
   AFNetworking: cb8d14a848e831097108418f5d49217339d4eb60
+  BaiduMapKit: 97d2d44b41a876de2371fb91ddf78cdf84dafa05
   CocoaSecurity: d288a6f87e0f363823d2cb83e753814a6944f71a
   HappyDNS: 6d85942e64c28b4fa61f8c76580398f52d6d1d11
   JTSImageViewController: 1f8ce1cc93dab0d0af8e53badeea7528560cfec9

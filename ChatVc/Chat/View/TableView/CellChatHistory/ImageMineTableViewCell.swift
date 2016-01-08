@@ -102,10 +102,10 @@ extension ImageMineTableViewCell{
     override func canBecomeFirstResponder() -> Bool {
         //        当成为第一响应者是重写弹出的aUIMenuController
         let aUIMenuController:UIMenuController=UIMenuController.sharedMenuController()
-        let copyItem=UIMenuItem(title: "复制", action: "copyByMenuControll:")
+//        let copyItem=UIMenuItem(title: "复制", action: "copyByMenuControll:")
         let deleteItem=UIMenuItem(title: "删除", action: "delteByMenuControll:")
-        let moreItem=UIMenuItem(title: "更多", action: "moreActionByMenuControll:")
-        aUIMenuController.menuItems=[copyItem,deleteItem,moreItem]
+//        let moreItem=UIMenuItem(title: "更多", action: "moreActionByMenuControll:")
+        aUIMenuController.menuItems=[deleteItem]
         aUIMenuController.setTargetRect(imageMine.frame, inView: self)
         return true
     }

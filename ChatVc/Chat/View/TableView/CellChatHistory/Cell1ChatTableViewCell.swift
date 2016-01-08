@@ -9,10 +9,12 @@
 import UIKit
 
 class Cell1ChatTableViewCell: ChatTableViewCell {
+    @IBOutlet var btnShowOrderDetail: UIButton!
     @IBOutlet var imgOfVoicePlaying: UIImageView!
     @IBOutlet var textOfMsg:UITextView!
-    var aModelOfMsgCellVoice:ModelOfMsgCellVoice!
-    var aModelOfMsgCellTxt:ModelOfMsgCellTxt!
+    var aModelOfMsgCellVoice:ModelOfMsgCellVoice?
+    var aModelOfMsgCellTxt:ModelOfMsgCellTxt?
+    var aModelOfMsgCellOrder:ModelOfMsgCellOrder?
     var playVoiceGestureRecognizer:UITapGestureRecognizer!
     var aRecordAndPlay:RecordAndPlay!
     override func awakeFromNib() {
@@ -25,7 +27,7 @@ class Cell1ChatTableViewCell: ChatTableViewCell {
     }
     func setVoicePlayImg(){
         
-        if aModelOfMsgCellTxt == nil{
+        if aModelOfMsgCellVoice != nil {
             
             if playVoiceGestureRecognizer == nil{
                 
@@ -89,7 +91,7 @@ class Cell1ChatTableViewCell: ChatTableViewCell {
     func playVoice(){
         if (aModelOfMsgCellVoice != nil){
             if  playAvaliable{
-                ToolOfCellInChat.getData(aModelOfMsgCellVoice.voiceUrlOrPath, pathOfFile: aModelOfMsgCellVoice.voiceUrlOrPath, success: { (fileData) -> Void in
+                ToolOfCellInChat.getData(aModelOfMsgCellVoice!.voiceUrlOrPath, pathOfFile: aModelOfMsgCellVoice!.voiceUrlOrPath, success: { (fileData) -> Void in
                     self.imgOfVoicePlaying.hidden=false
                     self.playRecord(fileData)
                     self.playAvaliable=false
@@ -129,8 +131,9 @@ class Cell1ChatTableViewCell: ChatTableViewCell {
     }
     func resetCellTxt(){
         aModelOfMsgCellVoice=nil
-        textOfMsg!.text = aModelOfMsgCellTxt.txt
-        if aModelOfMsgCellTxt.isSend{
+        aModelOfMsgCellOrder=nil
+        textOfMsg!.text = aModelOfMsgCellTxt!.txt
+        if aModelOfMsgCellTxt!.isSend{
             textOfMsg.textColor=UIColor.whiteColor()
             
         }else{
@@ -139,15 +142,37 @@ class Cell1ChatTableViewCell: ChatTableViewCell {
         //        不是语言信息需要重新处理语音播放，把手势去掉，由于cell重用的问题，会导致点击后语言还会播放
         setVoicePlayImg()
         resetCellUniversity(aModelOfMsgCellTxt)
-        
+        if btnShowOrderDetail != nil{
+            btnShowOrderDetail.hidden=true
+        }
+    }
+    func resetCellOrder(){
+        aModelOfMsgCellVoice=nil
+                aModelOfMsgCellVoice=nil
+        textOfMsg!.text = aModelOfMsgCellOrder!.txt
+        if aModelOfMsgCellOrder!.isSend{
+            textOfMsg.textColor=UIColor.whiteColor()
+            
+        }else{
+            textOfMsg.textColor=UIColor.blackColor()
+        }
+        setVoicePlayImg()
+        resetCellUniversity(aModelOfMsgCellOrder)
+        if btnShowOrderDetail != nil{
+            btnShowOrderDetail.hidden=false
+        }
     }
     func resetCellVoice(){
         aModelOfMsgCellTxt=nil
-        textOfMsg!.text = aModelOfMsgCellVoice.txt
+        aModelOfMsgCellOrder=nil
+        textOfMsg!.text = aModelOfMsgCellVoice!.txt
         textOfMsg.textColor=UIColor.whiteColor()
         setVoicePlayImg()
         setPlayMusic()
         resetCellUniversity(aModelOfMsgCellVoice)
+        if btnShowOrderDetail != nil{
+            btnShowOrderDetail.hidden=true
+        }
     }
     override func setSelected(selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
@@ -159,10 +184,8 @@ class Cell1ChatTableViewCell: ChatTableViewCell {
     func playRecordStop() {
         print("停止播放")
         if (aRecordAndPlay != nil)&&((aRecordAndPlay.avPlay) != nil) && aRecordAndPlay.avPlay.playing {
-            //            执行了，但是stop后没有执行代理。
             aRecordAndPlay.avPlay.stop()
             stopAnimotion()
-            //            NSNotificationCenter.defaultCenter().removeObserver(self, name: NotificationPlayVoice, object: nil)
         }
     }
     func playRecord(data: NSData) {
@@ -214,7 +237,7 @@ extension Cell1ChatTableViewCell : UITextViewDelegate {
         }
     }
 }
-//长按文字出现复制
+// MARK: - 长按文字出现操作栏实现
 extension Cell1ChatTableViewCell{
 //    一次长按会多次触发，UIGestureRecognizerState状态改变就会触发
     func showMenu(sender:UILongPressGestureRecognizer){
@@ -238,27 +261,35 @@ extension Cell1ChatTableViewCell{
 //        
 //    }
 //    func delteByMenuControll(item:UIMenuItem){
-//                var aUIPasteboard = UIPasteboard.generalPasteboard()
+//        var aUIPasteboard = UIPasteboard.generalPasteboard()
 //        print("\(aUIPasteboard.string )")
 //    }
 //    func moreActionByMenuControll(item:UIMenuItem){
 //        
 //    }
-//    override func canResignFirstResponder() -> Bool {
-//        //        每当释放第一响应者的时候需要将其menuitems设置为空，否则其他成为第一响应者的对象，再次弹出UIMenuController时会一直存在copyItem，deleteItem和moreItem。
-//        UIMenuController.sharedMenuController().menuItems=[]
-//        return true
-//    }
+    override func canResignFirstResponder() -> Bool {
+        //        每当释放第一响应者的时候需要将其menuitems设置为空，否则其他成为第一响应者的对象，再次弹出UIMenuController时会一直存在copyItem，deleteItem和moreItem。
+        UIMenuController.sharedMenuController().menuItems=[]
+        return true
+    }
     override func canBecomeFirstResponder() -> Bool {
         //        当成为第一响应者是重写弹出的aUIMenuController
         let aUIMenuController:UIMenuController=UIMenuController.sharedMenuController()
         let copyItem=UIMenuItem(title: "复制", action: "copyByMenuControll:")
         let deleteItem=UIMenuItem(title: "删除", action: "delteByMenuControll:")
-        let moreItem=UIMenuItem(title: "更多", action: "moreActionByMenuControll:")
-        aUIMenuController.menuItems=[copyItem,deleteItem,moreItem]
+//        let moreItem=UIMenuItem(title: "更多", action: "moreActionByMenuControll:")
+        aUIMenuController.menuItems=[copyItem,deleteItem]
         aUIMenuController.setTargetRect(textOfMsg.frame, inView: self)
+        ChatTableViewCell.indexPathShowMenu=aNSIndexPath
         return true
     }
+    
+    @IBAction func showOrderDetail(sender: AnyObject) {
+        if (aModelOfMsgCellOrder != nil) {
+            aChatTableViewCellDelegate.showOrderDetail(640)
+        }
+    }
 }
+
 
 

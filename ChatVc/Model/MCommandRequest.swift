@@ -22,8 +22,7 @@ class MCommandRequest: TopModel {
 
     func getSystemUpToken(success:SessionSuccessBlock,failure:SessionFailBlock)->NSURLSessionTask{
         let params=unverisalProcess(Dictionary<String, String>())
-        let request = TopModel.universalRequest(requestMethod:Method.GET,dic: params, urlMethod: URLSystemUpToken, success: { (model) -> Void in
-            var a = model as! [String : AnyObject]
+        let request = TopModel.universalRequest(requestMethod:Method.POST,dic: params, urlMethod: URLSystemUpToken, success: { (model) -> Void in
             success(model: model)
             }) { (code) -> Void in
                 failure(code: code)

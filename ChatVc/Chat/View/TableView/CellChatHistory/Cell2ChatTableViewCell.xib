@@ -25,7 +25,7 @@
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="RZ8-Pg-gYS">
                         <rect key="frame" x="50" y="6" width="304" height="46"/>
                     </imageView>
-                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="asdf" translatesAutoresizingMaskIntoConstraints="NO" id="XTF-cp-vwX">
+                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="你有一笔订单等待支付" translatesAutoresizingMaskIntoConstraints="NO" id="XTF-cp-vwX">
                         <rect key="frame" x="60" y="6" width="290" height="38"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="38" id="vtb-mu-yEq"/>
@@ -51,6 +51,13 @@
                             <constraint firstAttribute="height" constant="24" id="jEo-0f-nPy"/>
                         </constraints>
                     </imageView>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="b8X-Dd-jH1">
+                        <rect key="frame" x="230" y="10" width="60" height="30"/>
+                        <state key="normal" title="点击支付"/>
+                        <connections>
+                            <action selector="showOrderDetail:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="IO8-XK-ivk"/>
+                        </connections>
+                    </button>
                 </subviews>
                 <constraints>
                     <constraint firstItem="dhh-Tq-Bcg" firstAttribute="leading" secondItem="VfQ-ZK-5Rq" secondAttribute="trailing" constant="22" id="0zc-dV-haF"/>
@@ -61,10 +68,13 @@
                     <constraint firstItem="Q3r-UZ-bZL" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="-8" id="GwL-XT-5nM"/>
                     <constraint firstItem="RZ8-Pg-gYS" firstAttribute="bottom" secondItem="XTF-cp-vwX" secondAttribute="bottom" id="I68-st-ZAa"/>
                     <constraint firstItem="RZ8-Pg-gYS" firstAttribute="top" secondItem="VfQ-ZK-5Rq" secondAttribute="top" id="P4i-d6-Bqf"/>
+                    <constraint firstItem="b8X-Dd-jH1" firstAttribute="leading" secondItem="XTF-cp-vwX" secondAttribute="leading" constant="180" id="S3q-O0-VIz"/>
                     <constraint firstItem="VfQ-ZK-5Rq" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="2" id="Wsg-Xr-D7O"/>
                     <constraint firstItem="dhh-Tq-Bcg" firstAttribute="centerY" secondItem="VfQ-ZK-5Rq" secondAttribute="centerY" id="XQY-m8-fbJ"/>
                     <constraint firstItem="RZ8-Pg-gYS" firstAttribute="leading" secondItem="VfQ-ZK-5Rq" secondAttribute="trailing" id="XT6-hk-7Ul"/>
                     <constraint firstItem="XTF-cp-vwX" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="4" id="XqR-iY-hFB"/>
+                    <constraint firstItem="b8X-Dd-jH1" firstAttribute="leading" secondItem="XTF-cp-vwX" secondAttribute="trailing" constant="-120" id="bcJ-7D-hrG"/>
+                    <constraint firstItem="b8X-Dd-jH1" firstAttribute="centerY" secondItem="XTF-cp-vwX" secondAttribute="centerY" id="eQE-Nb-8oM"/>
                     <constraint firstItem="XTF-cp-vwX" firstAttribute="trailing" secondItem="RZ8-Pg-gYS" secondAttribute="trailing" constant="-4" id="h3A-Sd-hNG"/>
                     <constraint firstItem="XTF-cp-vwX" firstAttribute="leading" secondItem="VfQ-ZK-5Rq" secondAttribute="trailing" constant="10" id="tBF-Z8-clF"/>
                     <constraint firstItem="XTF-cp-vwX" firstAttribute="top" secondItem="RZ8-Pg-gYS" secondAttribute="top" id="yqQ-Gj-suz"/>
@@ -74,12 +84,14 @@
                         <exclude reference="9qP-dF-rcy"/>
                         <exclude reference="I68-st-ZAa"/>
                         <exclude reference="XqR-iY-hFB"/>
+                        <exclude reference="S3q-O0-VIz"/>
                     </mask>
                 </variation>
             </tableViewCellContentView>
             <connections>
                 <outlet property="NSLayoutConstraintMsgH" destination="vtb-mu-yEq" id="Ykr-Ln-Rai"/>
                 <outlet property="NSLayoutConstraintMsgW" destination="ydV-jY-vIH" id="fwH-dB-Nzt"/>
+                <outlet property="btnShowOrderDetail" destination="b8X-Dd-jH1" id="wxB-Ef-o8X"/>
                 <outlet property="imageCover" destination="RZ8-Pg-gYS" id="TvJ-cR-Fwj"/>
                 <outlet property="imgHead" destination="VfQ-ZK-5Rq" id="lbN-tv-8a5"/>
                 <outlet property="imgHeadNSLayoutConstraintTopToContentView" destination="5z6-58-Map" id="1XL-CW-0Aq"/>
@@ -92,6 +104,6 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="meizi1.jpg" width="26" height="22"/>
+        <image name="meizi1.jpg" width="329" height="362"/>
     </resources>
 </document>

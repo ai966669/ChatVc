@@ -14,9 +14,9 @@ func local(closure: ()->()) {
 }
 
 func Log<T>(message: T) {
-    #if DEBUG
+//    #if DEBUG
         print("\(message)")
-    #endif
+//    #endif
 }
 
 func customSnapshot(fromView inputView: UIView) -> UIView {

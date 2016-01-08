@@ -78,7 +78,6 @@
                 </button>
                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="26f-Ek-ZoJ">
                     <rect key="frame" x="41" y="7" width="198" height="35"/>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="35.5" id="ppc-QI-J7S"/>
                     </constraints>
@@ -105,14 +104,12 @@
                 <constraint firstAttribute="bottom" secondItem="gJW-5C-IaS" secondAttribute="bottom" id="0nG-V1-IST"/>
                 <constraint firstItem="K81-bI-8eq" firstAttribute="top" secondItem="T4w-Rd-MnL" secondAttribute="bottom" id="3lJ-x9-FnX"/>
                 <constraint firstItem="E3c-NV-lgb" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="3" id="5uY-P4-Xkn"/>
-                <constraint firstItem="T4w-Rd-MnL" firstAttribute="bottom" secondItem="26f-Ek-ZoJ" secondAttribute="bottom" constant="8" id="D7S-83-h5x"/>
                 <constraint firstItem="4xe-TB-76i" firstAttribute="leading" secondItem="26f-Ek-ZoJ" secondAttribute="leading" id="Dch-A4-quo"/>
                 <constraint firstItem="K81-bI-8eq" firstAttribute="top" secondItem="26f-Ek-ZoJ" secondAttribute="bottom" constant="8" id="Mor-HG-jEU"/>
                 <constraint firstItem="GZm-eH-nQm" firstAttribute="bottom" secondItem="T4w-Rd-MnL" secondAttribute="bottom" constant="-9" id="U04-4J-WKU"/>
                 <constraint firstItem="yRh-Ct-dWZ" firstAttribute="leading" secondItem="26f-Ek-ZoJ" secondAttribute="trailing" constant="5" id="U2L-06-uNC"/>
                 <constraint firstItem="4xe-TB-76i" firstAttribute="trailing" secondItem="26f-Ek-ZoJ" secondAttribute="trailing" id="UWd-Jo-WjF"/>
                 <constraint firstItem="K81-bI-8eq" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="Wmb-FH-3yb"/>
-                <constraint firstItem="K81-bI-8eq" firstAttribute="top" secondItem="26f-Ek-ZoJ" secondAttribute="bottom" constant="7" id="Zmd-M4-nOc"/>
                 <constraint firstAttribute="trailing" secondItem="T4w-Rd-MnL" secondAttribute="trailing" id="aqp-5Y-Fdj"/>
                 <constraint firstAttribute="trailing" secondItem="K81-bI-8eq" secondAttribute="trailing" id="caa-Gq-vhR"/>
                 <constraint firstItem="T4w-Rd-MnL" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="eIX-5V-uXJ"/>
@@ -125,24 +122,17 @@
                 <constraint firstAttribute="trailing" secondItem="gJW-5C-IaS" secondAttribute="trailing" id="rrY-x3-J46"/>
                 <constraint firstItem="4xe-TB-76i" firstAttribute="bottom" secondItem="26f-Ek-ZoJ" secondAttribute="bottom" id="sKi-Mt-3Sd"/>
                 <constraint firstAttribute="trailing" secondItem="GZm-eH-nQm" secondAttribute="trailing" constant="10" id="ve8-ml-oyB"/>
-                <constraint firstItem="K81-bI-8eq" firstAttribute="top" secondItem="26f-Ek-ZoJ" secondAttribute="bottom" constant="7" id="wVr-u3-pHE"/>
                 <constraint firstItem="26f-Ek-ZoJ" firstAttribute="leading" secondItem="E3c-NV-lgb" secondAttribute="trailing" constant="8" id="zsh-Qq-Toj"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <variation key="default">
-                <mask key="constraints">
-                    <exclude reference="D7S-83-h5x"/>
-                    <exclude reference="Zmd-M4-nOc"/>
-                    <exclude reference="wVr-u3-pHE"/>
-                </mask>
-            </variation>
             <connections>
                 <outlet property="btnOfChangingMsgStyle" destination="E3c-NV-lgb" id="J68-Od-K2T"/>
                 <outlet property="btnOfMoreAction" destination="GZm-eH-nQm" id="fpn-O0-32V"/>
                 <outlet property="btnOfSend" destination="gJW-5C-IaS" id="g5j-uK-qKy"/>
                 <outlet property="btnOfShowEmoji" destination="yRh-Ct-dWZ" id="ic4-Nv-EJ9"/>
                 <outlet property="btnOfVoice" destination="4xe-TB-76i" id="eIC-Ol-1Oy"/>
+                <outlet property="txtFlfNSLayoutConstraintLeft" destination="zsh-Qq-Toj" id="iH4-nX-Or6"/>
                 <outlet property="txtViewOfMsg" destination="26f-Ek-ZoJ" id="3s7-BZ-fLI"/>
                 <outlet property="viewUnder" destination="T4w-Rd-MnL" id="HD0-ZC-WOr"/>
                 <outlet property="viewUnderNSLayoutConstraint" destination="MoJ-LE-fLQ" id="jLh-ry-7px"/>

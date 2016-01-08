@@ -27,6 +27,7 @@
 		450A514E1C33854F00CDEF34 /* Upload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 450A51401C33854F00CDEF34 /* Upload.swift */; };
 		450A514F1C33854F00CDEF34 /* Validation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 450A51411C33854F00CDEF34 /* Validation.swift */; };
 		450A51511C33B91E00CDEF34 /* MRCIM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 450A51501C33B91E00CDEF34 /* MRCIM.swift */; };
+		450EC6001C3E017700C6BD19 /* PingPPPay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 450EC5FF1C3E017700C6BD19 /* PingPPPay.swift */; };
 		452E61E61C3BBC3900E7B039 /* MCommandRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 452E61E51C3BBC3900E7B039 /* MCommandRequest.swift */; };
 		452E61E91C3BF33600E7B039 /* NZZCheckingOfInput.m in Sources */ = {isa = PBXBuildFile; fileRef = 452E61E81C3BF33600E7B039 /* NZZCheckingOfInput.m */; };
 		45431E2A1C27E4DD00D47BCA /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 45431E291C27E4DD00D47BCA /* libsqlite3.tbd */; };
@@ -39,6 +40,15 @@
 		456187DC1C1E9DB900AE5801 /* HelpFromOc.m in Sources */ = {isa = PBXBuildFile; fileRef = 456187DB1C1E9DB900AE5801 /* HelpFromOc.m */; };
 		457E29461C22D01000CDE1EE /* databaseGet.m in Sources */ = {isa = PBXBuildFile; fileRef = 457E29451C22D01000CDE1EE /* databaseGet.m */; };
 		458F9BF41C3A498B00F6D42D /* Pay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 458F9BF31C3A498B00F6D42D /* Pay.swift */; };
+		459357931C3ED2FE00C13A27 /* AddressTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4593578B1C3ED2FE00C13A27 /* AddressTableViewCell.swift */; };
+		459357941C3ED2FE00C13A27 /* AddressTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4593578C1C3ED2FE00C13A27 /* AddressTableViewCell.xib */; };
+		459357951C3ED2FE00C13A27 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4593578D1C3ED2FE00C13A27 /* Location.swift */; };
+		459357961C3ED2FE00C13A27 /* MAddress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4593578E1C3ED2FE00C13A27 /* MAddress.swift */; };
+		459357971C3ED2FE00C13A27 /* MyAddress2TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4593578F1C3ED2FE00C13A27 /* MyAddress2TableViewCell.swift */; };
+		459357981C3ED2FE00C13A27 /* MyAddress2TableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 459357901C3ED2FE00C13A27 /* MyAddress2TableViewCell.xib */; };
+		459357991C3ED2FE00C13A27 /* SearchAddressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 459357911C3ED2FE00C13A27 /* SearchAddressViewController.swift */; };
+		4593579A1C3ED2FE00C13A27 /* UserLocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 459357921C3ED2FE00C13A27 /* UserLocationViewController.swift */; };
+		4593579C1C3ED47E00C13A27 /* HWJNavControllerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4593579B1C3ED47E00C13A27 /* HWJNavControllerViewController.swift */; };
 		459EEE1D1C321A9100B93CFF /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 459EEDF31C321A9100B93CFF /* ChatViewController.swift */; };
 		459EEE1E1C321A9100B93CFF /* AUITableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 459EEDF51C321A9100B93CFF /* AUITableView.swift */; };
 		459EEE1F1C321A9100B93CFF /* MChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 459EEDFA1C321A9100B93CFF /* MChatView.swift */; };
@@ -63,7 +73,6 @@
 		459EEE331C321A9100B93CFF /* ImageMineTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 459EEE151C321A9100B93CFF /* ImageMineTableViewCell.swift */; };
 		459EEE341C321A9100B93CFF /* ImageMineTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 459EEE161C321A9100B93CFF /* ImageMineTableViewCell.xib */; };
 		459EEE361C321A9100B93CFF /* ImageOfCustomerTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 459EEE181C321A9100B93CFF /* ImageOfCustomerTableViewCell.xib */; };
-		459EEE381C321A9100B93CFF /* msgTxtChatTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 459EEE1A1C321A9100B93CFF /* msgTxtChatTableViewCell.swift */; };
 		459EEE391C321A9100B93CFF /* TableViewDelegateNzz.swift in Sources */ = {isa = PBXBuildFile; fileRef = 459EEE1B1C321A9100B93CFF /* TableViewDelegateNzz.swift */; };
 		459EEE3A1C321A9100B93CFF /* ToolOfCellInChat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 459EEE1C1C321A9100B93CFF /* ToolOfCellInChat.swift */; };
 		459EEE421C3220C000B93CFF /* LoginAndRegistViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 459EEE411C3220C000B93CFF /* LoginAndRegistViewController.swift */; };
@@ -90,6 +99,9 @@
 		45BBD9FA1C228E3D0038A6AC /* UIImageView+QuickTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45BBD9E91C228E3D0038A6AC /* UIImageView+QuickTool.swift */; };
 		45BBD9FB1C228E3D0038A6AC /* SGFileManage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45BBD9EA1C228E3D0038A6AC /* SGFileManage.swift */; };
 		45BBD9FC1C228E3D0038A6AC /* UITableViewController+Quick.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45BBD9EB1C228E3D0038A6AC /* UITableViewController+Quick.swift */; };
+		45F16A8F1C3F889D00592263 /* OrderDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45F16A8E1C3F889D00592263 /* OrderDetailViewController.swift */; };
+		45F16A931C3F8CED00592263 /* MOrder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45F16A921C3F8CED00592263 /* MOrder.swift */; };
+		45F16A951C3F924700592263 /* OrderDetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45F16A941C3F924700592263 /* OrderDetailTableViewCell.swift */; };
 		F8A475DB41B9CA6ED968066B /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 80B66270FF74AC3C799583AF /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -132,6 +144,7 @@
 		450A51401C33854F00CDEF34 /* Upload.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Upload.swift; sourceTree = "<group>"; };
 		450A51411C33854F00CDEF34 /* Validation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Validation.swift; sourceTree = "<group>"; };
 		450A51501C33B91E00CDEF34 /* MRCIM.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MRCIM.swift; sourceTree = "<group>"; };
+		450EC5FF1C3E017700C6BD19 /* PingPPPay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PingPPPay.swift; sourceTree = "<group>"; };
 		452E61E51C3BBC3900E7B039 /* MCommandRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MCommandRequest.swift; sourceTree = "<group>"; };
 		452E61E71C3BF33600E7B039 /* NZZCheckingOfInput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NZZCheckingOfInput.h; sourceTree = "<group>"; };
 		452E61E81C3BF33600E7B039 /* NZZCheckingOfInput.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NZZCheckingOfInput.m; sourceTree = "<group>"; };
@@ -151,6 +164,15 @@
 		457E29441C22D01000CDE1EE /* databaseGet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = databaseGet.h; sourceTree = "<group>"; };
 		457E29451C22D01000CDE1EE /* databaseGet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = databaseGet.m; sourceTree = "<group>"; };
 		458F9BF31C3A498B00F6D42D /* Pay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Pay.swift; sourceTree = "<group>"; };
+		4593578B1C3ED2FE00C13A27 /* AddressTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddressTableViewCell.swift; sourceTree = "<group>"; };
+		4593578C1C3ED2FE00C13A27 /* AddressTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddressTableViewCell.xib; sourceTree = "<group>"; };
+		4593578D1C3ED2FE00C13A27 /* Location.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
+		4593578E1C3ED2FE00C13A27 /* MAddress.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MAddress.swift; sourceTree = "<group>"; };
+		4593578F1C3ED2FE00C13A27 /* MyAddress2TableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyAddress2TableViewCell.swift; sourceTree = "<group>"; };
+		459357901C3ED2FE00C13A27 /* MyAddress2TableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MyAddress2TableViewCell.xib; sourceTree = "<group>"; };
+		459357911C3ED2FE00C13A27 /* SearchAddressViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchAddressViewController.swift; sourceTree = "<group>"; };
+		459357921C3ED2FE00C13A27 /* UserLocationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserLocationViewController.swift; sourceTree = "<group>"; };
+		4593579B1C3ED47E00C13A27 /* HWJNavControllerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HWJNavControllerViewController.swift; sourceTree = "<group>"; };
 		459EEDF31C321A9100B93CFF /* ChatViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
 		459EEDF51C321A9100B93CFF /* AUITableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AUITableView.swift; sourceTree = "<group>"; };
 		459EEDFA1C321A9100B93CFF /* MChatView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MChatView.swift; sourceTree = "<group>"; };
@@ -175,7 +197,6 @@
 		459EEE151C321A9100B93CFF /* ImageMineTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageMineTableViewCell.swift; sourceTree = "<group>"; };
 		459EEE161C321A9100B93CFF /* ImageMineTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ImageMineTableViewCell.xib; sourceTree = "<group>"; };
 		459EEE181C321A9100B93CFF /* ImageOfCustomerTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ImageOfCustomerTableViewCell.xib; sourceTree = "<group>"; };
-		459EEE1A1C321A9100B93CFF /* msgTxtChatTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = msgTxtChatTableViewCell.swift; sourceTree = "<group>"; };
 		459EEE1B1C321A9100B93CFF /* TableViewDelegateNzz.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewDelegateNzz.swift; sourceTree = "<group>"; };
 		459EEE1C1C321A9100B93CFF /* ToolOfCellInChat.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToolOfCellInChat.swift; sourceTree = "<group>"; };
 		459EEE411C3220C000B93CFF /* LoginAndRegistViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginAndRegistViewController.swift; sourceTree = "<group>"; };
@@ -209,6 +230,9 @@
 		45BBD9E91C228E3D0038A6AC /* UIImageView+QuickTool.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImageView+QuickTool.swift"; sourceTree = "<group>"; };
 		45BBD9EA1C228E3D0038A6AC /* SGFileManage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SGFileManage.swift; sourceTree = "<group>"; };
 		45BBD9EB1C228E3D0038A6AC /* UITableViewController+Quick.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITableViewController+Quick.swift"; sourceTree = "<group>"; };
+		45F16A8E1C3F889D00592263 /* OrderDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderDetailViewController.swift; sourceTree = "<group>"; };
+		45F16A921C3F8CED00592263 /* MOrder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MOrder.swift; sourceTree = "<group>"; };
+		45F16A941C3F924700592263 /* OrderDetailTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderDetailTableViewCell.swift; sourceTree = "<group>"; };
 		80B66270FF74AC3C799583AF /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		918F07D5BF4114BBD9AF4201 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		C0655D4300E6906B19A24F5E /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
@@ -253,12 +277,14 @@
 		450A512F1C33847B00CDEF34 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				4593578A1C3ED2FE00C13A27 /* Location */,
 				450A51321C33854F00CDEF34 /* Alamofire2.0 */,
 				450A51301C33848300CDEF34 /* CommonMethods.swift */,
 				458F9BF31C3A498B00F6D42D /* Pay.swift */,
 				452E61E71C3BF33600E7B039 /* NZZCheckingOfInput.h */,
 				452E61E81C3BF33600E7B039 /* NZZCheckingOfInput.m */,
 				45AA09691C3CC6DD00A143E3 /* MsgShow.swift */,
+				450EC5FF1C3E017700C6BD19 /* PingPPPay.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -335,6 +361,22 @@
 				457E29451C22D01000CDE1EE /* databaseGet.m */,
 			);
 			path = Database;
+			sourceTree = "<group>";
+		};
+		4593578A1C3ED2FE00C13A27 /* Location */ = {
+			isa = PBXGroup;
+			children = (
+				4593579B1C3ED47E00C13A27 /* HWJNavControllerViewController.swift */,
+				4593578B1C3ED2FE00C13A27 /* AddressTableViewCell.swift */,
+				4593578C1C3ED2FE00C13A27 /* AddressTableViewCell.xib */,
+				4593578D1C3ED2FE00C13A27 /* Location.swift */,
+				4593578E1C3ED2FE00C13A27 /* MAddress.swift */,
+				4593578F1C3ED2FE00C13A27 /* MyAddress2TableViewCell.swift */,
+				459357901C3ED2FE00C13A27 /* MyAddress2TableViewCell.xib */,
+				459357911C3ED2FE00C13A27 /* SearchAddressViewController.swift */,
+				459357921C3ED2FE00C13A27 /* UserLocationViewController.swift */,
+			);
+			path = Location;
 			sourceTree = "<group>";
 		};
 		459EEDF21C321A6300B93CFF /* Chat */ = {
@@ -463,7 +505,6 @@
 				459EEE151C321A9100B93CFF /* ImageMineTableViewCell.swift */,
 				459EEE161C321A9100B93CFF /* ImageMineTableViewCell.xib */,
 				459EEE181C321A9100B93CFF /* ImageOfCustomerTableViewCell.xib */,
-				459EEE1A1C321A9100B93CFF /* msgTxtChatTableViewCell.swift */,
 			);
 			path = CellChatHistory;
 			sourceTree = "<group>";
@@ -474,6 +515,7 @@
 				4553CAE91C37BA3500BFD327 /* WebViewController.swift */,
 				459EEE481C32322E00B93CFF /* Me */,
 				459EEE401C3220C000B93CFF /* LoginAndRegistViewController */,
+				45F16A8E1C3F889D00592263 /* OrderDetailViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -488,6 +530,7 @@
 				459EEE4D1C3235D500B93CFF /* UserModel.swift */,
 				450A51501C33B91E00CDEF34 /* MRCIM.swift */,
 				452E61E51C3BBC3900E7B039 /* MCommandRequest.swift */,
+				45F16A921C3F8CED00592263 /* MOrder.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -498,6 +541,7 @@
 				459EEE9A1C329D6200B93CFF /* NZZVcOfPay.swift */,
 				459EEE9B1C329D6200B93CFF /* NZZVcOfPay.xib */,
 				459EEE431C32214600B93CFF /* LoginAndRegistViewController */,
+				45F16A941C3F924700592263 /* OrderDetailTableViewCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -729,6 +773,7 @@
 			files = (
 				450A51451C33854F00CDEF34 /* Info.plist in Resources */,
 				459EEE2C1C321A9100B93CFF /* MsgWantSendCollectionViewCell.xib in Resources */,
+				459357941C3ED2FE00C13A27 /* AddressTableViewCell.xib in Resources */,
 				459EEE2F1C321A9100B93CFF /* Cell1ChatTableViewCell.xib in Resources */,
 				459EEE341C321A9100B93CFF /* ImageMineTableViewCell.xib in Resources */,
 				459EEE281C321A9100B93CFF /* InputV.xib in Resources */,
@@ -741,6 +786,7 @@
 				459EEE9D1C329D6200B93CFF /* NZZVcOfPay.xib in Resources */,
 				459EEE261C321A9100B93CFF /* ColCell2InputVc.xib in Resources */,
 				459EEE311C321A9100B93CFF /* Cell2ChatTableViewCell.xib in Resources */,
+				459357981C3ED2FE00C13A27 /* MyAddress2TableViewCell.xib in Resources */,
 				459EEE241C321A9100B93CFF /* ColCell1InputVc.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -807,6 +853,7 @@
 				450A514D1C33854F00CDEF34 /* Stream.swift in Sources */,
 				459EEE251C321A9100B93CFF /* ColCell2InputVc.swift in Sources */,
 				456187CC1C1E9CA200AE5801 /* ZYQAssetPickerController.m in Sources */,
+				450EC6001C3E017700C6BD19 /* PingPPPay.swift in Sources */,
 				459EEE1F1C321A9100B93CFF /* MChatView.swift in Sources */,
 				459EEE2B1C321A9100B93CFF /* MsgWantSendCollectionViewCell.swift in Sources */,
 				450A514A1C33854F00CDEF34 /* ResponseSerialization.swift in Sources */,
@@ -818,11 +865,14 @@
 				459EEE291C321A9100B93CFF /* CustomLayoutNzz.swift in Sources */,
 				459EEE211C321A9100B93CFF /* ModelOfMsgInCell.swift in Sources */,
 				459EEE2D1C321A9100B93CFF /* VolView.swift in Sources */,
+				4593579A1C3ED2FE00C13A27 /* UserLocationViewController.swift in Sources */,
 				459EEE4C1C3234D300B93CFF /* aTableViewController.swift in Sources */,
 				459EEE331C321A9100B93CFF /* ImageMineTableViewCell.swift in Sources */,
+				459357951C3ED2FE00C13A27 /* Location.swift in Sources */,
 				450A51461C33854F00CDEF34 /* Manager.swift in Sources */,
 				459EEE271C321A9100B93CFF /* InputV.swift in Sources */,
 				45BBD9F81C228E3D0038A6AC /* UIColor+QuickTool.swift in Sources */,
+				45F16A931C3F8CED00592263 /* MOrder.swift in Sources */,
 				457E29461C22D01000CDE1EE /* databaseGet.m in Sources */,
 				450A51311C33848300CDEF34 /* CommonMethods.swift in Sources */,
 				459EEE1D1C321A9100B93CFF /* ChatViewController.swift in Sources */,
@@ -832,16 +882,21 @@
 				459EEE221C321A9100B93CFF /* MTableviewDelegateNzz.swift in Sources */,
 				45BBD9F91C228E3D0038A6AC /* UIImage+QuickTool.swift in Sources */,
 				45AA096A1C3CC6DD00A143E3 /* MsgShow.swift in Sources */,
+				459357931C3ED2FE00C13A27 /* AddressTableViewCell.swift in Sources */,
 				456187CD1C1E9CA200AE5801 /* RecordAndPlay.m in Sources */,
 				450A51431C33854F00CDEF34 /* Download.swift in Sources */,
+				4593579C1C3ED47E00C13A27 /* HWJNavControllerViewController.swift in Sources */,
 				450A51511C33B91E00CDEF34 /* MRCIM.swift in Sources */,
 				450A512C1C3383F700CDEF34 /* TopModel.swift in Sources */,
 				450A51481C33854F00CDEF34 /* ParameterEncoding.swift in Sources */,
+				459357991C3ED2FE00C13A27 /* SearchAddressViewController.swift in Sources */,
 				452E61E61C3BBC3900E7B039 /* MCommandRequest.swift in Sources */,
 				45BBD9F41C228E3D0038A6AC /* CGSize+QuickTool.swift in Sources */,
+				459357971C3ED2FE00C13A27 /* MyAddress2TableViewCell.swift in Sources */,
 				450A512D1C3383F700CDEF34 /* D3Json.swift in Sources */,
 				45BBD9F71C228E3D0038A6AC /* String+QuickTool.swift in Sources */,
 				459EEE9C1C329D6200B93CFF /* NZZVcOfPay.swift in Sources */,
+				45F16A951C3F924700592263 /* OrderDetailTableViewCell.swift in Sources */,
 				450A514E1C33854F00CDEF34 /* Upload.swift in Sources */,
 				450A51281C337FC400CDEF34 /* MUpToFile.swift in Sources */,
 				45BBD9FC1C228E3D0038A6AC /* UITableViewController+Quick.swift in Sources */,
@@ -852,6 +907,7 @@
 				452E61E91C3BF33600E7B039 /* NZZCheckingOfInput.m in Sources */,
 				45B705561C1E660700B0E8C2 /* Default.swift in Sources */,
 				450A512E1C3383F700CDEF34 /* PayTool.swift in Sources */,
+				459357961C3ED2FE00C13A27 /* MAddress.swift in Sources */,
 				459EEE1E1C321A9100B93CFF /* AUITableView.swift in Sources */,
 				450A51491C33854F00CDEF34 /* Request.swift in Sources */,
 				459EEE2E1C321A9100B93CFF /* Cell1ChatTableViewCell.swift in Sources */,
@@ -859,7 +915,7 @@
 				45B705091C1E64BC00B0E8C2 /* AppDelegate.swift in Sources */,
 				450A51421C33854F00CDEF34 /* Alamofire.swift in Sources */,
 				45BBD9F51C228E3D0038A6AC /* Double+QuickTool.swift in Sources */,
-				459EEE381C321A9100B93CFF /* msgTxtChatTableViewCell.swift in Sources */,
+				45F16A8F1C3F889D00592263 /* OrderDetailViewController.swift in Sources */,
 				459EEE201C321A9100B93CFF /* ModelOfMsgSend.swift in Sources */,
 				45BBD9F61C228E3D0038A6AC /* Int+QuickTool.swift in Sources */,
 				450A51441C33854F00CDEF34 /* Error.swift in Sources */,
@@ -1011,7 +1067,7 @@
 				INFOPLIST_FILE = ChatVc/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.anve.bumblebee1;
+				PRODUCT_BUNDLE_IDENTIFIER = com.anve.bumblebee;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "ChatVc-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -1028,7 +1084,7 @@
 				INFOPLIST_FILE = ChatVc/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.anve.bumblebee1;
+				PRODUCT_BUNDLE_IDENTIFIER = com.anve.bumblebee;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "ChatVc-Bridging-Header.h";
 			};

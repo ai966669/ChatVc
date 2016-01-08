@@ -256,12 +256,13 @@ class InputV: UIView {
         }
     }
     
+    @IBOutlet var txtFlfNSLayoutConstraintLeft: NSLayoutConstraint!
     override func awakeFromNib() {
         
         super.awakeFromNib()
         
         self.btnOfVoice.hidden = isText
-        
+        self.layoutIfNeeded()
         backgroundColor = UIColor.clearColor()
         if #available(iOS 8.0, *) {
             viewUnder.backgroundColor = UIColor.clearColor()
@@ -285,6 +286,7 @@ class InputV: UIView {
         initLayout()
         
         NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: "setStatusOfKeyboard", userInfo: nil, repeats: false)
+        
     }
    
 

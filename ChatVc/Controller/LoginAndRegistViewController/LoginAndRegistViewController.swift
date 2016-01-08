@@ -88,7 +88,11 @@ class LoginAndRegistViewController: UIViewController {
         }
     }
     @IBAction func tryLogin(sender: AnyObject) {
-
+//        let mapVC = UserLocationViewController()
+//        mapVC.vcChat = self
+//        let nav = UINavigationController(rootViewController: mapVC)
+//        presentViewController(nav, animated: true, completion: nil)
+        
         if NZZCheckingOfInput.checkNotNilOrNoValue(txtFldCardNo.text, showHUD: true, textToShow: "卡号不能为空"){
             if NZZCheckingOfInput.checkNotNilOrNoValue(txtFldPsw.text, showHUD: true, textToShow: "密码不能为空"){
                     UserModel.shareManager().loginByPsw(txtFldCardNo.text!, psw: txtFldPsw.text!, success: { (model) -> Void in
@@ -99,6 +103,14 @@ class LoginAndRegistViewController: UIViewController {
                 
             }
         }
+        
+//        UserModel.shareManager().loginByPsw("000000001", psw: "309", success: { (model) -> Void in
+//            
+//            }, failure: { (code) -> Void in
+//                
+//        })
+//        
+
 
 //        UserModel.shareManager().loginByPsw(<#T##cardNum: String##String#>, psw: <#T##String#>, success: <#T##SessionSuccessBlock##SessionSuccessBlock##(model: AnyObject?) -> Void#>, failure: <#T##SessionFailBlock##SessionFailBlock##(code: Int) -> Void#>)
         

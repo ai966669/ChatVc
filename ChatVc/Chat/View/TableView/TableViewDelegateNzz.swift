@@ -7,7 +7,20 @@
 //
 
 import UIKit
-
+protocol TableviewDelegateNzzDelegate:NSObjectProtocol{
+//    func pay(oneModelOfMsgCellOrder:ModelOfMsgCellOrder,aNSIndexPath:NSIndexPath)
+    //    func saveToDatabaseByModelOfMsg(modelOfMsgBasic:ModelOfMsgBasic,data:AnyObject,oneStatusOfSend:StatusOfSend)
+//    func payCancel()
+//    func ReSend(aNSIndexPath: NSIndexPath, msgCell: AnyObject, oneTypeOfMsg: TypeOfMsg, msgExt: Dictionary<String, AnyObject>, msgUuid: String,dataOfFile:NSData)
+//    func ShowDetailOfGoods(urlGoods:String)
+//    func ShowAssistantInfor(aAssistantId:Int64)
+//    func ShowUserInfor()
+//    func ShowWeb(url:String)
+//    func keyboardChangeToSmall()
+//    func playRecord(data:NSData,doLater: (() -> Void))
+//    func playRecordStop()
+        func showOrderDetail(orderId: Int64)
+}
 class TableviewDelegateNzz : NSObject, UITableViewDelegate, UITableViewDataSource{
     let NotificationTableviewDelegateNzzAddMsg="NotificationTableviewDelegateNzzAddMsg"
     
@@ -30,6 +43,7 @@ class TableviewDelegateNzz : NSObject, UITableViewDelegate, UITableViewDataSourc
     // MARK: - Table view data source
     var aMTableviewDelegateNzz=MTableviewDelegateNzz()
     var aTableView:UITableView!
+    weak var aTableviewDelegateNzzDelegate:TableviewDelegateNzzDelegate?
     func initTableviewDelegateNzz(tableView:UITableView){
         tableView.delegate=self
         tableView.dataSource=self
@@ -118,7 +132,12 @@ class TableviewDelegateNzz : NSObject, UITableViewDelegate, UITableViewDataSourc
             cell.resetCell()
             setUniversalSettingInChatTableViewCell(cell, aIndex: indexPath,viewSetLayer: cell.imageMine)
             return cell
-            
+        case .OrderCustomer:
+            let cell = tableView.dequeueReusableCellWithIdentifier(Cell2ChatTableViewCellIdentifier, forIndexPath: indexPath) as! Cell1ChatTableViewCell
+            cell.aModelOfMsgCellOrder =  aMTableviewDelegateNzz.chatHistory[indexPath.row] as! ModelOfMsgCellOrder
+            cell.resetCellOrder()
+            setUniversalSettingInChatTableViewCell(cell, aIndex: indexPath,viewSetLayer: cell.textOfMsg)
+            return cell
         default:
             return cell
         }
@@ -192,15 +211,18 @@ extension TableviewDelegateNzz {
         aMTableviewDelegateNzz.addMsgTxt(aMMsgTxt, funLater: aMTableviewDelegateNzz.appendMsg)
         insertAndScrolltoLastCell()
     }
-    func addAnewMsgVoice(aTimeVoice:Float,aVoiceUrlOrPath:String,aStatusOfSend:StatusOfSend,aImgHeadUrlOrFilePath:String?,isSend:Bool){
-        aMTableviewDelegateNzz.addAnewMsgVoice(aTimeVoice, aVoiceUrlOrPath: aVoiceUrlOrPath, aStatusOfSend: aStatusOfSend, aImgHeadUrlOrFilePath: aImgHeadUrlOrFilePath, isSend: isSend)
+    func addAnewMsgVoice(aMMsgVoice:MMsgVoice){
+        aMTableviewDelegateNzz.addMsgVoice(aMMsgVoice, funLater: aMTableviewDelegateNzz.appendMsg)
         insertAndScrolltoLastCell()
     }
     func  addAnewMsgImg(aMMsgImg:MMsgImg){
         aMTableviewDelegateNzz.addMsgImg(aMMsgImg, funLater: aMTableviewDelegateNzz.appendMsg)
         insertAndScrolltoLastCell()
     }
-    
+    func addAnewMsgOrder(aMMsgOrder:MMsgOrder){
+        aMTableviewDelegateNzz.addMsgOrder(aMMsgOrder, funLater: aMTableviewDelegateNzz.appendMsg)
+        insertAndScrolltoLastCell()
+    }
     /**
      在tablview下方同时添加多条消息
      
@@ -213,6 +235,8 @@ extension TableviewDelegateNzz {
                     aMTableviewDelegateNzz.addMsgImg(msg as! MMsgImg, funLater: aMTableviewDelegateNzz.appendMsg)
                 }else if msg is MMsgTxt{
                     aMTableviewDelegateNzz.addMsgTxt(msg as! MMsgTxt, funLater: aMTableviewDelegateNzz.appendMsg)
+                }else if msg is MMsgOrder{
+                    aMTableviewDelegateNzz.addMsgOrder(msg as! MMsgOrder, funLater: aMTableviewDelegateNzz.appendMsg)
                 }
             }
             //0106 此处如何不适用reload，reload损耗太大.用类似insertAndScrolltoLastCell的方法
@@ -239,6 +263,9 @@ extension TableviewDelegateNzz {
                     aMTableviewDelegateNzz.addMsgImg(msg as! MMsgImg, funLater: aMTableviewDelegateNzz.insertMsg)
                 }else if msg is MMsgTxt{
                     aMTableviewDelegateNzz.addMsgTxt(msg as! MMsgTxt, funLater: aMTableviewDelegateNzz.insertMsg)
+                    
+                }else if msg is MMsgOrder{
+                    aMTableviewDelegateNzz.addMsgOrder(msg as! MMsgOrder, funLater: aMTableviewDelegateNzz.insertMsg)
                 }
             }
             aTableView.reloadData()
@@ -252,8 +279,8 @@ extension TableviewDelegateNzz {
         }
     }
     func deleteMsg(indexPaths:[NSIndexPath]){
-        aTableView.deleteRowsAtIndexPaths(indexPaths, withRowAnimation: UITableViewRowAnimation.None)
         aMTableviewDelegateNzz.deleteMsg(indexPaths)
+        aTableView.deleteRowsAtIndexPaths(indexPaths, withRowAnimation: UITableViewRowAnimation.None)
     }
 }
 //收到通知后的变化
@@ -262,7 +289,13 @@ extension TableviewDelegateNzz{
         aTableView.reloadData()
     }
 }
+
 extension TableviewDelegateNzz:ChatTableViewCellDelegate{
+    func showOrderDetail(orderId:Int64){
+        
+        aTableviewDelegateNzzDelegate?.showOrderDetail(orderId)
+        
+    }
     func ReSend(aNSIndexPath: NSIndexPath, msgCell: AnyObject, oneTypeOfMsg: TypeOfMsg, msgExt: Dictionary<String, AnyObject>, msgUuid: String,dataOfFile:NSData){
     }
     func ShowAssistantInfor(aAssistantId:Int64){}

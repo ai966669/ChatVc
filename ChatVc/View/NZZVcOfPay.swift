@@ -7,9 +7,9 @@
 //
 
 import UIKit
-enum SGPaymentChannel : Int {
-    case Alipay = 13
-    case WX		= 12
+enum SGPaymentChannel : String {
+    case Alipay = "alipay"
+    case WX		= "wx"
 }
 protocol NZZVcOfPayDelegate : NSObjectProtocol{
     //  nzz index可不传,在chatvc中传是为了将该index修改，ModelOfMsgCellOrder也是根据需要来传,此处代理需要修改，不是很好

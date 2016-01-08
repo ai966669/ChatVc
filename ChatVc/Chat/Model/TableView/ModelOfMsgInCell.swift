@@ -15,6 +15,7 @@ enum  TypeOfMsg {
     case VoiceOfCustomer
     case ImgMine
     case ImgOfCustomer
+    case OrderCustomer
     case None
 }
 enum  ServeNb:String {
@@ -67,52 +68,90 @@ enum StatusOfSend: Int{
     case fail
     case sending
 }
-class ModelOfMsgCellBasic {
-    var timeCreate = ""
-    var statusOfSend:StatusOfSend=StatusOfSend.success
-    var sizeCell:CGSize=CGSizeMake(0, 0)
-    var imgHeadUrlOrFilePath:String?
-    var isSend=true
-    var typeMsg=TypeOfMsg.TxtMine
-    func initBasicCell(aTimeCreate:String,aIsSend:Bool,aStatusOfSend:StatusOfSend,aSizeCell:CGSize,aImgHeadUrlOrFilePath:String?,aTypeOfMsg:TypeOfMsg)->ModelOfMsgCellBasic{
-        timeCreate=aTimeCreate
-        statusOfSend=aStatusOfSend
-        isSend=aIsSend
-        if (imgHeadUrlOrFilePath != nil){
-            imgHeadUrlOrFilePath=aImgHeadUrlOrFilePath
+
+//class MCellInChatTable {
+
+    class ModelOfMsgCellBasic {
+        var timeCreate = ""
+        var statusOfSend:StatusOfSend=StatusOfSend.success
+        var sizeCell:CGSize=CGSizeMake(0, 0)
+        var imgHeadUrlOrFilePath:String?
+        var isSend=true
+        var typeMsg=TypeOfMsg.TxtMine
+        var msgId = -1
+        func initBasicCell(aTimeCreate:String,aIsSend:Bool,aStatusOfSend:StatusOfSend,aSizeCell:CGSize,aImgHeadUrlOrFilePath:String?,aTypeOfMsg:TypeOfMsg,aMsgId:Int)->ModelOfMsgCellBasic{
+            timeCreate=aTimeCreate
+            statusOfSend=aStatusOfSend
+            isSend=aIsSend
+            if (imgHeadUrlOrFilePath != nil){
+                imgHeadUrlOrFilePath=aImgHeadUrlOrFilePath
+            }
+            sizeCell=aSizeCell
+            typeMsg=aTypeOfMsg
+            msgId=aMsgId
+            return self
         }
-        sizeCell=aSizeCell
-        typeMsg=aTypeOfMsg
-        return self
     }
-}
-class ModelOfMsgCellTxt: ModelOfMsgCellBasic {
-    var txt:String=""
-    func initModelOfMsgCellTxt(aTxt:String,aModelOfMsgCellBasic:ModelOfMsgCellBasic)->ModelOfMsgCellTxt{
-        txt=aTxt
-        initBasicCell(aModelOfMsgCellBasic.timeCreate,aIsSend: aModelOfMsgCellBasic.isSend,aStatusOfSend: aModelOfMsgCellBasic.statusOfSend,aSizeCell:aModelOfMsgCellBasic.sizeCell,aImgHeadUrlOrFilePath: aModelOfMsgCellBasic.imgHeadUrlOrFilePath,aTypeOfMsg:aModelOfMsgCellBasic.typeMsg)
-        return self
+    class ModelOfMsgCellTxt: ModelOfMsgCellBasic {
+        var txt:String=""
+        func initModelOfMsgCellTxt(aTxt:String,aModelOfMsgCellBasic:ModelOfMsgCellBasic,aMsgId:Int)->ModelOfMsgCellTxt{
+            txt=aTxt
+            initBasicCell(aModelOfMsgCellBasic.timeCreate,aIsSend: aModelOfMsgCellBasic.isSend,aStatusOfSend: aModelOfMsgCellBasic.statusOfSend,aSizeCell:aModelOfMsgCellBasic.sizeCell,aImgHeadUrlOrFilePath: aModelOfMsgCellBasic.imgHeadUrlOrFilePath,aTypeOfMsg:aModelOfMsgCellBasic.typeMsg,aMsgId:aMsgId)
+            return self
+        }
     }
-}
-class ModelOfMsgCellImg: ModelOfMsgCellBasic {
-    var imgUrlOrPath:String?
-    func initModelOfMsgCellImg(aImgUrlOrPath:String,aModelOfMsgCellBasic:ModelOfMsgCellBasic)->ModelOfMsgCellImg{
-        imgUrlOrPath=aImgUrlOrPath
-        initBasicCell(aModelOfMsgCellBasic.timeCreate,aIsSend: aModelOfMsgCellBasic.isSend,aStatusOfSend: aModelOfMsgCellBasic.statusOfSend,aSizeCell:aModelOfMsgCellBasic.sizeCell,aImgHeadUrlOrFilePath: aModelOfMsgCellBasic.imgHeadUrlOrFilePath,aTypeOfMsg:aModelOfMsgCellBasic.typeMsg)
-        return self
+    class ModelOfMsgCellImg: ModelOfMsgCellBasic {
+        var imgUrlOrPath:String?
+        func initModelOfMsgCellImg(aImgUrlOrPath:String,aModelOfMsgCellBasic:ModelOfMsgCellBasic,aMsgId:Int)->ModelOfMsgCellImg{
+            imgUrlOrPath=aImgUrlOrPath
+            initBasicCell(aModelOfMsgCellBasic.timeCreate,aIsSend: aModelOfMsgCellBasic.isSend,aStatusOfSend: aModelOfMsgCellBasic.statusOfSend,aSizeCell:aModelOfMsgCellBasic.sizeCell,aImgHeadUrlOrFilePath: aModelOfMsgCellBasic.imgHeadUrlOrFilePath,aTypeOfMsg:aModelOfMsgCellBasic.typeMsg,aMsgId:aMsgId)
+            return self
+        }
     }
-}
-class ModelOfMsgCellVoice: ModelOfMsgCellBasic {
-    var txt:String=""
-    var voiceUrlOrPath:String!
-    var timeVoice:Float!
-    func initModelOfMsgCellVoice(aModelOfMsgCellBasic:ModelOfMsgCellBasic,aTimeVoice:Float,aVoiceUrlOrPath:String)->ModelOfMsgCellVoice{
-        timeVoice=aTimeVoice
-        voiceUrlOrPath=aVoiceUrlOrPath
-        initBasicCell(aModelOfMsgCellBasic.timeCreate,aIsSend: aModelOfMsgCellBasic.isSend, aStatusOfSend: aModelOfMsgCellBasic.statusOfSend,aSizeCell:aModelOfMsgCellBasic.sizeCell,aImgHeadUrlOrFilePath: aModelOfMsgCellBasic.imgHeadUrlOrFilePath,aTypeOfMsg:aModelOfMsgCellBasic.typeMsg)
-        return self
+    class ModelOfMsgCellVoice: ModelOfMsgCellBasic {
+        var txt:String=""
+        var voiceUrlOrPath:String!
+        var timeVoice:Float!
+        func initModelOfMsgCellVoice(aModelOfMsgCellBasic:ModelOfMsgCellBasic,aTimeVoice:Float,aVoiceUrlOrPath:String,aMsgId:Int,aTxt:String)->ModelOfMsgCellVoice{
+            txt=aTxt
+            timeVoice=aTimeVoice
+            voiceUrlOrPath=aVoiceUrlOrPath
+            initBasicCell(aModelOfMsgCellBasic.timeCreate,aIsSend: aModelOfMsgCellBasic.isSend, aStatusOfSend: aModelOfMsgCellBasic.statusOfSend,aSizeCell:aModelOfMsgCellBasic.sizeCell,aImgHeadUrlOrFilePath: aModelOfMsgCellBasic.imgHeadUrlOrFilePath,aTypeOfMsg:aModelOfMsgCellBasic.typeMsg,aMsgId:aMsgId)
+            return self
+        }
     }
-}
+    
+    class ModelOfMsgCellOrder: ModelOfMsgCellBasic {
+        var txt:String=""
+        var type = 1
+        var show = false
+        var orderType = ""
+        var name = ""
+        var num = ""
+        var goodName = ""
+        var status = 0
+        var price : Float = 0
+        var created : Double = 0
+        var orderId:Int64 = 0
+        func initModelOfMsgCellOrder(aModelOfMsgCellBasic:ModelOfMsgCellBasic,aMsgId:Int,aTxt:String,aType:Int,aShow:Bool,aOrderType:String,aName:String,aNum:String,aGoodName:String,aStatus:Int,aPrice:Float,aCreated:Double,aOrderId:Int64)->ModelOfMsgCellOrder{
+            txt = aTxt
+            type = aType
+            show = aShow
+            orderType = aOrderType
+            name = aName
+            num = aNum
+            goodName = aGoodName
+            status = aStatus
+            price = aPrice
+            created = aCreated
+            orderId = aOrderId
+            initBasicCell(aModelOfMsgCellBasic.timeCreate,aIsSend: aModelOfMsgCellBasic.isSend, aStatusOfSend: aModelOfMsgCellBasic.statusOfSend,aSizeCell:aModelOfMsgCellBasic.sizeCell,aImgHeadUrlOrFilePath: aModelOfMsgCellBasic.imgHeadUrlOrFilePath,aTypeOfMsg:aModelOfMsgCellBasic.typeMsg,aMsgId:aMsgId)
+            return self
+        }
+    }
+//}
+
+
 func getUuid()->String{
     let uuid = CFUUIDCreate(nil)
     assert(uuid != nil, "uuid为空")
@@ -128,23 +167,25 @@ class MMsgBasic{
     var statusOfSend=StatusOfSend.success
     var imgHeadUrlOrFilePath:String=""
     var isSend=true
+    var msgId = -1
 }
 class MMsgTxt:MMsgBasic {
     var txt:String=""
-    func initMMsgTxt(txt aTxt:String,aStatusOfSend:StatusOfSend,aImgHeadUrlOrFilePath:String?,aIsSend:Bool)->MMsgTxt{
+    func initMMsgTxt(txt aTxt:String,aStatusOfSend:StatusOfSend,aImgHeadUrlOrFilePath:String?,aIsSend:Bool,aMsgId:Int)->MMsgTxt{
         txt=aTxt
         statusOfSend=aStatusOfSend
         if (aImgHeadUrlOrFilePath != "" && aImgHeadUrlOrFilePath != nil){
             imgHeadUrlOrFilePath = aImgHeadUrlOrFilePath!
         }
         isSend=aIsSend
+        msgId=aMsgId
         return self
     }
 }
 class MMsgImg:MMsgBasic {
     var fullImgUrlOrPath=""
     var thumbnailImage:UIImage?
-    func initMMsgImg(aThumbnailImage:UIImage,aFullImgUrlOrPath:String,aStatusOfSend:StatusOfSend,aImgHeadUrlOrFilePath:String?,aIsSend:Bool)->MMsgImg{
+    func initMMsgImg(aThumbnailImage:UIImage,aFullImgUrlOrPath:String,aStatusOfSend:StatusOfSend,aImgHeadUrlOrFilePath:String?,aIsSend:Bool,aMsgId:Int)->MMsgImg{
         thumbnailImage=aThumbnailImage
         fullImgUrlOrPath=aFullImgUrlOrPath
         statusOfSend=aStatusOfSend
@@ -152,6 +193,84 @@ class MMsgImg:MMsgBasic {
             imgHeadUrlOrFilePath = aImgHeadUrlOrFilePath!
         }
         isSend=aIsSend
+        msgId=aMsgId
+        return self
+    }
+}
+class MMsgVoice:MMsgBasic{
+    var txt = ""
+    var timeVoice:Float=0
+    var voiceUrlOrPath=""
+    func initMMsgVoice(aTimeVoice:Float,aVoiceUrlOrPath:String,aStatusOfSend:StatusOfSend,aImgHeadUrlOrFilePath:String?,aIsSend:Bool,aMsgId:Int)->MMsgVoice{
+        timeVoice=aTimeVoice
+        voiceUrlOrPath=aVoiceUrlOrPath
+        statusOfSend=aStatusOfSend
+        if (aImgHeadUrlOrFilePath != "" && aImgHeadUrlOrFilePath != nil){
+            imgHeadUrlOrFilePath = aImgHeadUrlOrFilePath!
+        }
+        isSend=aIsSend
+        msgId=aMsgId
+        return self
+    }
+}
+
+class MMsgOrder:MMsgBasic{
+    var type = 1
+    var show = false
+    var orderType = ""
+    var name = ""
+    var num = ""
+    var goodName = ""
+    var status = 0
+    var price : Float = 0
+    var created : Double = 0
+    var orderId:Int64 = 0
+    func initMMsgOrder(extraDic:Dictionary<String,AnyObject>,aStatusOfSend:StatusOfSend,aImgHeadUrlOrFilePath:String?,aIsSend:Bool,aMsgId:Int)->MMsgOrder{
+        if let aType = extraDic["type"] as? Int{
+            type=aType
+        }
+        if let aShow = extraDic["show"] as? Bool{
+            show=aShow
+        }
+        if let aOrderType = extraDic["orderType"] as? String{
+            orderType=aOrderType
+        }
+        if let aName = extraDic["name"] as? String{
+            name=aName
+        }
+        if let aNum = extraDic["num"] as? String{
+            num=aNum
+        }
+        if let aGoodName = extraDic["goodName"] as? String{
+            goodName=aGoodName
+        }
+        if let aStatus = extraDic["status"] as? Int{
+            status=aStatus
+        }
+        if let aPrice = extraDic["price"] as? Float{
+            price=aPrice
+        }
+        if let aCreated = extraDic["created"] as? Double{
+            created=aCreated
+        }
+        if let aOrderId = extraDic["orderId"] as? Int64{
+            orderId = aOrderId
+        }
+        // aMMsgOrderWithoutBasic.type
+        //        show=aMMsgOrderWithoutBasic.show
+        //        orderType=aMMsgOrderWithoutBasic.orderType
+        //        name=aMMsgOrderWithoutBasic.name
+        //        num=aMMsgOrderWithoutBasic.name
+        //        goodName=aMMsgOrderWithoutBasic.goodName
+        //        status=aMMsgOrderWithoutBasic.status
+        //        price=aMMsgOrderWithoutBasic.price
+        //        created=aMMsgOrderWithoutBasic.created
+        statusOfSend=aStatusOfSend
+        if (aImgHeadUrlOrFilePath != "" && aImgHeadUrlOrFilePath != nil){
+            imgHeadUrlOrFilePath = aImgHeadUrlOrFilePath!
+        }
+        isSend=aIsSend
+        msgId=aMsgId
         return self
     }
 }

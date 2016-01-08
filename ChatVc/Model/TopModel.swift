@@ -41,7 +41,13 @@ let URLUserChatObject="/user/chat/object"
 
 let URLUserTokenLogin="/user/token/login"
 
+//发起支付
+let URLOrderCreateCharge="/order/create/charge"
 
+
+
+//获取订单详情
+let URLOrderDetail = "/order/detail"
 //code : -1.网络问题，未连接上服务器，-2 返回数据为空 -3code 返回的必要数据为空 -4.提示Msg为nil -5.解析错误
 let codeTokenUnvalible = -1014
 let codeOverTime = 3840 //属于-1中的问题
