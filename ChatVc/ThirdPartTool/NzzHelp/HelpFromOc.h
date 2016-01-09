@@ -15,7 +15,7 @@
 +(NSDictionary *)dictionaryWithJsonString:(NSString *)jsonString ;
 + (NSString *)objectToJsonString:(NSDictionary *)dictionary;
 +(NSString *)getMsgPath:(NSString *)nameOfFile :(BOOL)isVoice;
-+ (int)intervalFromLastDate: (NSString *) dateString1  toTheDate:(NSString *) dateString2;
++ (double)intervalFromLastDate: (NSString *) dateString1  toTheDate:(NSString *) dateString2;
 + (NSDictionary*)analysisNotificationInGetui:(NSString*)payloadId;
 + (void)redirectNSlogToDocumentFolder;
 + (UIViewController *)getCurrentVC;

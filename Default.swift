@@ -163,7 +163,7 @@ let WXAppSecret = "de66fb65bd6dbe1ad5e7af6c798e4036"
 // bugHD Crash 统计
 let BUGTagsKey = "e1e3f62ab8eff713e04d94ed78198319"
 //百度地图
-let BaiduAk = "rlQWjIziAambHgsic7T0LQ3U"
+let BaiduAk = "7NhRZ86mMa8AHFzWWxrlPfvR" //"rlQWjIziAambHgsic7T0LQ3U" //"7NhRZ86mMa8AHFzWWxrlPfvR"
 
 //多盟广告
 let PlaceMentID = "16TLuE4oAp8_ANUv26zv_4Dk"

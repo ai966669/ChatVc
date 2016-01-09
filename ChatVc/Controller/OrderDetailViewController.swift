@@ -98,7 +98,10 @@ class OrderDetailViewController: UIViewController {
             
             self?.aNZZVcOfPay.view.frame.origin=CGPointMake(0, 0)
             if (self!.aMOrder != nil){
-                self!.aNZZVcOfPay.amountOrigin = NSNumber(float: (self!.aMOrder?.price)!).doubleValue
+                print("\(self!.aMOrder?.price)")
+                print("\(NSNumber(float: (self!.aMOrder?.price)!).doubleValue)")
+                self!.aNZZVcOfPay.amountOrigin = 0.01
+//                    NSNumber(float: (self!.aMOrder?.price)!).doubleValue
             }
             })
    
@@ -168,7 +171,7 @@ extension OrderDetailViewController:NZZVcOfPayDelegate{
     func payCancel() {
         SVProgressHUD.showInfoWithStatus("交易取消")
     }
-    func payNow(channel: SGPaymentChannel, amount: Double) {
+    func payNow(channel: SGPaymentChannel, amount: Float) {
         if aMOrder != nil{
             PingPPPay().askCharge("966", oneChannel: channel, success: { (model) -> Void in
                 print("获取支付凭证成功")

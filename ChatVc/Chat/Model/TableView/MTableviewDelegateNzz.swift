@@ -37,8 +37,7 @@ class MTableviewDelegateNzz: NSObject {
     func addMsgImg(aMMsgImg:MMsgImg,funLater:(aTypeOfMsg:TypeOfMsg,aTimeVisiable:Bool,aModelOfMsgCellBasic:ModelOfMsgCellBasic)->Void){
         var aTypeOfMsg=TypeOfMsg.TxtMine
         var aTimeVisiable=false
-        let strSec="\(NSDate().timeIntervalSince1970*1000)"
-        let timeCreateInTxt=ToolOfCellInChat.getTxtOfTime(strSec)
+        let timeCreateInTxt=ToolOfCellInChat.getVisableTimeTxt(NSDate().timeIntervalSince1970)
         if timeCreateInTxt==""{
             aTimeVisiable=false
         }else{
@@ -69,8 +68,7 @@ class MTableviewDelegateNzz: NSObject {
         var aTypeOfMsg=TypeOfMsg.TxtMine
         var aTimeVisiable=false
         //        1970到现在的毫秒数
-        let strSec="\(NSDate().timeIntervalSince1970*1000)"
-        let timeCreateInTxt=ToolOfCellInChat.getTxtOfTime(strSec)
+        let timeCreateInTxt=ToolOfCellInChat.getVisableTimeTxt(NSDate().timeIntervalSince1970)
         if timeCreateInTxt==""{
             aTimeVisiable=false
         }else{
@@ -96,8 +94,7 @@ class MTableviewDelegateNzz: NSObject {
         let txt=ToolOfCellInChat.getTxtByVoiceTime(aMMsgVoice.timeVoice)
         let size=ToolOfCellInChat.getSizeByStringAndDefaultFont(txt)
         
-        let strSec="\(NSDate().timeIntervalSince1970*1000)"
-        let timeCreateInTxt=ToolOfCellInChat.getTxtOfTime(strSec)
+        let timeCreateInTxt=ToolOfCellInChat.getVisableTimeTxt(NSDate().timeIntervalSince1970)
         if timeCreateInTxt==""{
             aTimeVisiable=false
         }else{
@@ -117,19 +114,12 @@ class MTableviewDelegateNzz: NSObject {
     func addMsgOrder(aMMsgOrder:MMsgOrder,funLater:(aTypeOfMsg:TypeOfMsg,aTimeVisiable:Bool,aModelOfMsgCellBasic:ModelOfMsgCellBasic)->Void){
         var aTypeOfMsg=TypeOfMsg.TxtMine
         var aTimeVisiable=false
-        //        1970到现在的毫秒数
-        let strSec="\(NSDate().timeIntervalSince1970*1000)"
-        let timeCreateInTxt=ToolOfCellInChat.getTxtOfTime(strSec)
+        let timeCreateInTxt=ToolOfCellInChat.getVisableTimeTxt(NSDate().timeIntervalSince1970)
         if timeCreateInTxt==""{
             aTimeVisiable=false
         }else{
             aTimeVisiable=true
         }
-//        if aMMsgOrder.isSend{
-//            aTypeOfMsg=TypeOfMsg.TxtMine
-//        }else{
-//            aTypeOfMsg=TypeOfMsg.TxtOfCustomer
-//        }
         aTypeOfMsg = TypeOfMsg.OrderCustomer
         let txtShow="\(aMMsgOrder.name)订单支付消息"
         let size = ToolOfCellInChat.getSizeByStringAndDefaultFont(txtShow)

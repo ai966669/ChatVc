@@ -10,46 +10,92 @@ import UIKit
 class ToolOfCellInChat: NSObject {
     static let imageOfUserNSLayoutConstraintTopToContentViewWhenlblOftimeVisble: CGFloat = 20
     static let imageOfUserNSLayoutConstraintTopToContentViewWhenlblOftimeNoVisble: CGFloat = -2
-    static var secOfMsgBefore = 999999999
-    static var secRefresh = 120
+    static var secOfMsgBefore : Double = 999999999
+    static var secRefresh:Double = 120
     static var maxSizeOfTime = CGSizeMake(150, 18)
     static var fontOfTime = UIFont.systemFontOfSize(12.0)
-    static var secOneDay=3600*24
-    //secOfMsgNowInString单位是毫秒，NSDate().timeIntervalSince1970获得的是浮点数,单位秒
-    class func getTxtOfTime(secOfMsgNowInString:String)->String{
-        if secOfMsgNowInString == "" {
-            return ""
-        }
-        if  let d = Double(secOfMsgNowInString){
-            let secOfMsgNow = Int(d/1000)
-            var txt=""
-            if abs(secOfMsgNow-secOfMsgBefore) > secRefresh {
-                let secNow=Int(NSDate().timeIntervalSince1970)
-                let secDistanceMsgNowToNow=secNow-secOfMsgNow
-                let formatter = NSDateFormatter()
-                formatter.dateFormat="yyyy-MM-dd HH:mm:ss"
-                let dateNowInString=formatter.stringFromDate(NSDate())
-                let dataZeroInString=(dateNowInString as NSString).substringWithRange(NSMakeRange(0, 11))+"00:00:00"
-                //  现在到今天00：00的秒数
-                let secDistanceZeroTodayToNow=Int(HelpFromOc.intervalFromLastDate(dataZeroInString, toTheDate: dateNowInString))
-                //  现在到昨天00：00的秒数
-                let secDistanceZeroYesterDayToNow = secDistanceZeroTodayToNow+secOneDay
-                //今日00：00后显示HH:mm  今日00：00前和昨日00：00之间显示昨天HH:mm，昨日00：00前显示MM月dd日 HH:mm
-                if secDistanceMsgNowToNow<secDistanceZeroTodayToNow{
-                    formatter.dateFormat="HH:mm"
-                }else if secDistanceMsgNowToNow<secDistanceZeroYesterDayToNow{
-                    formatter.dateFormat="昨天 HH:mm"
-                }else{
-                    formatter.dateFormat="MM月dd日 HH:mm"
-                }
-                txt = formatter.stringFromDate(NSDate(timeIntervalSince1970: NSTimeInterval(secOfMsgNow)))
-                secOfMsgBefore=secOfMsgNow
+    static var secOneDay:Double=3600*24
+    
+    /**
+    根据时间戳返回时间描述
+    
+    - parameter aTimestamp: 时间戳，单位为秒
+    
+    - returns: 返回时间描述，如果给的时间戳有问题则返回空字符串
+    */
+    class func getTxtOfTimeByTimestamp(aTimestamp:Double)->String{
+        var txt=""
+        if aTimestamp > 0 {
+            let secNow = NSDate().timeIntervalSince1970
+            let secDistanceMsgNowToNow = secNow-aTimestamp
+            let formatter = NSDateFormatter()
+            formatter.dateFormat="yyyy-MM-dd HH:mm:ss"
+            let dateNowInString=formatter.stringFromDate(NSDate())
+            let dataZeroInString=(dateNowInString as NSString).substringWithRange(NSMakeRange(0, 11))+"00:00:00"
+            //  现在到今天00：00的秒数
+            let secDistanceZeroTodayToNow=HelpFromOc.intervalFromLastDate(dataZeroInString, toTheDate: dateNowInString)
+            //  现在到昨天00：00的秒数
+            let secDistanceZeroYesterDayToNow = secDistanceZeroTodayToNow+secOneDay
+            //今日00：00后显示HH:mm  今日00：00前和昨日00：00之间显示昨天HH:mm，昨日00：00前显示MM月dd日 HH:mm
+            if secDistanceMsgNowToNow<secDistanceZeroTodayToNow{
+                formatter.dateFormat="HH:mm"
+            }else if secDistanceMsgNowToNow<secDistanceZeroYesterDayToNow{
+                formatter.dateFormat="昨天 HH:mm"
+            }else{
+                formatter.dateFormat="MM月dd日 HH:mm"
             }
-            return txt
-            
-        }else {
-            return ""
+            txt = formatter.stringFromDate(NSDate(timeIntervalSince1970: NSTimeInterval(aTimestamp)))
+            secOfMsgBefore=aTimestamp
         }
+        return txt
+    }
+    /**
+     获取聊天消息的显示时间
+     
+     - parameter aTimestamp: 时间戳，单位为秒
+     
+     - returns: 返回时间字符串
+     */
+    class func getVisableTimeTxt(aTimestamp:Double)->String{
+        var txt = ""
+        if abs(aTimestamp-secOfMsgBefore) > secRefresh{
+            txt = getTxtOfTimeByTimestamp(aTimestamp)
+        }
+        return txt
+        
+//        if secOfMsgNowInString == "" {
+//            return ""
+//        }
+//        if  let d = Double(secOfMsgNowInString){
+//            let secOfMsgNow = Int(d/1000)
+//            var txt=""
+//            if abs(secOfMsgNow-secOfMsgBefore) > secRefresh {
+//                let secNow=Int(NSDate().timeIntervalSince1970)
+//                let secDistanceMsgNowToNow=secNow-secOfMsgNow
+//                let formatter = NSDateFormatter()
+//                formatter.dateFormat="yyyy-MM-dd HH:mm:ss"
+//                let dateNowInString=formatter.stringFromDate(NSDate())
+//                let dataZeroInString=(dateNowInString as NSString).substringWithRange(NSMakeRange(0, 11))+"00:00:00"
+//                //  现在到今天00：00的秒数
+//                let secDistanceZeroTodayToNow=Int(HelpFromOc.intervalFromLastDate(dataZeroInString, toTheDate: dateNowInString))
+//                //  现在到昨天00：00的秒数
+//                let secDistanceZeroYesterDayToNow = secDistanceZeroTodayToNow+secOneDay
+//                //今日00：00后显示HH:mm  今日00：00前和昨日00：00之间显示昨天HH:mm，昨日00：00前显示MM月dd日 HH:mm
+//                if secDistanceMsgNowToNow<secDistanceZeroTodayToNow{
+//                    formatter.dateFormat="HH:mm"
+//                }else if secDistanceMsgNowToNow<secDistanceZeroYesterDayToNow{
+//                    formatter.dateFormat="昨天 HH:mm"
+//                }else{
+//                    formatter.dateFormat="MM月dd日 HH:mm"
+//                }
+//                txt = formatter.stringFromDate(NSDate(timeIntervalSince1970: NSTimeInterval(secOfMsgNow)))
+//                secOfMsgBefore=secOfMsgNow
+//            }
+//            return txt
+//            
+//        }else {
+//            return ""
+//        }
     }
     class func getSizeByStringAndDefaultFont(str:String)->CGSize{
         let textView=UITextView(frame: CGRectMake(0, 0, 0, 0))
@@ -75,34 +121,6 @@ class ToolOfCellInChat: NSObject {
             }
         }
         return txt
-    }
-    class func getTxtTimeBySec(secOfMsgNowInString:String) ->String{
-        if secOfMsgNowInString != ""{
-            let secOfMsgNow=Int(Double(secOfMsgNowInString)!/1000)
-            var txt=""
-            let secNow=Int(NSDate().timeIntervalSince1970)
-            let secDistanceMsgNowToNow=secNow-secOfMsgNow
-            let formatter = NSDateFormatter()
-            formatter.dateFormat="yyyy-MM-dd HH:mm:ss"
-            let dateNowInString=formatter.stringFromDate(NSDate())
-            let dataZeroInString=(dateNowInString as NSString).substringWithRange(NSMakeRange(0, 11))+"00:00:00"
-            //现在到今天00：00的秒数
-            let secDistanceZeroTodayToNow=Int(HelpFromOc.intervalFromLastDate(dataZeroInString, toTheDate: dateNowInString))
-            //现在到昨天00：00的秒数
-            let secDistanceZeroYesterDayToNow = secDistanceZeroTodayToNow+secOneDay
-            //今日00：00后显示HH:mm  今日00：00前和昨日00：00之间显示昨天HH:mm，昨日00：00前显示MM月dd日 HH:mm
-            if secDistanceMsgNowToNow<secDistanceZeroTodayToNow{
-                formatter.dateFormat="HH:mm"
-            }else if secDistanceMsgNowToNow<secDistanceZeroYesterDayToNow{
-                formatter.dateFormat="昨天 HH:mm"
-            }else{
-                formatter.dateFormat="MM月dd日 HH:mm"
-            }
-            txt = formatter.stringFromDate(NSDate(timeIntervalSince1970: NSTimeInterval(secOfMsgNow)))
-            return txt
-        }else{
-            return ""
-        }
     }
     class func getTimeSize(txtOfTime:String)->CGSize{
         return txtOfTime.boundingRectWithSize(maxSizeOfTime, options: NSStringDrawingOptions.UsesLineFragmentOrigin, attributes: [NSFontAttributeName:fontOfTime], context: nil).size

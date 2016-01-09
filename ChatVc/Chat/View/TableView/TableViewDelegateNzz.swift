@@ -237,6 +237,8 @@ extension TableviewDelegateNzz {
                     aMTableviewDelegateNzz.addMsgTxt(msg as! MMsgTxt, funLater: aMTableviewDelegateNzz.appendMsg)
                 }else if msg is MMsgOrder{
                     aMTableviewDelegateNzz.addMsgOrder(msg as! MMsgOrder, funLater: aMTableviewDelegateNzz.appendMsg)
+                }else if msg is MMsgVoice{
+                    aMTableviewDelegateNzz.addMsgVoice(msg as! MMsgVoice, funLater: aMTableviewDelegateNzz.appendMsg)
                 }
             }
             //0106 此处如何不适用reload，reload损耗太大.用类似insertAndScrolltoLastCell的方法
@@ -251,12 +253,13 @@ extension TableviewDelegateNzz {
         }
         
     }
-    /**
+     /**
      在tablview上方同时添加多条消息
      
-     - parameter msgs: 需要插入的消息,消息排列由旧到新
+     - parameter msgs:       需要插入的消息,消息排列由旧到新
+     - parameter timeCreate: 消息的时间
      */
-    func loadOldMsgs(msgs:[MMsgBasic]){
+    func loadOldMsgs(msgs:[MMsgBasic],timeCreate:[Int64]){
         if msgs.count > 0 {
             for  msg in msgs {
                 if msg is MMsgImg{
@@ -266,12 +269,15 @@ extension TableviewDelegateNzz {
                     
                 }else if msg is MMsgOrder{
                     aMTableviewDelegateNzz.addMsgOrder(msg as! MMsgOrder, funLater: aMTableviewDelegateNzz.insertMsg)
+                }else if msg is MMsgVoice{
+                    aMTableviewDelegateNzz.addMsgVoice(msg as! MMsgVoice, funLater: aMTableviewDelegateNzz.insertMsg)
                 }
             }
+
             aTableView.reloadData()
             //当不是第一次拉取聊天记录的时候 则需要滚动
             if msgs.count != aMTableviewDelegateNzz.chatHistory.count{
-                aTableView.scrollToRowAtIndexPath(NSIndexPath(forRow:msgs.count-1, inSection: 0), atScrollPosition: UITableViewScrollPosition.Top, animated: false)
+//                aTableView.scrollToRowAtIndexPath(NSIndexPath(forRow:msgs.count-1, inSection: 0), atScrollPosition: UITableViewScrollPosition.Top, animated: false)
             }else{
                 aTableView.scrollToRowAtIndexPath(NSIndexPath(forRow:msgs.count-1, inSection: 0), atScrollPosition: UITableViewScrollPosition.Bottom, animated: false)
             }

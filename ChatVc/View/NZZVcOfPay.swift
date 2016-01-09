@@ -13,12 +13,12 @@ enum SGPaymentChannel : String {
 }
 protocol NZZVcOfPayDelegate : NSObjectProtocol{
     //  nzz index可不传,在chatvc中传是为了将该index修改，ModelOfMsgCellOrder也是根据需要来传,此处代理需要修改，不是很好
-    func payNow(channel: SGPaymentChannel, amount:Double)
+    func payNow(channel: SGPaymentChannel, amount:Float)
 
     func payCancel()
 }
 class NZZVcOfPay: UIViewController {
-    var amountOrigin : Double = 0
+    var amountOrigin : Float = 0
         {
         didSet
         {
@@ -126,7 +126,7 @@ class NZZVcOfPay: UIViewController {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
     }
     
-    func initView(aAmountOrigin:Double){
+    func initView(aAmountOrigin:Float){
         
         amountOrigin = aAmountOrigin
         

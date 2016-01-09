@@ -16,22 +16,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var aChatVc:UINavigationController?
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         
-//        var string = HelpFromOc.objectToJsonString()
-
-        var dic = [
-            "type": 3,
-            "show": true,
-            "orderType": "ORD0001",
-            "name": "酒店",
-            "num": "OBC2015112022052411010000496",
-            "goodName": "如家快捷酒店(深圳宝安机场T3航站楼店)",
-            "status": 0,
-            "price": 100.23,
-            "created": "1448028523000"]
-        
-        var a = MMsgOrder().initMMsgOrder(dic, aStatusOfSend: StatusOfSend.sending, aImgHeadUrlOrFilePath: "", aIsSend: true, aMsgId: 1)
-
-    
+var a =            NSDate().timeIntervalSince1970
         
         //window界面初始化
         window = UIWindow(frame: UIScreen.mainScreen().bounds)

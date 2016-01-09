@@ -118,6 +118,11 @@ class UserModel: TopModel {
         initRCIM()
         
     }
+    func loginOut(){
+        if  let appDelegate = UIApplication.sharedApplication().delegate as? AppDelegate {
+            appDelegate.setRootViewControllerIsLogin()
+        }
+    }
 
 }
 

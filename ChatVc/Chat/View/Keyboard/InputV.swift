@@ -650,6 +650,7 @@ class InputV: UIView {
         statusOfKeyboard = StatusOfKeyboard.Text
         if let userInfo = aNSNotification.userInfo {
             if let heightEnd = userInfo[UIKeyboardFrameEndUserInfoKey]?.CGRectValue.origin.y{
+
 //                if let heightBegin = userInfo[UIKeyboardFrameBeginUserInfoKey]?.CGRectValue.origin.y{
                 
                     //nzz此处高度第一次进入chatview时会,键盘出现4415高度！
@@ -661,6 +662,7 @@ class InputV: UIView {
                     var boundOfView = self.superview!.bounds
                     print("*******\(boundOfView.size.height) \(heightEnd) \(boundOfView.size.height-heightEnd)")
                     let offsetY:CGFloat = boundOfView.size.height-heightEnd
+                oneInputVcDelegate!.boundsNeedToChange(offsetY)
                     heightOfKeyBoard=heightEnd
                     boundOfView.origin.y = offsetY
                     self.superview!.bounds = boundOfView

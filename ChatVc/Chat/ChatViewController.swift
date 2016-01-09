@@ -168,12 +168,12 @@ class ChatViewController: UIViewController {
 // MARK: -InputVcDelegate委托实现
 extension  ChatViewController:InputVcDelegate{
     func boundsNeedToChange(bundleAdd: CGFloat) {
-        //        if aTableviewDelegateNzz.aMTableviewDelegateNzz.nbOfMsg<=4{
-        //            tbvNSLayoutConstraintTop.constant=bundleAdd
-        //            view.layoutIfNeeded()
-        //        }else{
-        //            tbvNSLayoutConstraintTop.constant=0
-        //        }
+                if aTableviewDelegateNzz.aMTableviewDelegateNzz.nbOfMsg<=4{
+                    tbvNSLayoutConstraintTop.constant=bundleAdd
+                    view.layoutIfNeeded()
+                }else{
+                    tbvNSLayoutConstraintTop.constant=0
+                }
     }
     func goLastMsg() {
         //if chatTableView.nbOfMsg>0{
@@ -312,16 +312,27 @@ extension  ChatViewController:InputVcDelegate{
                         if let strKey =  resp["key"] as? String {
                             
                             print("strKey:\(strKey)")
-                            
-                            MRCIM.sharedMRCIM.sendMsgVoice(dataInVoice, aDuration: infosVoice[1] as! Int, successBlock: { (messageId) -> Void in
+                            NSNumber(float: infosVoice[1] as! Float).integerValue
+                            MRCIM.shareManager().sendMsgVoice(dataInVoice, aDuration: NSNumber(float: infosVoice[1] as! Float).integerValue , successBlock: { (messageId) -> Void in
                                 
-                                let filePath=msgIdToFilePath(messageId, isVoice: false) as String
+                                let filePath=msgIdToFilePath(messageId, isVoice: true) as String
                                 //将图片保存到本地image文件夹下
                                 dataInVoice.writeToFile(filePath, atomically: true)
                                 
-                                self.aTableviewDelegateNzz.addAnewMsgVoice(MMsgVoice().initMMsgVoice(infosVoice[1] as! Float, aVoiceUrlOrPath: strKey, aStatusOfSend: StatusOfSend.success, aImgHeadUrlOrFilePath: DefaultHeadImgPath, aIsSend: true,aMsgId: messageId))
                                 
-                                print("发送成功")
+                                
+                                dispatch_async(dispatch_get_main_queue(), { () -> Void in
+//0108为什么此处不用dispatch_async会失败
+                                    self.aTableviewDelegateNzz.addAnewMsgVoice(MMsgVoice().initMMsgVoice(infosVoice[1] as! Float, aVoiceUrlOrPath: filePath, aStatusOfSend: StatusOfSend.success, aImgHeadUrlOrFilePath: DefaultHeadImgPath, aIsSend: true,aMsgId: messageId))
+                                    
+                                    print("发送成功")
+
+                                })
+                                
+                                
+//                                self.aTableviewDelegateNzz.addAnewMsgVoice(MMsgVoice().initMMsgVoice(infosVoice[1] as! Float, aVoiceUrlOrPath: strKey, aStatusOfSend: StatusOfSend.success, aImgHeadUrlOrFilePath: DefaultHeadImgPath, aIsSend: true,aMsgId: messageId))
+//                                
+//                                print("发送成功")
                                 }, errorBlock: { (nErrorCode, messageId) -> Void in
                                     print("发送失败")
                             })
@@ -457,7 +468,7 @@ extension ChatViewController:NZZVcOfPayDelegate{
     func payCancel() {
         SVProgressHUD.showInfoWithStatus("交易取消")
     }
-    func payNow(channel: SGPaymentChannel, amount: Double) {
+    func payNow(channel: SGPaymentChannel, amount: Float) {
         
         PingPPPay().askCharge("966", oneChannel: channel, success: { (model) -> Void in
             print("获取支付凭证成功")
@@ -505,25 +516,31 @@ extension ChatViewController:UITableViewDelegate,UITableViewDataSource{
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
-        let aWebViewController=UIStoryboard(name: "Chat", bundle: nil).instantiateViewControllerWithIdentifier("WebViewController") as! WebViewController
-        navigationController?.pushViewController(aWebViewController, animated: true)
         
         showMoreActionMenu()
-        //        switch (indexPath.row) {
-        //        case 0:
-        //
-        //            break;
-        //        case 1:
-        //
-        //            break;
-        //
-        //        case 2:
-        //
-        //            break;
-        //
-        //        default:
-        //            break;
-        //        }
+                switch (indexPath.row) {
+                case 0:
+                    let aWebViewController=UIStoryboard(name: "Chat", bundle: nil).instantiateViewControllerWithIdentifier("WebViewController") as! WebViewController
+                    navigationController?.pushViewController(aWebViewController, animated: true)
+                    
+                    break;
+                case 1:
+                    let aWebViewController=UIStoryboard(name: "Chat", bundle: nil).instantiateViewControllerWithIdentifier("WebViewController") as! WebViewController
+                    navigationController?.pushViewController(aWebViewController, animated: true)
+                    
+                    break;
+        
+                case 2:
+                    let aWebViewController=UIStoryboard(name: "Chat", bundle: nil).instantiateViewControllerWithIdentifier("WebViewController") as! WebViewController
+                    navigationController?.pushViewController(aWebViewController, animated: true)
+                    
+                    break;
+                case 3:
+                    UserModel.shareManager().loginOut()
+                    break;
+                default:
+                    break;
+                }
     }
 }
 // MARK: - 拉取聊天记录
@@ -533,14 +550,24 @@ extension ChatViewController{
         var arrMsgsDB =        RCIMClient.sharedRCIMClient().getHistoryMessages(RCConversationType.ConversationType_PRIVATE, targetId: UserModel.shareManager().targetId, oldestMessageId: idOldestMsg, count: 10) as! [RCMessage]
         if arrMsgsDB.count != 0{
             var arrMMsgBasic=[MMsgBasic]()
+            var arrTimeCreate=[Int64]()
             for msg in arrMsgsDB{
+                let aIsSend=(UserModel.shareManager().idMine == msg.senderUserId)
+                /**
+                *  获取消息时间
+                */
+                if aIsSend{
+                    arrTimeCreate.append(msg.sentTime)
+                }else{
+                    arrTimeCreate.append(msg.receivedTime)
+                }
                 if msg.content is RCImageMessage
                 {
                     let aRCImageMessage = msg.content as! RCImageMessage
                     let imgPath=msgIdToFilePath(msg.messageId, isVoice: false)
                     //? 0106string不会为nil 返回string?时可能为string==nil不会报错，去掉？会报错，为什么
                     if imgPath != "" {
-                        arrMMsgBasic.append(MMsgImg().initMMsgImg(aRCImageMessage.thumbnailImage, aFullImgUrlOrPath: imgPath , aStatusOfSend: StatusOfSend.success, aImgHeadUrlOrFilePath: "", aIsSend: (UserModel.shareManager().idMine == msg.senderUserId),aMsgId: msg.messageId))
+                        arrMMsgBasic.append(MMsgImg().initMMsgImg(aRCImageMessage.thumbnailImage, aFullImgUrlOrPath: imgPath , aStatusOfSend: StatusOfSend.success, aImgHeadUrlOrFilePath: "", aIsSend: aIsSend,aMsgId: msg.messageId))
                     }
                 }else if  msg.content is RCTextMessage {
                     /**
@@ -549,20 +576,26 @@ extension ChatViewController{
                     
                     if msg.extra == nil || msg.extra == ""{
                         let aRCTextMessage = msg.content as! RCTextMessage
-                        arrMMsgBasic.append(MMsgTxt().initMMsgTxt(txt: aRCTextMessage.content, aStatusOfSend: StatusOfSend.success, aImgHeadUrlOrFilePath: "", aIsSend: (UserModel.shareManager().idMine == msg.senderUserId),aMsgId: msg.messageId))
+                        arrMMsgBasic.append(MMsgTxt().initMMsgTxt(txt: aRCTextMessage.content, aStatusOfSend: StatusOfSend.success, aImgHeadUrlOrFilePath: "", aIsSend: aIsSend,aMsgId: msg.messageId))
                     }else{
                         let extraInDic = HelpFromOc.dictionaryWithJsonString(msg.extra)
                             as! Dictionary<String,AnyObject>
-                        arrMMsgBasic.append(MMsgOrder().initMMsgOrder(extraInDic, aStatusOfSend: StatusOfSend.success, aImgHeadUrlOrFilePath: "", aIsSend: (UserModel.shareManager().idMine == msg.senderUserId), aMsgId: msg.messageId))
+                        arrMMsgBasic.append(MMsgOrder().initMMsgOrder(extraInDic, aStatusOfSend: StatusOfSend.success, aImgHeadUrlOrFilePath: "", aIsSend: aIsSend, aMsgId: msg.messageId))
                         
                     }
                 }else if  msg.content is RCLocationMessage{
                     /// 保存的消息是地址消息，处理同文本消息
-                    let aRCTextMessage = msg.content as! RCTextMessage
-                    arrMMsgBasic.append(MMsgTxt().initMMsgTxt(txt: aRCTextMessage.content, aStatusOfSend: StatusOfSend.success, aImgHeadUrlOrFilePath: "", aIsSend: (UserModel.shareManager().idMine == msg.senderUserId),aMsgId: msg.messageId))
+                    let aRCLocationMessage = msg.content as! RCLocationMessage
+                    arrMMsgBasic.append(MMsgTxt().initMMsgTxt(txt: aRCLocationMessage.locationName, aStatusOfSend: StatusOfSend.success, aImgHeadUrlOrFilePath: "", aIsSend: aIsSend,aMsgId: msg.messageId))
+                }else if msg.content is RCVoiceMessage{
+//                    保存的是语音消息，处理同文本消息
+                    let aRCVoiceMessage = msg.content as! RCVoiceMessage
+                    
+                    msgIdToFilePath(msg.messageId, isVoice: true)
+                    arrMMsgBasic.append(MMsgVoice().initMMsgVoice(NSNumber(integer: aRCVoiceMessage.duration).floatValue, aVoiceUrlOrPath: msgIdToFilePath(msg.messageId, isVoice: true) , aStatusOfSend: StatusOfSend.success, aImgHeadUrlOrFilePath: "", aIsSend: aIsSend, aMsgId:  msg.messageId))
                 }
             }
-            aTableviewDelegateNzz.loadOldMsgs(arrMMsgBasic)
+            aTableviewDelegateNzz.loadOldMsgs(arrMMsgBasic,timeCreate: arrTimeCreate)
             idOldestMsg = arrMsgsDB[arrMsgsDB.count-1].messageId
             
         }

@@ -211,8 +211,10 @@ static NSString *pathOfDoc;
 //                                                          error:&err];
 //    return dic;
 //}
+
+
 //根据string（2011-11-11 11:11:11）返回两个时间之间相差的秒数
-+ (int)intervalFromLastDate: (NSString *) dateString1  toTheDate:(NSString *) dateString2
++ (double)intervalFromLastDate: (NSString *) dateString1  toTheDate:(NSString *) dateString2
 {
     NSArray *timeArray1=[dateString1 componentsSeparatedByString:@"."];
     dateString1=[timeArray1 objectAtIndex:0];
@@ -263,7 +265,7 @@ static NSString *pathOfDoc;
 //    timeString=[NSString stringWithFormat:@"%@:%@:%@",house,min,sen];
     
     
-    return (int)cha;
+    return cha;
 }
 + (void)redirectNSlogToDocumentFolder
 {
