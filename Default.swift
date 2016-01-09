@@ -199,3 +199,5 @@ let UIStoryboardIDChat="Chat"
 //通知名  
 //通知会话界面拉取聊天记录
 let NSNotificationLoadOldMsg="NSNotificationLoadOldMsg"
+//没有时间戳
+let DefaultNoTime:Double=0

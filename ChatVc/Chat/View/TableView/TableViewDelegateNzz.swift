@@ -96,7 +96,7 @@ class TableviewDelegateNzz : NSObject, UITableViewDelegate, UITableViewDataSourc
         switch (aMTableviewDelegateNzz.typeOfMsgs[indexPath.row]) {
         case .TxtMine:
             let cell = tableView.dequeueReusableCellWithIdentifier(Cell1ChatTableViewCellIdentifier, forIndexPath: indexPath) as! Cell1ChatTableViewCell
-            cell.aModelOfMsgCellTxt =  aMTableviewDelegateNzz.chatHistory[indexPath.row] as! ModelOfMsgCellTxt
+            cell.aModelOfMsgCellTxt =  aMTableviewDelegateNzz.chatHistory[indexPath.row] as? ModelOfMsgCellTxt
             cell.resetCellTxt()
             setUniversalSettingInChatTableViewCell(cell, aIndex: indexPath,viewSetLayer: cell.textOfMsg)
             //nzz   awakeFromNib中设置textOfMsg.userInteractionEnabled=false，textOfMsg.userInteractionEnabled依旧位true为什么
@@ -104,19 +104,19 @@ class TableviewDelegateNzz : NSObject, UITableViewDelegate, UITableViewDataSourc
             return cell
         case .TxtOfCustomer:
             let cell = tableView.dequeueReusableCellWithIdentifier(Cell2ChatTableViewCellIdentifier, forIndexPath: indexPath) as! Cell1ChatTableViewCell
-            cell.aModelOfMsgCellTxt =  aMTableviewDelegateNzz.chatHistory[indexPath.row] as! ModelOfMsgCellTxt
+            cell.aModelOfMsgCellTxt =  aMTableviewDelegateNzz.chatHistory[indexPath.row] as? ModelOfMsgCellTxt
             cell.resetCellTxt()
             setUniversalSettingInChatTableViewCell(cell, aIndex: indexPath,viewSetLayer: cell.textOfMsg)
             return cell
         case .VoiceMine:
             let cell = tableView.dequeueReusableCellWithIdentifier(Cell1ChatTableViewCellIdentifier, forIndexPath: indexPath) as! Cell1ChatTableViewCell
-            cell.aModelOfMsgCellVoice =  aMTableviewDelegateNzz.chatHistory[indexPath.row] as! ModelOfMsgCellVoice
+            cell.aModelOfMsgCellVoice =  aMTableviewDelegateNzz.chatHistory[indexPath.row] as? ModelOfMsgCellVoice
             cell.resetCellVoice()
             setUniversalSettingInChatTableViewCell(cell, aIndex: indexPath,viewSetLayer: cell.textOfMsg)
             return cell
         case .VoiceOfCustomer:
             let cell = tableView.dequeueReusableCellWithIdentifier(Cell2ChatTableViewCellIdentifier, forIndexPath: indexPath) as! Cell1ChatTableViewCell
-            cell.aModelOfMsgCellVoice =  aMTableviewDelegateNzz.chatHistory[indexPath.row] as! ModelOfMsgCellVoice
+            cell.aModelOfMsgCellVoice =  aMTableviewDelegateNzz.chatHistory[indexPath.row] as? ModelOfMsgCellVoice
             cell.resetCellVoice()
             setUniversalSettingInChatTableViewCell(cell, aIndex: indexPath,viewSetLayer: cell.textOfMsg)
             return cell
@@ -208,19 +208,19 @@ extension TableviewDelegateNzz {
         aTableView.scrollToRowAtIndexPath(NSIndexPath(forRow:aMTableviewDelegateNzz.nbOfMsg-1, inSection: 0), atScrollPosition: UITableViewScrollPosition.Bottom, animated: true)
     }
     func addAnewMsgTxt(aMMsgTxt:MMsgTxt){
-        aMTableviewDelegateNzz.addMsgTxt(aMMsgTxt, funLater: aMTableviewDelegateNzz.appendMsg)
+        aMTableviewDelegateNzz.addMsgTxt(aMMsgTxt,timeCreate: DefaultNoTime, funLater: aMTableviewDelegateNzz.appendMsg)
         insertAndScrolltoLastCell()
     }
     func addAnewMsgVoice(aMMsgVoice:MMsgVoice){
-        aMTableviewDelegateNzz.addMsgVoice(aMMsgVoice, funLater: aMTableviewDelegateNzz.appendMsg)
+        aMTableviewDelegateNzz.addMsgVoice(aMMsgVoice,timeCreate: DefaultNoTime, funLater: aMTableviewDelegateNzz.appendMsg)
         insertAndScrolltoLastCell()
     }
     func  addAnewMsgImg(aMMsgImg:MMsgImg){
-        aMTableviewDelegateNzz.addMsgImg(aMMsgImg, funLater: aMTableviewDelegateNzz.appendMsg)
+        aMTableviewDelegateNzz.addMsgImg(aMMsgImg,timeCreate: DefaultNoTime, funLater: aMTableviewDelegateNzz.appendMsg)
         insertAndScrolltoLastCell()
     }
     func addAnewMsgOrder(aMMsgOrder:MMsgOrder){
-        aMTableviewDelegateNzz.addMsgOrder(aMMsgOrder, funLater: aMTableviewDelegateNzz.appendMsg)
+        aMTableviewDelegateNzz.addMsgOrder(aMMsgOrder,timeCreate: DefaultNoTime, funLater: aMTableviewDelegateNzz.appendMsg)
         insertAndScrolltoLastCell()
     }
     /**
@@ -232,13 +232,13 @@ extension TableviewDelegateNzz {
         if msgs.count > 0 {
             for  msg in msgs {
                 if msg is MMsgImg{
-                    aMTableviewDelegateNzz.addMsgImg(msg as! MMsgImg, funLater: aMTableviewDelegateNzz.appendMsg)
+                    aMTableviewDelegateNzz.addMsgImg(msg as! MMsgImg,timeCreate: DefaultNoTime, funLater: aMTableviewDelegateNzz.appendMsg)
                 }else if msg is MMsgTxt{
-                    aMTableviewDelegateNzz.addMsgTxt(msg as! MMsgTxt, funLater: aMTableviewDelegateNzz.appendMsg)
+                    aMTableviewDelegateNzz.addMsgTxt(msg as! MMsgTxt,timeCreate: DefaultNoTime, funLater: aMTableviewDelegateNzz.appendMsg)
                 }else if msg is MMsgOrder{
-                    aMTableviewDelegateNzz.addMsgOrder(msg as! MMsgOrder, funLater: aMTableviewDelegateNzz.appendMsg)
+                    aMTableviewDelegateNzz.addMsgOrder(msg as! MMsgOrder,timeCreate: DefaultNoTime, funLater: aMTableviewDelegateNzz.appendMsg)
                 }else if msg is MMsgVoice{
-                    aMTableviewDelegateNzz.addMsgVoice(msg as! MMsgVoice, funLater: aMTableviewDelegateNzz.appendMsg)
+                    aMTableviewDelegateNzz.addMsgVoice(msg as! MMsgVoice,timeCreate: DefaultNoTime, funLater: aMTableviewDelegateNzz.appendMsg)
                 }
             }
             //0106 此处如何不适用reload，reload损耗太大.用类似insertAndScrolltoLastCell的方法
@@ -259,19 +259,25 @@ extension TableviewDelegateNzz {
      - parameter msgs:       需要插入的消息,消息排列由旧到新
      - parameter timeCreate: 消息的时间
      */
-    func loadOldMsgs(msgs:[MMsgBasic],timeCreate:[Int64]){
+    func loadOldMsgs(msgs:[MMsgBasic],timeCreates:[Int64]){
         if msgs.count > 0 {
-            for  msg in msgs {
+//            for var index = 0; index < 3; ++index {
+//                println("index is \(index)")
+//            }
+            var i = 0
+            while i < msgs.count {
+                let msg=msgs[i]
+                let timeCreate=timeCreates[i]
                 if msg is MMsgImg{
-                    aMTableviewDelegateNzz.addMsgImg(msg as! MMsgImg, funLater: aMTableviewDelegateNzz.insertMsg)
+                    aMTableviewDelegateNzz.addMsgImg(msg as! MMsgImg,timeCreate: Double(timeCreate), funLater: aMTableviewDelegateNzz.insertMsg)
                 }else if msg is MMsgTxt{
-                    aMTableviewDelegateNzz.addMsgTxt(msg as! MMsgTxt, funLater: aMTableviewDelegateNzz.insertMsg)
-                    
+                    aMTableviewDelegateNzz.addMsgTxt(msg as! MMsgTxt,timeCreate: Double(timeCreate), funLater: aMTableviewDelegateNzz.insertMsg)
                 }else if msg is MMsgOrder{
-                    aMTableviewDelegateNzz.addMsgOrder(msg as! MMsgOrder, funLater: aMTableviewDelegateNzz.insertMsg)
+                    aMTableviewDelegateNzz.addMsgOrder(msg as! MMsgOrder,timeCreate: Double(timeCreate), funLater: aMTableviewDelegateNzz.insertMsg)
                 }else if msg is MMsgVoice{
-                    aMTableviewDelegateNzz.addMsgVoice(msg as! MMsgVoice, funLater: aMTableviewDelegateNzz.insertMsg)
+                    aMTableviewDelegateNzz.addMsgVoice(msg as! MMsgVoice,timeCreate: Double(timeCreate), funLater: aMTableviewDelegateNzz.insertMsg)
                 }
+                i++
             }
 
             aTableView.reloadData()

@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ChatVc/ThirdPartTool/NzzHelp/HelpFromOc.m"
-            timestampString = "473584596.317888"
+            timestampString = "474010288.719856"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "309"
-            endingLineNumber = "309"
+            startingLineNumber = "311"
+            endingLineNumber = "311"
             landmarkName = "+getObjectData:"
             landmarkType = "5">
          </BreakpointContent>
@@ -106,7 +106,7 @@
                   moduleName = "ChatVc"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/ai966669/Desktop/%E5%85%B3%E4%BA%8EiOS/%E8%87%AA%E5%AE%9A%E4%B9%89%E6%8E%A7%E4%BB%B6/ChatVc/ChatVc/Model/MRCIM.swift"
-                  timestampString = "473998937.42123"
+                  timestampString = "474011338.838148"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "31"
@@ -121,7 +121,7 @@
                   moduleName = "ChatVc"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/ai966669/Desktop/%E5%85%B3%E4%BA%8EiOS/%E8%87%AA%E5%AE%9A%E4%B9%89%E6%8E%A7%E4%BB%B6/ChatVc/ChatVc/Model/MRCIM.swift"
-                  timestampString = "473998937.421367"
+                  timestampString = "474011338.838323"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "32"
@@ -144,22 +144,6 @@
             startingLineNumber = "379"
             endingLineNumber = "379"
             landmarkName = "receiveMsgImg(_:fullImgUrlOrPath:msgIds:)"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "ChatVc/Chat/ChatViewController.swift"
-            timestampString = "473952077.58139"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "615"
-            endingLineNumber = "615"
-            landmarkName = "showOrderDetail(_:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -250,7 +234,7 @@
                   moduleName = "ChatVc"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/ai966669/Desktop/%E5%85%B3%E4%BA%8EiOS/%E8%87%AA%E5%AE%9A%E4%B9%89%E6%8E%A7%E4%BB%B6/ChatVc/ChatVc/Chat/ChatViewController.swift"
-                  timestampString = "473998937.423768"
+                  timestampString = "474011338.89864"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "324"
@@ -265,7 +249,7 @@
                   moduleName = "ChatVc"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/ai966669/Desktop/%E5%85%B3%E4%BA%8EiOS/%E8%87%AA%E5%AE%9A%E4%B9%89%E6%8E%A7%E4%BB%B6/ChatVc/ChatVc/Chat/ChatViewController.swift"
-                  timestampString = "473998937.423898"
+                  timestampString = "474011338.899083"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "326"
@@ -314,7 +298,7 @@
                   moduleName = "ChatVc"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/ai966669/Desktop/%E5%85%B3%E4%BA%8EiOS/%E8%87%AA%E5%AE%9A%E4%B9%89%E6%8E%A7%E4%BB%B6/ChatVc/ChatVc/Chat/View/TableView/CellChatHistory/Cell1ChatTableViewCell.swift"
-                  timestampString = "473998937.424995"
+                  timestampString = "474011338.904418"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "94"
@@ -329,7 +313,7 @@
                   moduleName = "ChatVc"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/ai966669/Desktop/%E5%85%B3%E4%BA%8EiOS/%E8%87%AA%E5%AE%9A%E4%B9%89%E6%8E%A7%E4%BB%B6/ChatVc/ChatVc/Chat/View/TableView/CellChatHistory/Cell1ChatTableViewCell.swift"
-                  timestampString = "473998937.425133"
+                  timestampString = "474011338.904865"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "95"
@@ -410,7 +394,7 @@
                   moduleName = "ChatVc"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/ai966669/Desktop/%E5%85%B3%E4%BA%8EiOS/%E8%87%AA%E5%AE%9A%E4%B9%89%E6%8E%A7%E4%BB%B6/ChatVc/ChatVc/Chat/ChatViewController.swift"
-                  timestampString = "473998937.428025"
+                  timestampString = "474011338.909888"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "276"
@@ -425,7 +409,7 @@
                   moduleName = "ChatVc"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/ai966669/Desktop/%E5%85%B3%E4%BA%8EiOS/%E8%87%AA%E5%AE%9A%E4%B9%89%E6%8E%A7%E4%BB%B6/ChatVc/ChatVc/Chat/ChatViewController.swift"
-                  timestampString = "473998937.428154"
+                  timestampString = "474011338.910578"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "277"
@@ -457,13 +441,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "ChatVc/Chat/ChatViewController.swift"
-            timestampString = "473953221.625195"
+            filePath = "ChatVc/Chat/View/TableView/ToolOfCellInChat.swift"
+            timestampString = "474010954.437808"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "171"
-            endingLineNumber = "171"
-            landmarkName = "boundsNeedToChange(_:)"
+            startingLineNumber = "28"
+            endingLineNumber = "28"
+            landmarkName = "getTxtOfTimeByTimestamp(_:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

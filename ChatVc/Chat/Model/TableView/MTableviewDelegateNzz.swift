@@ -34,10 +34,10 @@ class MTableviewDelegateNzz: NSObject {
         }
         nbOfMsg -= indexPaths.count
     }
-    func addMsgImg(aMMsgImg:MMsgImg,funLater:(aTypeOfMsg:TypeOfMsg,aTimeVisiable:Bool,aModelOfMsgCellBasic:ModelOfMsgCellBasic)->Void){
+    func addMsgImg(aMMsgImg:MMsgImg,timeCreate:Double,funLater:(aTypeOfMsg:TypeOfMsg,aTimeVisiable:Bool,aModelOfMsgCellBasic:ModelOfMsgCellBasic)->Void){
         var aTypeOfMsg=TypeOfMsg.TxtMine
         var aTimeVisiable=false
-        let timeCreateInTxt=ToolOfCellInChat.getVisableTimeTxt(NSDate().timeIntervalSince1970)
+        let timeCreateInTxt=getTimeCreate(timeCreate)
         if timeCreateInTxt==""{
             aTimeVisiable=false
         }else{
@@ -64,11 +64,19 @@ class MTableviewDelegateNzz: NSObject {
         
         funLater(aTypeOfMsg: aTypeOfMsg,aTimeVisiable: aTimeVisiable,aModelOfMsgCellBasic: aModelOfMsgCellImg)
     }
-    func addMsgTxt(aMMsgTxt:MMsgTxt,funLater:(aTypeOfMsg:TypeOfMsg,aTimeVisiable:Bool,aModelOfMsgCellBasic:ModelOfMsgCellBasic)->Void){
+    func getTimeCreate(timeCreate:Double)->String{
+        var timeCreateInTxt=""
+        if timeCreate != DefaultNoTime{
+            timeCreateInTxt=ToolOfCellInChat.getTxtOfTimeByTimestamp(timeCreate)
+        }else{
+            timeCreateInTxt=ToolOfCellInChat.getVisableTimeTxt(NSDate().timeIntervalSince1970)
+        }
+        return timeCreateInTxt
+    }
+    func addMsgTxt(aMMsgTxt:MMsgTxt,timeCreate:Double,funLater:(aTypeOfMsg:TypeOfMsg,aTimeVisiable:Bool,aModelOfMsgCellBasic:ModelOfMsgCellBasic)->Void){
         var aTypeOfMsg=TypeOfMsg.TxtMine
         var aTimeVisiable=false
-        //        1970到现在的毫秒数
-        let timeCreateInTxt=ToolOfCellInChat.getVisableTimeTxt(NSDate().timeIntervalSince1970)
+        var timeCreateInTxt=getTimeCreate(timeCreate)
         if timeCreateInTxt==""{
             aTimeVisiable=false
         }else{
@@ -77,7 +85,7 @@ class MTableviewDelegateNzz: NSObject {
         if aMMsgTxt.isSend{
             aTypeOfMsg=TypeOfMsg.TxtMine
         }else{
-           aTypeOfMsg=TypeOfMsg.TxtOfCustomer
+            aTypeOfMsg=TypeOfMsg.TxtOfCustomer
         }
         let size = ToolOfCellInChat.getSizeByStringAndDefaultFont(aMMsgTxt.txt)
         
@@ -86,7 +94,7 @@ class MTableviewDelegateNzz: NSObject {
         
         funLater(aTypeOfMsg: aTypeOfMsg,aTimeVisiable: aTimeVisiable,aModelOfMsgCellBasic: aModelOfMsgCellTxt)
     }
-    func addMsgVoice(aMMsgVoice:MMsgVoice,funLater:(aTypeOfMsg:TypeOfMsg,aTimeVisiable:Bool,aModelOfMsgCellBasic:ModelOfMsgCellBasic)->Void){
+    func addMsgVoice(aMMsgVoice:MMsgVoice,timeCreate:Double,funLater:(aTypeOfMsg:TypeOfMsg,aTimeVisiable:Bool,aModelOfMsgCellBasic:ModelOfMsgCellBasic)->Void){
         
         var aTypeOfMsg=TypeOfMsg.TxtMine
         var aTimeVisiable=false
@@ -94,7 +102,7 @@ class MTableviewDelegateNzz: NSObject {
         let txt=ToolOfCellInChat.getTxtByVoiceTime(aMMsgVoice.timeVoice)
         let size=ToolOfCellInChat.getSizeByStringAndDefaultFont(txt)
         
-        let timeCreateInTxt=ToolOfCellInChat.getVisableTimeTxt(NSDate().timeIntervalSince1970)
+        let timeCreateInTxt=getTimeCreate(timeCreate)
         if timeCreateInTxt==""{
             aTimeVisiable=false
         }else{
@@ -111,10 +119,10 @@ class MTableviewDelegateNzz: NSObject {
         funLater(aTypeOfMsg: aTypeOfMsg,aTimeVisiable: aTimeVisiable,aModelOfMsgCellBasic: aModelOfMsgCellVoice)
     }
     
-    func addMsgOrder(aMMsgOrder:MMsgOrder,funLater:(aTypeOfMsg:TypeOfMsg,aTimeVisiable:Bool,aModelOfMsgCellBasic:ModelOfMsgCellBasic)->Void){
+    func addMsgOrder(aMMsgOrder:MMsgOrder,timeCreate:Double,funLater:(aTypeOfMsg:TypeOfMsg,aTimeVisiable:Bool,aModelOfMsgCellBasic:ModelOfMsgCellBasic)->Void){
         var aTypeOfMsg=TypeOfMsg.TxtMine
         var aTimeVisiable=false
-        let timeCreateInTxt=ToolOfCellInChat.getVisableTimeTxt(NSDate().timeIntervalSince1970)
+        let timeCreateInTxt=getTimeCreate(timeCreate)
         if timeCreateInTxt==""{
             aTimeVisiable=false
         }else{

@@ -239,11 +239,11 @@ extension SearchAddressViewController: UITableViewDelegate,UITableViewDataSource
             
             //发送现在位置
             if result != nil {
-                var aPt=result?.ptList[indexPath.row] as! NSValue
+                let aPt=result?.ptList[indexPath.row] as! NSValue
                 var aCLLocationCoordinate2D=CLLocationCoordinate2D()
                 aPt.getValue(&aCLLocationCoordinate2D)
                 
-                var adds="\(result?.cityList[indexPath.row] as! String)\(result?.districtList[indexPath.row] as! String)\(result?.keyList[indexPath.row] as! String)"
+                let adds="\(result?.cityList[indexPath.row] as! String)\(result?.districtList[indexPath.row] as! String)\(result?.keyList[indexPath.row] as! String)"
                 vcChat?.sendLocation(adds, pt: aCLLocationCoordinate2D)
 //                vcChat?.myInputVc.txtViewOfMsg.text = "\(result!.cityList[indexPath.row])\(result!.districtList[indexPath.row])\(result!.keyList[indexPath.row])"
                // vcChat?.myInputVc.calumateAndUpdateUITxtViewOfMsg()

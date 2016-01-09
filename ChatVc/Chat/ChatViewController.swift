@@ -557,9 +557,9 @@ extension ChatViewController{
                 *  获取消息时间
                 */
                 if aIsSend{
-                    arrTimeCreate.append(msg.sentTime)
+                    arrTimeCreate.append(msg.sentTime/1000)
                 }else{
-                    arrTimeCreate.append(msg.receivedTime)
+                    arrTimeCreate.append(msg.receivedTime/1000)
                 }
                 if msg.content is RCImageMessage
                 {
@@ -595,7 +595,7 @@ extension ChatViewController{
                     arrMMsgBasic.append(MMsgVoice().initMMsgVoice(NSNumber(integer: aRCVoiceMessage.duration).floatValue, aVoiceUrlOrPath: msgIdToFilePath(msg.messageId, isVoice: true) , aStatusOfSend: StatusOfSend.success, aImgHeadUrlOrFilePath: "", aIsSend: aIsSend, aMsgId:  msg.messageId))
                 }
             }
-            aTableviewDelegateNzz.loadOldMsgs(arrMMsgBasic,timeCreate: arrTimeCreate)
+            aTableviewDelegateNzz.loadOldMsgs(arrMMsgBasic,timeCreates: arrTimeCreate)
             idOldestMsg = arrMsgsDB[arrMsgsDB.count-1].messageId
             
         }
