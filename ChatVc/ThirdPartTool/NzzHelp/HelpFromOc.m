@@ -1,4 +1,4 @@
- //
+//
 //  helpFromOc.m
 //  SuperGina
 //
@@ -43,13 +43,13 @@ static NSString *pathOfDoc;
         return  false;
     } else if(status == AVAuthorizationStatusNotDetermined){
         // not determined
-//        [AVCaptureDevice requestAccessForMediaType:AVMediaTypeVideo completionHandler:^(BOOL granted) {
-//            if(granted){
-//                [self presentViewController:self.imagePickerController animated:YES completion:nil];
-//            } else {
-//                return;
-//            }
-//        }];
+        //        [AVCaptureDevice requestAccessForMediaType:AVMediaTypeVideo completionHandler:^(BOOL granted) {
+        //            if(granted){
+        //                [self presentViewController:self.imagePickerController animated:YES completion:nil];
+        //            } else {
+        //                return;
+        //            }
+        //        }];
         return true;
     }else{
         return false;
@@ -67,7 +67,7 @@ static NSString *pathOfDoc;
         // restricted
         return  false;
     } else if(status == AVAuthorizationStatusNotDetermined){
-
+        
         return true;
     }else{
         return false;
@@ -134,6 +134,19 @@ static NSString *pathOfDoc;
     return dic;
 }
 
++ (NSString*)dictionaryToJson:(NSDictionary *)dic
+
+{
+    
+    NSError *parseError = nil;
+    
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:dic options:NSJSONWritingPrettyPrinted error:&parseError];
+    
+    return [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+    
+}
+
+
 + (NSString *)objectToJsonString:(NSDictionary *)dictionary
 
 {
@@ -148,9 +161,9 @@ static NSString *pathOfDoc;
         
         NSData *jsonData = [NSJSONSerialization dataWithJSONObject:dictionary
                             
-                                                        options:NSJSONWritingPrettyPrinted
+                                                           options:NSJSONWritingPrettyPrinted
                             
-                                                          error:&error];
+                                                             error:&error];
         
         NSString *jsonString = [[NSString alloc]initWithData:jsonData
                                 
@@ -177,7 +190,7 @@ static NSString *pathOfDoc;
     }else {
         dir = [NSString stringWithFormat:@"%@/msg/image",pathOfDoc];
     }
-            BOOL isDir = NO;
+    BOOL isDir = NO;
     NSFileManager *fileManager = [NSFileManager defaultManager];
     BOOL existed = [fileManager fileExistsAtPath:dir isDirectory:&isDir];
     if ( !(isDir == YES && existed == YES) )
@@ -195,9 +208,9 @@ static NSString *pathOfDoc;
 }
 //+ (NSDictionary*)analysisNotificationInGetui:(NSString*)payloadId{
 //    // [4]: 收到个推消息
-//    
+//
 //    NSData* payload = [GeTuiSdk retrivePayloadById:payloadId];
-//    
+//
 //    NSString *payloadMsg = nil;
 //    if (payload) {
 //        payloadMsg = [[NSString alloc] initWithBytes:payload.bytes
@@ -238,31 +251,31 @@ static NSString *pathOfDoc;
     
     NSTimeInterval cha=late2-late1;
     
-//    NSString *timeString=@"";
-//    NSString *house=@"";
-//    NSString *min=@"";
-//    NSString *sen=@"";
-//    
-//    sen = [NSString stringWithFormat:@"%d", (int)cha%60];
-//    //        min = [min substringToIndex:min.length-7];
-//    //    秒
-//    sen=[NSString stringWithFormat:@"%@", sen];
-//    
-//    
-//    
-//    min = [NSString stringWithFormat:@"%d", (int)cha/60%60];
-//    //        min = [min substringToIndex:min.length-7];
-//    //    分
-//    min=[NSString stringWithFormat:@"%@", min];
-//    
-//    
-//    //    小时
-//    house = [NSString stringWithFormat:@"%d", (int)cha/3600];
-//    //        house = [house substringToIndex:house.length-7];
-//    house=[NSString stringWithFormat:@"%@", house];
-//    
-//    
-//    timeString=[NSString stringWithFormat:@"%@:%@:%@",house,min,sen];
+    //    NSString *timeString=@"";
+    //    NSString *house=@"";
+    //    NSString *min=@"";
+    //    NSString *sen=@"";
+    //
+    //    sen = [NSString stringWithFormat:@"%d", (int)cha%60];
+    //    //        min = [min substringToIndex:min.length-7];
+    //    //    秒
+    //    sen=[NSString stringWithFormat:@"%@", sen];
+    //
+    //
+    //
+    //    min = [NSString stringWithFormat:@"%d", (int)cha/60%60];
+    //    //        min = [min substringToIndex:min.length-7];
+    //    //    分
+    //    min=[NSString stringWithFormat:@"%@", min];
+    //
+    //
+    //    //    小时
+    //    house = [NSString stringWithFormat:@"%d", (int)cha/3600];
+    //    //        house = [house substringToIndex:house.length-7];
+    //    house=[NSString stringWithFormat:@"%@", house];
+    //
+    //
+    //    timeString=[NSString stringWithFormat:@"%@:%@:%@",house,min,sen];
     
     
     return cha;
@@ -306,7 +319,7 @@ static NSString *pathOfDoc;
     {
         objc_property_t prop = props[i];
         NSString *propName = [NSString stringWithUTF8String:property_getName(prop)];
-
+        
         id value = [obj valueForKey:propName];
         if(value == nil)
         {
@@ -366,14 +379,14 @@ static NSString *pathOfDoc;
 }
 //通过颜色来生成一个纯色图片
 + (UIImage *)buttonImageFromColor:(UIColor *)color :(CGSize)imgSize{
-
-CGRect rect = CGRectMake(0, 0, imgSize.width, imgSize.height);
-UIGraphicsBeginImageContext(rect.size);
-CGContextRef context = UIGraphicsGetCurrentContext();
-CGContextSetFillColorWithColor(context, [color CGColor]);
-CGContextFillRect(context, rect);
-UIImage *img = UIGraphicsGetImageFromCurrentImageContext();
-UIGraphicsEndImageContext(); return img;
+    
+    CGRect rect = CGRectMake(0, 0, imgSize.width, imgSize.height);
+    UIGraphicsBeginImageContext(rect.size);
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    CGContextSetFillColorWithColor(context, [color CGColor]);
+    CGContextFillRect(context, rect);
+    UIImage *img = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext(); return img;
 }
 +(NSString*)getDeveicePlatform{
     size_t size;
@@ -383,34 +396,34 @@ UIGraphicsEndImageContext(); return img;
     NSString *platform = [NSString stringWithCString:machine encoding:NSUTF8StringEncoding];
     return platform;
     
-//    
-//    if ([platform isEqualToString:@"iPhone3,1"]||[platform isEqualToString:@"iPhone3,2"]||[platform isEqualToString:@"iPhone3,3"]||[platform isEqualToString:@"iPhone4,1"]){
-//        a=112.0/640;
-//        b=648.0/960;
-//        c=430.0/640;
-//        d=119.0/960;
-//        nameOfImageOfGuiding=[[NSArray alloc] initWithObjects:@"4-1.jpg",@"4-2.jpg",@"4-3.jpg",@"4-4.jpg",@"4-0.png", nil];
-//    }else if ([platform isEqualToString:@"iPhone5,1"]||[platform isEqualToString:@"iPhone5,2"]||[platform isEqualToString:@"iPhone5,3"]||[platform isEqualToString:@"iPhone5,4"]||[platform isEqualToString:@"iPhone6,1"]||[platform isEqualToString:@"iPhone6,2"]||[platform isEqualToString:@"iPhone7,2"]){
-//        a=106.0/640;
-//        b=775.0/1136;
-//        c=430.0/640;
-//        d=119.0/1136;
-//        nameOfImageOfGuiding=[[NSArray alloc] initWithObjects:@"5-1.jpg",@"5-2.jpg",@"5-3.jpg",@"5-4.jpg",@"5-0.png", nil];
-//    }else if([platform isEqualToString:@"iPhone7,1"]){
-//        //6p
-//        a=208.0/1242;
-//        b=1546.0/2208;
-//        c=827.0/1242;
-//        d=197.0/2208;
-//        nameOfImageOfGuiding=[[NSArray alloc] initWithObjects:@"6P-1.jpg",@"6P-2.jpg",@"6P-3.jpg",@"6P-4.jpg",@"6P-0.png", nil];
-//    }
-//    else{
-//        a=177.0/768;
-//        b=718.0/1024;
-//        c=414.0/768;
-//        d=99.0/1024;
-//#warning 引导页图片png改成jpg
-//        nameOfImageOfGuiding=[[NSArray alloc] initWithObjects:@"ipad-1.png",@"ipad-2.png",@"ipad-3.png",@"ipad-4.png",@"ipad-0.png", nil];
-//    }
+    //
+    //    if ([platform isEqualToString:@"iPhone3,1"]||[platform isEqualToString:@"iPhone3,2"]||[platform isEqualToString:@"iPhone3,3"]||[platform isEqualToString:@"iPhone4,1"]){
+    //        a=112.0/640;
+    //        b=648.0/960;
+    //        c=430.0/640;
+    //        d=119.0/960;
+    //        nameOfImageOfGuiding=[[NSArray alloc] initWithObjects:@"4-1.jpg",@"4-2.jpg",@"4-3.jpg",@"4-4.jpg",@"4-0.png", nil];
+    //    }else if ([platform isEqualToString:@"iPhone5,1"]||[platform isEqualToString:@"iPhone5,2"]||[platform isEqualToString:@"iPhone5,3"]||[platform isEqualToString:@"iPhone5,4"]||[platform isEqualToString:@"iPhone6,1"]||[platform isEqualToString:@"iPhone6,2"]||[platform isEqualToString:@"iPhone7,2"]){
+    //        a=106.0/640;
+    //        b=775.0/1136;
+    //        c=430.0/640;
+    //        d=119.0/1136;
+    //        nameOfImageOfGuiding=[[NSArray alloc] initWithObjects:@"5-1.jpg",@"5-2.jpg",@"5-3.jpg",@"5-4.jpg",@"5-0.png", nil];
+    //    }else if([platform isEqualToString:@"iPhone7,1"]){
+    //        //6p
+    //        a=208.0/1242;
+    //        b=1546.0/2208;
+    //        c=827.0/1242;
+    //        d=197.0/2208;
+    //        nameOfImageOfGuiding=[[NSArray alloc] initWithObjects:@"6P-1.jpg",@"6P-2.jpg",@"6P-3.jpg",@"6P-4.jpg",@"6P-0.png", nil];
+    //    }
+    //    else{
+    //        a=177.0/768;
+    //        b=718.0/1024;
+    //        c=414.0/768;
+    //        d=99.0/1024;
+    //#warning 引导页图片png改成jpg
+    //        nameOfImageOfGuiding=[[NSArray alloc] initWithObjects:@"ipad-1.png",@"ipad-2.png",@"ipad-3.png",@"ipad-4.png",@"ipad-0.png", nil];
+    //    }
 }
 @end

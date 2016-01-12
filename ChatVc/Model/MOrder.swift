@@ -10,14 +10,17 @@ import UIKit
 
 class MOrder: TopModel {
     var num :String = ""
+    /// 类型code
     var type : String = ""
+    /// 类型名称
+    var typeName : String = ""
     var goodsName = ""
     var price : Float = 0
     var status = 0
     var phone = ""
     var created = ""
     var payType = 0
-    
+    var code:Int = 0
     func getOrderDetail(aOrderId:Int64,success:SessionSuccessBlock,failure:SessionFailBlock){
         print("\(HelpFromOc.getDeveicePlatform())")
         let params = unverisalProcess(["id":"\(aOrderId)"])

@@ -14,6 +14,13 @@ class MTableviewDelegateNzz: NSObject {
     var timeVisiable:[Bool]=[]
     var nbOfMsg = 0
     
+    
+    func  reset(){
+        typeOfMsgs=[]
+        timeVisiable=[]
+        nbOfMsg=0
+        chatHistory=[]
+    }
     func insertMsg(aTypeOfMsg:TypeOfMsg,aTimeVisiable:Bool,aModelOfMsgCellBasic:ModelOfMsgCellBasic){
         typeOfMsgs.insert(aTypeOfMsg, atIndex: 0)
         timeVisiable.insert(aTimeVisiable, atIndex: 0)
@@ -35,6 +42,7 @@ class MTableviewDelegateNzz: NSObject {
         nbOfMsg -= indexPaths.count
     }
     func addMsgImg(aMMsgImg:MMsgImg,timeCreate:Double,funLater:(aTypeOfMsg:TypeOfMsg,aTimeVisiable:Bool,aModelOfMsgCellBasic:ModelOfMsgCellBasic)->Void){
+        
         var aTypeOfMsg=TypeOfMsg.TxtMine
         var aTimeVisiable=false
         let timeCreateInTxt=getTimeCreate(timeCreate)
@@ -60,7 +68,7 @@ class MTableviewDelegateNzz: NSObject {
             
         }
         
-        let aModelOfMsgCellImg:ModelOfMsgCellImg=ModelOfMsgCellImg().initModelOfMsgCellImg(aMMsgImg.fullImgUrlOrPath, aModelOfMsgCellBasic: ModelOfMsgCellBasic().initBasicCell(timeCreateInTxt, aIsSend: aMMsgImg.isSend, aStatusOfSend: aMMsgImg.statusOfSend, aSizeCell: cellSize, aImgHeadUrlOrFilePath: aMMsgImg.imgHeadUrlOrFilePath, aTypeOfMsg: aTypeOfMsg,aMsgId: aMMsgImg.msgId),aMsgId: aMMsgImg.msgId)
+        let aModelOfMsgCellImg:ModelOfMsgCellImg=ModelOfMsgCellImg().initModelOfMsgCellImg(aMMsgImg.thumbnailImage!,aImgUrlOrPath: aMMsgImg.fullImgUrlOrPath, aModelOfMsgCellBasic: ModelOfMsgCellBasic().initBasicCell(timeCreateInTxt, aIsSend: aMMsgImg.isSend, aStatusOfSend: aMMsgImg.statusOfSend, aSizeCell: cellSize, aImgHeadUrlOrFilePath: aMMsgImg.imgHeadUrlOrFilePath, aTypeOfMsg: aTypeOfMsg,aMsgId: aMMsgImg.msgId),aMsgId: aMMsgImg.msgId)
         
         funLater(aTypeOfMsg: aTypeOfMsg,aTimeVisiable: aTimeVisiable,aModelOfMsgCellBasic: aModelOfMsgCellImg)
     }
@@ -76,7 +84,7 @@ class MTableviewDelegateNzz: NSObject {
     func addMsgTxt(aMMsgTxt:MMsgTxt,timeCreate:Double,funLater:(aTypeOfMsg:TypeOfMsg,aTimeVisiable:Bool,aModelOfMsgCellBasic:ModelOfMsgCellBasic)->Void){
         var aTypeOfMsg=TypeOfMsg.TxtMine
         var aTimeVisiable=false
-        var timeCreateInTxt=getTimeCreate(timeCreate)
+        let timeCreateInTxt=getTimeCreate(timeCreate)
         if timeCreateInTxt==""{
             aTimeVisiable=false
         }else{
@@ -98,7 +106,7 @@ class MTableviewDelegateNzz: NSObject {
         
         var aTypeOfMsg=TypeOfMsg.TxtMine
         var aTimeVisiable=false
-
+        
         let txt=ToolOfCellInChat.getTxtByVoiceTime(aMMsgVoice.timeVoice)
         let size=ToolOfCellInChat.getSizeByStringAndDefaultFont(txt)
         
@@ -131,13 +139,26 @@ class MTableviewDelegateNzz: NSObject {
         aTypeOfMsg = TypeOfMsg.OrderCustomer
         let txtShow="\(aMMsgOrder.name)订单支付消息"
         let size = ToolOfCellInChat.getSizeByStringAndDefaultFont(txtShow)
- 
-//        ModelOfMsgCellBasic().initBasicCell(timeCreateInTxt, aIsSend: aMMsgOrder.isSend, aStatusOfSend: aMMsgOrder.statusOfSend, aSizeCell: size, aImgHeadUrlOrFilePath: aMMsgOrder.imgHeadUrlOrFilePath, aTypeOfMsg: aTypeOfMsg, aMsgId: aMMsgOrder.msgId)
-//      ModelOfMsgCellBasic().initBasicCell(<#T##aTimeCreate: String##String#>, aIsSend: <#T##Bool#>, aStatusOfSend: <#T##StatusOfSend#>, aSizeCell: <#T##CGSize#>, aImgHeadUrlOrFilePath: <#T##String?#>, aTypeOfMsg: <#T##TypeOfMsg#>, aMsgId: <#T##Int#>)
-        
-let aModelOfMsgCellOrder = ModelOfMsgCellOrder().initModelOfMsgCellOrder(ModelOfMsgCellBasic().initBasicCell(timeCreateInTxt, aIsSend: aMMsgOrder.isSend, aStatusOfSend: aMMsgOrder.statusOfSend, aSizeCell: size, aImgHeadUrlOrFilePath: aMMsgOrder.imgHeadUrlOrFilePath, aTypeOfMsg: aTypeOfMsg, aMsgId: aMMsgOrder.msgId), aMsgId: aMMsgOrder.msgId, aTxt: txtShow, aType: aMMsgOrder.type, aShow: aMMsgOrder.show, aOrderType: aMMsgOrder.orderType, aName: aMMsgOrder.name, aNum: aMMsgOrder.num, aGoodName: aMMsgOrder.goodName, aStatus: aMMsgOrder.status, aPrice: aMMsgOrder.price, aCreated: aMMsgOrder.created,aOrderId: aMMsgOrder.orderId)
         
         
-   funLater(aTypeOfMsg: aTypeOfMsg,aTimeVisiable: aTimeVisiable,aModelOfMsgCellBasic: aModelOfMsgCellOrder)
+        let aModelOfMsgCellOrder = ModelOfMsgCellOrder().initModelOfMsgCellOrder(ModelOfMsgCellBasic().initBasicCell(timeCreateInTxt, aIsSend: aMMsgOrder.isSend, aStatusOfSend: aMMsgOrder.statusOfSend, aSizeCell: size, aImgHeadUrlOrFilePath: aMMsgOrder.imgHeadUrlOrFilePath, aTypeOfMsg: aTypeOfMsg, aMsgId: aMMsgOrder.msgId), aMsgId: aMMsgOrder.msgId, aTxt: txtShow, aType: aMMsgOrder.type, aShow: aMMsgOrder.show, aOrderType: aMMsgOrder.orderType, aName: aMMsgOrder.name, aNum: aMMsgOrder.num, aGoodName: aMMsgOrder.goodName, aStatus: aMMsgOrder.status, aPrice: aMMsgOrder.price, aCreated: aMMsgOrder.created,aOrderId: aMMsgOrder.orderId)
+        
+        
+        funLater(aTypeOfMsg: aTypeOfMsg,aTimeVisiable: aTimeVisiable,aModelOfMsgCellBasic: aModelOfMsgCellOrder)
+    }
+    
+    func resetFilePathAndMsgId(filePathOrUrl:String,msgId:Int,nubOfMsg:Int,aStatusOfSend:StatusOfSend){
+        if chatHistory.count < nubOfMsg{
+            return
+        }
+        chatHistory[nubOfMsg].msgId=msgId
+        if chatHistory[nubOfMsg]is ModelOfMsgCellVoice{
+            let  aModelOfMsgCellVoice=chatHistory[nubOfMsg] as! ModelOfMsgCellVoice
+            aModelOfMsgCellVoice.voiceUrlOrPath=filePathOrUrl
+        }else if chatHistory[nubOfMsg] is ModelOfMsgCellImg {
+            let  aModelOfMsgCellImg=chatHistory[nubOfMsg] as! ModelOfMsgCellImg
+            aModelOfMsgCellImg.imgUrlOrPath=filePathOrUrl
+            aModelOfMsgCellImg.statusOfSend=aStatusOfSend
+        }
     }
 }

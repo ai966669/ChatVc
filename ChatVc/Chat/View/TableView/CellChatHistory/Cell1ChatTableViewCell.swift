@@ -44,10 +44,6 @@ class Cell1ChatTableViewCell: ChatTableViewCell {
             
             imageCover.addGestureRecognizer(playVoiceGestureRecognizer)
             
-            imageCover.userInteractionEnabled=true
-            
-            textOfMsg.userInteractionEnabled = false
-            
         }else{
             
             if (playVoiceGestureRecognizer != nil){
@@ -56,10 +52,6 @@ class Cell1ChatTableViewCell: ChatTableViewCell {
                 
                 playVoiceGestureRecognizer=nil
             }
-            
-            textOfMsg.userInteractionEnabled = true
-            
-            imageCover.userInteractionEnabled=false
             
             imgOfVoicePlaying.hidden=true
             
@@ -134,32 +126,16 @@ class Cell1ChatTableViewCell: ChatTableViewCell {
         aModelOfMsgCellOrder=nil
         textOfMsg!.text = aModelOfMsgCellTxt!.txt
         if aModelOfMsgCellTxt!.isSend{
-            textOfMsg.textColor=UIColor.whiteColor()
+            textOfMsg.textColor=ColorMsgSend
             
         }else{
-            textOfMsg.textColor=UIColor.blackColor()
+            textOfMsg.textColor=ColorMsgGet
         }
         //        不是语言信息需要重新处理语音播放，把手势去掉，由于cell重用的问题，会导致点击后语言还会播放
         setVoicePlayImg()
         resetCellUniversity(aModelOfMsgCellTxt)
         if btnShowOrderDetail != nil{
             btnShowOrderDetail.hidden=true
-        }
-    }
-    func resetCellOrder(){
-        aModelOfMsgCellVoice=nil
-                aModelOfMsgCellVoice=nil
-        textOfMsg!.text = aModelOfMsgCellOrder!.txt
-        if aModelOfMsgCellOrder!.isSend{
-            textOfMsg.textColor=UIColor.whiteColor()
-            
-        }else{
-            textOfMsg.textColor=UIColor.blackColor()
-        }
-        setVoicePlayImg()
-        resetCellUniversity(aModelOfMsgCellOrder)
-        if btnShowOrderDetail != nil{
-            btnShowOrderDetail.hidden=false
         }
     }
     func resetCellVoice(){
@@ -172,6 +148,22 @@ class Cell1ChatTableViewCell: ChatTableViewCell {
         resetCellUniversity(aModelOfMsgCellVoice)
         if btnShowOrderDetail != nil{
             btnShowOrderDetail.hidden=true
+        }
+    }
+    func resetCellOrder(){
+        aModelOfMsgCellVoice=nil
+                aModelOfMsgCellVoice=nil
+        textOfMsg!.text = aModelOfMsgCellOrder!.txt
+        if aModelOfMsgCellOrder!.isSend{
+            textOfMsg.textColor=UIColor.whiteColor()
+            
+        }else{
+            textOfMsg.textColor=ColorMsgGet
+        }
+        setVoicePlayImg()
+        resetCellUniversity(aModelOfMsgCellOrder)
+        if btnShowOrderDetail != nil{
+            btnShowOrderDetail.hidden=false
         }
     }
     override func setSelected(selected: Bool, animated: Bool) {
@@ -236,37 +228,38 @@ extension Cell1ChatTableViewCell : UITextViewDelegate {
             return false
         }
     }
+   
 }
 // MARK: - 长按文字出现操作栏实现
 extension Cell1ChatTableViewCell{
 //    一次长按会多次触发，UIGestureRecognizerState状态改变就会触发
     func showMenu(sender:UILongPressGestureRecognizer){
         if (sender.state == UIGestureRecognizerState.Began) {
+            
             self.becomeFirstResponder()
             UIMenuController.sharedMenuController().setMenuVisible(true, animated: true)
+            isAlreadyShowMenuView=true
             imageCover.backgroundColor=UIColor.lightGrayColor()
             
         }else if (sender.state == UIGestureRecognizerState.Ended) {
             if aModelOfMsgCellBasic.isSend{
-                imageCover.backgroundColor=UIColor.blackColor()
+                imageCover.backgroundColor=ColorTopic
             }else{
                 imageCover.backgroundColor=UIColor.whiteColor()
             }
         }
     }
-//    func copyByMenuControll(item:UIMenuItem){
-//        var aUIPasteboard = UIPasteboard.generalPasteboard()
-//        print("\(   aUIPasteboard.string )")
-//        aUIPasteboard.string="asdfsdfff"
-//        
-//    }
-//    func delteByMenuControll(item:UIMenuItem){
-//        var aUIPasteboard = UIPasteboard.generalPasteboard()
-//        print("\(aUIPasteboard.string )")
-//    }
-//    func moreActionByMenuControll(item:UIMenuItem){
-//        
-//    }
+    override func canPerformAction(action: Selector, withSender sender: AnyObject?) -> Bool {
+        if (action == Selector("resignFirstResponder") ||
+            action == Selector("copyByMenuControll:") ||
+            action == Selector("delteByMenuControll:")) && isAlreadyShowMenuView
+        {
+            //        需要主动释放第一响应者，否则其他cell使用会出现错误
+            resignFirstResponder()
+            isAlreadyShowMenuView=false
+        }
+        return super.canPerformAction(action, withSender: sender)
+    }
     override func canResignFirstResponder() -> Bool {
         //        每当释放第一响应者的时候需要将其menuitems设置为空，否则其他成为第一响应者的对象，再次弹出UIMenuController时会一直存在copyItem，deleteItem和moreItem。
         UIMenuController.sharedMenuController().menuItems=[]
@@ -275,10 +268,13 @@ extension Cell1ChatTableViewCell{
     override func canBecomeFirstResponder() -> Bool {
         //        当成为第一响应者是重写弹出的aUIMenuController
         let aUIMenuController:UIMenuController=UIMenuController.sharedMenuController()
-        let copyItem=UIMenuItem(title: "复制", action: "copyByMenuControll:")
         let deleteItem=UIMenuItem(title: "删除", action: "delteByMenuControll:")
+        aUIMenuController.menuItems=[deleteItem]
+        if (aModelOfMsgCellTxt != nil){
+            let copyItem=UIMenuItem(title: "复制", action: "copyByMenuControll:")
+            aUIMenuController.menuItems?.append(copyItem)
+        }
 //        let moreItem=UIMenuItem(title: "更多", action: "moreActionByMenuControll:")
-        aUIMenuController.menuItems=[copyItem,deleteItem]
         aUIMenuController.setTargetRect(textOfMsg.frame, inView: self)
         ChatTableViewCell.indexPathShowMenu=aNSIndexPath
         return true
@@ -290,6 +286,5 @@ extension Cell1ChatTableViewCell{
         }
     }
 }
-
 
 

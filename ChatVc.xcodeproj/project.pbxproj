@@ -31,6 +31,8 @@
 		452E61E61C3BBC3900E7B039 /* MCommandRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 452E61E51C3BBC3900E7B039 /* MCommandRequest.swift */; };
 		452E61E91C3BF33600E7B039 /* NZZCheckingOfInput.m in Sources */ = {isa = PBXBuildFile; fileRef = 452E61E81C3BF33600E7B039 /* NZZCheckingOfInput.m */; };
 		45431E2A1C27E4DD00D47BCA /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 45431E291C27E4DD00D47BCA /* libsqlite3.tbd */; };
+		45441B081C44C2C900492B6A /* MNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45441B071C44C2C900492B6A /* MNotification.swift */; };
+		45441B0A1C44DBDA00492B6A /* MUi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45441B091C44DBDA00492B6A /* MUi.swift */; };
 		4553CAE81C37ABCE00BFD327 /* MoreActionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4553CAE71C37ABCE00BFD327 /* MoreActionTableViewCell.swift */; };
 		4553CAEA1C37BA3500BFD327 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4553CAE91C37BA3500BFD327 /* WebViewController.swift */; };
 		456187CA1C1E9CA200AE5801 /* AssetPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 456187C21C1E9CA200AE5801 /* AssetPicker.m */; };
@@ -149,6 +151,8 @@
 		452E61E71C3BF33600E7B039 /* NZZCheckingOfInput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NZZCheckingOfInput.h; sourceTree = "<group>"; };
 		452E61E81C3BF33600E7B039 /* NZZCheckingOfInput.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NZZCheckingOfInput.m; sourceTree = "<group>"; };
 		45431E291C27E4DD00D47BCA /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
+		45441B071C44C2C900492B6A /* MNotification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MNotification.swift; sourceTree = "<group>"; };
+		45441B091C44DBDA00492B6A /* MUi.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MUi.swift; sourceTree = "<group>"; };
 		4553CAE71C37ABCE00BFD327 /* MoreActionTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoreActionTableViewCell.swift; sourceTree = "<group>"; };
 		4553CAE91C37BA3500BFD327 /* WebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		456187C11C1E9CA200AE5801 /* AssetPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AssetPicker.h; sourceTree = "<group>"; };
@@ -283,6 +287,7 @@
 				458F9BF31C3A498B00F6D42D /* Pay.swift */,
 				452E61E71C3BF33600E7B039 /* NZZCheckingOfInput.h */,
 				452E61E81C3BF33600E7B039 /* NZZCheckingOfInput.m */,
+				45441B071C44C2C900492B6A /* MNotification.swift */,
 				45AA09691C3CC6DD00A143E3 /* MsgShow.swift */,
 				450EC5FF1C3E017700C6BD19 /* PingPPPay.swift */,
 			);
@@ -531,6 +536,7 @@
 				450A51501C33B91E00CDEF34 /* MRCIM.swift */,
 				452E61E51C3BBC3900E7B039 /* MCommandRequest.swift */,
 				45F16A921C3F8CED00592263 /* MOrder.swift */,
+				45441B091C44DBDA00492B6A /* MUi.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -861,6 +867,7 @@
 				459EEE4E1C3235D500B93CFF /* UserModel.swift in Sources */,
 				459EEE3A1C321A9100B93CFF /* ToolOfCellInChat.swift in Sources */,
 				45BBD9FB1C228E3D0038A6AC /* SGFileManage.swift in Sources */,
+				45441B0A1C44DBDA00492B6A /* MUi.swift in Sources */,
 				458F9BF41C3A498B00F6D42D /* Pay.swift in Sources */,
 				459EEE4A1C32322E00B93CFF /* MeViewController.swift in Sources */,
 				459EEE291C321A9100B93CFF /* CustomLayoutNzz.swift in Sources */,
@@ -916,6 +923,7 @@
 				45B705091C1E64BC00B0E8C2 /* AppDelegate.swift in Sources */,
 				450A51421C33854F00CDEF34 /* Alamofire.swift in Sources */,
 				45BBD9F51C228E3D0038A6AC /* Double+QuickTool.swift in Sources */,
+				45441B081C44C2C900492B6A /* MNotification.swift in Sources */,
 				45F16A8F1C3F889D00592263 /* OrderDetailViewController.swift in Sources */,
 				459EEE201C321A9100B93CFF /* ModelOfMsgSend.swift in Sources */,
 				45BBD9F61C228E3D0038A6AC /* Int+QuickTool.swift in Sources */,

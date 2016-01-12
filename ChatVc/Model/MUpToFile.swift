@@ -41,7 +41,7 @@ class MUpToFile: TopModel {
         let uuidStr = CFUUIDCreateString(nil, uuid) as String
         let newUuidStr = uuidStr.stringByReplacingOccurrencesOfString("-", withString: "", options: NSStringCompareOptions.LiteralSearch, range: nil).lowercaseString
         
-        return "i/\(year)/\(month)/\(day)/\(newUuidStr)/"
+        return "i/\(year)/\(month)/\(day)/\(newUuidStr)"
     }
 
     //请求上传七牛Uptoken
@@ -74,8 +74,6 @@ class MUpToFile: TopModel {
             }, failure: { (code) -> Void in
                 doLaterFail()
           })
-        
-//      
         
 //        doLaterSuccess(upToken: "OZu9PWWB7f7rWN8DEtk1Lx_UOk7Qc2brRq3qaZ1_:rXK3wYC0KBcrYDiFQskH85qFeX8=:eyJzY29wZSI6InVsdGltYXZpcC1hcHAiLCJyZXR1cm5Cb2R5Ijoie1wia2V5XCI6ICQoa2V5KSwgXCJoYXNoXCI6ICQoZXRhZyksIFwid2lkdGhcIjogJChpbWFnZUluZm8ud2lkdGgpLCBcImhlaWdodFwiOiAkKGltYWdlSW5mby5oZWlnaHQpfSIsImRlYWRsaW5lIjoxNDUxNzIwMjg1fQ==")
 //        return "OZu9PWWB7f7rWN8DEtk1Lx_UOk7Qc2brRq3qaZ1_:rXK3wYC0KBcrYDiFQskH85qFeX8=:eyJzY29wZSI6InVsdGltYXZpcC1hcHAiLCJyZXR1cm5Cb2R5Ijoie1wia2V5XCI6ICQoa2V5KSwgXCJoYXNoXCI6ICQoZXRhZyksIFwid2lkdGhcIjogJChpbWFnZUluZm8ud2lkdGgpLCBcImhlaWdodFwiOiAkKGltYWdlSW5mby5oZWlnaHQpfSIsImRlYWRsaW5lIjoxNDUxNzIwMjg1fQ=="

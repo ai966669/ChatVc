@@ -19,6 +19,7 @@ protocol ChatTableViewCellDelegate:NSObjectProtocol{
 }
 let heightToBot:CGFloat=10
 class ChatTableViewCell: UITableViewCell {
+         var isAlreadyShowMenuView=false
     /// 当前弹出menu的cell的row
     static var indexPathShowMenu:NSIndexPath?
     let imgHeadH:CGFloat = 40
@@ -37,7 +38,6 @@ class ChatTableViewCell: UITableViewCell {
     @IBOutlet var imageCover:UIImageView!
     override func awakeFromNib() {
         super.awakeFromNib()
-        self.layer
         setBtnOfSendStatusEvent()
         
 //        var onceToken=dispatch_once_t()
@@ -109,44 +109,11 @@ class ChatTableViewCell: UITableViewCell {
     
     func setImageHead(){
         if imgHead != nil{
-            imgHead.layer.masksToBounds=true
-            imgHead.layer.cornerRadius=imgHead.frame.width/2
-            if !aModelOfMsgCellBasic.isSend {
-                if let str = aModelOfMsgCellBasic?.imgHeadUrlOrFilePath {
-                    imgHead.sd_setImageWithURL(NSURL(string: str), placeholderImage: UIImage(named: "HomeDefaultHead"), options: SDWebImageOptions.CacheMemoryOnly)
-                }else{
-                    imgHead.image = UIImage(named: "HomeDefaultHead")
-                }
-                
-                let oneGestureRecognizer = UITapGestureRecognizer(target: self, action: "showCustomInfo")
-                
-                oneGestureRecognizer.numberOfTapsRequired=1
-                
-                imgHead.userInteractionEnabled = true
-                
-                imgHead.addGestureRecognizer(oneGestureRecognizer)
-                
+            if let str = aModelOfMsgCellBasic?.imgHeadUrlOrFilePath {
+                imgHead.sd_setImageWithURL(NSURL(string: str), placeholderImage: UIImage(named: str), options: SDWebImageOptions.CacheMemoryOnly)
             }else{
-                let urlAvatar  = aModelOfMsgCellBasic?.imgHeadUrlOrFilePath
-                if (urlAvatar != "" ) && (urlAvatar != nil){
-                    if urlAvatar!.characters.count>=5{
-                        let str=(urlAvatar! as NSString).substringWithRange(NSMakeRange(0,5))
-                        if str == "http:"{
-                            imgHead.sd_setImageWithURL(NSURL(string: str), placeholderImage: UIImage(named: "HomeDefaultHead"), options: SDWebImageOptions.CacheMemoryOnly)
-                        }else{
-                            imgHead.sd_setImageWithURL(NSURL(string: str), placeholderImage: UIImage(named: "HomeDefaultHead"), options: SDWebImageOptions.CacheMemoryOnly)
-                        }
-                    }else{
-                        imgHead.sd_setImageWithURL(NSURL(string: urlAvatar!), placeholderImage: UIImage(named: "HomeDefaultHead"), options: SDWebImageOptions.CacheMemoryOnly)
-                    }
-                }
-                let oneGestureRecognizer = UITapGestureRecognizer(target: self, action: "showUserInfor")
-                
-                oneGestureRecognizer.numberOfTapsRequired=1
-                
-                imgHead.userInteractionEnabled = true
-                
-                imgHead.addGestureRecognizer(oneGestureRecognizer)
+                let imgName =  aModelOfMsgCellBasic.isSend ? DefaultHeadImgUser:DefaultHeadImgManager
+                imgHead.image = UIImage(named: imgName)
             }
         }
     }
@@ -154,18 +121,20 @@ class ChatTableViewCell: UITableViewCell {
     func setMsgLayer(viewSetLayer:UIView){
         
         if imageCover != nil{
-            
             imageCover.userInteractionEnabled=true
             let aUILongPressGestureRecognizer=UILongPressGestureRecognizer(target: self, action: "showMenu:")
             imageCover.addGestureRecognizer(aUILongPressGestureRecognizer)
             
             var  aSize =  CGSizeMake(aModelOfMsgCellBasic.sizeCell.width, aModelOfMsgCellBasic.sizeCell.height)
-            if aModelOfMsgCellBasic.typeMsg == TypeOfMsg.TxtMine ||  aModelOfMsgCellBasic.typeMsg == TypeOfMsg.TxtOfCustomer || aModelOfMsgCellBasic.typeMsg == TypeOfMsg.VoiceOfCustomer ||  aModelOfMsgCellBasic.typeMsg == TypeOfMsg.VoiceMine {
+            if  aModelOfMsgCellBasic.typeMsg == TypeOfMsg.TxtMine ||
+                aModelOfMsgCellBasic.typeMsg == TypeOfMsg.TxtOfCustomer ||
+                aModelOfMsgCellBasic.typeMsg == TypeOfMsg.VoiceOfCustomer ||
+                aModelOfMsgCellBasic.typeMsg == TypeOfMsg.VoiceMine {
                     aSize =  CGSizeMake(aModelOfMsgCellBasic.sizeCell.width+12, aModelOfMsgCellBasic.sizeCell.height+8)
                 if aModelOfMsgCellBasic.isSend{
-                    imageCover.backgroundColor=UIColor.blackColor()
-                }else{
                     imageCover.backgroundColor=UIColor.whiteColor()
+                }else{
+                    imageCover.backgroundColor=ColorTopic
                 }
             }else{
                 imageCover.backgroundColor=UIColor.clearColor()
@@ -175,12 +144,10 @@ class ChatTableViewCell: UITableViewCell {
                 let aImgVR = UIImageView(image:UIImage(named: "mmsright")?.resizableImageWithCapInsets(UIEdgeInsetsMake(28,10,10,15)))
                 aImgVR.layer.frame=CGRect(origin: CGPointZero, size: aSize)
                 imageCover.layer.mask=aImgVR.layer
-
             }else{
                 let aImgVL = UIImageView(image:UIImage(named: "mmsleft")?.resizableImageWithCapInsets(UIEdgeInsetsMake(28,15,10,10)))
                 aImgVL.layer.frame=CGRect(origin: CGPointZero, size: aSize)
                 imageCover.layer.mask=aImgVL.layer
-
             }
         }
         
@@ -195,7 +162,7 @@ class ChatTableViewCell: UITableViewCell {
         if btnOfSendStatus != nil{
             if (animotionOfBtnOfSendStatus == nil){
                 //注意reSend方法一定要在子类中实现，如果有
-                btnOfSendStatus.addTarget(self, action: "reSend", forControlEvents: UIControlEvents.TouchUpInside)
+//                btnOfSendStatus.addTarget(self, action: "reSend", forControlEvents: UIControlEvents.TouchUpInside)
             }
         }
     }
@@ -216,6 +183,7 @@ extension ChatTableViewCell{
             case StatusOfSend.sending:
                 if (animotionOfBtnOfSendStatus != nil){
                     animotionOfBtnOfSendStatus?.invalidate()
+                    animotionOfBtnOfSendStatus=nil
                 }
                 btnOfSendStatus.setBackgroundImage(UIImage(named: "icon发送中"), forState: UIControlState.Normal)
                 animotionOfBtnOfSendStatus = NSTimer.scheduledTimerWithTimeInterval(0.2, target: self, selector: "animotion", userInfo: nil, repeats: true)
@@ -232,7 +200,8 @@ extension ChatTableViewCell{
                 break;
             case StatusOfSend.success:
                 if (animotionOfBtnOfSendStatus != nil){
-                    animotionOfBtnOfSendStatus?.invalidate()
+//？为什么在的时候btnOfSendStatus会隐藏失败
+                    //animotionOfBtnOfSendStatus?.invalidate()
                     animotionOfBtnOfSendStatus=nil
                 }
                 btnOfSendStatus.hidden=true

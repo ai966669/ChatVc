@@ -20,9 +20,17 @@ class HWJNavControllerViewController: UINavigationController {
 ////
 //        navigationBar.setBackgroundImage(image, forBarMetrics: UIBarMetrics.Default)
 //        navigationBar.shadowImage = UIImage()
-        navigationBar.tintColor = UIColor(red: 131.0/255.0, green: 132.0/255.0, blue: 139.0/255.0, alpha: 1)
+        
+//        navigationBar.tintColor =   ColorNav //UIColor(red: 131.0/255.0, green: 132.0/255.0, blue: 139.0/255.0, alpha: 1)
+
+        
+        
+        
+        //0112此处用？解包，就算nil为nil也不会奔溃
+//        navigationController?.navigationBar.barTintColor=ColorNav
+        
         navigationBar.titleTextAttributes = [NSForegroundColorAttributeName : UIColor(red: 48.0/255.0, green: 50.0/255.0, blue: 62.0/255.0, alpha: 1),NSFontAttributeName: UIFont.systemFontOfSize(18)]
-       
+//       navigationBar.backgroundColor=ColorNav
 
     }
     func popself() {

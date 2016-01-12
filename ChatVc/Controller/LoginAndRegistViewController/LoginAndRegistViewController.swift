@@ -30,6 +30,7 @@ class LoginAndRegistViewController: UIViewController {
         initLayer()
         //暂时不需要验证码
         showOrHideVertifyCode()
+        btnRegistFirstResponsible.hidden=true
         // Do any additional setup after loading the view.
     }
     func initLayer(){
@@ -64,12 +65,24 @@ class LoginAndRegistViewController: UIViewController {
         navigationController?.navigationBar.hidden=true
     }
     
-    @IBAction func getVertifyCode(sender: AnyObject) {
+    @IBAction func getVertifyCode() {
+
+        if NZZCheckingOfInput.checkNotNilOrNoValue(txtFldCardNo.text, showHUD: true, textToShow: "卡号不能为空"){
+            if NZZCheckingOfInput.checkNotNilOrNoValue(txtFldPsw.text, showHUD: true, textToShow: "密码不能为空"){
+                MCommandRequest().getCode(txtFldCardNo.text!, psw: txtFldPsw.text! , success: { (model) -> Void in
+                    SVProgressHUD.showSuccessWithStatus("验证码已经发送")
+                    self.startCountDown()
+                    }, failure: { (code) -> Void in
+                            print("验证码发送失败")
+                })
+             
+            }
+        }
+        
+    }
+    func startCountDown(){
         if LoginAndRegistViewController.countGetVertifyCode <= 0{
-            
             LoginAndRegistViewController.nstimerGetVertifyCode=NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: "countDown", userInfo: nil, repeats: true)
-            
-            
             LoginAndRegistViewController.countGetVertifyCode=60
             btnGetVertifyCode!.setTitle("\(LoginAndRegistViewController.countGetVertifyCode)秒", forState: UIControlState.Normal)
             LoginAndRegistViewController.btnNow=btnGetVertifyCode
@@ -88,106 +101,54 @@ class LoginAndRegistViewController: UIViewController {
         }
     }
     @IBAction func tryLogin(sender: AnyObject) {
-//        let mapVC = UserLocationViewController()
-//        mapVC.vcChat = self
-//        let nav = UINavigationController(rootViewController: mapVC)
-//        presentViewController(nav, animated: true, completion: nil)
-        
         if NZZCheckingOfInput.checkNotNilOrNoValue(txtFldCardNo.text, showHUD: true, textToShow: "卡号不能为空"){
             if NZZCheckingOfInput.checkNotNilOrNoValue(txtFldPsw.text, showHUD: true, textToShow: "密码不能为空"){
+                
+                if txtFldVertifyCode.hidden{
                     UserModel.shareManager().loginByPsw(txtFldCardNo.text!, psw: txtFldPsw.text!, success: { (model) -> Void in
                         
                         }, failure: { (code) -> Void in
-                            
+                            if code == ErrNeedCode{
+                                self.showOrHideVertifyCode()
+                                 self.startCountDown()
+                            }
                     })
-                
+                }else{
+                    if NZZCheckingOfInput.checkNotNilOrNoValue(txtFldVertifyCode.text, showHUD: true, textToShow: "验证码不能为空"){
+                        UserModel.shareManager().loginByPswAndCode(txtFldCardNo.text!, psw: txtFldPsw.text!, success: { (model) -> Void in
+                                self.getVertifyCode()
+                            }, aCode: txtFldVertifyCode.text!, failure: { (code) -> Void in
+                                
+                        })
+                        
+                        
+                    }
+                }
             }
         }
-        
-//        UserModel.shareManager().loginByPsw("000000001", psw: "309", success: { (model) -> Void in
-//            
-//            }, failure: { (code) -> Void in
-//                
-//        })
-//        
-
-
-//        UserModel.shareManager().loginByPsw(<#T##cardNum: String##String#>, psw: <#T##String#>, success: <#T##SessionSuccessBlock##SessionSuccessBlock##(model: AnyObject?) -> Void#>, failure: <#T##SessionFailBlock##SessionFailBlock##(code: Int) -> Void#>)
-        
-        
-        
-        
-//        if  true{
-//            showOrHideVertifyCode()
-//        }else{
-//            if  let appDelegate = UIApplication.sharedApplication().delegate as? AppDelegate {
-//                if appDelegate.aChatVc == nil {
-//                    appDelegate.aChatVc =   UINavigationController(rootViewController:  UIStoryboard(name: "Chat", bundle: nil).instantiateInitialViewController()!)
-//                }
-//                appDelegate.window!.rootViewController = appDelegate.aChatVc
-//            }
-//        }
-        
-
-        
-//        一下接口都已经调通了
-        
-//                UserModel.shareManager().loginByToken({ (model) -> Void in
-//                    print("asdf")
-//                    }) { (code) -> Void in
-//                        print("asdfasdfas")
-//        }
-        
-        
-//        UserModel.shareManager().applicationStart({ (model) -> Void in
-//            print("asdf")
-//            }) { (code) -> Void in
-//            print("asdfasdfas")                
-//        }
-//        
-//        MCommandRequest().getSystemTime({ (model) -> Void in
-//                        print("asdf")
-//                        }) { (code) -> Void in
-//                        print("asdfasdfas")
-//        }
-//        
-//        MCommandRequest().getSystemUpToken({ (model) -> Void in
-//                    print("asdf")
-//                    }) { (code) -> Void in
-//                    print("asdfasdfas")
-//        }
-//
-//        
-//        UserModel.shareManager().loginByPsw("123123", psw: "1231231", success: { (model) -> Void in
-//            print("asdf")
-//            }) { (code) -> Void in
-//                print("asdfasdfas")
-//        }
-//
-//        UserModel.shareManager().getChatTargetId({ (model) -> Void in
-//            print("asdf")
-//            }) { (code) -> Void in
-//                print("asdfasdfas")
-//
-//        }
     }
     
     func showOrHideVertifyCode(){
-        //0102  constant动画效果
         if vertifyCodeNSLayoutConstraintTop.constant != 20{
+//            UIView.beginAnimations("ida", context: nil)
+//            UIView.setAnimationDuration(4)
             vertifyCodeNSLayoutConstraintTop.constant = 20
             imgVertifyCode.hidden=false
             viewVertifyCodeDiff.hidden=false
             txtFldVertifyCode.hidden=false
             btnGetVertifyCode.hidden=false
             lblVertifyCodeBg.hidden=false
+//            UIView.commitAnimations()
         }else{
+//            UIView.beginAnimations("ida", context: nil)
+//            UIView.setAnimationDuration(4)
             vertifyCodeNSLayoutConstraintTop.constant = -44
             imgVertifyCode.hidden=true
             viewVertifyCodeDiff.hidden=true
             txtFldVertifyCode.hidden=true
             btnGetVertifyCode.hidden=true
             lblVertifyCodeBg.hidden=true
+//            UIView.commitAnimations()
         }
         self.view.layoutIfNeeded()
         
@@ -201,5 +162,31 @@ class LoginAndRegistViewController: UIViewController {
     // Pass the selected object to the new view controller.
     }
     */
+    @IBOutlet var btnRegistFirstResponsible: UIButton!
+    override func becomeFirstResponder() -> Bool {
+        return true
+    }
     
+}
+
+extension LoginAndRegistViewController:UITextFieldDelegate{
+    @IBAction func registResponsible() {
+        txtFldCardNo.resignFirstResponder()
+        txtFldPsw.resignFirstResponder()
+        txtFldVertifyCode.resignFirstResponder()
+    }
+    func textFieldDidBeginEditing(textField: UITextField) {
+        btnRegistFirstResponsible.hidden=false
+        UIView.beginAnimations("asdf", context: nil)
+        UIView.setAnimationDuration(0.2)
+        view.frame.origin.y += -50
+        UIView.commitAnimations()
+    }
+    func textFieldDidEndEditing(textField: UITextField) {
+        UIView.beginAnimations("asdf", context: nil)
+        UIView.setAnimationDuration(0.2)
+        view.frame.origin.y += 50
+        UIView.commitAnimations()
+        btnRegistFirstResponsible.hidden=true
+    }
 }

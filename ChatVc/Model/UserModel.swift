@@ -12,7 +12,9 @@ class UserModel: TopModel {
     private static var sharedUserModel = UserModel()
     // 发送消息时的targetId，消息接收方
     var targetId="userIdNzzTest11225"  //:String?
-    //    自己的发送id
+    //   黑卡id
+    var id=""
+    //  融云id
     var idMine=""
     //用户名称
     var name = ""
@@ -56,7 +58,9 @@ class UserModel: TopModel {
      */
     func loginByPsw(cardNum:String,psw:String,success:SessionSuccessBlock,failure:SessionFailBlock){
         print("\(HelpFromOc.getDeveicePlatform())")
-        let params = unverisalProcess(["deviceId":(UIDevice.currentDevice().identifierForVendor?.UUIDString)!,"cardNum":cardNum,"password":psw])
+        
+        let params = specialProcess(["deviceId":(UIDevice.currentDevice().identifierForVendor?.UUIDString)!,"cardNum":cardNum,"password":psw])
+        
         TopModel.universalRequest(requestMethod: Method.POST,dic: params, urlMethod: URLUserLogin, success: { (model) -> Void in
                 self.loginSuccess(model!)
                 success(model: model)
@@ -67,23 +71,19 @@ class UserModel: TopModel {
         
     }
     
-    
-    func applicationStart(success:SessionSuccessBlock,failure:SessionFailBlock)->NSURLSessionTask{
+    func loginByPswAndCode(cardNum:String,psw:String,success:SessionSuccessBlock,aCode:String,failure:SessionFailBlock){
         
-        let aUIDevice=UIDevice.currentDevice()
-        var  params :Dictionary<String, String>=["deviceId":"\(aUIDevice.identifierForVendor!.UUIDString)","deviceType":"\(aUIDevice.model)","os":"iOS","osVersion":"\(aUIDevice.systemVersion)","net":"4G"]
+        let params = specialProcess(["deviceId":(UIDevice.currentDevice().identifierForVendor?.UUIDString)!,"cardNum":cardNum,"password":psw,"code":aCode])
         
-        params = unverisalProcess(params)
-        
-        let request = TopModel.universalRequest(requestMethod: Method.POST,dic: params, urlMethod: URLSystemStart, success: { (model) -> Void in
+        TopModel.universalRequest(requestMethod: Method.POST,dic: params, urlMethod: URLUserCodeLogin, success: { (model) -> Void in
+            self.loginSuccess(model!)
             success(model: model)
+            
             }) { (code) -> Void in
                 failure(code: code)
         }
         
-        return request.task
     }
-
     
     func loginByToken(success:SessionSuccessBlock,failure:SessionFailBlock)->NSURLSessionTask{
         let  params :Dictionary<String, String>= unverisalProcess([:])
@@ -95,6 +95,8 @@ class UserModel: TopModel {
         }
         return request.task
     }
+    
+    
     /**
      用户登陆成功后操作
      */
@@ -106,38 +108,33 @@ class UserModel: TopModel {
                 }
             }
             if  let appDelegate = UIApplication.sharedApplication().delegate as? AppDelegate {
+                
                 NSUserDefaults.standardUserDefaults().setValue(UserModel.sharedUserModel.token, forKey: UD_LastTimeSignToken)
+                NSUserDefaults.standardUserDefaults().setValue(UserModel.sharedUserModel.id, forKey: UD_LastTimeUserId)
+                
                 appDelegate.setRootViewControllerIsChat()
             }
         }else{
-            SVProgressHUD.showErrorWithStatus("发送为止错误，请重新下载")
+            SVProgressHUD.showErrorWithStatus("发送位置错误，请重新下载")
         }
-        
-
-        
         initRCIM()
-        
-    }
-    func loginOut(){
-        if  let appDelegate = UIApplication.sharedApplication().delegate as? AppDelegate {
-            appDelegate.setRootViewControllerIsLogin()
-        }
     }
 
 }
-
+//
 extension UserModel{
     /**
      融云登陆
      */
     func initRCIM(){
-        //        k51hidwq18o0b  LwY9BalA7WrR3+R8JEHZxIqEjnf4RHGY1UNU7KzzRijODFMluP6GFw51ivqyOQ+TA0+wctJ707zPI5Dl1ij+3LMZeWjMldF/XOzpnuslO1c=
-//        3argexb6r27ue IWmsn6nDNp7nw7iYcS0civKDaiM+ANfwrPlP3faAddXlvTQ39D4gXrkD8lxYSe5IPH7Bg53+VASb/j9nc0GIF5QZKqWq2AJLe52dMAYHIJo=
         RCIM.sharedRCIM().initWithAppKey("k51hidwq18o0b")
         RCIM.sharedRCIM().connectWithToken(UserModel.sharedUserModel.token,
             success: { (userId)-> Void in
+//                注意此处的userid是融云的userid不是我们系统中的userid
                 print("登陆成功。当前登录的用户ID：\(userId)")
                 UserModel.shareManager().idMine=userId
+                MRCIM.shareManager().becomeRCIMReceiver()
+                MNotification.shareInstance.initNotification()
                 self.getChatTargetId()
             }, error: { (status) -> Void in
                 print("登陆的错误码为:\(status.rawValue)")
@@ -159,7 +156,7 @@ extension UserModel{
                 if let dataInDic = rInDic["data"] as? Dictionary<String,AnyObject> {
                     if let targetId = dataInDic["id"] as? String{
                         UserModel.sharedUserModel.targetId=targetId
-                        NSNotificationCenter.defaultCenter().postNotificationName(NSNotificationLoadOldMsg, object: nil)
+                        NSNotificationCenter.defaultCenter().postNotificationName(NotificationLoadOldMsg, object: nil)
                     }else{
                         SVProgressHUD.showErrorWithStatus(MsgShow.ErrAnalysisServerData2Dic)
                     }
@@ -169,12 +166,27 @@ extension UserModel{
             }else{
                 SVProgressHUD.showErrorWithStatus(MsgShow.ErrAnalysisServerData2Dic)
             }
-//                self.initRCIM()
             }) { (code) -> Void in
-                
+             print("获取TargetId失败")
         }
         
         return request.task
     }
+    /**
+     登出操作
+     */
+    func  loginOut(){
+        //界面跳转
+        if  let appDelegate = UIApplication.sharedApplication().delegate as? AppDelegate
+        {
+            appDelegate.setRootViewControllerIsLogin()
+        }
+        //        登出融云
+        RCIM.sharedRCIM().logout()
+        //        自动登陆token去掉
+        NSUserDefaults.standardUserDefaults().removeObjectForKey(UD_LastTimeSignToken)
+        NSUserDefaults.standardUserDefaults().removeObjectForKey(UD_LastTimeUserId)
+    }
     
 }
+

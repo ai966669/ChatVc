@@ -107,18 +107,21 @@ class TableviewDelegateNzz : NSObject, UITableViewDelegate, UITableViewDataSourc
             cell.aModelOfMsgCellTxt =  aMTableviewDelegateNzz.chatHistory[indexPath.row] as? ModelOfMsgCellTxt
             cell.resetCellTxt()
             setUniversalSettingInChatTableViewCell(cell, aIndex: indexPath,viewSetLayer: cell.textOfMsg)
+            cell.textOfMsg.userInteractionEnabled=false
             return cell
         case .VoiceMine:
             let cell = tableView.dequeueReusableCellWithIdentifier(Cell1ChatTableViewCellIdentifier, forIndexPath: indexPath) as! Cell1ChatTableViewCell
             cell.aModelOfMsgCellVoice =  aMTableviewDelegateNzz.chatHistory[indexPath.row] as? ModelOfMsgCellVoice
             cell.resetCellVoice()
             setUniversalSettingInChatTableViewCell(cell, aIndex: indexPath,viewSetLayer: cell.textOfMsg)
+            cell.textOfMsg.userInteractionEnabled=false
             return cell
         case .VoiceOfCustomer:
             let cell = tableView.dequeueReusableCellWithIdentifier(Cell2ChatTableViewCellIdentifier, forIndexPath: indexPath) as! Cell1ChatTableViewCell
             cell.aModelOfMsgCellVoice =  aMTableviewDelegateNzz.chatHistory[indexPath.row] as? ModelOfMsgCellVoice
             cell.resetCellVoice()
             setUniversalSettingInChatTableViewCell(cell, aIndex: indexPath,viewSetLayer: cell.textOfMsg)
+            cell.textOfMsg.userInteractionEnabled=false
             return cell
         case .ImgMine:
             let cell = tableView.dequeueReusableCellWithIdentifier(ImageMineTableViewCellIdentifier, forIndexPath: indexPath) as! ImageMineTableViewCell
@@ -223,6 +226,16 @@ extension TableviewDelegateNzz {
         aMTableviewDelegateNzz.addMsgOrder(aMMsgOrder,timeCreate: DefaultNoTime, funLater: aMTableviewDelegateNzz.appendMsg)
         insertAndScrolltoLastCell()
     }
+    func resetFilePathAndMsgIdAndSendStatus(filePathOrUrl:String,msgId:Int,nubOfMsg:Int,aStatusOfSend:StatusOfSend){
+        aMTableviewDelegateNzz.resetFilePathAndMsgId(filePathOrUrl, msgId: msgId, nubOfMsg: nubOfMsg,aStatusOfSend: aStatusOfSend)
+        print("\(nubOfMsg)修改发送状态为\(aStatusOfSend)")
+        if let cell =  aTableView.cellForRowAtIndexPath(NSIndexPath(forRow: nubOfMsg, inSection: 0)) as? ChatTableViewCell{
+            cell.setBtnOfSendStatus(aStatusOfSend)
+        }else{
+            print("这个cell不在屏幕上")
+        }
+
+    }
     /**
      在tablview下方同时添加多条消息
      
@@ -242,6 +255,8 @@ extension TableviewDelegateNzz {
                 }
             }
             //0106 此处如何不适用reload，reload损耗太大.用类似insertAndScrolltoLastCell的方法
+            
+            
             aTableView.reloadData()
             //当不是第一次拉取聊天记录的时候 则需要滚动
             if msgs.count != aMTableviewDelegateNzz.chatHistory.count{
@@ -281,18 +296,26 @@ extension TableviewDelegateNzz {
             }
 
             aTableView.reloadData()
-            //当不是第一次拉取聊天记录的时候 则需要滚动
-            if msgs.count != aMTableviewDelegateNzz.chatHistory.count{
+
+
+            
+//            当不是第一次拉取聊天记录的时候 则需要滚动
+            aTableView.scrollToRowAtIndexPath(NSIndexPath(forRow:msgs.count-1, inSection: 0), atScrollPosition: UITableViewScrollPosition.Top, animated: false)
+//            if msgs.count != aMTableviewDelegateNzz.chatHistory.count{
 //                aTableView.scrollToRowAtIndexPath(NSIndexPath(forRow:msgs.count-1, inSection: 0), atScrollPosition: UITableViewScrollPosition.Top, animated: false)
-            }else{
-                aTableView.scrollToRowAtIndexPath(NSIndexPath(forRow:msgs.count-1, inSection: 0), atScrollPosition: UITableViewScrollPosition.Bottom, animated: false)
-            }
+//            }else{
+//                aTableView.scrollToRowAtIndexPath(NSIndexPath(forRow:msgs.count-1, inSection: 0), atScrollPosition: UITableViewScrollPosition.Bottom, animated: false)
+//            }
             
         }
     }
     func deleteMsg(indexPaths:[NSIndexPath]){
         aMTableviewDelegateNzz.deleteMsg(indexPaths)
         aTableView.deleteRowsAtIndexPaths(indexPaths, withRowAnimation: UITableViewRowAnimation.None)
+    }
+    func reset(){
+        aMTableviewDelegateNzz.reset()
+        aTableView.reloadData()
     }
 }
 //收到通知后的变化

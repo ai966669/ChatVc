@@ -16,26 +16,30 @@ typealias SessionSuccessBlock = (model : AnyObject?) -> Void
 *  登录相关二级路径 URLAppBasic
 */
 
-// 启动
-
+/// 启动
 let URLSystemStart="/system/start"
 
-//获取系统时间
+/// 获取系统时间
 
 let URLSystemTime="/system/time"
 
-//获取上传文件token
+/// 获取上传文件token
 
 let URLSystemUpToken="/system/upToken"
 
-
-//登陆
+/// 普通登陆
 let URLUserLogin="/user/login"
+
+//验证码登陆
+let URLUserCodeLogin="/user/code/login"
 
 //获取聊天对象
 
 let URLUserChatObject="/user/chat/object"
 
+//获取验证码
+
+let URLUserCode="/user/code"
 
 // 通过token登录
 
@@ -53,18 +57,50 @@ let codeTokenUnvalible = -1014
 let codeOverTime = 3840 //属于-1中的问题
 let codeErrorReturn = -3
 let codeUnexpected = 0
-
+/// 登陆需要验证码
+let ErrNeedCode=1022
 class TopModel: NSObject {
+    /**
+     对请求参数进行操作
+     
+     - parameter params: 需要处理的参数列表，字典形式
+     
+     - returns: 处理后的参数列表
+     */
     func unverisalProcess(var params:Dictionary<String, String>)->Dictionary<String, String>{
         //增加必要字段
-        params = addNeccessayParam(params)
-        //    添加签名
+        params = addNeccessayParamUniversal(params)
+        //添加签名
         params = addSign(params)
         
         return params
         
     }
-    private func addNeccessayParam(var params:Dictionary<String, String>)->Dictionary<String, String>{
+    /**
+     同unverisalProcess，但是该接口提供给特殊请求用。
+     
+     1.启动:system/start
+
+     2.登录:user/login
+     
+     - parameter params: 需要处理的参数列表，字典形式
+     
+     - returns: 处理后的参数
+     */
+    func specialProcess(var params:Dictionary<String, String>)->Dictionary<String, String>{
+        //增加必要字段
+        params = addNeccessayParamSpecial(params)
+        //    添加签名
+        params = addSign(params)
+        
+        return params
+    }
+    private func addNeccessayParamSpecial(var params:Dictionary<String, String>)->Dictionary<String, String>{
+        // 必要字段  nonc
+        params["nonce"] = "669966"
+        return params
+    }
+    private func addNeccessayParamUniversal(var params:Dictionary<String, String>)->Dictionary<String, String>{
         // 必要字段   token，nonc
         if UserModel.shareManager().token != ""{
             params["token"] = UserModel.shareManager().token
@@ -74,6 +110,16 @@ class TopModel: NSObject {
                 params["token"] = token.str
             }else{
                 params["token"] = "default"
+            }
+        }
+        if UserModel.shareManager().id != ""{
+            params["userId"] = UserModel.shareManager().id
+        }else {
+            let  lastUserId = NSUserDefaults.standardUserDefaults().valueForKey(UD_LastTimeUserId) as? String
+            if lastUserId != "" && lastUserId != nil {
+                params["userId"] = "\(lastUserId!)"
+            }else{
+                params["userId"] = "联系壮壮，参数错了"
             }
         }
         params["nonce"] = "669966"

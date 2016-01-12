@@ -14,7 +14,6 @@ protocol InputVcDelegate:NSObjectProtocol{
     func finishImagesPick(images:NSArray)
     func finishVoice(infosVoice:NSArray)
     func presentMapVC()
-    func showUseIntroduce()
     func goLastMsg()
 }
 enum  StatusOfKeyboard {
@@ -275,6 +274,8 @@ class InputV: UIView {
         }else {
             viewUnder.backgroundColor = UIColor(red: 0.0/255.0, green: 0.0/255.0, blue: 0.0/255.0, alpha: 0.6)
         }
+        
+        btnOfSend.backgroundColor = ColorTopic
         initNotification()
         
         initData()
@@ -383,6 +384,7 @@ class InputV: UIView {
         
         clvMsgWantSend.backgroundColor = UIColor.clearColor()
 
+        clvMsgWantSend.hidden=true
 
     }
     func initBtnOfVoice(){
@@ -702,7 +704,7 @@ extension InputV:UICollectionViewDelegate,UICollectionViewDataSource,UICollectio
         }else if collectionView == clvOfRecent{
             return 8
         }else if collectionView == clvOfMoreAction{
-            return 4
+            return 3
         }else if collectionView == clvMsgWantSend{
             return 1
         }
@@ -781,7 +783,7 @@ extension InputV:UICollectionViewDelegate,UICollectionViewDataSource,UICollectio
                 cell.lbOfEmoji.font=UIFont.systemFontOfSize(17.0)
                 cell.lbOfEmoji.backgroundColor=UIColor(red: 226/255.0, green: 226/255.0, blue: 226/255.0, alpha: 1)
                 cell.lbOfEmoji.layer.borderColor=UIColor(red: 220/255.0, green: 220/255.0, blue: 220/255.0, alpha: 1).CGColor
-                cell.lbOfEmoji.textColor = ColorSelected
+                cell.lbOfEmoji.textColor =  ColorTopic //ColorSelected
             }
             cell.backgroundColor=UIColor.yellowColor()
             return cell
@@ -838,7 +840,7 @@ extension InputV:UICollectionViewDelegate,UICollectionViewDataSource,UICollectio
         }else if collectionView == clvOfMenu {
             let cell =  collectionView.cellForItemAtIndexPath(indexPath) as! ColCell1InputVc
             cell.lbOfEmoji.font=UIFont.systemFontOfSize(17.0)
-            cell.lbOfEmoji.textColor = ColorSelected
+            cell.lbOfEmoji.textColor = ColorTopic //ColorSelected
             cell.lbOfEmoji.backgroundColor=UIColor(red: 226/255.0, green: 226/255.0, blue: 226/255.0, alpha: 1)
             cell.lbOfEmoji.layer.borderColor=UIColor(red: 220/255.0, green: 220/255.0, blue: 220/255.0, alpha: 1).CGColor
             if indexPath.section == 0{
@@ -882,9 +884,6 @@ extension InputV:UICollectionViewDelegate,UICollectionViewDataSource,UICollectio
                     oneInputVcDelegate!.presentMapVC()
                     
                     break;
-                case 3:
-                    //                    使用说明
-                    oneInputVcDelegate?.showUseIntroduce()
                 default:
                     break;
                 }

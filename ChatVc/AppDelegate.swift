@@ -14,9 +14,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     var aLoginAndRegistVc:UINavigationController?
     var aChatVc:UINavigationController?
+    var isBackGround=false
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        
-var a =            NSDate().timeIntervalSince1970
         
         //window界面初始化
         window = UIWindow(frame: UIScreen.mainScreen().bounds)
@@ -43,10 +42,15 @@ var a =            NSDate().timeIntervalSince1970
             
         }
         
+        UIApplication.sharedApplication().applicationIconBadgeNumber=0
         
         //融云注册通知
         registToken1(application)
-        
+        MCommandRequest().applicationStart({ (model) -> Void in
+            print("start成功")
+            }) { (code) -> Void in
+                print("start失败")
+        }
         // Override point for customization after application launch.
         return true
     }
@@ -84,15 +88,24 @@ var a =            NSDate().timeIntervalSince1970
     }
     
     func applicationDidEnterBackground(application: UIApplication) {
+            isBackGround=true
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
     }
     
     func applicationWillEnterForeground(application: UIApplication) {
+        isBackGround=false
+        UIApplication.sharedApplication().applicationIconBadgeNumber=0
+        MCommandRequest().applicationStart({ (model) -> Void in
+            print("start成功")
+            }) { (code) -> Void in
+            print("start失败")
+        }
         // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
     }
     
     func applicationDidBecomeActive(application: UIApplication) {
+        
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
     }
     
@@ -158,6 +171,7 @@ extension AppDelegate{
     func application(application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: NSData) {
         //2e81b1d361ecfca625d2aa10c15fd737507929aab3b8d3497d3011a05dc60008
         let token = deviceToken.description.stringByReplacingOccurrencesOfString("<", withString: "").stringByReplacingOccurrencesOfString(">", withString: "").stringByReplacingOccurrencesOfString(" ", withString: "")
+        print("deviceToken:\(token)");
         RCIMClient.sharedRCIMClient().setDeviceToken(token)
     }
     func onlineConfigCallBack(note: NSNotification ){
@@ -186,9 +200,33 @@ extension AppDelegate{
      //    NSLog(@"该远程推送不包含来自融云的推送服务");
      //    }
      //    }
+    
+    
     func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject]) {
         RCIMClient.sharedRCIMClient().recordRemoteNotificationEvent(userInfo)
+                SVProgressHUD.showSuccessWithStatus("1111111111111111111111111")
     }
+    
+   //  彻底关闭后，滑动离线通知进入app时运行
+    func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject], fetchCompletionHandler completionHandler: (UIBackgroundFetchResult) -> Void) {
+        SVProgressHUD.showSuccessWithStatus("22222222222222222222222222")
+    }
+
+   //  后台运行时，滑动通知进入app时运行
+    func application(application: UIApplication, didReceiveLocalNotification notification: UILocalNotification) {
+        //application.applicationIconBadgeNumber=UIApplication.sharedApplication().applicationIconBadgeNumber
+//        if let type = notification.userInfo!["groupType"] as? Int {
+//            //dealNotification(type)
+//            if type >= 0 && type <= 8 {
+//            
+//            }
+//        }
+        SVProgressHUD.showSuccessWithStatus("333333333333333333333333")
+        RCIMClient.sharedRCIMClient().recordLocalNotificationEvent(notification)
+        AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
+        AudioServicesPlaySystemSound(1007);
+    }
+
 }
 // MARK: - Ping++支付回调
 extension AppDelegate{

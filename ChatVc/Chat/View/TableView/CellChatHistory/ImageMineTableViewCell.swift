@@ -33,17 +33,22 @@ class ImageMineTableViewCell: ChatTableViewCell {
     }
     func resetCell(){
         resetCellUniversity(aModelOfMsgCellImg)
+        
+        imageMine.image=aModelOfMsgCellImg.img
         let fileData=NSData(contentsOfFile: aModelOfMsgCellImg.imgUrlOrPath!)
         if (fileData != nil){
             imageMine.image = UIImage(data: fileData!)
         }else{
-            imageMine.sd_setImageWithURL(NSURL(string: aModelOfMsgCellImg.imgUrlOrPath!), placeholderImage: UIImage(named: "HomeDefaultHead"), completed: { (aImg, aNSError,_,_) -> Void in
+            imageMine.sd_setImageWithURL(NSURL(string: aModelOfMsgCellImg.imgUrlOrPath!), placeholderImage: aModelOfMsgCellImg.img, completed: { (aImg, aNSError,_,_) -> Void in
                 if (aNSError == nil){
-//                    将图片写入到文件中去
+//todo                    将图片写入到文件中去
 //                    var a = UIImageJPEGRepresentation(aImg, 1)
                 }
             })
         }
+        //todo 需要将aModelOfMsgCellImg.img设置为nil，减少内存消耗
+ 
+        
         let aSize =  CGSizeMake(aModelOfMsgCellBasic.sizeCell.width, aModelOfMsgCellBasic.sizeCell.height)
         if aModelOfMsgCellBasic.isSend{
             let aImgVR = UIImageView(image:UIImage(named: "mmsright")?.resizableImageWithCapInsets(UIEdgeInsetsMake(28,10,10,15)))
@@ -107,6 +112,7 @@ extension ImageMineTableViewCell{
 //        let moreItem=UIMenuItem(title: "更多", action: "moreActionByMenuControll:")
         aUIMenuController.menuItems=[deleteItem]
         aUIMenuController.setTargetRect(imageMine.frame, inView: self)
+        ChatTableViewCell.indexPathShowMenu=aNSIndexPath
         return true
     }
 }

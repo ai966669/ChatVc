@@ -14,7 +14,7 @@ public class D3Json{
         if dics == nil{
             return nil
         }
-
+        
         var properties: Mirror!
         var obj: AnyObject!
         guard let nSClass = clazz as? NSObject.Type else {
@@ -25,7 +25,7 @@ public class D3Json{
         obj = nSClass.init()
         
         properties = Mirror(reflecting: obj)
-
+        
         
         var dic:AnyObject!
         if dics is NSArray{
@@ -42,7 +42,7 @@ public class D3Json{
                     
                     let key = b[i].label!
                     let value = b[i].value
-//                    Log("Keys:\(key)")
+                    //                    Log("Keys:\(key)")
                     guard let valueDic = dic.objectForKey(key) else{
                         Log("key:\(key) not have value")
                         continue
@@ -60,7 +60,7 @@ public class D3Json{
                                 Log("key:\(key) values:\(valueDic)")
                             }
                         }
-
+                        
                         
                         
                     case is String:
@@ -69,7 +69,7 @@ public class D3Json{
                         }else {
                             obj.setValue(valueDic.description, forKey: key)
                         }
-
+                        
                     case is Array<String>:
                         if let nsarray = dic?.objectForKey(key) as? NSArray {
                             var array:Array<String> = []
@@ -96,7 +96,7 @@ public class D3Json{
                     }
                 }
             }
-          
+            
         }
         else{
             return nil
@@ -123,71 +123,77 @@ public class D3Json{
     
     
     /**
-    上面只实现了基本类型的，如果是自己定义的model，在此处做扩展.此处作例子，不需要可清除。
-    如有自己的User类，则增加：
-    case _ as User.Type:
-    obj.setValue(jsonToModel(dic.objectForKey(key), clazz: User.self, objc: User()),forKey:key)
-    如有自己的Job类，则把User改成Job则可
-    
-    :param: key  属性名
-    :param: type 属性的类型
-    :param: obj  要赋值的对象
-    :param: dic  json对象
-    */
+     上面只实现了基本类型的，如果是自己定义的model，在此处做扩展.此处作例子，不需要可清除。
+     如有自己的User类，则增加：
+     case _ as User.Type:
+     obj.setValue(jsonToModel(dic.objectForKey(key), clazz: User.self, objc: User()),forKey:key)
+     如有自己的Job类，则把User改成Job则可
+     
+     :param: key  属性名
+     :param: type 属性的类型
+     :param: obj  要赋值的对象
+     :param: dic  json对象
+     */
     private class func addExtension(key:String,value:Any,obj:AnyObject,dic:AnyObject){
         switch value {
-//        case is [MCategory]:
-//                let value: AnyObject? = dic.objectForKey(key)
-//                if value != nil{
-//                let arr : [MCategory] = jsonToModelList(value, clazz: MCategory.self)
-//                obj.setValue(arr, forKey: key)
-//                }
-//        case is [ThirdInfo]:
-//            let value: AnyObject? = dic.objectForKey(key)
-//            if value != nil{
-//                let arr : [ThirdInfo] = jsonToModelList(value, clazz: ThirdInfo.self)
-//                print("\(arr.count)")
-//                obj.setValue(arr, forKey: key)
-//            }
-//        case is [Support]:
-//            let value: AnyObject? = dic.objectForKey(key)
-//            if value != nil{
-//                let arr : [Support] = jsonToModelList(value, clazz: Support.self)
-//                print("\(arr.count)")
-//                obj.setValue(arr, forKey: key)
-//            }
-//        case is [Unit]:
-//            let value: AnyObject? = dic.objectForKey(key)
-//            if value != nil{
-//                let arr : [Unit] = jsonToModelList(value, clazz: Unit.self)
-//                print("\(arr.count)")
-//                obj.setValue(arr, forKey: key)
-//            }
-//        case is [itemInOrderDetail]:
-//            let value: AnyObject? = dic.objectForKey(key)
-//            if value != nil{
-//                let arr : [itemInOrderDetail] = jsonToModelList(value, clazz: itemInOrderDetail.self)
-//                print("\(arr.count)")
-//                obj.setValue(arr, forKey: key)
-//            }
-//
-//        case is OrderInfo:
-//            let value: AnyObject? = dic.objectForKey(key)
-//            if value != nil{
-//                let oneOrderInfo : OrderInfo = jsonToModel(value,clazz: OrderInfo.self)
-//                obj.setValue(oneOrderInfo, forKey: key)
-//            }
-//        case is [Mmsg]:
-//            let value: AnyObject? = dic.objectForKey(key)
-//            if value != nil{
-//                let arr : [Mmsg] = jsonToModelList(value, clazz: Mmsg.self)
-//                print("\(arr.count)")
-//                obj.setValue(arr, forKey: key)
-//            }
+        case is [MMenu]:
+            let value: AnyObject? = dic.objectForKey(key)
+            if value != nil{
+                let arr : [MMenu] = jsonToModelList(value, clazz: MMenu.self)
+                obj.setValue(arr, forKey: key)
+            }
+            //        case is [MCategory]:
+            //                let value: AnyObject? = dic.objectForKey(key)
+            //                if value != nil{
+            //                let arr : [MCategory] = jsonToModelList(value, clazz: MCategory.self)
+            //                obj.setValue(arr, forKey: key)
+            //                }
+            //        case is [ThirdInfo]:
+            //            let value: AnyObject? = dic.objectForKey(key)
+            //            if value != nil{
+            //                let arr : [ThirdInfo] = jsonToModelList(value, clazz: ThirdInfo.self)
+            //                print("\(arr.count)")
+            //                obj.setValue(arr, forKey: key)
+            //            }
+            //        case is [Support]:
+            //            let value: AnyObject? = dic.objectForKey(key)
+            //            if value != nil{
+            //                let arr : [Support] = jsonToModelList(value, clazz: Support.self)
+            //                print("\(arr.count)")
+            //                obj.setValue(arr, forKey: key)
+            //            }
+            //        case is [Unit]:
+            //            let value: AnyObject? = dic.objectForKey(key)
+            //            if value != nil{
+            //                let arr : [Unit] = jsonToModelList(value, clazz: Unit.self)
+            //                print("\(arr.count)")
+            //                obj.setValue(arr, forKey: key)
+            //            }
+            //        case is [itemInOrderDetail]:
+            //            let value: AnyObject? = dic.objectForKey(key)
+            //            if value != nil{
+            //                let arr : [itemInOrderDetail] = jsonToModelList(value, clazz: itemInOrderDetail.self)
+            //                print("\(arr.count)")
+            //                obj.setValue(arr, forKey: key)
+            //            }
+            //
+            //        case is OrderInfo:
+            //            let value: AnyObject? = dic.objectForKey(key)
+            //            if value != nil{
+            //                let oneOrderInfo : OrderInfo = jsonToModel(value,clazz: OrderInfo.self)
+            //                obj.setValue(oneOrderInfo, forKey: key)
+            //            }
+            //        case is [Mmsg]:
+            //            let value: AnyObject? = dic.objectForKey(key)
+            //            if value != nil{
+            //                let arr : [Mmsg] = jsonToModelList(value, clazz: Mmsg.self)
+            //                print("\(arr.count)")
+            //                obj.setValue(arr, forKey: key)
+            //            }
             
-//
-//        case _ as Job.Type:
-//            obj.setValue(jsonToModel(dic.objectForKey(key), objc: Job()),forKey:key)
+            //
+            //        case _ as Job.Type:
+            //            obj.setValue(jsonToModel(dic.objectForKey(key), objc: Job()),forKey:key)
             
         default:     //unknow
             Log("key:\(key),unknow,sure that you hava init")

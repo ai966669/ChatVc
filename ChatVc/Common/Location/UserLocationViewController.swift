@@ -41,16 +41,27 @@ class UserLocationViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //        automaticallyAdjustsScrollViewInsets = false
-        view.backgroundColor = UIColor.yellowColor()
-        width = view.frame.size.width
-        navigationItem.title = "位置"
+//        设置导航栏颜色
+        navigationController?.navigationBar.barTintColor=ColorNav
+        
+        //设置title
+        let aUILabel:UILabel=UILabel(frame: CGRectMake(0, 0, 100, 30))
+        aUILabel.textColor=UIColor.whiteColor()
+        aUILabel.font=UIFont.systemFontOfSize(20)
+        aUILabel.textAlignment=NSTextAlignment.Center
+        aUILabel.text="位置"
+        self.navigationItem.titleView = aUILabel
+        
+        
         
         navigationItem.leftBarButtonItem = createNavBarItem("取消", action: .Left)
         navigationItem.rightBarButtonItem = createNavBarItem("发送", action: .Right)
         
-        //
+        
+        
+        
         //常用位置与当前位置按钮的下边蓝条
+        width = view.frame.size.width
         myView = UIView(frame: CGRectMake(0, 64+44, width/2, 2))
         myView.backgroundColor = selectedColor
         view.addSubview(myView)

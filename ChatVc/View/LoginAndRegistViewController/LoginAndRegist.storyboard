@@ -21,6 +21,12 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="loginBG" translatesAutoresizingMaskIntoConstraints="NO" id="Fsc-HI-xwC">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                             </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nDf-Bf-tIX">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <connections>
+                                    <action selector="registResponsible" destination="iEj-nD-br8" eventType="touchUpInside" id="1rH-44-oFY"/>
+                                </connections>
+                            </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="F2E-Tk-yBl">
                                 <rect key="frame" x="15" y="230" width="570" height="44"/>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -50,7 +56,10 @@
                                 </constraints>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                                <connections>
+                                    <outlet property="delegate" destination="iEj-nD-br8" id="zYG-VI-IY8"/>
+                                </connections>
                             </textField>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="ZbZ-o8-sLv">
                                 <rect key="frame" x="232" y="71" width="136" height="129"/>
@@ -80,26 +89,6 @@
                                     <constraint firstAttribute="width" constant="50" id="ZyB-hb-ACC"/>
                                 </constraints>
                             </imageView>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入您的卡号" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ocn-vE-q4i">
-                                <rect key="frame" x="76" y="230" width="509" height="44"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="44" id="BiV-rv-OdW"/>
-                                </constraints>
-                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入您的密码" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ywY-1l-4YK">
-                                <rect key="frame" x="76" y="295" width="509" height="44"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="44" id="aeW-Fp-QeA"/>
-                                </constraints>
-                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
                             <view alpha="0.40000000000000002" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kUC-lz-gs9">
                                 <rect key="frame" x="65" y="230" width="1" height="44"/>
                                 <color key="backgroundColor" red="0.41568627450980389" green="0.41568627450980389" blue="0.41568627450980389" alpha="1" colorSpace="calibratedRGB"/>
@@ -145,13 +134,40 @@
                                     <color key="titleColor" red="0.96862745100000003" green="0.96862745100000003" blue="0.96862745100000003" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                                 <connections>
-                                    <action selector="getVertifyCode:" destination="iEj-nD-br8" eventType="touchUpInside" id="rnM-z1-9OT"/>
+                                    <action selector="getVertifyCode" destination="iEj-nD-br8" eventType="touchUpInside" id="Brt-Ne-srn"/>
                                 </connections>
                             </button>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入您的卡号" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ocn-vE-q4i">
+                                <rect key="frame" x="76" y="230" width="509" height="44"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="BiV-rv-OdW"/>
+                                </constraints>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <outlet property="delegate" destination="iEj-nD-br8" id="AhN-rF-k8e"/>
+                                </connections>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入您的密码" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ywY-1l-4YK">
+                                <rect key="frame" x="76" y="295" width="509" height="44"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="aeW-Fp-QeA"/>
+                                </constraints>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <outlet property="delegate" destination="iEj-nD-br8" id="XFV-zf-nne"/>
+                                </connections>
+                            </textField>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="trailingMargin" secondItem="ywY-1l-4YK" secondAttribute="trailing" constant="-5" id="0hm-5p-Tkc"/>
+                            <constraint firstItem="nDf-Bf-tIX" firstAttribute="leading" secondItem="bJh-kz-9ib" secondAttribute="leadingMargin" constant="-20" id="4Wg-UC-Lv2"/>
                             <constraint firstItem="Ade-iN-6Jh" firstAttribute="leading" secondItem="bJh-kz-9ib" secondAttribute="leadingMargin" constant="-5" id="57H-hh-4gR"/>
                             <constraint firstItem="iSE-zK-eYK" firstAttribute="top" secondItem="ywY-1l-4YK" secondAttribute="bottom" constant="20" id="70R-e3-qY6"/>
                             <constraint firstItem="F2E-Tk-yBl" firstAttribute="top" secondItem="ocn-vE-q4i" secondAttribute="top" id="7MF-Bn-ozg"/>
@@ -173,6 +189,7 @@
                             <constraint firstAttribute="trailingMargin" secondItem="LMI-EN-V3n" secondAttribute="trailing" constant="15" id="ON5-RU-PBk"/>
                             <constraint firstItem="LMI-EN-V3n" firstAttribute="trailing" secondItem="ywY-1l-4YK" secondAttribute="trailing" id="ObD-jn-1Ap"/>
                             <constraint firstItem="wfM-2M-XlF" firstAttribute="bottom" secondItem="ywY-1l-4YK" secondAttribute="bottom" id="Ozg-QI-nLX"/>
+                            <constraint firstItem="y5M-iv-ZAe" firstAttribute="top" secondItem="nDf-Bf-tIX" secondAttribute="bottom" id="QB2-rb-hOF"/>
                             <constraint firstItem="LMI-EN-V3n" firstAttribute="top" secondItem="ywY-1l-4YK" secondAttribute="top" id="Qxb-mb-P3w"/>
                             <constraint firstItem="LMI-EN-V3n" firstAttribute="leading" secondItem="Gwu-dF-1U0" secondAttribute="leading" id="R0E-RE-kzY"/>
                             <constraint firstAttribute="trailingMargin" secondItem="Fsc-HI-xwC" secondAttribute="trailing" constant="-20" id="T72-79-CKW"/>
@@ -188,6 +205,8 @@
                             <constraint firstItem="ywY-1l-4YK" firstAttribute="leading" secondItem="wfM-2M-XlF" secondAttribute="trailing" constant="10" id="apj-YR-xUX"/>
                             <constraint firstItem="kUC-lz-gs9" firstAttribute="leading" secondItem="Mlu-OK-Jif" secondAttribute="trailing" id="bpa-pA-Z2u"/>
                             <constraint firstItem="ZbZ-o8-sLv" firstAttribute="top" secondItem="Dhn-fs-TrQ" secondAttribute="bottom" constant="51" id="cE4-53-Cwf"/>
+                            <constraint firstItem="nDf-Bf-tIX" firstAttribute="top" secondItem="bJh-kz-9ib" secondAttribute="topMargin" id="dLA-Et-kUt"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="nDf-Bf-tIX" secondAttribute="trailing" constant="-20" id="f8X-dC-xZK"/>
                             <constraint firstItem="Ade-iN-6Jh" firstAttribute="top" secondItem="Gwu-dF-1U0" secondAttribute="bottom" constant="20" id="hGc-4B-dhx"/>
                             <constraint firstItem="LMI-EN-V3n" firstAttribute="leading" secondItem="bJh-kz-9ib" secondAttribute="leadingMargin" constant="15" id="iVX-Xa-z5s"/>
                             <constraint firstAttribute="trailingMargin" secondItem="ocn-vE-q4i" secondAttribute="trailing" constant="-5" id="kns-YL-jyQ"/>
@@ -218,6 +237,7 @@
                     </view>
                     <connections>
                         <outlet property="btnGetVertifyCode" destination="vKD-fH-cMb" id="594-9Y-WTj"/>
+                        <outlet property="btnRegistFirstResponsible" destination="nDf-Bf-tIX" id="AcW-ae-wkd"/>
                         <outlet property="btnTryLogin" destination="ayt-xP-uue" id="Ime-Hy-2qE"/>
                         <outlet property="imgVertifyCode" destination="Ade-iN-6Jh" id="Ctg-Z1-Bt6"/>
                         <outlet property="lblCardNoBg" destination="F2E-Tk-yBl" id="IMI-k3-oyO"/>

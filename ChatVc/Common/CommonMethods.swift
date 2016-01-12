@@ -128,8 +128,8 @@ func isHavePhone() -> (String,Bool){
 func msgIdToFilePath(msgId:Int,isVoice:Bool)->String{
 
     if isVoice{
-        return     HelpFromOc.getMsgPath("Img\(msgId)", false)
-    }else{
         return     HelpFromOc.getMsgPath("Voice\(msgId)", false)
+    }else{
+        return     HelpFromOc.getMsgPath("Img\(msgId)", false)
     }
 }

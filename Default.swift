@@ -69,8 +69,7 @@ let NotificationGetMsgFromAssistant="GetMsgFromAssistan"
 * 本地存储的数据都用SG_开头
 */
 
-//记录Token的key
-let UD_LastTimeSignToken = "UD_LastTimeSignToken"
+
 //记录上一次Tel的key
 let SG_LastTimeSignInPhoneNum = "SG_LastTimeSignInPhoneNum"
 //记录上次登录的UserId
@@ -136,7 +135,7 @@ let SG_QiniuUpTokenTime = "SG_QiniuUpTokenTime"
 let UpLoadImageLimitSize: Int = 1024*1024
 let UpLoadHeadImageLimitSize: Int = 1024 * 64
 // 七牛的Basic网址
-let QiNiuBasicURL = "http://img1.pig.ai/"
+let QiNiuBasicURL = "http://img1.ultimavip.cn/"  //"http://img1.pig.ai/"
 
 //确定不变的相关账号的数据
 //友盟
@@ -179,10 +178,14 @@ let ApplicationBuildVersion = NSBundle.mainBundle().infoDictionary!["CFBundleVer
 // 当前系统版本是否大于 8.0
 let isIOSMoreThan8 = (UIDevice.currentDevice().systemVersion as NSString).floatValue >= 8.0
 let SystemVersion = UIDevice.currentDevice().systemVersion._bridgeToObjectiveC().doubleValue
+
 //默认用户头像地址
-var DefaultHeadImgPath = NSBundle.mainBundle().pathForResource("HomeDefaultHead", ofType: "png")
+var DefaultHeadImgUser =  "headUser"//NSBundle.mainBundle().pathForResource("Assets/headUser", ofType: "png")
+//默认用户头像地址
+var DefaultHeadImgManager = "headManager"//NSBundle.mainBundle().pathForResource("Assets/headManager", ofType: "png")
+
 //导航栏的颜色
-let NavColor = UIColor(red: 0/255.0, green: 0/255.0, blue: 0/255.0, alpha: 1.0)
+//let NavColor = UIColor(red: 0/255.0, green: 0/255.0, blue: 0/255.0, alpha: 1.0)
 let BackGroundColor = UIColor(red: 239.0/255.0, green: 239.0/255.0, blue: 244.0/255.0, alpha: 1.0)
 let TitleColor = UIColor(red: 48.0/255.0, green: 50.0/255.0, blue: 62.0/255.0, alpha: 1.0)
 let DetailTitleColor = UIColor(red: 131.0/255.0, green: 132.0/255.0, blue: 139.0/255.0, alpha: 1.0)
@@ -193,11 +196,42 @@ let ColorUnSelectedBtnCodeTitle = UIColor(red: 212.0/255.0, green: 212.0/255.0, 
 let ColorUnSelected = UIColor(red: 225.0/255.0, green: 220.0/255.0, blue: 153.0/255.0 , alpha: 1.0)
 let ColorSelected = UIColor(red: 255.0/255.0, green: 168.0/255.0, blue: 0/255.0 , alpha: 1.0)
 let CellBackgroundColor=UIColor(red: 232.0 / 255.0, green: 232.0 / 255.0, blue: 232.0 / 255.0, alpha: 1)
-
+//主题色
+let ColorTopic = UIColor(red: 77.0/255.0, green: 77.0/255.0, blue: 81.0/255.0, alpha: 1.0)
+//导航栏颜色
+let ColorNav =  UIColor(red: 0/255.0, green: 0/255.0, blue: 0/255.0, alpha: 1.0)
+//消息的字体颜色
+let ColorMsgGet = UIColor.blackColor()
+let  ColorMsgSend = UIColor(red: 48.0/255.0, green: 50.0/255.0, blue: 62.0/255.0, alpha: 1.0)
 //UIStoryboard中界面的标识
 let UIStoryboardIDChat="Chat"
 //通知名  
+//start加载完成，依赖start的ui页面开始渲染
+let NotificationUIUpdate="NotificationUiUpdate"
 //通知会话界面拉取聊天记录
-let NSNotificationLoadOldMsg="NSNotificationLoadOldMsg"
+let NotificationLoadOldMsg="NSNotificationLoadOldMsg"
+//收到消息
+let NotificationNewMsg="NotificationNewMsg"
+//收到文字，订单消息
+let NotificationNewMsgTxtOrder="NSNotificationNewMsgTxt"
+//收到语音消息
+let NotificationNewMsgVoice="NSNotificationNewMsgVoice"
+//收到图片消息
+let NotificationNewMsgImg="NSNotificationNewMsgImg"
 //没有时间戳
 let DefaultNoTime:Double=0
+//通知文本信息
+let PushContentImg="您有一条图片消息"
+let PushContentVoice="您有一条语音消息"
+let PushContentLocation="您有一条地址消息"
+//图片资源地址
+let UrlImgSource="http://img2.ultimavip.cn/"
+
+//记录Token的key
+let UD_LastTimeSignToken = "UD_LastTimeSignToken"
+//记录上次登录的UserId
+let UD_LastTimeUserId = "SG_LastTimeLoginInUserId"
+//按钮可点击颜色
+let ColorBtnCanSelect = UIColor(hexString: "#C1A96B")
+//按钮不可点击颜色
+let ColorBtnCanUnSelect = UIColor.lightGrayColor()

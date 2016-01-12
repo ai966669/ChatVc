@@ -845,8 +845,10 @@ static UIColor *titleColor;
                                         target:self
                                         action:@selector(dismiss:)];
 
-        
-        self.navigationController.navigationBar.barTintColor=[UIColor colorWithRed:231.0/255.0 green:154.0/255.0 blue:39.0/255.0 alpha:1];
+//        导航栏颜色
+        self.navigationController.navigationBar.barTintColor=[UIColor blackColor];
+//        [UIColor blackColor];
+//        [UIColor colorWithRed:231.0/255.0 green:154.0/255.0 blue:39.0/255.0 alpha:1];
         
         
 #warning 为什么push后导航栏颜色会浓一些，为什么返回按钮颜色不变

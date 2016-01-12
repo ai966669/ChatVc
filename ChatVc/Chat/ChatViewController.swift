@@ -9,6 +9,8 @@
 import UIKit
 
 class ChatViewController: UIViewController {
+    
+    @IBOutlet var moreActionMenuNSLayoutConstraintHeight: NSLayoutConstraint!
     var aInputV:InputV!
     var aTableviewDelegateNzz=TableviewDelegateNzz()
     var aMChatView=MChatView()
@@ -22,42 +24,46 @@ class ChatViewController: UIViewController {
     @IBOutlet var btnHideMoreActionMenu: UIButton!
     @IBOutlet var tbvNSLayoutConstraintTop: NSLayoutConstraint!
     var idOldestMsg:Int = -1
+    let moreActionViewNSLayoutConstraintTopOriginValue:CGFloat=6
+    @IBOutlet var moreActionViewNSLayoutConstraintTop: NSLayoutConstraint!
     override func viewDidLoad() {
         super.viewDidLoad()
         tbvChatHistory.hidden=true
         btnHideMoreActionMenu.hidden=true
+        moreActionMenu.separatorStyle=UITableViewCellSeparatorStyle.None
         dispatch_async(dispatch_get_main_queue()) { () -> Void in
             self.initClv()
-            self.initReceiveMsg()
+            //self.initReceiveMsg()
             //之后的这些操作是需要得到登陆成功后才
             self.initTbvChatHistory()
             self.tbvChatHistory.hidden=false
             self.initMoreAction()
         }
         
-        //0104设置导航栏图片和导航栏颜色
-        //        navigationItem.titleView = UIImageView(image: UIImage(named: "logoNav"))
-        let imgBgNav = HelpFromOc.buttonImageFromColor(NavColor, (navigationController?.navigationBar.frame.size)!)
-        navigationController?.navigationBar.setBackgroundImage(imgBgNav, forBarMetrics: UIBarMetrics.Default)
+        navigationController!.navigationBar.barTintColor=ColorNav
+        
+        
         //？0104设置颜色为什么这样失败
-        //                navigationController?.navigationBar.backgroundColor= NavColor
+        
+        //navigationController?.navigationBar.backgroundColor = ColorNav
         // Do any additional setup after loading the view.
         //注册相关通知
         initNotification()
     }
     func initNotification(){
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "loadOldMsg", name: NSNotificationLoadOldMsg, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "loadOldMsg", name: NotificationLoadOldMsg, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "onRCIMReceiveMessage:", name: NotificationNewMsg , object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "uIUpdate", name: NotificationUIUpdate , object: nil)
+        
     }
     func initReceiveMsg(){
-        RCIM.sharedRCIM().receiveMessageDelegate=self
+        //        RCIM.sharedRCIM().receiveMessageDelegate=self
     }
     func initMoreAction(){
         moreActionMenu.delegate=self
         moreActionMenu.dataSource=self
-        viewMoreAction.backgroundColor=UIColor.blackColor()
-        moreActionMenu.backgroundColor=UIColor.blackColor()
         moreActionMenu.separatorColor=UIColor(hexString: "#5c5c5c")
-        viewMoreAction.alpha=0.8
+        viewMoreAction.alpha=1
         viewMoreAction.hidden=true
         let aUImage = UIImageView(image:UIImage(named: "menubg")?.resizableImageWithCapInsets(UIEdgeInsetsMake(10,10,30,15)))
         let aCALayer=aUImage.layer
@@ -168,12 +174,12 @@ class ChatViewController: UIViewController {
 // MARK: -InputVcDelegate委托实现
 extension  ChatViewController:InputVcDelegate{
     func boundsNeedToChange(bundleAdd: CGFloat) {
-                if aTableviewDelegateNzz.aMTableviewDelegateNzz.nbOfMsg<=4{
-                    tbvNSLayoutConstraintTop.constant=bundleAdd
-                    view.layoutIfNeeded()
-                }else{
-                    tbvNSLayoutConstraintTop.constant=0
-                }
+        if aTableviewDelegateNzz.aMTableviewDelegateNzz.nbOfMsg<=4{
+            tbvNSLayoutConstraintTop.constant=bundleAdd
+            view.layoutIfNeeded()
+        }else{
+            tbvNSLayoutConstraintTop.constant=0
+        }
     }
     func goLastMsg() {
         //if chatTableView.nbOfMsg>0{
@@ -187,12 +193,19 @@ extension  ChatViewController:InputVcDelegate{
     }
     
     func finishImagesPick(images: NSArray) {
+        
         if images.count>=1{
+            
             for i in 0...images.count-1{
                 
                 let image = images[i] as! UIImage
                 
                 let imgData=UIImageJPEGRepresentation(image, 0)
+                
+                aTableviewDelegateNzz.addAnewMsgImg(MMsgImg().initMMsgImg(image, aFullImgUrlOrPath: "", aStatusOfSend: StatusOfSend.sending, aImgHeadUrlOrFilePath: DefaultHeadImgUser, aIsSend: true,aMsgId: -1))
+                
+                let nubOfMsg=aTableviewDelegateNzz.aMTableviewDelegateNzz.nbOfMsg-1
+                
                 
                 if (imgData != nil){
                     
@@ -213,10 +226,20 @@ extension  ChatViewController:InputVcDelegate{
                                             //将图片保存到本地image文件夹下
                                             imgData!.writeToFile(imgPath, atomically: true)
                                             
-                                            self.aTableviewDelegateNzz.addAnewMsgImg(MMsgImg().initMMsgImg(image, aFullImgUrlOrPath: imgPath, aStatusOfSend: StatusOfSend.success, aImgHeadUrlOrFilePath: DefaultHeadImgPath, aIsSend: true,aMsgId: messageId))
-                                            
                                             print("发送成功")
+                                            
+                                            self.aTableviewDelegateNzz.resetFilePathAndMsgIdAndSendStatus(imgPath, msgId: messageId, nubOfMsg: nubOfMsg, aStatusOfSend: StatusOfSend.success)
+                                            
                                             }, errorBlock: { (nErrorCode, messageId) -> Void in
+                                                
+                                                
+                                                let imgPath=msgIdToFilePath(messageId, isVoice: false) as String
+                                                //将图片保存到本地image文件夹下
+                                                imgData!.writeToFile(imgPath, atomically: true)
+                                                
+                                                self.aTableviewDelegateNzz.resetFilePathAndMsgIdAndSendStatus(imgPath, msgId: messageId, nubOfMsg: nubOfMsg, aStatusOfSend: StatusOfSend.fail)
+                                                
+                                                
                                                 print("发送失败")
                                         })
                                         
@@ -227,6 +250,7 @@ extension  ChatViewController:InputVcDelegate{
                             })
                             
                             }, doLaterFail: { () -> Void in
+                                
                                 SVProgressHUD.showInfoWithStatus("获取上传token失败")
                         })
                         
@@ -276,11 +300,11 @@ extension  ChatViewController:InputVcDelegate{
         MRCIM.shareManager().sendMsgTxt(txt, successBlock: { (messageId) -> Void in
             print("发送成功")
             dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                self.aTableviewDelegateNzz.addAnewMsgTxt(MMsgTxt().initMMsgTxt(txt: txt, aStatusOfSend: StatusOfSend.success, aImgHeadUrlOrFilePath: DefaultHeadImgPath, aIsSend: true,aMsgId: messageId))
+                self.aTableviewDelegateNzz.addAnewMsgTxt(MMsgTxt().initMMsgTxt(txt: txt, aStatusOfSend: StatusOfSend.success, aImgHeadUrlOrFilePath: DefaultHeadImgUser, aIsSend: true,aMsgId: messageId))
             })
             }) { (nErrorCode, messageId) -> Void in
                 dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                    self.aTableviewDelegateNzz.addAnewMsgTxt(MMsgTxt().initMMsgTxt(txt: txt, aStatusOfSend: StatusOfSend.fail, aImgHeadUrlOrFilePath: DefaultHeadImgPath, aIsSend: true,aMsgId: messageId))
+                    self.aTableviewDelegateNzz.addAnewMsgTxt(MMsgTxt().initMMsgTxt(txt: txt, aStatusOfSend: StatusOfSend.fail, aImgHeadUrlOrFilePath: DefaultHeadImgUser, aIsSend: true,aMsgId: messageId))
                     print("发送失败")
                 })
         }
@@ -290,11 +314,11 @@ extension  ChatViewController:InputVcDelegate{
         MRCIM.shareManager().sendMsgLocation(addressStr, aCLLocationCoordinate2D: pt, successBlock: { (messageId) -> Void in
             //            在table上显示依旧显示文本消息
             dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                self.aTableviewDelegateNzz.addAnewMsgTxt(MMsgTxt().initMMsgTxt(txt: addressStr, aStatusOfSend: StatusOfSend.success, aImgHeadUrlOrFilePath: DefaultHeadImgPath, aIsSend: true,aMsgId: messageId))
+                self.aTableviewDelegateNzz.addAnewMsgTxt(MMsgTxt().initMMsgTxt(txt: addressStr, aStatusOfSend: StatusOfSend.success, aImgHeadUrlOrFilePath: DefaultHeadImgUser, aIsSend: true,aMsgId: messageId))
             })
             }) { (nErrorCode, messageId) -> Void in
                 dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                    self.aTableviewDelegateNzz.addAnewMsgTxt(MMsgTxt().initMMsgTxt(txt: addressStr, aStatusOfSend: StatusOfSend.fail, aImgHeadUrlOrFilePath: DefaultHeadImgPath, aIsSend: true,aMsgId: messageId))
+                    self.aTableviewDelegateNzz.addAnewMsgTxt(MMsgTxt().initMMsgTxt(txt: addressStr, aStatusOfSend: StatusOfSend.fail, aImgHeadUrlOrFilePath: DefaultHeadImgUser, aIsSend: true,aMsgId: messageId))
                     print("发送失败")
                 })
         }
@@ -302,6 +326,11 @@ extension  ChatViewController:InputVcDelegate{
     func finishVoice(infosVoice: NSArray) {
         
         dispatch_async(dispatch_get_main_queue(), { () -> Void in
+            
+            let aMMsgVoice=MMsgVoice().initMMsgVoice(infosVoice[1] as! Float, aVoiceUrlOrPath: "", aStatusOfSend: StatusOfSend.sending, aImgHeadUrlOrFilePath: DefaultHeadImgUser, aIsSend: true,aMsgId: -1)
+            //在界面上显示出来
+            self.aTableviewDelegateNzz.addAnewMsgVoice(aMMsgVoice)
+            let nubOfMsg=self.aTableviewDelegateNzz.aMTableviewDelegateNzz.nbOfMsg-1
             
             MUpToFile.getUptoken({ (upToken) -> Void in
                 
@@ -313,27 +342,27 @@ extension  ChatViewController:InputVcDelegate{
                             
                             print("strKey:\(strKey)")
                             NSNumber(float: infosVoice[1] as! Float).integerValue
-                            MRCIM.shareManager().sendMsgVoice(dataInVoice, aDuration: NSNumber(float: infosVoice[1] as! Float).integerValue , successBlock: { (messageId) -> Void in
+                            MRCIM.shareManager().sendMsgVoice(strKey,aDuration: NSNumber(float: infosVoice[1] as! Float).integerValue , successBlock: { (messageId) -> Void in
                                 
                                 let filePath=msgIdToFilePath(messageId, isVoice: true) as String
                                 //将图片保存到本地image文件夹下
                                 dataInVoice.writeToFile(filePath, atomically: true)
                                 
+                                //                                dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                                //0108为什么此处不用dispatch_async会失败
+                                //                                    self.aTableviewDelegateNzz.addAnewMsgVoice(MMsgVoice().initMMsgVoice(infosVoice[1] as! Float, aVoiceUrlOrPath: filePath, aStatusOfSend: StatusOfSend.success, aImgHeadUrlOrFilePath: DefaultHeadImgPath, aIsSend: true,aMsgId: messageId))
+                                //                                    设置文件地址和消息id
+                                self.aTableviewDelegateNzz.resetFilePathAndMsgIdAndSendStatus(filePath, msgId: messageId, nubOfMsg: nubOfMsg, aStatusOfSend: StatusOfSend.success)
                                 
+                                print("发送成功")
                                 
-                                dispatch_async(dispatch_get_main_queue(), { () -> Void in
-//0108为什么此处不用dispatch_async会失败
-                                    self.aTableviewDelegateNzz.addAnewMsgVoice(MMsgVoice().initMMsgVoice(infosVoice[1] as! Float, aVoiceUrlOrPath: filePath, aStatusOfSend: StatusOfSend.success, aImgHeadUrlOrFilePath: DefaultHeadImgPath, aIsSend: true,aMsgId: messageId))
-                                    
-                                    print("发送成功")
-
-                                })
+                                //                                })
                                 
-                                
-//                                self.aTableviewDelegateNzz.addAnewMsgVoice(MMsgVoice().initMMsgVoice(infosVoice[1] as! Float, aVoiceUrlOrPath: strKey, aStatusOfSend: StatusOfSend.success, aImgHeadUrlOrFilePath: DefaultHeadImgPath, aIsSend: true,aMsgId: messageId))
-//                                
-//                                print("发送成功")
                                 }, errorBlock: { (nErrorCode, messageId) -> Void in
+                                    let filePath=msgIdToFilePath(messageId, isVoice: true) as String
+                                    //将图片保存到本地image文件夹下
+                                    dataInVoice.writeToFile(filePath, atomically: true)
+                                    self.aTableviewDelegateNzz.resetFilePathAndMsgIdAndSendStatus(filePath, msgId: messageId, nubOfMsg: nubOfMsg, aStatusOfSend: StatusOfSend.fail)
                                     print("发送失败")
                             })
                             
@@ -360,20 +389,27 @@ extension  ChatViewController:InputVcDelegate{
         let nav = HWJNavControllerViewController(rootViewController: mapVC)
         presentViewController(nav, animated: true, completion: nil)
     }
+    
+    func loginout(){
+        aTableviewDelegateNzz.reset()
+        UserModel.shareManager().loginOut()
+    }
 }
 
 extension ChatViewController{
     func receiveMsgTxt(txt:String,msgId:Int){
         
-        aTableviewDelegateNzz.addAnewMsgTxt(MMsgTxt().initMMsgTxt(txt: txt, aStatusOfSend: StatusOfSend.success, aImgHeadUrlOrFilePath: DefaultHeadImgPath, aIsSend:false,aMsgId: msgId))
-  
+        aTableviewDelegateNzz.addAnewMsgTxt(MMsgTxt().initMMsgTxt(txt: txt, aStatusOfSend: StatusOfSend.success, aImgHeadUrlOrFilePath: DefaultHeadImgUser, aIsSend:false,aMsgId: msgId))
+        
     }
     
     func receiveMsgOrder(extraStr:String,msgId:Int){
         
-        let extraInDic = HelpFromOc.dictionaryWithJsonString(extraStr)
-            as! Dictionary<String,AnyObject>
-        aTableviewDelegateNzz.addAnewMsgOrder(MMsgOrder().initMMsgOrder(extraInDic, aStatusOfSend: StatusOfSend.success, aImgHeadUrlOrFilePath: DefaultHeadImgPath, aIsSend: false, aMsgId: msgId))
+        if let extraInDic = HelpFromOc.dictionaryWithJsonString(extraStr)
+            as? Dictionary<String,AnyObject>{
+                
+                aTableviewDelegateNzz.addAnewMsgOrder(MMsgOrder().initMMsgOrder(extraInDic, aStatusOfSend: StatusOfSend.success, aImgHeadUrlOrFilePath: DefaultHeadImgUser, aIsSend: false, aMsgId: msgId))
+        }
         
     }
     func receiveMsgImg(thumbnailImage: [UIImage],fullImgUrlOrPath:[String],msgIds:[Int]){
@@ -386,11 +422,10 @@ extension ChatViewController{
                 //将图片保存到本地image文件夹下
                 imgData!.writeToFile(imgPath, atomically: true)
                 //在tb上显示
-                self.aTableviewDelegateNzz.addAnewMsgImg(MMsgImg().initMMsgImg(thumbnailImage[i], aFullImgUrlOrPath: imgPath, aStatusOfSend: StatusOfSend.success, aImgHeadUrlOrFilePath: DefaultHeadImgPath, aIsSend: true,aMsgId: msgIds[i]))
+                self.aTableviewDelegateNzz.addAnewMsgImg(MMsgImg().initMMsgImg(thumbnailImage[i], aFullImgUrlOrPath: imgPath, aStatusOfSend: StatusOfSend.success, aImgHeadUrlOrFilePath: DefaultHeadImgUser, aIsSend: true,aMsgId: msgIds[i]))
                 
             }
         }
-        
         
     }
     
@@ -405,34 +440,39 @@ extension ChatViewController{
     //    }
     
 }
+
+
 // MARK: - 收到消息
-extension ChatViewController:RCIMReceiveMessageDelegate{
+extension ChatViewController{
     
-    func onRCIMReceiveMessage(message: RCMessage!, left: Int32) {
+    func onRCIMReceiveMessage(notification: NSNotification) {
         
-        if message.content is RCImageMessage
-        {
-            let aRCTextMessage = message.content as! RCImageMessage
-            
-            //此处消息接收到还是要设置过，图片暂时用的是缩略图
-            dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                self.receiveMsgImg([aRCTextMessage.thumbnailImage],fullImgUrlOrPath: [aRCTextMessage.imageUrl],msgIds: [message.messageId])
-            })
-        }else if message.content is RCTextMessage{
-            let aRCTextMessage = message.content as! RCTextMessage
-            if (aRCTextMessage.extra == nil) || aRCTextMessage.extra == ""{
-                dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                    self.receiveMsgTxt(aRCTextMessage.content,msgId: message.messageId)
-                })
+        
+        if let message = notification.object?.valueForKey("msg") as? RCMessage {
+            if message.content is RCImageMessage
+            {
+                let aRCTextMessage = message.content as! RCImageMessage
                 
-            }else{
+                //此处消息接收到还是要设置过，图片暂时用的是缩略图
                 dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                    self.receiveMsgOrder(aRCTextMessage.extra,msgId: message.messageId)
+                    self.receiveMsgImg([aRCTextMessage.thumbnailImage],fullImgUrlOrPath: [aRCTextMessage.imageUrl],msgIds: [message.messageId])
                 })
+            }else if message.content is RCTextMessage{
+                let aRCTextMessage = message.content as! RCTextMessage
+                if (aRCTextMessage.extra == nil) || aRCTextMessage.extra == ""{
+                    dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                        self.receiveMsgTxt(aRCTextMessage.content,msgId: message.messageId)
+                    })
+                    
+                }else{
+                    dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                        self.receiveMsgOrder(aRCTextMessage.extra,msgId: message.messageId)
+                    })
+                }
+                
             }
-            
+            print("收到消息")
         }
-        print("收到消息")
     }
 }
 
@@ -453,15 +493,15 @@ extension ChatViewController{
         if viewMoreAction.hidden{
             viewMoreAction.hidden=false
             btnHideMoreActionMenu.hidden=false
+            moreActionViewNSLayoutConstraintTop.constant = moreActionViewNSLayoutConstraintTopOriginValue + view.bounds.origin.y
+            moreActionMenuNSLayoutConstraintHeight.constant =  CGFloat(MUi.shareManager().menus.count * 44 + 20)
         }else{
             viewMoreAction.hidden=true
             btnHideMoreActionMenu.hidden=true
         }
     }
     
-    
 }
-//todo1.iOS互发消息接收不到3.制作menu效果，对话删除复制等
 
 // MARK: - 支付代理实现
 extension ChatViewController:NZZVcOfPayDelegate{
@@ -489,6 +529,10 @@ extension ChatViewController:NZZVcOfPayDelegate{
 }
 // MARK: - moreAciton 表格代理实现
 extension ChatViewController:UITableViewDelegate,UITableViewDataSource{
+    
+    func uIUpdate(){
+        moreActionMenu.reloadData()
+    }
     // MARK: - Table view data source
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -498,49 +542,47 @@ extension ChatViewController:UITableViewDelegate,UITableViewDataSource{
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 4
+        return MUi.shareManager().menus.count
     }
     
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
         let cell =    tableView.dequeueReusableCellWithIdentifier("MoreActionTableViewCell") as! MoreActionTableViewCell
-        cell.imgMoreActionMenu.image=UIImage(named: imgNameMoreActionMenu[indexPath.row])
         
-        cell.lblMoreActionMenu.text =  txtNameMoreActionMenu[indexPath.row]
+        cell.imgMoreActionMenu.sd_setImageWithURL(NSURL(string: "\(UrlImgSource)\(MUi.shareManager().menus[indexPath.row].icon)@3x.png"), placeholderImage: UIImage(named: "logo"))
+        
+        cell.lblMoreActionMenu.text =  MUi.shareManager().menus[indexPath.row].name
         // Configure the cell...
         cell.selectionStyle = UITableViewCellSelectionStyle.None;
-        
         return cell
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        
-        
         showMoreActionMenu()
-                switch (indexPath.row) {
-                case 0:
-                    let aWebViewController=UIStoryboard(name: "Chat", bundle: nil).instantiateViewControllerWithIdentifier("WebViewController") as! WebViewController
-                    navigationController?.pushViewController(aWebViewController, animated: true)
-                    
-                    break;
-                case 1:
-                    let aWebViewController=UIStoryboard(name: "Chat", bundle: nil).instantiateViewControllerWithIdentifier("WebViewController") as! WebViewController
-                    navigationController?.pushViewController(aWebViewController, animated: true)
-                    
-                    break;
-        
-                case 2:
-                    let aWebViewController=UIStoryboard(name: "Chat", bundle: nil).instantiateViewControllerWithIdentifier("WebViewController") as! WebViewController
-                    navigationController?.pushViewController(aWebViewController, animated: true)
-                    
-                    break;
-                case 3:
-                    UserModel.shareManager().loginOut()
-                    break;
-                default:
-                    break;
-                }
+        switch (indexPath.row) {
+        case 0:
+            let aWebViewController=UIStoryboard(name: "Chat", bundle: nil).instantiateViewControllerWithIdentifier("WebViewController") as! WebViewController
+            navigationController?.pushViewController(aWebViewController, animated: true)
+            
+            break;
+        case 1:
+            let aWebViewController=UIStoryboard(name: "Chat", bundle: nil).instantiateViewControllerWithIdentifier("WebViewController") as! WebViewController
+            navigationController?.pushViewController(aWebViewController, animated: true)
+            
+            break;
+            
+        case 2:
+            let aWebViewController=UIStoryboard(name: "Chat", bundle: nil).instantiateViewControllerWithIdentifier("WebViewController") as! WebViewController
+            navigationController?.pushViewController(aWebViewController, animated: true)
+            
+            break;
+        case 3:
+            UserModel.shareManager().loginOut()
+            break;
+        default:
+            break;
+        }
     }
 }
 // MARK: - 拉取聊天记录
@@ -548,6 +590,7 @@ extension ChatViewController{
     func loadOldMsg(){
         /// 从本地融云消息库获得的消息数组，按从新到旧排列的 arrMsgsDB[0]为最新的消息
         var arrMsgsDB =        RCIMClient.sharedRCIMClient().getHistoryMessages(RCConversationType.ConversationType_PRIVATE, targetId: UserModel.shareManager().targetId, oldestMessageId: idOldestMsg, count: 10) as! [RCMessage]
+        print("idOldestMsg:\(idOldestMsg)")
         if arrMsgsDB.count != 0{
             var arrMMsgBasic=[MMsgBasic]()
             var arrTimeCreate=[Int64]()
@@ -563,11 +606,12 @@ extension ChatViewController{
                 }
                 if msg.content is RCImageMessage
                 {
-                    let aRCImageMessage = msg.content as! RCImageMessage
                     let imgPath=msgIdToFilePath(msg.messageId, isVoice: false)
                     //? 0106string不会为nil 返回string?时可能为string==nil不会报错，去掉？会报错，为什么
                     if imgPath != "" {
-                        arrMMsgBasic.append(MMsgImg().initMMsgImg(aRCImageMessage.thumbnailImage, aFullImgUrlOrPath: imgPath , aStatusOfSend: StatusOfSend.success, aImgHeadUrlOrFilePath: "", aIsSend: aIsSend,aMsgId: msg.messageId))
+                        if let imgData = NSData(contentsOfFile: imgPath){
+                            arrMMsgBasic.append(MMsgImg().initMMsgImg(UIImage(data: imgData)!, aFullImgUrlOrPath: imgPath , aStatusOfSend: StatusOfSend.success, aImgHeadUrlOrFilePath: "", aIsSend: aIsSend,aMsgId: msg.messageId))
+                        }
                     }
                 }else if  msg.content is RCTextMessage {
                     /**
@@ -588,7 +632,7 @@ extension ChatViewController{
                     let aRCLocationMessage = msg.content as! RCLocationMessage
                     arrMMsgBasic.append(MMsgTxt().initMMsgTxt(txt: aRCLocationMessage.locationName, aStatusOfSend: StatusOfSend.success, aImgHeadUrlOrFilePath: "", aIsSend: aIsSend,aMsgId: msg.messageId))
                 }else if msg.content is RCVoiceMessage{
-//                    保存的是语音消息，处理同文本消息
+                    //                    保存的是语音消息，处理同文本消息
                     let aRCVoiceMessage = msg.content as! RCVoiceMessage
                     
                     msgIdToFilePath(msg.messageId, isVoice: true)
@@ -604,10 +648,11 @@ extension ChatViewController{
 // MARK: - menuview代理实现
 extension ChatViewController{
     func copyByMenuControll(item:UIMenuItem){
-        let aUIPasteboard = UIPasteboard.generalPasteboard()
-        print("\(   aUIPasteboard.string )")
-        aUIPasteboard.string="asdfsdfff"
-        
+        if let msg=aTableviewDelegateNzz.aMTableviewDelegateNzz.chatHistory[ChatTableViewCell.indexPathShowMenu!.row] as? ModelOfMsgCellTxt{
+            let aUIPasteboard = UIPasteboard.generalPasteboard()
+            aUIPasteboard.string=msg.txt
+            print("\(aUIPasteboard.string)")
+        }
     }
     func delteByMenuControll(item:UIMenuItem){
         //        删除融云数据

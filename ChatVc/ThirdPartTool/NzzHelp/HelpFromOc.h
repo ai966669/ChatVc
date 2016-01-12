@@ -14,7 +14,7 @@
 +(BOOL)isCameraAvalible;
 +(NSDictionary *)dictionaryWithJsonString:(NSString *)jsonString ;
 + (NSString *)objectToJsonString:(NSDictionary *)dictionary;
-+(NSString *)getMsgPath:(NSString *)nameOfFile :(BOOL)isVoice;
++ (NSString *)getMsgPath:(NSString *)nameOfFile :(BOOL)isVoice;
 + (double)intervalFromLastDate: (NSString *) dateString1  toTheDate:(NSString *) dateString2;
 + (NSDictionary*)analysisNotificationInGetui:(NSString*)payloadId;
 + (void)redirectNSlogToDocumentFolder;
@@ -35,4 +35,6 @@
 
 +(NSString*)getDeveicePlatform;
 
+
++ (NSString*)dictionaryToJson:(NSDictionary *)dic;
 @end

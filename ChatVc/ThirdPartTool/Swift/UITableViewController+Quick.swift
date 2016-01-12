@@ -34,7 +34,8 @@ extension UIViewController {
         button.bounds = CGRectMake(0, 0, 50, 30)
         
         button.setTitle(title, forState: UIControlState.Normal)
-        button.setTitleColor(UIColor(red: 131.0/255.0, green: 132.0/255.0, blue: 139.0/255.0, alpha: 1), forState: UIControlState.Normal)
+//        button.setTitleColor(UIColor(red: 131.0/255.0, green: 132.0/255.0, blue: 139.0/255.0, alpha: 1), forState: UIControlState.Normal)
+        button.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
         button.titleLabel!.font = UIFont.systemFontOfSize(15)
         if action == .Left {
             

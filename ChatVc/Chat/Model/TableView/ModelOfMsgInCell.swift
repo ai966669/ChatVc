@@ -102,8 +102,10 @@ enum StatusOfSend: Int{
     }
     class ModelOfMsgCellImg: ModelOfMsgCellBasic {
         var imgUrlOrPath:String?
-        func initModelOfMsgCellImg(aImgUrlOrPath:String,aModelOfMsgCellBasic:ModelOfMsgCellBasic,aMsgId:Int)->ModelOfMsgCellImg{
+        var img:UIImage?
+        func initModelOfMsgCellImg(aImg:UIImage,aImgUrlOrPath:String,aModelOfMsgCellBasic:ModelOfMsgCellBasic,aMsgId:Int)->ModelOfMsgCellImg{
             imgUrlOrPath=aImgUrlOrPath
+            img=aImg
             initBasicCell(aModelOfMsgCellBasic.timeCreate,aIsSend: aModelOfMsgCellBasic.isSend,aStatusOfSend: aModelOfMsgCellBasic.statusOfSend,aSizeCell:aModelOfMsgCellBasic.sizeCell,aImgHeadUrlOrFilePath: aModelOfMsgCellBasic.imgHeadUrlOrFilePath,aTypeOfMsg:aModelOfMsgCellBasic.typeMsg,aMsgId:aMsgId)
             return self
         }
