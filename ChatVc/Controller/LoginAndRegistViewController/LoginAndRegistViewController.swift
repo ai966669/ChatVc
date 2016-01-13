@@ -116,7 +116,7 @@ class LoginAndRegistViewController: UIViewController {
                 }else{
                     if NZZCheckingOfInput.checkNotNilOrNoValue(txtFldVertifyCode.text, showHUD: true, textToShow: "验证码不能为空"){
                         UserModel.shareManager().loginByPswAndCode(txtFldCardNo.text!, psw: txtFldPsw.text!, success: { (model) -> Void in
-                                self.getVertifyCode()
+                            
                             }, aCode: txtFldVertifyCode.text!, failure: { (code) -> Void in
                                 
                         })
@@ -179,13 +179,13 @@ extension LoginAndRegistViewController:UITextFieldDelegate{
         btnRegistFirstResponsible.hidden=false
         UIView.beginAnimations("asdf", context: nil)
         UIView.setAnimationDuration(0.2)
-        view.frame.origin.y += -50
+        view.frame.origin.y += -100
         UIView.commitAnimations()
     }
     func textFieldDidEndEditing(textField: UITextField) {
         UIView.beginAnimations("asdf", context: nil)
         UIView.setAnimationDuration(0.2)
-        view.frame.origin.y += 50
+        view.frame.origin.y += 100
         UIView.commitAnimations()
         btnRegistFirstResponsible.hidden=true
     }

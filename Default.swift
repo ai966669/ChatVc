@@ -199,10 +199,13 @@ let CellBackgroundColor=UIColor(red: 232.0 / 255.0, green: 232.0 / 255.0, blue: 
 //主题色
 let ColorTopic = UIColor(red: 77.0/255.0, green: 77.0/255.0, blue: 81.0/255.0, alpha: 1.0)
 //导航栏颜色
-let ColorNav =  UIColor(red: 0/255.0, green: 0/255.0, blue: 0/255.0, alpha: 1.0)
+let ColorNav =  UIColor(red: 33.0/255.0, green: 32.0/255.0, blue: 37.0/255.0, alpha: 1.0)
 //消息的字体颜色
-let ColorMsgGet = UIColor.blackColor()
-let  ColorMsgSend = UIColor(red: 48.0/255.0, green: 50.0/255.0, blue: 62.0/255.0, alpha: 1.0)
+let ColorMsgGet = UIColor(red: 48.0/255.0, green: 50.0/255.0, blue: 62.0/255.0, alpha: 1.0)
+let ColorMsgSend = UIColor.whiteColor()
+//消息背景色
+let ColorMsgGetBg = UIColor.whiteColor()
+let ColorMsgSendBg = UIColor(red: 48.0/255.0, green: 50.0/255.0, blue: 62.0/255.0, alpha: 1.0)
 //UIStoryboard中界面的标识
 let UIStoryboardIDChat="Chat"
 //通知名  
@@ -235,3 +238,8 @@ let UD_LastTimeUserId = "SG_LastTimeLoginInUserId"
 let ColorBtnCanSelect = UIColor(hexString: "#C1A96B")
 //按钮不可点击颜色
 let ColorBtnCanUnSelect = UIColor.lightGrayColor()
+//消息文本边距
+let  MsgTxtUIEdgeInsetsMakeT:CGFloat=2
+let  MsgTxtUIEdgeInsetsMakeL:CGFloat=10
+let  MsgTxtUIEdgeInsetsMakeB:CGFloat=5
+let  MsgTxtUIEdgeInsetsMakeR:CGFloat=15

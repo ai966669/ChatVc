@@ -144,6 +144,6 @@
     <resources>
         <image name="addtion" width="30" height="30"/>
         <image name="emoji" width="30" height="30"/>
-        <image name="record" width="30" height="30"/>
+        <image name="record" width="28" height="28"/>
     </resources>
 </document>

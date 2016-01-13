@@ -30,16 +30,16 @@ class NZZVcOfPay: UIViewController {
     @IBOutlet var iconOfSecondChoice: UIImageView!
     @IBOutlet var iconOfFirstChoice: UIImageView!
     @IBOutlet var titleOfFirstChoice: UILabel!
-    @IBOutlet var detailOfSecondChoice: UILabel!
+//    @IBOutlet var detailOfSecondChoice: UILabel!
     @IBOutlet var titleOfSecondChoice: UILabel!
-    @IBOutlet var detailOfFirstChoice: UILabel!
+//    @IBOutlet var detailOfFirstChoice: UILabel!
     @IBOutlet var buttonToDismiss: UIButton!
     @IBOutlet var statusOfSecondChoice: UIImageView!
     @IBOutlet var statusOfFirstChoice: UIImageView!
     @IBOutlet var labelOfOrignMoney: UILabel!
 
     @IBOutlet var buttonToPay: UIButton!
-    @IBOutlet var payNow: UIButton!
+//    @IBOutlet var payNow: UIButton!
     @IBOutlet var btnOfSecondChoice: UIButton!
     @IBOutlet var btnOfFirstChoice: UIButton!
     
@@ -53,7 +53,8 @@ class NZZVcOfPay: UIViewController {
         // Do any additional setup after loading the view.
     }
     func initView(){
-        
+        buttonToPay.layer.masksToBounds=true
+        buttonToPay.layer.cornerRadius=4.0
         view.frame = CGRectMake(0, 0, UIScreen.mainScreen().bounds.width,UIScreen.mainScreen().bounds.height)
 
         //一直处于没有可用红包的状态
@@ -67,10 +68,10 @@ class NZZVcOfPay: UIViewController {
             channel=SGPaymentChannel.Alipay
             iconOfFirstChoice.image=UIImage(named: "支付宝icon");
             titleOfFirstChoice.text="支付宝支付"
-            detailOfFirstChoice.text="推荐有支付宝账号的的用户使用"
+//            detailOfFirstChoice.text="推荐有支付宝账号的的用户使用"
             iconOfSecondChoice.hidden=true
             titleOfSecondChoice.hidden=true
-            detailOfSecondChoice.hidden=true
+//            detailOfSecondChoice.hidden=true
             btnOfSecondChoice.hidden=true
             statusOfSecondChoice.hidden=true
         }

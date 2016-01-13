@@ -130,12 +130,14 @@ class ChatTableViewCell: UITableViewCell {
                 aModelOfMsgCellBasic.typeMsg == TypeOfMsg.TxtOfCustomer ||
                 aModelOfMsgCellBasic.typeMsg == TypeOfMsg.VoiceOfCustomer ||
                 aModelOfMsgCellBasic.typeMsg == TypeOfMsg.VoiceMine {
-                    aSize =  CGSizeMake(aModelOfMsgCellBasic.sizeCell.width+12, aModelOfMsgCellBasic.sizeCell.height+8)
+                aSize =  CGSizeMake(aModelOfMsgCellBasic.sizeCell.width+MsgTxtUIEdgeInsetsMakeL+MsgTxtUIEdgeInsetsMakeR, aModelOfMsgCellBasic.sizeCell.height+MsgTxtUIEdgeInsetsMakeT+MsgTxtUIEdgeInsetsMakeB)
                 if aModelOfMsgCellBasic.isSend{
-                    imageCover.backgroundColor=UIColor.whiteColor()
+                    imageCover.backgroundColor=ColorMsgSendBg
                 }else{
-                    imageCover.backgroundColor=ColorTopic
+                    imageCover.backgroundColor=ColorMsgGetBg
                 }
+                    
+                    
             }else{
                 imageCover.backgroundColor=UIColor.clearColor()
             }
@@ -201,7 +203,7 @@ extension ChatTableViewCell{
             case StatusOfSend.success:
                 if (animotionOfBtnOfSendStatus != nil){
 //？为什么在的时候btnOfSendStatus会隐藏失败
-                    //animotionOfBtnOfSendStatus?.invalidate()
+                    animotionOfBtnOfSendStatus?.invalidate()
                     animotionOfBtnOfSendStatus=nil
                 }
                 btnOfSendStatus.hidden=true

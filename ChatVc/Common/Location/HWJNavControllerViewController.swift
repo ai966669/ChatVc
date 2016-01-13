@@ -22,8 +22,6 @@ class HWJNavControllerViewController: UINavigationController {
 //        navigationBar.shadowImage = UIImage()
         
 //        navigationBar.tintColor =   ColorNav //UIColor(red: 131.0/255.0, green: 132.0/255.0, blue: 139.0/255.0, alpha: 1)
-
-        
         
         
         //0112此处用？解包，就算nil为nil也不会奔溃

@@ -21,7 +21,7 @@ class MRCIM: NSObject {
         }
         return sharedMRCIM;
     }
-    func sendMsgImg(aImg:UIImage,aImageUrl:String,successBlock:(messageId:Int)->Void,errorBlock:(nErrorCode:RCErrorCode, messageId:Int)->Void){
+    func sendMsgImg(aImageUrl:String,successBlock:(messageId:Int)->Void,errorBlock:(nErrorCode:RCErrorCode, messageId:Int)->Void){
         let aRCImageMessage:RCImageMessage=RCImageMessage(image: nil)
         aRCImageMessage.full=false
         aRCImageMessage.imageUrl=aImageUrl
@@ -35,21 +35,21 @@ class MRCIM: NSObject {
     func sendMsgTxt(txt:String,successBlock:(messageId:Int)->Void,errorBlock:(nErrorCode:RCErrorCode, messageId:Int)->Void){
         let aRCTextMessage:RCTextMessage=RCTextMessage(content: txt)
         
-        var dic = [
-            "type": 3,
-            "show": true,
-            "orderType": "ORD0001",
-            "name": "酒店",
-            "num": "OBC2015112022052411010000496",
-            "goodName": "如家快捷酒店(深圳宝安机场T3航站楼店)",
-            "status": 0,
-            "price": 100.23,
-            "orderId":640,
-            "created": "1448028523000"]
-        
-        aRCTextMessage.extra = HelpFromOc.objectToJsonString(dic)
+//        var dic = [
+//            "type": 3,
+//            "show": true,
+//            "orderType": "ORD0001",
+//            "name": "酒店",
+//            "num": "OBC2015112022052411010000496",
+//            "goodName": "如家快捷酒店(深圳宝安机场T3航站楼店)",
+//            "status": 0,
+//            "price": 100.23,
+//            "orderId":640,
+//            "created": "1448028523000"]
+//        
+//        aRCTextMessage.extra = HelpFromOc.objectToJsonString(dic)
 
-        RCIM().sendMessage(RCConversationType.ConversationType_PRIVATE, targetId: UserModel.shareManager().idMine , content: aRCTextMessage, pushContent: txt, pushData: nil, success: { (aInt) -> Void in
+        RCIM().sendMessage(RCConversationType.ConversationType_PRIVATE, targetId: UserModel.shareManager().targetId , content: aRCTextMessage, pushContent: txt, pushData: nil, success: { (aInt) -> Void in
             successBlock(messageId: aInt)
             }) { (aRCErrorCode, aInt) -> Void in
                 errorBlock(nErrorCode: aRCErrorCode, messageId: aInt)
@@ -83,6 +83,7 @@ class MRCIM: NSObject {
 }
 extension MRCIM:RCIMReceiveMessageDelegate{
     func onRCIMReceiveMessage(message: RCMessage!, left: Int32) {
+        UserModel.shareManager().targetId=message.senderUserId
         NSNotificationCenter.defaultCenter().postNotificationName(NotificationNewMsg, object: ["msg":message])
     }
 }

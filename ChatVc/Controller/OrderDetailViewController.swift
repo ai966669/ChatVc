@@ -9,8 +9,9 @@
 import UIKit
 
 class OrderDetailViewController: UIViewController {
+    @IBOutlet var imgCover: UIImageView!
     @IBOutlet var btnTryPay: UIButton!
-    //    0108为什么直接用xib绘制tableview会失败
+    //0108为什么直接用xib绘制tableview会失败
     var aNZZVcOfPay:NZZVcOfPay!
     var aOrderId = -1
     var aMOrder:MOrder?
@@ -20,6 +21,19 @@ class OrderDetailViewController: UIViewController {
     @IBOutlet var tbOrderDetail: UITableView!
     override func viewDidLoad() {
         super.viewDidLoad()
+                self.extendedLayoutIncludesOpaqueBars = true
+        //设置title
+        let aUILabel:UILabel=UILabel(frame: CGRectMake(0, 0, 100, 30))
+        aUILabel.textColor=UIColor.whiteColor()
+        aUILabel.font=UIFont.systemFontOfSize(20)
+        aUILabel.textAlignment=NSTextAlignment.Center
+        aUILabel.text="订单详情"
+        self.navigationItem.titleView = aUILabel
+        
+        
+        //0113设置返回键颜色
+        navigationController!.navigationBar.barStyle=UIBarStyle.Default
+        navigationController!.navigationBar.tintColor=UIColor.whiteColor()
         tbOrderDetail.dataSource=self
         tbOrderDetail.delegate=self
         tbOrderDetail.layer.masksToBounds=true
@@ -28,6 +42,10 @@ class OrderDetailViewController: UIViewController {
         tbOrderDetail.layer.borderColor=UIColor(hexString: "#6a6a6a").CGColor
         tbOrderDetail.layer.masksToBounds=true
         tbOrderDetail.layer.cornerRadius = 4
+        imgCover.layer.masksToBounds=true
+        imgCover.layer.cornerRadius = 4
+        btnTryPay.layer.masksToBounds=true
+        btnTryPay.layer.cornerRadius = 4
         // Do any additional setup after loading the view.
     }
     
@@ -46,6 +64,7 @@ class OrderDetailViewController: UIViewController {
                         self.contentCell.append("\(self.aMOrder!.phone)")
                         self.contentCell.append("\(self.aMOrder!.created)")
                     }
+//0113price用float就会出问题
                     self.imgNameCell.insert("\(self.aMOrder!.type)", atIndex: 2)
                     self.tbOrderDetail.reloadData()
                 }
@@ -84,7 +103,7 @@ class OrderDetailViewController: UIViewController {
                     self?.aNZZVcOfPay.view.frame.origin=CGPointMake(0, 0)
                     if (self!.aMOrder != nil){
                         print("\(self!.aMOrder?.price)")
-                        print("\(NSNumber(float: (self!.aMOrder?.price)!).doubleValue)")
+//                        print("\(NSNumber(float: (self!.aMOrder?.price)!))")
                         self!.aNZZVcOfPay.amountOrigin = 0.01
                         //                    NSNumber(float: (self!.aMOrder?.price)!).doubleValue
                     }
@@ -136,7 +155,7 @@ extension OrderDetailViewController:UITableViewDelegate,UITableViewDataSource{
                 }else{
                     cell.content.text = "已支付"
                     btnTryPay.backgroundColor=ColorBtnCanUnSelect
-                    //0112为什么设置好后，点击又变回去了
+                    //0112 titleLabel为什么设置好后，点击又变回去了
                     btnTryPay.setTitle("已支付", forState: UIControlState.Normal)
                 }
             }else{

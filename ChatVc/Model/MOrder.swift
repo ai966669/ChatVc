@@ -15,7 +15,7 @@ class MOrder: TopModel {
     /// 类型名称
     var typeName : String = ""
     var goodsName = ""
-    var price : Float = 0
+    var price : Double = 0
     var status = 0
     var phone = ""
     var created = ""

@@ -19,6 +19,7 @@ class Cell1ChatTableViewCell: ChatTableViewCell {
     var aRecordAndPlay:RecordAndPlay!
     override func awakeFromNib() {
         super.awakeFromNib()
+//        textOfMsg.textContainerInset=UIEdgeInsetsMake(0, MsgTxtUIEdgeInsetsMakeLeft, 0, MsgTxtUIEdgeInsetsMakeLeft)
         textOfMsg.scrollEnabled=false
         textOfMsg.layer.masksToBounds = true
         textOfMsg.editable = false
@@ -54,7 +55,6 @@ class Cell1ChatTableViewCell: ChatTableViewCell {
             }
             
             imgOfVoicePlaying.hidden=true
-            
         }
     }
     
@@ -115,19 +115,20 @@ class Cell1ChatTableViewCell: ChatTableViewCell {
         }
         imgOfVoicePlaying.image=UIImage(named: nameOfImage)
     }
-    func getSizeByStringAndDefaultFont(str:String)->CGSize{
-        let textView=UITextView(frame: CGRectMake(0, 0, 0, 0))
-        textView.font=UIFont.systemFontOfSize(16.0)
-        textView.text=str
-        return  textView.sizeThatFits(CGSizeMake(UIScreen.mainScreen().bounds.size.width*0.6, CGFloat.max))
-    }
+//    func getSizeByStringAndDefaultFont(str:String)->CGSize{
+//        let textView=UITextView(frame: CGRectMake(0, 0, 0, 0))
+//        textView.font=UIFont.systemFontOfSize(16.0)
+//        textView.text=str
+//        return  textView.sizeThatFits(CGSizeMake(UIScreen.mainScreen().bounds.size.width*0.6, CGFloat.max))
+//    }
     func resetCellTxt(){
         aModelOfMsgCellVoice=nil
         aModelOfMsgCellOrder=nil
         textOfMsg!.text = aModelOfMsgCellTxt!.txt
+//0113 此处设置contentInset会无效，到didiload时有变为了默认值
+//        textOfMsg.textContainerInset=UIEdgeInsetsMake(0, 10, 0, 10);
         if aModelOfMsgCellTxt!.isSend{
             textOfMsg.textColor=ColorMsgSend
-            
         }else{
             textOfMsg.textColor=ColorMsgGet
         }
@@ -152,7 +153,7 @@ class Cell1ChatTableViewCell: ChatTableViewCell {
     }
     func resetCellOrder(){
         aModelOfMsgCellVoice=nil
-                aModelOfMsgCellVoice=nil
+        aModelOfMsgCellTxt=nil
         textOfMsg!.text = aModelOfMsgCellOrder!.txt
         if aModelOfMsgCellOrder!.isSend{
             textOfMsg.textColor=UIColor.whiteColor()
@@ -243,9 +244,9 @@ extension Cell1ChatTableViewCell{
             
         }else if (sender.state == UIGestureRecognizerState.Ended) {
             if aModelOfMsgCellBasic.isSend{
-                imageCover.backgroundColor=ColorTopic
+                imageCover.backgroundColor=ColorMsgSendBg
             }else{
-                imageCover.backgroundColor=UIColor.whiteColor()
+                imageCover.backgroundColor=ColorMsgGetBg
             }
         }
     }

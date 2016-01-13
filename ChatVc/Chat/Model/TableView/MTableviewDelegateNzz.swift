@@ -96,7 +96,7 @@ class MTableviewDelegateNzz: NSObject {
             aTypeOfMsg=TypeOfMsg.TxtOfCustomer
         }
         let size = ToolOfCellInChat.getSizeByStringAndDefaultFont(aMMsgTxt.txt)
-        
+//        let sizeInCludeInset=CGSizeMake(size.width+MsgTxtUIEdgeInsetsMakeLeft*2, size.height)
         
         let aModelOfMsgCellTxt =  ModelOfMsgCellTxt().initModelOfMsgCellTxt(aMMsgTxt.txt, aModelOfMsgCellBasic:ModelOfMsgCellBasic().initBasicCell(timeCreateInTxt, aIsSend: aMMsgTxt.isSend, aStatusOfSend: aMMsgTxt.statusOfSend,aSizeCell: size, aImgHeadUrlOrFilePath: aMMsgTxt.imgHeadUrlOrFilePath, aTypeOfMsg: aTypeOfMsg, aMsgId: aMMsgTxt.msgId),aMsgId: aMMsgTxt.msgId)
         

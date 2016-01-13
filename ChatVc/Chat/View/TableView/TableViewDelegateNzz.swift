@@ -230,7 +230,9 @@ extension TableviewDelegateNzz {
         aMTableviewDelegateNzz.resetFilePathAndMsgId(filePathOrUrl, msgId: msgId, nubOfMsg: nubOfMsg,aStatusOfSend: aStatusOfSend)
         print("\(nubOfMsg)修改发送状态为\(aStatusOfSend)")
         if let cell =  aTableView.cellForRowAtIndexPath(NSIndexPath(forRow: nubOfMsg, inSection: 0)) as? ChatTableViewCell{
-            cell.setBtnOfSendStatus(aStatusOfSend)
+            dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                cell.setBtnOfSendStatus(aStatusOfSend)
+            })
         }else{
             print("这个cell不在屏幕上")
         }
@@ -259,11 +261,12 @@ extension TableviewDelegateNzz {
             
             aTableView.reloadData()
             //当不是第一次拉取聊天记录的时候 则需要滚动
-            if msgs.count != aMTableviewDelegateNzz.chatHistory.count{
-                aTableView.scrollToRowAtIndexPath(NSIndexPath(forRow:msgs.count-1, inSection: 0), atScrollPosition: UITableViewScrollPosition.Top, animated: false)
-            }else{
-                aTableView.scrollToRowAtIndexPath(NSIndexPath(forRow:msgs.count-1, inSection: 0), atScrollPosition: UITableViewScrollPosition.Bottom, animated: false)
-            }
+//            if msgs.count != aMTableviewDelegateNzz.chatHistory.count{
+//                aTableView.scrollToRowAtIndexPath(NSIndexPath(forRow:msgs.count-1, inSection: 0), atScrollPosition: UITableViewScrollPosition.Top, animated: false)
+//            }else{
+//                aTableView.scrollToRowAtIndexPath(NSIndexPath(forRow:msgs.count-1, inSection: 0), atScrollPosition: UITableViewScrollPosition.Bottom, animated: false)
+//            }
+            aTableView.scrollToRowAtIndexPath(NSIndexPath(forRow:aMTableviewDelegateNzz.chatHistory.count-1, inSection: 0), atScrollPosition: UITableViewScrollPosition.Bottom, animated: false)
 
         }
         

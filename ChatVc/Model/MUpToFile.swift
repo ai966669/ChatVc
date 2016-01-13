@@ -46,23 +46,26 @@ class MUpToFile: TopModel {
 
     //请求上传七牛Uptoken
     class func getUptoken(doLaterSuccess:((upToken:String)->Void),doLaterFail:(()->Void)){
-        if let strTime = NSUserDefaults.standardUserDefaults().objectForKey(SG_QiniuUpTokenTime) as? String {
-            let dateNow = NSDate()
-            let dateformatter = NSDateFormatter()
-            dateformatter.dateFormat = "YYYY-MM-dd HH:mm:ss"
-            if let date = dateformatter.dateFromString(strTime) {
-                if dateNow.compare(date) == NSComparisonResult.OrderedAscending {
-                    if let upToken = NSUserDefaults.standardUserDefaults().objectForKey(SG_QiniuUpToken) as? String {
-                        doLaterSuccess(upToken: upToken)
-                    }
-                    
-                }
-            }
-        }
+        if let upToken = NSUserDefaults.standardUserDefaults().objectForKey(SG_QiniuUpToken) as? String {
+            //0113文杰是怎么做的
+            doLaterSuccess(upToken: upToken)
+//            let dateNow = NSDate()
+//            let dateformatter = NSDateFormatter()
+//            dateformatter.dateFormat = "YYYY-MM-dd HH:mm:ss"
+//            if let date = dateformatter.dateFromString(strTime) {
+//                if dateNow.compare(date) == NSComparisonResult.OrderedAscending {
+//                    if let upToken = NSUserDefaults.standardUserDefaults().objectForKey(SG_QiniuUpToken) as? String {
+//                        doLaterSuccess(upToken: upToken)
+//                    }
+//                    
+//                }
+//            }
+        }else{
         MCommandRequest().getSystemUpToken({ (model) -> Void in
             
             if let rInDic = model as? Dictionary<String,AnyObject>{
                 if let upToken = rInDic["data"] as? String{
+                    NSUserDefaults.standardUserDefaults().setValue(upToken, forKey: SG_QiniuUpToken)
                     doLaterSuccess(upToken: upToken)
                 }else{
                     SVProgressHUD.showErrorWithStatus(MsgShow.ErrAnalysisServerData2Dic)
@@ -74,6 +77,7 @@ class MUpToFile: TopModel {
             }, failure: { (code) -> Void in
                 doLaterFail()
           })
+        }
         
 //        doLaterSuccess(upToken: "OZu9PWWB7f7rWN8DEtk1Lx_UOk7Qc2brRq3qaZ1_:rXK3wYC0KBcrYDiFQskH85qFeX8=:eyJzY29wZSI6InVsdGltYXZpcC1hcHAiLCJyZXR1cm5Cb2R5Ijoie1wia2V5XCI6ICQoa2V5KSwgXCJoYXNoXCI6ICQoZXRhZyksIFwid2lkdGhcIjogJChpbWFnZUluZm8ud2lkdGgpLCBcImhlaWdodFwiOiAkKGltYWdlSW5mby5oZWlnaHQpfSIsImRlYWRsaW5lIjoxNDUxNzIwMjg1fQ==")
 //        return "OZu9PWWB7f7rWN8DEtk1Lx_UOk7Qc2brRq3qaZ1_:rXK3wYC0KBcrYDiFQskH85qFeX8=:eyJzY29wZSI6InVsdGltYXZpcC1hcHAiLCJyZXR1cm5Cb2R5Ijoie1wia2V5XCI6ICQoa2V5KSwgXCJoYXNoXCI6ICQoZXRhZyksIFwid2lkdGhcIjogJChpbWFnZUluZm8ud2lkdGgpLCBcImhlaWdodFwiOiAkKGltYWdlSW5mby5oZWlnaHQpfSIsImRlYWRsaW5lIjoxNDUxNzIwMjg1fQ=="

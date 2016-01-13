@@ -83,6 +83,7 @@ extension ImageMineTableViewCell{
             imageCover.backgroundColor=UIColor.lightGrayColor()
             
         }else if (sender.state == UIGestureRecognizerState.Ended) {
+            
             imageCover.backgroundColor=UIColor.clearColor()
         }
     }

@@ -49,7 +49,7 @@ public class D3Json{
                     }
                     
                     switch value {
-                    case is Int,is Double,is Int32,is Int64,is Bool,is Float:
+                    case is Int,is Double,is Int32,is Int64,is Bool,is Float,is NSDecimalNumber:
                         Log("key:\(key) values:\(valueDic)")
                         
                         if !(valueDic is NSNull){

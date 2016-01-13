@@ -604,8 +604,10 @@ static UIColor *titleColor;
 
 - (BOOL)shouldSelectAsset:(ALAsset *)asset
 {
+
     ZYQAssetPickerController *vc = (ZYQAssetPickerController *)self.navigationController;
     BOOL selectable = [vc.selectionFilter evaluateWithObject:asset];
+//    vc.maximumNumberOfSelection=6;
     if (_indexPathsForSelectedItems.count > vc.maximumNumberOfSelection) {
         if (vc.delegate!=nil&&[vc.delegate respondsToSelector:@selector(assetPickerControllerDidMaximum:)]) {
             [vc.delegate assetPickerControllerDidMaximum:vc];
@@ -1143,7 +1145,7 @@ static UIColor *titleColor;
 
     if (self = [super initWithRootViewController:groupViewController])
     {
-        _maximumNumberOfSelection      = 10;
+        _maximumNumberOfSelection      = 6;
         _minimumNumberOfSelection      = 0;
         _assetsFilter                  = [ALAssetsFilter allAssets];
         _showCancelButton              = YES;
