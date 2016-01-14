@@ -135,7 +135,7 @@ extension UserModel{
                 UserModel.shareManager().idMine=userId
                 MRCIM.shareManager().becomeRCIMReceiver()
                 MNotification.shareInstance.initNotification()
-                self.getChatTargetId()
+                Mbulter.shareMbulterManager().getChatTargetId()
             }, error: { (status) -> Void in
                 print("登陆的错误码为:\(status.rawValue)")
             }, tokenIncorrect: {
@@ -146,32 +146,7 @@ extension UserModel{
         })
     }
     
-    /**
-     从服务器获取聊天对象
-     */
-    private func getChatTargetId()->NSURLSessionTask{
-        let  params :Dictionary<String, String>= unverisalProcess([:])
-        let request = TopModel.universalRequest(requestMethod: Method.POST,dic: params, urlMethod: URLUserChatObject, success: { (model) -> Void in
-            if let rInDic = model  as? Dictionary<String,AnyObject>{
-                if let dataInDic = rInDic["data"] as? Dictionary<String,AnyObject> {
-                    if let targetId = dataInDic["id"] as? String{
-                        UserModel.sharedUserModel.targetId=targetId
-                        NSNotificationCenter.defaultCenter().postNotificationName(NotificationLoadOldMsg, object: nil)
-                    }else{
-                        SVProgressHUD.showErrorWithStatus(MsgShow.ErrAnalysisServerData2Dic)
-                    }
-                }else{
-                    SVProgressHUD.showErrorWithStatus(MsgShow.ErrAnalysisServerData2Dic)
-                }
-            }else{
-                SVProgressHUD.showErrorWithStatus(MsgShow.ErrAnalysisServerData2Dic)
-            }
-            }) { (code) -> Void in
-             print("获取TargetId失败")
-        }
-        
-        return request.task
-    }
+   
     /**
      登出操作
      */

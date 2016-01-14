@@ -96,11 +96,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillEnterForeground(application: UIApplication) {
         isBackGround=false
         UIApplication.sharedApplication().applicationIconBadgeNumber=0
-        MCommandRequest().applicationStart({ (model) -> Void in
-            print("start成功")
-            }) { (code) -> Void in
-            print("start失败")
-        }
+        Mbulter.shareMbulterManager().getChatTargetId()
+//        MCommandRequest().applicationStart({ (model) -> Void in
+//            print("start成功")
+//            }) { (code) -> Void in
+//            print("start失败")
+//        }
         // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
     }
     

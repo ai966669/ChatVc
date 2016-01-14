@@ -104,6 +104,7 @@
 		45F16A8F1C3F889D00592263 /* OrderDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45F16A8E1C3F889D00592263 /* OrderDetailViewController.swift */; };
 		45F16A931C3F8CED00592263 /* MOrder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45F16A921C3F8CED00592263 /* MOrder.swift */; };
 		45F16A951C3F924700592263 /* OrderDetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45F16A941C3F924700592263 /* OrderDetailTableViewCell.swift */; };
+		45FE24E21C47428A0079FA50 /* Mbulter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45FE24E11C47428A0079FA50 /* Mbulter.swift */; };
 		F8A475DB41B9CA6ED968066B /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 80B66270FF74AC3C799583AF /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -237,6 +238,7 @@
 		45F16A8E1C3F889D00592263 /* OrderDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderDetailViewController.swift; sourceTree = "<group>"; };
 		45F16A921C3F8CED00592263 /* MOrder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MOrder.swift; sourceTree = "<group>"; };
 		45F16A941C3F924700592263 /* OrderDetailTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderDetailTableViewCell.swift; sourceTree = "<group>"; };
+		45FE24E11C47428A0079FA50 /* Mbulter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Mbulter.swift; sourceTree = "<group>"; };
 		80B66270FF74AC3C799583AF /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		918F07D5BF4114BBD9AF4201 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		C0655D4300E6906B19A24F5E /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
@@ -537,6 +539,7 @@
 				452E61E51C3BBC3900E7B039 /* MCommandRequest.swift */,
 				45F16A921C3F8CED00592263 /* MOrder.swift */,
 				45441B091C44DBDA00492B6A /* MUi.swift */,
+				45FE24E11C47428A0079FA50 /* Mbulter.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -907,6 +910,7 @@
 				45F16A951C3F924700592263 /* OrderDetailTableViewCell.swift in Sources */,
 				450A514E1C33854F00CDEF34 /* Upload.swift in Sources */,
 				450A51281C337FC400CDEF34 /* MUpToFile.swift in Sources */,
+				45FE24E21C47428A0079FA50 /* Mbulter.swift in Sources */,
 				45BBD9FC1C228E3D0038A6AC /* UITableViewController+Quick.swift in Sources */,
 				459EEE2A1C321A9100B93CFF /* MMsgWantSendCollectionViewDelegateNzz.swift in Sources */,
 				45BBD9FA1C228E3D0038A6AC /* UIImageView+QuickTool.swift in Sources */,

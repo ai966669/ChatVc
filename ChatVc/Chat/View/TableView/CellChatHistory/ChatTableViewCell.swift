@@ -23,6 +23,7 @@ class ChatTableViewCell: UITableViewCell {
     /// 当前弹出menu的cell的row
     static var indexPathShowMenu:NSIndexPath?
     let imgHeadH:CGFloat = 40
+    @IBOutlet var lblBulterName: UILabel!
     @IBOutlet var lblOftime: UILabel!
     @IBOutlet var NSLayoutConstraintMsgH: NSLayoutConstraint!
     @IBOutlet var NSLayoutConstraintMsgW: NSLayoutConstraint!
@@ -126,11 +127,16 @@ class ChatTableViewCell: UITableViewCell {
             imageCover.addGestureRecognizer(aUILongPressGestureRecognizer)
             
             var  aSize =  CGSizeMake(aModelOfMsgCellBasic.sizeCell.width, aModelOfMsgCellBasic.sizeCell.height)
+            
+            aSize =  CGSizeMake(aModelOfMsgCellBasic.sizeCell.width+MsgTxtUIEdgeInsetsMakeL+MsgTxtUIEdgeInsetsMakeR, aModelOfMsgCellBasic.sizeCell.height+MsgTxtUIEdgeInsetsMakeT+MsgTxtUIEdgeInsetsMakeB)
+            
+
+            
             if  aModelOfMsgCellBasic.typeMsg == TypeOfMsg.TxtMine ||
                 aModelOfMsgCellBasic.typeMsg == TypeOfMsg.TxtOfCustomer ||
                 aModelOfMsgCellBasic.typeMsg == TypeOfMsg.VoiceOfCustomer ||
                 aModelOfMsgCellBasic.typeMsg == TypeOfMsg.VoiceMine {
-                aSize =  CGSizeMake(aModelOfMsgCellBasic.sizeCell.width+MsgTxtUIEdgeInsetsMakeL+MsgTxtUIEdgeInsetsMakeR, aModelOfMsgCellBasic.sizeCell.height+MsgTxtUIEdgeInsetsMakeT+MsgTxtUIEdgeInsetsMakeB)
+                    
                 if aModelOfMsgCellBasic.isSend{
                     imageCover.backgroundColor=ColorMsgSendBg
                 }else{
@@ -146,6 +152,10 @@ class ChatTableViewCell: UITableViewCell {
                 let aImgVR = UIImageView(image:UIImage(named: "mmsright")?.resizableImageWithCapInsets(UIEdgeInsetsMake(28,10,10,15)))
                 aImgVR.layer.frame=CGRect(origin: CGPointZero, size: aSize)
                 imageCover.layer.mask=aImgVR.layer
+                if (lblBulterName != nil){
+                    lblBulterName.text="黑卡管家"+"\(Mbulter.shareMbulterManager().nickname)"
+                }
+                
             }else{
                 let aImgVL = UIImageView(image:UIImage(named: "mmsleft")?.resizableImageWithCapInsets(UIEdgeInsetsMake(28,15,10,10)))
                 aImgVL.layer.frame=CGRect(origin: CGPointZero, size: aSize)

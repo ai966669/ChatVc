@@ -15,6 +15,21 @@
                 <rect key="frame" x="0.0" y="0.0" width="375" height="221"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="黑卡管家001" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MQu-y2-v1D">
+                        <rect key="frame" x="63" y="6" width="69" height="16"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="16" id="8KP-TM-Zce"/>
+                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="16" id="w3A-Nw-I6w"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <color key="textColor" red="0.14117647059999999" green="0.14117647059999999" blue="0.14117647059999999" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="w3A-Nw-I6w"/>
+                            </mask>
+                        </variation>
+                    </label>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="BGL-7O-SH1">
                         <rect key="frame" x="4" y="6" width="43" height="43"/>
                         <constraints>
@@ -23,14 +38,14 @@
                         </constraints>
                     </imageView>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="kb1-ec-q3a">
-                        <rect key="frame" x="47" y="6" width="200" height="200"/>
+                        <rect key="frame" x="49" y="22" width="200" height="200"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="200" id="DRU-ZX-h46"/>
                             <constraint firstAttribute="height" constant="200" id="uXi-Je-VEy"/>
                         </constraints>
                     </imageView>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="xfY-Qi-DFc">
-                        <rect key="frame" x="47" y="6" width="200" height="200"/>
+                        <rect key="frame" x="49" y="22" width="200" height="200"/>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VGu-HG-vcg">
                         <rect key="frame" x="115" y="0.0" width="146" height="18"/>
@@ -48,10 +63,12 @@
                     <constraint firstItem="VGu-HG-vcg" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="2Gy-KB-0gZ"/>
                     <constraint firstItem="xfY-Qi-DFc" firstAttribute="centerX" secondItem="kb1-ec-q3a" secondAttribute="centerX" id="66n-SJ-x1m"/>
                     <constraint firstItem="BGL-7O-SH1" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="-4" id="C1K-ex-myb"/>
-                    <constraint firstItem="kb1-ec-q3a" firstAttribute="top" secondItem="BGL-7O-SH1" secondAttribute="top" id="RZj-0r-huz"/>
+                    <constraint firstItem="MQu-y2-v1D" firstAttribute="leading" secondItem="BGL-7O-SH1" secondAttribute="trailing" constant="16" id="FkI-i0-UjW"/>
+                    <constraint firstItem="xfY-Qi-DFc" firstAttribute="top" secondItem="MQu-y2-v1D" secondAttribute="bottom" id="JUH-SZ-rMo"/>
+                    <constraint firstItem="kb1-ec-q3a" firstAttribute="top" secondItem="BGL-7O-SH1" secondAttribute="top" constant="16" id="RZj-0r-huz"/>
                     <constraint firstItem="VGu-HG-vcg" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="-8" id="WIs-iB-aIO"/>
                     <constraint firstItem="xfY-Qi-DFc" firstAttribute="bottom" secondItem="kb1-ec-q3a" secondAttribute="bottom" id="Ydw-Cr-G3v"/>
-                    <constraint firstItem="kb1-ec-q3a" firstAttribute="leading" secondItem="BGL-7O-SH1" secondAttribute="trailing" id="eyz-74-30S"/>
+                    <constraint firstItem="kb1-ec-q3a" firstAttribute="leading" secondItem="BGL-7O-SH1" secondAttribute="trailing" constant="2" id="eyz-74-30S"/>
                     <constraint firstItem="BGL-7O-SH1" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="-2" id="oOT-4T-o3C"/>
                     <constraint firstItem="xfY-Qi-DFc" firstAttribute="top" secondItem="kb1-ec-q3a" secondAttribute="top" id="w4q-pl-gK5"/>
                 </constraints>
@@ -63,6 +80,7 @@
                 <outlet property="imageMine" destination="kb1-ec-q3a" id="euT-Ac-rVT"/>
                 <outlet property="imgHead" destination="BGL-7O-SH1" id="yKf-2k-kpA"/>
                 <outlet property="imgHeadNSLayoutConstraintTopToContentView" destination="oOT-4T-o3C" id="WFW-XQ-RTo"/>
+                <outlet property="lblBulterName" destination="MQu-y2-v1D" id="zLF-Tf-0L2"/>
                 <outlet property="lblOftime" destination="VGu-HG-vcg" id="2Te-aV-fAm"/>
                 <outlet property="lblOftimeNSLayoutConstraintWidth" destination="8sg-cq-nJd" id="tWW-1G-88p"/>
             </connections>

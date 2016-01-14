@@ -41,9 +41,10 @@ class ChatViewController: UIViewController {
         }
         
         navigationController!.navigationBar.barTintColor=ColorNav
+         print("\(navigationController!.navigationBar.alpha)")
         //0113颜色设置变浅 因为导航栏默认有透明，下面代码可以设置不透明
-        navigationController!.navigationBar.translucent = false
-        self.extendedLayoutIncludesOpaqueBars = true
+//        navigationController!.navigationBar.translucent = false
+//        self.extendedLayoutIncludesOpaqueBars = true
         //？0104设置颜色为什么这样失败
         
         //navigationController?.navigationBar.backgroundColor = ColorNav
@@ -439,7 +440,7 @@ extension ChatViewController{
                 //将图片保存到本地image文件夹下
                 imgData!.writeToFile(imgPath, atomically: true)
                 //在tb上显示
-                self.aTableviewDelegateNzz.addAnewMsgImg(MMsgImg().initMMsgImg(thumbnailImage[i], aFullImgUrlOrPath: imgPath, aStatusOfSend: StatusOfSend.success, aImgHeadUrlOrFilePath: DefaultHeadImgUser, aIsSend: true,aMsgId: msgIds[i]))
+                self.aTableviewDelegateNzz.addAnewMsgImg(MMsgImg().initMMsgImg(thumbnailImage[i], aFullImgUrlOrPath: imgPath, aStatusOfSend: StatusOfSend.success, aImgHeadUrlOrFilePath: DefaultHeadImgUser, aIsSend: false,aMsgId: msgIds[i]))
                 
             }
         }
@@ -468,11 +469,11 @@ extension ChatViewController{
         if let message = notification.object?.valueForKey("msg") as? RCMessage {
             if message.content is RCImageMessage
             {
-                let aRCTextMessage = message.content as! RCImageMessage
-                if aRCTextMessage.thumbnailImage != nil && aRCTextMessage.imageUrl != nil{
+                let aRCImageMessage = message.content as! RCImageMessage
+                if aRCImageMessage.thumbnailImage != nil && aRCImageMessage.imageUrl != nil{
                 //此处消息接收到还是要设置过，图片暂时用的是缩略图
                 dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                    self.receiveMsgImg([aRCTextMessage.thumbnailImage],fullImgUrlOrPath: [aRCTextMessage.imageUrl],msgIds: [message.messageId])
+                    self.receiveMsgImg([aRCImageMessage.thumbnailImage],fullImgUrlOrPath: [aRCImageMessage.imageUrl],msgIds: [message.messageId])
                 })
                 }
             }else if message.content is RCTextMessage{
@@ -540,7 +541,6 @@ extension ChatViewController:NZZVcOfPayDelegate{
                 print("支付失败")
         }
         SVProgressHUD.showInfoWithStatus("支付完成")
-        
         
     }
     

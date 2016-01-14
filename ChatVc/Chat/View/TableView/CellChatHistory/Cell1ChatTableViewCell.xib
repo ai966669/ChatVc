@@ -55,7 +55,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="p2a-7U-iZv">
-                        <rect key="frame" x="283" y="14" width="24" height="24"/>
+                        <rect key="frame" x="283" y="21" width="24" height="24"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="24" id="2t4-nP-BD5"/>
                             <constraint firstAttribute="width" constant="24" id="XnV-pw-luX"/>
@@ -63,12 +63,12 @@
                     </imageView>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="p2a-7U-iZv" firstAttribute="centerY" secondItem="6Ee-Qs-2vv" secondAttribute="centerY" id="0Gm-d9-dFq"/>
-                    <constraint firstItem="6Ee-Qs-2vv" firstAttribute="leading" secondItem="p2a-7U-iZv" secondAttribute="trailing" constant="22" id="APQ-i8-oQN"/>
                     <constraint firstItem="WFs-lD-ga6" firstAttribute="centerY" secondItem="M0g-Tp-QbR" secondAttribute="centerY" id="Aes-I1-odJ"/>
                     <constraint firstItem="dM8-oM-aWx" firstAttribute="leading" secondItem="M0g-Tp-QbR" secondAttribute="leading" constant="-10" id="Is4-Aw-Buu"/>
                     <constraint firstItem="sqt-1p-X2x" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="-8" id="Kxf-eu-71O"/>
                     <constraint firstItem="M0g-Tp-QbR" firstAttribute="trailing" secondItem="dM8-oM-aWx" secondAttribute="trailing" constant="-15" id="Lvh-NK-etF"/>
+                    <constraint firstItem="6Ee-Qs-2vv" firstAttribute="leading" secondItem="p2a-7U-iZv" secondAttribute="trailing" constant="22" id="Lxt-11-jZD"/>
+                    <constraint firstItem="p2a-7U-iZv" firstAttribute="centerY" secondItem="M0g-Tp-QbR" secondAttribute="centerY" id="MMD-nr-uCi"/>
                     <constraint firstItem="sqt-1p-X2x" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="Pxe-Q7-MoF"/>
                     <constraint firstItem="6Ee-Qs-2vv" firstAttribute="leading" secondItem="dM8-oM-aWx" secondAttribute="trailing" constant="2" id="V9c-Df-HbY"/>
                     <constraint firstItem="M0g-Tp-QbR" firstAttribute="top" secondItem="dM8-oM-aWx" secondAttribute="top" constant="2" id="YCu-2A-2wY"/>
