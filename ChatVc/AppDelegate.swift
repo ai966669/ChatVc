@@ -16,7 +16,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var aChatVc:UINavigationController?
     var isBackGround=false
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        
+        UserModel.shareManager().initRCIM()
         //window界面初始化
         window = UIWindow(frame: UIScreen.mainScreen().bounds)
         
@@ -29,11 +29,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             
             UserModel.shareManager().loginByToken({ (model) -> Void in
                
-                    self.setRootViewControllerIsChat()
+//                    self.setRootViewControllerIsChat()
                 
                 }, failure: { (code) -> Void in
                     //todo登录过期，重新登录的提示不出现，需要修改页面显示机制
-                    self.setRootViewControllerIsLogin()
+//                    self.setRootViewControllerIsLogin()
                     
             })
         }else{
@@ -96,7 +96,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillEnterForeground(application: UIApplication) {
         isBackGround=false
         UIApplication.sharedApplication().applicationIconBadgeNumber=0
+        if UserModel.shareManager().targetId != "" {
         Mbulter.shareMbulterManager().getChatTargetId()
+        }
 //        MCommandRequest().applicationStart({ (model) -> Void in
 //            print("start成功")
 //            }) { (code) -> Void in

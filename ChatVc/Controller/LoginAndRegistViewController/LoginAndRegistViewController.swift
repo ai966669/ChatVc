@@ -31,7 +31,13 @@ class LoginAndRegistViewController: UIViewController {
         //暂时不需要验证码
         showOrHideVertifyCode()
         btnRegistFirstResponsible.hidden=true
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "onRCIMReceiveMessage", name: NotificationNewMsg , object: nil)
+
         // Do any additional setup after loading the view.
+    }
+    func onRCIMReceiveMessage(){
+        var aUIAlertView=UIAlertView(title: "asdf", message: "asdff", delegate: nil, cancelButtonTitle: "asdf", otherButtonTitles: "asdf")
+        aUIAlertView.show()
     }
     func initLayer(){
         initLblLayer(lblCardNoBg)
@@ -66,7 +72,7 @@ class LoginAndRegistViewController: UIViewController {
     }
     
     @IBAction func getVertifyCode() {
-
+        if LoginAndRegistViewController.countGetVertifyCode == 0{
         if NZZCheckingOfInput.checkNotNilOrNoValue(txtFldCardNo.text, showHUD: true, textToShow: "卡号不能为空"){
             if NZZCheckingOfInput.checkNotNilOrNoValue(txtFldPsw.text, showHUD: true, textToShow: "密码不能为空"){
                 MCommandRequest().getCode(txtFldCardNo.text!, psw: txtFldPsw.text! , success: { (model) -> Void in
@@ -78,12 +84,12 @@ class LoginAndRegistViewController: UIViewController {
              
             }
         }
-        
+        }
     }
     func startCountDown(){
         if LoginAndRegistViewController.countGetVertifyCode <= 0{
             LoginAndRegistViewController.nstimerGetVertifyCode=NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: "countDown", userInfo: nil, repeats: true)
-            LoginAndRegistViewController.countGetVertifyCode=60
+            LoginAndRegistViewController.countGetVertifyCode=120
             btnGetVertifyCode!.setTitle("\(LoginAndRegistViewController.countGetVertifyCode)秒", forState: UIControlState.Normal)
             LoginAndRegistViewController.btnNow=btnGetVertifyCode
         }
@@ -101,6 +107,7 @@ class LoginAndRegistViewController: UIViewController {
         }
     }
     @IBAction func tryLogin(sender: AnyObject) {
+//        onRCIMReceiveMessage()
         if NZZCheckingOfInput.checkNotNilOrNoValue(txtFldCardNo.text, showHUD: true, textToShow: "卡号不能为空"){
             if NZZCheckingOfInput.checkNotNilOrNoValue(txtFldPsw.text, showHUD: true, textToShow: "密码不能为空"){
                 
@@ -179,14 +186,17 @@ extension LoginAndRegistViewController:UITextFieldDelegate{
         btnRegistFirstResponsible.hidden=false
         UIView.beginAnimations("asdf", context: nil)
         UIView.setAnimationDuration(0.2)
-        view.frame.origin.y += -100
+        view.frame.origin.y = -100
         UIView.commitAnimations()
     }
     func textFieldDidEndEditing(textField: UITextField) {
         UIView.beginAnimations("asdf", context: nil)
         UIView.setAnimationDuration(0.2)
-        view.frame.origin.y += 100
+        view.frame.origin.y = 0
         UIView.commitAnimations()
         btnRegistFirstResponsible.hidden=true
+    }
+    override func viewWillDisappear(animated: Bool) {
+        registResponsible()
     }
 }

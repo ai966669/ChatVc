@@ -148,7 +148,7 @@ class MTableviewDelegateNzz: NSObject {
     }
     
     func resetFilePathAndMsgId(filePathOrUrl:String,msgId:Int,nubOfMsg:Int,aStatusOfSend:StatusOfSend){
-        if chatHistory.count < nubOfMsg{
+        if chatHistory.count <= nubOfMsg{
             return
         }
         chatHistory[nubOfMsg].msgId=msgId
@@ -159,6 +159,9 @@ class MTableviewDelegateNzz: NSObject {
             let  aModelOfMsgCellImg=chatHistory[nubOfMsg] as! ModelOfMsgCellImg
             aModelOfMsgCellImg.imgUrlOrPath=filePathOrUrl
             aModelOfMsgCellImg.statusOfSend=aStatusOfSend
+        }else if chatHistory[nubOfMsg] is ModelOfMsgCellTxt {
+            let  aModelOfMsgCellTxt=chatHistory[nubOfMsg] as! ModelOfMsgCellTxt
+            aModelOfMsgCellTxt.statusOfSend=aStatusOfSend
         }
     }
 }

@@ -18,7 +18,7 @@ var EnvironmentisDevelop = true
 //0105get方法的使用
 var BaseURL:String {
     get{
-        return "https://app.ultimavip.cn" // http://121.43.233.86:9911/
+        return "https://app.ultimavip.cn" //"https://121.43.233.86:9911"//"https://app.ultimavip.cn" //
     }
 }
 
@@ -243,3 +243,12 @@ let  MsgTxtUIEdgeInsetsMakeT:CGFloat=2
 let  MsgTxtUIEdgeInsetsMakeL:CGFloat=10
 let  MsgTxtUIEdgeInsetsMakeB:CGFloat=5
 let  MsgTxtUIEdgeInsetsMakeR:CGFloat=15
+//服务器消息类型
+enum MsgTypeInTxtExtra:Int{
+    case  BulterChange = 2
+    case  OrderMsg = 50
+}
+//订单列表
+let DefaultTargetList="DefaultTargetList"
+//
+let RCIMAppKey="k51hidwq18o0b"

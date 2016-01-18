@@ -71,7 +71,7 @@ enum StatusOfSend: Int{
 
 //class MCellInChatTable {
 
-    class ModelOfMsgCellBasic {
+class ModelOfMsgCellBasic :NSObject{
         var timeCreate = ""
         var statusOfSend:StatusOfSend=StatusOfSend.success
         var sizeCell:CGSize=CGSizeMake(0, 0)
@@ -91,6 +91,9 @@ enum StatusOfSend: Int{
             msgId=aMsgId
             return self
         }
+//        deinit{
+//            print("释放了")
+//        }
     }
     class ModelOfMsgCellTxt: ModelOfMsgCellBasic {
         var txt:String=""
@@ -187,7 +190,7 @@ class MMsgTxt:MMsgBasic {
 class MMsgImg:MMsgBasic {
     var fullImgUrlOrPath=""
     var thumbnailImage:UIImage?
-    func initMMsgImg(aThumbnailImage:UIImage,aFullImgUrlOrPath:String,aStatusOfSend:StatusOfSend,aImgHeadUrlOrFilePath:String?,aIsSend:Bool,aMsgId:Int)->MMsgImg{
+    func initMMsgImg(aThumbnailImage:UIImage?,aFullImgUrlOrPath:String,aStatusOfSend:StatusOfSend,aImgHeadUrlOrFilePath:String?,aIsSend:Bool,aMsgId:Int)->MMsgImg{
         thumbnailImage=aThumbnailImage
         fullImgUrlOrPath=aFullImgUrlOrPath
         statusOfSend=aStatusOfSend

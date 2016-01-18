@@ -11,7 +11,7 @@ import UIKit
 class UserModel: TopModel {
     private static var sharedUserModel = UserModel()
     // 发送消息时的targetId，消息接收方
-    var targetId="userIdNzzTest11225"  //:String?
+    var targetId=""  //:String?
     //   黑卡id
     var id=""
     //  融云id
@@ -127,7 +127,7 @@ extension UserModel{
      融云登陆
      */
     func initRCIM(){
-        RCIM.sharedRCIM().initWithAppKey("k51hidwq18o0b")
+        RCIM.sharedRCIM().initWithAppKey(RCIMAppKey)
         RCIM.sharedRCIM().connectWithToken(UserModel.sharedUserModel.token,
             success: { (userId)-> Void in
 //                注意此处的userid是融云的userid不是我们系统中的userid
@@ -157,10 +157,12 @@ extension UserModel{
             appDelegate.setRootViewControllerIsLogin()
         }
         //        登出融云
-        RCIM.sharedRCIM().logout()
+        MRCIM.shareManager().logout()
         //        自动登陆token去掉
         NSUserDefaults.standardUserDefaults().removeObjectForKey(UD_LastTimeSignToken)
         NSUserDefaults.standardUserDefaults().removeObjectForKey(UD_LastTimeUserId)
+        NSUserDefaults.standardUserDefaults().removeObjectForKey(SG_QiniuUpToken)
+        //
     }
     
 }

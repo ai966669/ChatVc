@@ -17,9 +17,9 @@ protocol TableviewDelegateNzzDelegate:NSObjectProtocol{
 //    func ShowUserInfor()
 //    func ShowWeb(url:String)
 //    func keyboardChangeToSmall()
-//    func playRecord(data:NSData,doLater: (() -> Void))
-//    func playRecordStop()
         func showOrderDetail(orderId: Int64)
+//    重发
+    func resend(cellDeleteIndexPath:NSIndexPath)
 }
 class TableviewDelegateNzz : NSObject, UITableViewDelegate, UITableViewDataSource{
     let NotificationTableviewDelegateNzzAddMsg="NotificationTableviewDelegateNzzAddMsg"
@@ -98,7 +98,7 @@ class TableviewDelegateNzz : NSObject, UITableViewDelegate, UITableViewDataSourc
             let cell = tableView.dequeueReusableCellWithIdentifier(Cell1ChatTableViewCellIdentifier, forIndexPath: indexPath) as! Cell1ChatTableViewCell
             cell.aModelOfMsgCellTxt =  aMTableviewDelegateNzz.chatHistory[indexPath.row] as? ModelOfMsgCellTxt
             cell.resetCellTxt()
-            setUniversalSettingInChatTableViewCell(cell, aIndex: indexPath,viewSetLayer: cell.textOfMsg)
+            setUniversalSettingInChatTableViewCell(cell,viewSetLayer: cell.textOfMsg)
             //nzz   awakeFromNib中设置textOfMsg.userInteractionEnabled=false，textOfMsg.userInteractionEnabled依旧位true为什么
             cell.textOfMsg.userInteractionEnabled=false
             return cell
@@ -106,47 +106,46 @@ class TableviewDelegateNzz : NSObject, UITableViewDelegate, UITableViewDataSourc
             let cell = tableView.dequeueReusableCellWithIdentifier(Cell2ChatTableViewCellIdentifier, forIndexPath: indexPath) as! Cell1ChatTableViewCell
             cell.aModelOfMsgCellTxt =  aMTableviewDelegateNzz.chatHistory[indexPath.row] as? ModelOfMsgCellTxt
             cell.resetCellTxt()
-            setUniversalSettingInChatTableViewCell(cell, aIndex: indexPath,viewSetLayer: cell.textOfMsg)
+            setUniversalSettingInChatTableViewCell(cell,viewSetLayer: cell.textOfMsg)
             cell.textOfMsg.userInteractionEnabled=false
             return cell
         case .VoiceMine:
             let cell = tableView.dequeueReusableCellWithIdentifier(Cell1ChatTableViewCellIdentifier, forIndexPath: indexPath) as! Cell1ChatTableViewCell
             cell.aModelOfMsgCellVoice =  aMTableviewDelegateNzz.chatHistory[indexPath.row] as? ModelOfMsgCellVoice
             cell.resetCellVoice()
-            setUniversalSettingInChatTableViewCell(cell, aIndex: indexPath,viewSetLayer: cell.textOfMsg)
+            setUniversalSettingInChatTableViewCell(cell,viewSetLayer: cell.textOfMsg)
             cell.textOfMsg.userInteractionEnabled=false
             return cell
         case .VoiceOfCustomer:
             let cell = tableView.dequeueReusableCellWithIdentifier(Cell2ChatTableViewCellIdentifier, forIndexPath: indexPath) as! Cell1ChatTableViewCell
             cell.aModelOfMsgCellVoice =  aMTableviewDelegateNzz.chatHistory[indexPath.row] as? ModelOfMsgCellVoice
             cell.resetCellVoice()
-            setUniversalSettingInChatTableViewCell(cell, aIndex: indexPath,viewSetLayer: cell.textOfMsg)
+            setUniversalSettingInChatTableViewCell(cell,viewSetLayer: cell.textOfMsg)
             cell.textOfMsg.userInteractionEnabled=false
             return cell
         case .ImgMine:
             let cell = tableView.dequeueReusableCellWithIdentifier(ImageMineTableViewCellIdentifier, forIndexPath: indexPath) as! ImageMineTableViewCell
             cell.aModelOfMsgCellImg = aMTableviewDelegateNzz.chatHistory[indexPath.row] as! ModelOfMsgCellImg
             cell.resetCell()
-            setUniversalSettingInChatTableViewCell(cell, aIndex: indexPath,viewSetLayer: cell.imageMine)
+            setUniversalSettingInChatTableViewCell(cell,viewSetLayer: cell.imageMine)
             return cell
         case .ImgOfCustomer:
             let cell = tableView.dequeueReusableCellWithIdentifier(ImageOfCustomerTableViewCellIdentifier, forIndexPath: indexPath) as! ImageMineTableViewCell
             cell.aModelOfMsgCellImg = aMTableviewDelegateNzz.chatHistory[indexPath.row] as! ModelOfMsgCellImg
             cell.resetCell()
-            setUniversalSettingInChatTableViewCell(cell, aIndex: indexPath,viewSetLayer: cell.imageMine)
+            setUniversalSettingInChatTableViewCell(cell,viewSetLayer: cell.imageMine)
             return cell
         case .OrderCustomer:
             let cell = tableView.dequeueReusableCellWithIdentifier(Cell2ChatTableViewCellIdentifier, forIndexPath: indexPath) as! Cell1ChatTableViewCell
-            cell.aModelOfMsgCellOrder =  aMTableviewDelegateNzz.chatHistory[indexPath.row] as! ModelOfMsgCellOrder
+            cell.aModelOfMsgCellOrder =  aMTableviewDelegateNzz.chatHistory[indexPath.row] as? ModelOfMsgCellOrder
             cell.resetCellOrder()
-            setUniversalSettingInChatTableViewCell(cell, aIndex: indexPath,viewSetLayer: cell.textOfMsg)
+            setUniversalSettingInChatTableViewCell(cell,viewSetLayer: cell.textOfMsg)
             return cell
         default:
             return cell
         }
     }
-    func setUniversalSettingInChatTableViewCell(cell:ChatTableViewCell,aIndex:NSIndexPath,viewSetLayer:UIView){
-        cell.aNSIndexPath = aIndex
+    func setUniversalSettingInChatTableViewCell(cell:ChatTableViewCell,viewSetLayer:UIView){
         cell.aChatTableViewCellDelegate=self
         //不能放到cell的awakeFromNib中去，因为awakeFromNib时setImageHead中需要的数据aModelOfMsgBasic还么有
         cell.setImageHead()
@@ -229,6 +228,7 @@ extension TableviewDelegateNzz {
     func resetFilePathAndMsgIdAndSendStatus(filePathOrUrl:String,msgId:Int,nubOfMsg:Int,aStatusOfSend:StatusOfSend){
         aMTableviewDelegateNzz.resetFilePathAndMsgId(filePathOrUrl, msgId: msgId, nubOfMsg: nubOfMsg,aStatusOfSend: aStatusOfSend)
         print("\(nubOfMsg)修改发送状态为\(aStatusOfSend)")
+        
         if let cell =  aTableView.cellForRowAtIndexPath(NSIndexPath(forRow: nubOfMsg, inSection: 0)) as? ChatTableViewCell{
             dispatch_async(dispatch_get_main_queue(), { () -> Void in
                 cell.setBtnOfSendStatus(aStatusOfSend)
@@ -236,7 +236,6 @@ extension TableviewDelegateNzz {
         }else{
             print("这个cell不在屏幕上")
         }
-
     }
     /**
      在tablview下方同时添加多条消息
@@ -283,7 +282,9 @@ extension TableviewDelegateNzz {
 //                println("index is \(index)")
 //            }
             var i = 0
+            var indexPaths=[NSIndexPath]()
             while i < msgs.count {
+                indexPaths.append(NSIndexPath.init(forRow: i, inSection: 0))
                 let msg=msgs[i]
                 let timeCreate=timeCreates[i]
                 if msg is MMsgImg{
@@ -300,15 +301,17 @@ extension TableviewDelegateNzz {
 
             aTableView.reloadData()
 
-
+//aTableView.insertRowsAtIndexPaths(indexPaths, withRowAnimation: UITableViewRowAnimation.None)
             
 //            当不是第一次拉取聊天记录的时候 则需要滚动
-            aTableView.scrollToRowAtIndexPath(NSIndexPath(forRow:msgs.count-1, inSection: 0), atScrollPosition: UITableViewScrollPosition.Top, animated: false)
-//            if msgs.count != aMTableviewDelegateNzz.chatHistory.count{
-//                aTableView.scrollToRowAtIndexPath(NSIndexPath(forRow:msgs.count-1, inSection: 0), atScrollPosition: UITableViewScrollPosition.Top, animated: false)
-//            }else{
-//                aTableView.scrollToRowAtIndexPath(NSIndexPath(forRow:msgs.count-1, inSection: 0), atScrollPosition: UITableViewScrollPosition.Bottom, animated: false)
-//            }
+//            aTableView.scrollToRowAtIndexPath(NSIndexPath(forRow:msgs.count-1, inSection: 0), atScrollPosition: UITableViewScrollPosition.Top, animated: false)
+
+            if msgs.count != aMTableviewDelegateNzz.chatHistory.count{
+            print("aaa\(aMTableviewDelegateNzz.chatHistory.count-msgs.count)")
+                aTableView.scrollToRowAtIndexPath(NSIndexPath(forRow:msgs.count, inSection: 0), atScrollPosition: UITableViewScrollPosition.Top, animated: false)
+            }else{
+                aTableView.scrollToRowAtIndexPath(NSIndexPath(forRow:msgs.count-1, inSection: 0), atScrollPosition: UITableViewScrollPosition.Bottom, animated: false)
+            }
             
         }
     }
@@ -329,12 +332,11 @@ extension TableviewDelegateNzz{
 }
 
 extension TableviewDelegateNzz:ChatTableViewCellDelegate{
+   
     func showOrderDetail(orderId:Int64){
         
         aTableviewDelegateNzzDelegate?.showOrderDetail(orderId)
         
-    }
-    func ReSend(aNSIndexPath: NSIndexPath, msgCell: AnyObject, oneTypeOfMsg: TypeOfMsg, msgExt: Dictionary<String, AnyObject>, msgUuid: String,dataOfFile:NSData){
     }
     func ShowAssistantInfor(aAssistantId:Int64){}
     func ShowUserInfor(){}
@@ -358,5 +360,8 @@ extension TableviewDelegateNzz:ChatTableViewCellDelegate{
         }else if (aUILongPressGestureRecognizer.state == UIGestureRecognizerState.Ended) {
             
         }
+    }
+    func ReSend(aNSIndexPath: NSIndexPath) {
+        aTableviewDelegateNzzDelegate?.resend(aNSIndexPath)
     }
 }

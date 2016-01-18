@@ -35,7 +35,7 @@ PODS:
   - Qiniu (7.0.16):
     - AFNetworking (~> 2.0)
     - HappyDNS (~> 0.2)
-  - RongCloudIMKit (2.4.2)
+  - RongCloudIMKit (2.4.4)
   - RSKImageCropper (1.4.1)
   - SDWebImage (3.7.3):
     - SDWebImage/Core (= 3.7.3)
@@ -53,7 +53,7 @@ DEPENDENCIES:
   - Pingpp/Wx (~> 2.1.4)
   - pop
   - Qiniu (~> 7.0)
-  - RongCloudIMKit (= 2.4.2)
+  - RongCloudIMKit (= 2.4.4)
   - RSKImageCropper
   - SDWebImage (~> 3.7)
   - SVProgressHUD
@@ -69,7 +69,7 @@ SPEC CHECKSUMS:
   Pingpp: 08415163eb1791bc07d7d939f1648d2e36a30eda
   pop: bb773ae2c791ca2629de13b347e7a8b450fa6a57
   Qiniu: 51a8702cddc02b50867e10cef99291b9a8a006b1
-  RongCloudIMKit: 076f9f4b0365eeb18fc64e4d014ca174345b2320
+  RongCloudIMKit: ea9fdf6ac74585c8fcf991b6ff2acc0be0f67ac2
   RSKImageCropper: 98ae426eb4eb11b733ff87f8e2542a480f4fa8e6
   SDWebImage: 1d2b1a1efda1ade1b00b6f8498865f8ddedc8a84
   SVProgressHUD: 748080e4f36e603f6c02aec292664239df5279c1

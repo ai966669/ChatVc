@@ -12,7 +12,7 @@
             <rect key="frame" x="0.0" y="0.0" width="379" height="124"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="379" height="123"/>
+                <rect key="frame" x="0.0" y="0.0" width="379" height="123.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="meizi1.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="6Ee-Qs-2vv">
@@ -38,7 +38,7 @@
                         <dataDetectorType key="dataDetectorTypes" address="YES"/>
                     </textView>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WFs-lD-ga6">
-                        <rect key="frame" x="194" y="22" width="22" height="22"/>
+                        <rect key="frame" x="184" y="22" width="22" height="22"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="22" id="1LV-L8-1LL"/>
                             <constraint firstAttribute="width" constant="22" id="TSH-xQ-m32"/>
@@ -72,12 +72,18 @@
                     <constraint firstItem="sqt-1p-X2x" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="Pxe-Q7-MoF"/>
                     <constraint firstItem="6Ee-Qs-2vv" firstAttribute="leading" secondItem="dM8-oM-aWx" secondAttribute="trailing" constant="2" id="V9c-Df-HbY"/>
                     <constraint firstItem="M0g-Tp-QbR" firstAttribute="top" secondItem="dM8-oM-aWx" secondAttribute="top" constant="2" id="YCu-2A-2wY"/>
+                    <constraint firstItem="dM8-oM-aWx" firstAttribute="leading" secondItem="WFs-lD-ga6" secondAttribute="trailing" constant="6" id="Yqj-Zd-c21"/>
                     <constraint firstItem="6Ee-Qs-2vv" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="-2" id="bhg-E9-abC"/>
                     <constraint firstItem="dM8-oM-aWx" firstAttribute="top" secondItem="6Ee-Qs-2vv" secondAttribute="top" id="eAH-y6-DMy"/>
-                    <constraint firstItem="M0g-Tp-QbR" firstAttribute="leading" secondItem="WFs-lD-ga6" secondAttribute="trailing" constant="6" id="g50-hk-5zL"/>
+                    <constraint firstItem="M0g-Tp-QbR" firstAttribute="leading" secondItem="WFs-lD-ga6" secondAttribute="trailing" constant="16" id="g50-hk-5zL"/>
                     <constraint firstItem="dM8-oM-aWx" firstAttribute="bottom" secondItem="M0g-Tp-QbR" secondAttribute="bottom" constant="5" id="l5J-LD-qXh"/>
                     <constraint firstAttribute="trailingMargin" secondItem="6Ee-Qs-2vv" secondAttribute="trailing" constant="2" id="sHQ-ka-Qds"/>
                 </constraints>
+                <variation key="default">
+                    <mask key="constraints">
+                        <exclude reference="g50-hk-5zL"/>
+                    </mask>
+                </variation>
             </tableViewCellContentView>
             <connections>
                 <outlet property="NSLayoutConstraintMsgH" destination="fF3-Qg-Fsh" id="Nc0-WG-Bjj"/>

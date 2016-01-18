@@ -24,7 +24,10 @@ class Cell1ChatTableViewCell: ChatTableViewCell {
         textOfMsg.layer.masksToBounds = true
         textOfMsg.editable = false
         textOfMsg.delegate = self
-        textOfMsg.userInteractionEnabled=false 
+        textOfMsg.userInteractionEnabled=false
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "resignFirstResponder", name: UIMenuControllerDidHideMenuNotification, object: nil)
+        
     }
     func setVoicePlayImg(){
         
@@ -185,6 +188,7 @@ class Cell1ChatTableViewCell: ChatTableViewCell {
         if aRecordAndPlay == nil{
             aRecordAndPlay=RecordAndPlay()
             NSNotificationCenter.defaultCenter().addObserver(self, selector: "playRecordStop", name: NotificationPlayVoice, object: nil)
+            
         }
         if ((aRecordAndPlay.avPlay) != nil) {
             if aRecordAndPlay.avPlay.playing{
@@ -236,11 +240,29 @@ extension Cell1ChatTableViewCell{
 //    一次长按会多次触发，UIGestureRecognizerState状态改变就会触发
     func showMenu(sender:UILongPressGestureRecognizer){
         if (sender.state == UIGestureRecognizerState.Began) {
+            //上下滑动让UIMenuController消失 再长按会出现奔溃
+            print("asdf")
             
+//            http://www.knowsky.com/884401.html
+//            http://www.wtoutiao.com/p/86bLxU.html成功的案例
+            
+            
+//            if isAlreadyShowMenuView{
+//            print("当别人想成为第一响应者的时候，他还在。也就是说，当UIMenuController消失的时候，他")
+//                isAlreadyShowMenuView=false
+                //不知道键盘响应者的情况下让键盘消失的方法
+//                self是FirstResponder，发送下面的消息，不会被释放
+                
+//                UIApplication.sharedApplication().sendAction("resignFirstResponder", to: nil, from: nil, forEvent: nil)
+                
+                
+                
+//            }
             self.becomeFirstResponder()
-            UIMenuController.sharedMenuController().setMenuVisible(true, animated: true)
-            isAlreadyShowMenuView=true
-            imageCover.backgroundColor=UIColor.lightGrayColor()
+            UIMenuController.sharedMenuController()
+                UIMenuController.sharedMenuController().setMenuVisible(true, animated: true)
+                isAlreadyShowMenuView=true
+                imageCover.backgroundColor=UIColor.lightGrayColor()
             
         }else if (sender.state == UIGestureRecognizerState.Ended) {
             if aModelOfMsgCellBasic.isSend{
@@ -250,23 +272,26 @@ extension Cell1ChatTableViewCell{
             }
         }
     }
-    override func canPerformAction(action: Selector, withSender sender: AnyObject?) -> Bool {
-        if (action == Selector("resignFirstResponder") ||
-            action == Selector("copyByMenuControll:") ||
-            action == Selector("delteByMenuControll:")) && isAlreadyShowMenuView
-        {
-            //        需要主动释放第一响应者，否则其他cell使用会出现错误
-            resignFirstResponder()
-            isAlreadyShowMenuView=false
-        }
-        return super.canPerformAction(action, withSender: sender)
-    }
     override func canResignFirstResponder() -> Bool {
         //        每当释放第一响应者的时候需要将其menuitems设置为空，否则其他成为第一响应者的对象，再次弹出UIMenuController时会一直存在copyItem，deleteItem和moreItem。
         UIMenuController.sharedMenuController().menuItems=[]
         return true
     }
     override func canBecomeFirstResponder() -> Bool {
+        
+        if let tbl=superview?.superview as? UITableView{
+            if let aNSIndexPath = tbl.indexPathForCell(self){
+                print("点击了第\(aNSIndexPath.row)行")
+               ChatTableViewCell.indexPathShowMenu=aNSIndexPath
+            }else{
+                SVProgressHUD.showErrorWithStatus("无法操作该消息")
+                return false
+            }
+        }else{
+            SVProgressHUD.showErrorWithStatus("无法操作该消息")
+            return false
+        }
+        
         //        当成为第一响应者是重写弹出的aUIMenuController
         let aUIMenuController:UIMenuController=UIMenuController.sharedMenuController()
         let deleteItem=UIMenuItem(title: "删除", action: "delteByMenuControll:")
@@ -275,9 +300,8 @@ extension Cell1ChatTableViewCell{
             let copyItem=UIMenuItem(title: "复制", action: "copyByMenuControll:")
             aUIMenuController.menuItems?.append(copyItem)
         }
-//        let moreItem=UIMenuItem(title: "更多", action: "moreActionByMenuControll:")
+        //let moreItem=UIMenuItem(title: "更多", action: "moreActionByMenuControll:")
         aUIMenuController.setTargetRect(textOfMsg.frame, inView: self)
-        ChatTableViewCell.indexPathShowMenu=aNSIndexPath
         return true
     }
     

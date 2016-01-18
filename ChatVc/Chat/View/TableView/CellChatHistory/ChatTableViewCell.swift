@@ -6,9 +6,10 @@
 //  Copyright © 2015年 anve. All rights reserved.
 //
 
+
 import UIKit
 protocol ChatTableViewCellDelegate:NSObjectProtocol{
-    func ReSend(aNSIndexPath: NSIndexPath, msgCell: AnyObject, oneTypeOfMsg: TypeOfMsg, msgExt: Dictionary<String, AnyObject>, msgUuid: String,dataOfFile:NSData)
+    func ReSend(aNSIndexPath: NSIndexPath)
     func ShowAssistantInfor(aAssistantId:Int64)
     func ShowUserInfor()
     func ShowWeb(url:String)
@@ -19,7 +20,7 @@ protocol ChatTableViewCellDelegate:NSObjectProtocol{
 }
 let heightToBot:CGFloat=10
 class ChatTableViewCell: UITableViewCell {
-         var isAlreadyShowMenuView=false
+    var isAlreadyShowMenuView=false
     /// 当前弹出menu的cell的row
     static var indexPathShowMenu:NSIndexPath?
     let imgHeadH:CGFloat = 40
@@ -29,18 +30,33 @@ class ChatTableViewCell: UITableViewCell {
     @IBOutlet var NSLayoutConstraintMsgW: NSLayoutConstraint!
     @IBOutlet var imgHeadNSLayoutConstraintTopToContentView: NSLayoutConstraint!
     @IBOutlet var lblOftimeNSLayoutConstraintWidth: NSLayoutConstraint!
-    var aNSIndexPath:NSIndexPath!
     var aChatTableViewCellDelegate:ChatTableViewCellDelegate!
     var animotionOfBtnOfSendStatus:NSTimer?
     var angle :CGFloat = 0
     @IBOutlet var btnOfSendStatus: UIButton!
     @IBOutlet var imgHead: UIImageView!
-    var aModelOfMsgCellBasic:ModelOfMsgCellBasic!
+    dynamic var aModelOfMsgCellBasic:ModelOfMsgCellBasic!
+//        {
+//        didSet{
+////            superclass
+////            superclass
+////xx            如何通过发通知的方式直接在修改statusOfSend时修改cell的发送状态
+//            print("superclass:\(superclass)")
+//            
+//            var a=superclass// as! ChatTableViewCell
+////            print("\(a.imgHead)")
+//            setBtnOfSendStatus(aModelOfMsgCellBasic.statusOfSend)
+//            print("发送状态变为\(aModelOfMsgCellBasic.statusOfSend)")
+//        }
+//    }
     @IBOutlet var imageCover:UIImageView!
+    
+    override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
+        print("adsf")
+    }
     override func awakeFromNib() {
         super.awakeFromNib()
         setBtnOfSendStatusEvent()
-        
 //        var onceToken=dispatch_once_t()
 //        dispatch_once(&onceToken) { () -> Void in
 //
@@ -55,9 +71,9 @@ class ChatTableViewCell: UITableViewCell {
         self.aModelOfMsgCellBasic=aModelOfMsgCellBasic
         selectionStyle = UITableViewCellSelectionStyle.None
         //        发送状态设置
-        if aModelOfMsgCellBasic.isSend{
-            setBtnOfSendStatus(aModelOfMsgCellBasic.statusOfSend)
-        }
+//        if aModelOfMsgCellBasic.isSend{
+//            setBtnOfSendStatus(aModelOfMsgCellBasic.statusOfSend)
+//        }
         //        时间标签设置
         resetLblOftime(aModelOfMsgCellBasic.timeCreate)
         //        cell长宽设置
@@ -66,6 +82,8 @@ class ChatTableViewCell: UITableViewCell {
         backgroundColor=BackGroundColor
         //        cell类型
         selectionStyle = UITableViewCellSelectionStyle.None
+        self.addObserver(self, forKeyPath: "aModelOfMsgCellBasic", options: NSKeyValueObservingOptions.New, context: nil)
+        
     }
     func resetLblOftime(timeCreate:String){
         if timeCreate==""{
@@ -126,26 +144,23 @@ class ChatTableViewCell: UITableViewCell {
             let aUILongPressGestureRecognizer=UILongPressGestureRecognizer(target: self, action: "showMenu:")
             imageCover.addGestureRecognizer(aUILongPressGestureRecognizer)
             
-            var  aSize =  CGSizeMake(aModelOfMsgCellBasic.sizeCell.width, aModelOfMsgCellBasic.sizeCell.height)
-            
-            aSize =  CGSizeMake(aModelOfMsgCellBasic.sizeCell.width+MsgTxtUIEdgeInsetsMakeL+MsgTxtUIEdgeInsetsMakeR, aModelOfMsgCellBasic.sizeCell.height+MsgTxtUIEdgeInsetsMakeT+MsgTxtUIEdgeInsetsMakeB)
-            
 
             
-            if  aModelOfMsgCellBasic.typeMsg == TypeOfMsg.TxtMine ||
-                aModelOfMsgCellBasic.typeMsg == TypeOfMsg.TxtOfCustomer ||
-                aModelOfMsgCellBasic.typeMsg == TypeOfMsg.VoiceOfCustomer ||
-                aModelOfMsgCellBasic.typeMsg == TypeOfMsg.VoiceMine {
+            var aSize =  CGSize()
+            
+            if aModelOfMsgCellBasic.typeMsg == TypeOfMsg.ImgMine ||
+                aModelOfMsgCellBasic.typeMsg == TypeOfMsg.ImgMine{
+                
+                    aSize = CGSizeMake(aModelOfMsgCellBasic.sizeCell.width, aModelOfMsgCellBasic.sizeCell.height)
                     
+                    imageCover.backgroundColor=UIColor.clearColor()
+            }else{
                 if aModelOfMsgCellBasic.isSend{
                     imageCover.backgroundColor=ColorMsgSendBg
                 }else{
                     imageCover.backgroundColor=ColorMsgGetBg
                 }
-                    
-                    
-            }else{
-                imageCover.backgroundColor=UIColor.clearColor()
+                aSize = CGSizeMake(aModelOfMsgCellBasic.sizeCell.width+MsgTxtUIEdgeInsetsMakeL+MsgTxtUIEdgeInsetsMakeR, aModelOfMsgCellBasic.sizeCell.height+MsgTxtUIEdgeInsetsMakeT+MsgTxtUIEdgeInsetsMakeB)
             }
             
             if aModelOfMsgCellBasic.isSend{
@@ -155,7 +170,6 @@ class ChatTableViewCell: UITableViewCell {
                 if (lblBulterName != nil){
                     lblBulterName.text="黑卡管家"+"\(Mbulter.shareMbulterManager().nickname)"
                 }
-                
             }else{
                 let aImgVL = UIImageView(image:UIImage(named: "mmsleft")?.resizableImageWithCapInsets(UIEdgeInsetsMake(28,15,10,10)))
                 aImgVL.layer.frame=CGRect(origin: CGPointZero, size: aSize)
@@ -174,8 +188,21 @@ class ChatTableViewCell: UITableViewCell {
         if btnOfSendStatus != nil{
             if (animotionOfBtnOfSendStatus == nil){
                 //注意reSend方法一定要在子类中实现，如果有
-//                btnOfSendStatus.addTarget(self, action: "reSend", forControlEvents: UIControlEvents.TouchUpInside)
+                btnOfSendStatus.addTarget(self, action: "reSend", forControlEvents: UIControlEvents.TouchUpInside)
             }
+        }
+    }
+    func reSend(){
+        if let tbl=superview?.superview as? UITableView{
+            if let aNSIndexPath = tbl.indexPathForCell(self){
+                print("点击了第\(aNSIndexPath.row)行")
+                aChatTableViewCellDelegate.ReSend(aNSIndexPath)
+    
+            }else{
+                SVProgressHUD.showErrorWithStatus("重发失败")
+            }
+        }else{
+            SVProgressHUD.showErrorWithStatus("重发失败")
         }
     }
     override func setSelected(selected: Bool, animated: Bool) {

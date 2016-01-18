@@ -28,6 +28,8 @@
 		450A514F1C33854F00CDEF34 /* Validation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 450A51411C33854F00CDEF34 /* Validation.swift */; };
 		450A51511C33B91E00CDEF34 /* MRCIM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 450A51501C33B91E00CDEF34 /* MRCIM.swift */; };
 		450EC6001C3E017700C6BD19 /* PingPPPay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 450EC5FF1C3E017700C6BD19 /* PingPPPay.swift */; };
+		452583701C48D0B6009C7219 /* databaseGet.m in Sources */ = {isa = PBXBuildFile; fileRef = 4525836F1C48D0B6009C7219 /* databaseGet.m */; };
+		452583721C48DA64009C7219 /* MDataBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 452583711C48DA64009C7219 /* MDataBase.swift */; };
 		452E61E61C3BBC3900E7B039 /* MCommandRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 452E61E51C3BBC3900E7B039 /* MCommandRequest.swift */; };
 		452E61E91C3BF33600E7B039 /* NZZCheckingOfInput.m in Sources */ = {isa = PBXBuildFile; fileRef = 452E61E81C3BF33600E7B039 /* NZZCheckingOfInput.m */; };
 		45431E2A1C27E4DD00D47BCA /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 45431E291C27E4DD00D47BCA /* libsqlite3.tbd */; };
@@ -40,7 +42,6 @@
 		456187CC1C1E9CA200AE5801 /* ZYQAssetPickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 456187C61C1E9CA200AE5801 /* ZYQAssetPickerController.m */; };
 		456187CD1C1E9CA200AE5801 /* RecordAndPlay.m in Sources */ = {isa = PBXBuildFile; fileRef = 456187C91C1E9CA200AE5801 /* RecordAndPlay.m */; };
 		456187DC1C1E9DB900AE5801 /* HelpFromOc.m in Sources */ = {isa = PBXBuildFile; fileRef = 456187DB1C1E9DB900AE5801 /* HelpFromOc.m */; };
-		457E29461C22D01000CDE1EE /* databaseGet.m in Sources */ = {isa = PBXBuildFile; fileRef = 457E29451C22D01000CDE1EE /* databaseGet.m */; };
 		458F9BF41C3A498B00F6D42D /* Pay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 458F9BF31C3A498B00F6D42D /* Pay.swift */; };
 		459357931C3ED2FE00C13A27 /* AddressTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4593578B1C3ED2FE00C13A27 /* AddressTableViewCell.swift */; };
 		459357941C3ED2FE00C13A27 /* AddressTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4593578C1C3ED2FE00C13A27 /* AddressTableViewCell.xib */; };
@@ -148,6 +149,9 @@
 		450A51411C33854F00CDEF34 /* Validation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Validation.swift; sourceTree = "<group>"; };
 		450A51501C33B91E00CDEF34 /* MRCIM.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MRCIM.swift; sourceTree = "<group>"; };
 		450EC5FF1C3E017700C6BD19 /* PingPPPay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PingPPPay.swift; sourceTree = "<group>"; };
+		4525836E1C48D0B6009C7219 /* databaseGet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = databaseGet.h; sourceTree = "<group>"; };
+		4525836F1C48D0B6009C7219 /* databaseGet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = databaseGet.m; sourceTree = "<group>"; };
+		452583711C48DA64009C7219 /* MDataBase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MDataBase.swift; sourceTree = "<group>"; };
 		452E61E51C3BBC3900E7B039 /* MCommandRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MCommandRequest.swift; sourceTree = "<group>"; };
 		452E61E71C3BF33600E7B039 /* NZZCheckingOfInput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NZZCheckingOfInput.h; sourceTree = "<group>"; };
 		452E61E81C3BF33600E7B039 /* NZZCheckingOfInput.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NZZCheckingOfInput.m; sourceTree = "<group>"; };
@@ -166,8 +170,6 @@
 		456187C91C1E9CA200AE5801 /* RecordAndPlay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecordAndPlay.m; sourceTree = "<group>"; };
 		456187DA1C1E9DB900AE5801 /* HelpFromOc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HelpFromOc.h; sourceTree = "<group>"; };
 		456187DB1C1E9DB900AE5801 /* HelpFromOc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HelpFromOc.m; sourceTree = "<group>"; };
-		457E29441C22D01000CDE1EE /* databaseGet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = databaseGet.h; sourceTree = "<group>"; };
-		457E29451C22D01000CDE1EE /* databaseGet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = databaseGet.m; sourceTree = "<group>"; };
 		458F9BF31C3A498B00F6D42D /* Pay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Pay.swift; sourceTree = "<group>"; };
 		4593578B1C3ED2FE00C13A27 /* AddressTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddressTableViewCell.swift; sourceTree = "<group>"; };
 		4593578C1C3ED2FE00C13A27 /* AddressTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddressTableViewCell.xib; sourceTree = "<group>"; };
@@ -283,6 +285,7 @@
 		450A512F1C33847B00CDEF34 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				4525836D1C48D0B6009C7219 /* DataBase */,
 				4593578A1C3ED2FE00C13A27 /* Location */,
 				450A51321C33854F00CDEF34 /* Alamofire2.0 */,
 				450A51301C33848300CDEF34 /* CommonMethods.swift */,
@@ -316,6 +319,15 @@
 				450A51411C33854F00CDEF34 /* Validation.swift */,
 			);
 			path = Alamofire2.0;
+			sourceTree = "<group>";
+		};
+		4525836D1C48D0B6009C7219 /* DataBase */ = {
+			isa = PBXGroup;
+			children = (
+				4525836E1C48D0B6009C7219 /* databaseGet.h */,
+				4525836F1C48D0B6009C7219 /* databaseGet.m */,
+			);
+			path = DataBase;
 			sourceTree = "<group>";
 		};
 		456187BF1C1E9CA200AE5801 /* ThirdPartTool */ = {
@@ -354,20 +366,10 @@
 		456187D91C1E9D9B00AE5801 /* NzzHelp */ = {
 			isa = PBXGroup;
 			children = (
-				457E29411C22D00900CDE1EE /* Database */,
 				456187DA1C1E9DB900AE5801 /* HelpFromOc.h */,
 				456187DB1C1E9DB900AE5801 /* HelpFromOc.m */,
 			);
 			path = NzzHelp;
-			sourceTree = "<group>";
-		};
-		457E29411C22D00900CDE1EE /* Database */ = {
-			isa = PBXGroup;
-			children = (
-				457E29441C22D01000CDE1EE /* databaseGet.h */,
-				457E29451C22D01000CDE1EE /* databaseGet.m */,
-			);
-			path = Database;
 			sourceTree = "<group>";
 		};
 		4593578A1C3ED2FE00C13A27 /* Location */ = {
@@ -540,6 +542,7 @@
 				45F16A921C3F8CED00592263 /* MOrder.swift */,
 				45441B091C44DBDA00492B6A /* MUi.swift */,
 				45FE24E11C47428A0079FA50 /* Mbulter.swift */,
+				452583711C48DA64009C7219 /* MDataBase.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -883,8 +886,8 @@
 				450A51461C33854F00CDEF34 /* Manager.swift in Sources */,
 				459EEE271C321A9100B93CFF /* InputV.swift in Sources */,
 				45BBD9F81C228E3D0038A6AC /* UIColor+QuickTool.swift in Sources */,
+				452583721C48DA64009C7219 /* MDataBase.swift in Sources */,
 				45F16A931C3F8CED00592263 /* MOrder.swift in Sources */,
-				457E29461C22D01000CDE1EE /* databaseGet.m in Sources */,
 				450A51311C33848300CDEF34 /* CommonMethods.swift in Sources */,
 				459EEE1D1C321A9100B93CFF /* ChatViewController.swift in Sources */,
 				4553CAE81C37ABCE00BFD327 /* MoreActionTableViewCell.swift in Sources */,
@@ -912,6 +915,7 @@
 				450A51281C337FC400CDEF34 /* MUpToFile.swift in Sources */,
 				45FE24E21C47428A0079FA50 /* Mbulter.swift in Sources */,
 				45BBD9FC1C228E3D0038A6AC /* UITableViewController+Quick.swift in Sources */,
+				452583701C48D0B6009C7219 /* databaseGet.m in Sources */,
 				459EEE2A1C321A9100B93CFF /* MMsgWantSendCollectionViewDelegateNzz.swift in Sources */,
 				45BBD9FA1C228E3D0038A6AC /* UIImageView+QuickTool.swift in Sources */,
 				459EEE231C321A9100B93CFF /* ColCell1InputVc.swift in Sources */,
@@ -1077,12 +1081,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = ChatVc/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.anve.bumblebeeapp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ultimavip.dit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "ChatVc-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
@@ -1095,12 +1101,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = ChatVc/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.anve.bumblebeeapp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ultimavip.dit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "ChatVc-Bridging-Header.h";
 			};
 			name = Release;
