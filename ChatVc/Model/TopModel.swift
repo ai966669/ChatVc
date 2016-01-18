@@ -8,7 +8,7 @@
 
 import UIKit
 
-typealias SessionFailBlock = (code:Int) -> Void
+typealias SessionFailBlock = (code:Int,msg:String?) -> Void
 typealias SessionSuccessBlock = (model : AnyObject?) -> Void
 
 ///
@@ -57,8 +57,7 @@ let codeTokenUnvalible = -1014
 let codeOverTime = 3840 //属于-1中的问题
 let codeErrorReturn = -3
 let codeUnexpected = 0
-/// 登陆需要验证码
-let ErrNeedCode=1022
+
 class TopModel: NSObject {
     /**
      对请求参数进行操作
@@ -80,7 +79,7 @@ class TopModel: NSObject {
      同unverisalProcess，但是该接口提供给特殊请求用。
      
      1.启动:system/start
-
+     
      2.登录:user/login
      
      - parameter params: 需要处理的参数列表，字典形式
@@ -159,281 +158,322 @@ class TopModel: NSObject {
     }
     
     class func universalRequest(requestMethod requestMethod:Method,dic:Dictionary<String,AnyObject>,urlMethod:String,success:SessionSuccessBlock,failure:SessionFailBlock) -> Request {
-            //网络请求
-            return request(requestMethod, "\(BaseURL)\(interfaceVersion)\(urlMethod)", parameters: dic, encoding:ParameterEncoding.URL).response { (request, response, data, error) -> Void in
-                UIApplication.sharedApplication().networkActivityIndicatorVisible = false
-                if response?.statusCode != 0 && response?.statusCode != 200{
-                    SVProgressHUD.showErrorWithStatus("网络异常")
-                    Log(response)
-                    Log(error)
-                    if response?.statusCode == codeOverTime {
-                        
-                    }
-                    failure(code: -1)
-                }else{
-                    guard let data = data  else {
-                        Log("无数据返回")
-                        if error != nil{
-                            SVProgressHUD.showErrorWithStatus("请求错误")
-                        }
-                        failure(code: -2)
-                        return
-                    }
+        //网络请求
+        return request(requestMethod, "\(BaseURL)\(interfaceVersion)\(urlMethod)", parameters: dic, encoding:ParameterEncoding.URL).response { (request, response, data, error) -> Void in
+            UIApplication.sharedApplication().networkActivityIndicatorVisible = false
+            if response?.statusCode != 0 && response?.statusCode != 200{
+                SVProgressHUD.showErrorWithStatus("网络异常")
+                Log(response)
+                Log(error)
+                if response?.statusCode == codeOverTime {
                     
-                    do {
-                        if	let json = try NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableLeaves) as? [String : AnyObject]{
-                            Log("\(json)")
-                            guard let successServer = json["success"] as? Bool else {
-                                Log("返回数据无success")
-                                failure(code: codeErrorReturn)
+                }
+                failure(code: -1,msg:"")
+            }else{
+                guard let data = data  else {
+                    Log("无数据返回")
+                    if error != nil{
+                        SVProgressHUD.showErrorWithStatus("请求错误")
+                    }
+                    failure(code: -2,msg:"")
+                    return
+                }
+                
+                do {
+                    if	let json = try NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableLeaves) as? [String : AnyObject]{
+                        Log("\(json)")
+                        guard let successServer = json["success"] as? Bool else {
+                            Log("返回数据无success")
+                            failure(code: codeErrorReturn,msg:"")
+                            return
+                        }
+                        if successServer == true {
+                            success(model: json)
+                        }else {
+                            guard let ret_code = json["code"] as? String else{
+                                Log("返回数据无code")
+                                failure(code: codeErrorReturn,msg:"")
                                 return
                             }
-                            if successServer == true {
-                                success(model: json)
-                            }else {
-                                guard let ret_code = json["code"] as? String else{
-                                    Log("返回数据无code")
-                                    failure(code: codeErrorReturn)
-                                    return
+                            
+                            if let ret_code_int = Int(ret_code){
+//                                判断是否是需要特殊操作的返回码，如果是返回要显示的字段和需要显示的消息
+                                
+                                if  isSpecailCode(ret_code_int) {
+                                    
+                                    if let inputErrors = json["inputErrors"]  as? String {
+                                         failure(code: ret_code_int,msg:inputErrors)
+                                        return
+                                    }else{
+                                        if let ret_msg = json["msg"] as? String {
+                                         failure(code: ret_code_int,msg:ret_msg)
+                                        return
+                                        }
+                                    }
+                                    failure(code: ret_code_int,msg:"")
                                 }
+                                
+                                
+                                
                                 if let inputErrors = json["inputErrors"]  as? String {
                                     SVProgressHUD.showErrorWithStatus(inputErrors)
                                 }else{
                                     if let ret_msg = json["msg"] as? String {
                                         SVProgressHUD.showErrorWithStatus(ret_msg)
                                     }
-//                                    else{
-//                                        SVProgressHUD.showErrorWithStatus("没有失败消息")
+                                }
+                                
+                                failure(code: ret_code_int,msg:"")
+                            }else {
+                                
+                                if let inputErrors = json["inputErrors"]  as? String {
+                                    SVProgressHUD.showErrorWithStatus(inputErrors)
+                                }else{
+                                    if let ret_msg = json["msg"] as? String {
+                                        SVProgressHUD.showErrorWithStatus(ret_msg)
+                                    }
+                                }
+                                failure(code: codeUnexpected,msg:"")
+                            }
+                            
+                        }
+                    }
+                }catch let error2 as NSError {
+                    failure(code: -5,msg:"")
+                    Log(error2.description)
+                }
+            }
+        }
+    }
+    
+    
+    
+//    
+//    class func postParams(dic dic:Dictionary<String,AnyObject>,method:String,requsetingString:String?,successString:String?,
+//        failureString:String?,showNetActivity: Bool ,showServerfailureString:Bool,success:SessionSuccessBlock,failure:SessionFailBlock) -> Request {
+//            //风火轮转动
+//            if showNetActivity {
+//                UIApplication.sharedApplication().networkActivityIndicatorVisible = true
+//            }
+//            
+//            //判断时候有请求文字
+//            if requsetingString == "" {
+//                SVProgressHUD.show()
+//            }else if requsetingString != nil{
+//                SVProgressHUD.showWithStatus(requsetingString, maskType: .Clear)
+//            }
+//            
+//            //网络请求
+//            return request(Method.POST, "\(BaseURL)\(method)", parameters: dic, encoding:ParameterEncoding.URL).response { (request, response, data, error) -> Void in
+//                UIApplication.sharedApplication().networkActivityIndicatorVisible = false
+//                if response?.statusCode != 0 && response?.statusCode != 200{
+//                    if showServerfailureString {
+//                        SVProgressHUD.showErrorWithStatus("网络异常")
+//                    }
+//                    Log(response)
+//                    Log(error)
+//                    if response?.statusCode == codeOverTime {
+//                        
+//                    }
+//                    failure(code: -1)
+//                }else{
+//                    guard let data = data  else {
+//                        Log("无数据返回")
+//                        if error != nil{
+//                            if showServerfailureString {
+//                                SVProgressHUD.showErrorWithStatus("网络异常")
+//                            }
+//                            
+//                        }
+//                        failure(code: -2)
+//                        return
+//                    }
+//                    
+//                    do {
+//                        if	let json = try NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableLeaves) as? [String : AnyObject]{
+//                            Log("\(json)")
+//                            guard let ret_code = json["code"] as? String else {
+//                                Log("返回数据无code")
+//                                failure(code: -3)
+//                                return
+//                            }
+//                            if ret_code == "0001" {
+//                                if let successString = successString {
+//                                    SVProgressHUD.showSuccessWithStatus(successString)
+//                                } else {
+//                                    SVProgressHUD.dismiss()
+//                                }
+//                                success(model: json)
+//                            }else {
+//                                guard let ret_msg = json["msg"] as? String else{
+//                                   
+//                                    SVProgressHUD.showErrorWithStatus("请求失败...")
+//                                    
+//                                    if let ret_code_int = Int(ret_code){
+//                                        if ret_code_int == codeTokenUnvalible {
+//                                            //                                            UserModel.loginOut(userId: "\(UserModel.sharedUserModel.id)")
+//                                        } else {
+//                                            failure(code: ret_code_int)
+//                                        }
+//                                        
+//                                    }else {
+//                                        failure(code: -4)
 //                                    }
-                                }
-                                if let ret_code_int = Int(ret_code){
-                                    failure(code: ret_code_int)
-                                }else {
-                                    failure(code: codeUnexpected)
-                                }
-                            }
-                        }
-                    }catch let error2 as NSError {
-                        failure(code: -5)
-                        Log(error2.description)
-                    }
-                }
-            }
-    }
-    
-    
-    
-  
-    class func postParams(dic dic:Dictionary<String,AnyObject>,method:String,requsetingString:String?,successString:String?,
-        failureString:String?,showNetActivity: Bool ,showServerfailureString:Bool,success:SessionSuccessBlock,failure:SessionFailBlock) -> Request {
-            //风火轮转动
-            if showNetActivity {
-                UIApplication.sharedApplication().networkActivityIndicatorVisible = true
-            }
-            
-            //判断时候有请求文字
-            if requsetingString == "" {
-                SVProgressHUD.show()
-            }else if requsetingString != nil{
-                SVProgressHUD.showWithStatus(requsetingString, maskType: .Clear)
-            }
-            
-            //网络请求
-            return request(Method.POST, "\(BaseURL)\(method)", parameters: dic, encoding:ParameterEncoding.URL).response { (request, response, data, error) -> Void in
-                UIApplication.sharedApplication().networkActivityIndicatorVisible = false
-                if response?.statusCode != 0 && response?.statusCode != 200{
-                    if showServerfailureString {
-                        SVProgressHUD.showErrorWithStatus("网络异常")
-                    }
-                    Log(response)
-                    Log(error)
-                    if response?.statusCode == codeOverTime {
-                        
-                    }
-                    failure(code: -1)
-                }else{
-                    guard let data = data  else {
-                        Log("无数据返回")
-                        if error != nil{
-                            if showServerfailureString {
-                                SVProgressHUD.showErrorWithStatus("网络异常")
-                            }
-                            
-                        }
-                        failure(code: -2)
-                        return
-                    }
-                    
-                    do {
-                        if	let json = try NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableLeaves) as? [String : AnyObject]{
-                            Log("\(json)")
-                            guard let ret_code = json["code"] as? String else {
-                                Log("返回数据无code")
-                                failure(code: -3)
-                                return
-                            }
-                            if ret_code == "0001" {
-                                if let successString = successString {
-                                    SVProgressHUD.showSuccessWithStatus(successString)
-                                } else {
-                                    SVProgressHUD.dismiss()
-                                }
-                                success(model: json)
-                            }else {
-                                
-                                guard let ret_msg = json["msg"] as? String else{
-                                    SVProgressHUD.showErrorWithStatus("请求失败...")
-                                    if let ret_code_int = Int(ret_code){
-                                        if ret_code_int == codeTokenUnvalible {
-//                                            UserModel.loginOut(userId: "\(UserModel.sharedUserModel.id)")
-                                        } else {
-                                            failure(code: ret_code_int)
-                                        }
-                                        
-                                    }else {
-                                        failure(code: -4)
-                                    }
-                                    return
-                                }
-                                if showServerfailureString {
-                                    if ret_msg != "" {
-                                        SVProgressHUD.showErrorWithStatus(ret_msg)
-                                    } else if let failureString = failureString {
-                                        SVProgressHUD.showErrorWithStatus(failureString)
-                                    } else {
-                                        SVProgressHUD.showErrorWithStatus("请求失败...")
-                                    }
-                                }
-                                if let ret_code_int = Int(ret_code){
-                                    failure(code: ret_code_int)
-                                }else {
-                                    failure(code: 0)
-                                }
-                            }
-                            
-                        }
-                    }catch let error2 as NSError {
-                        failure(code: -5)
-                        Log(error2.description)
-                    }
-                }
-            }
-    }
-
-    
-    
+//                                    
+//                                    return
+//                                }
+//                                if showServerfailureString {
+//                                    if ret_msg != "" {
+//                                        SVProgressHUD.showErrorWithStatus(ret_msg)
+//                                    } else if let failureString = failureString {
+//                                        SVProgressHUD.showErrorWithStatus(failureString)
+//                                    } else {
+//                                        SVProgressHUD.showErrorWithStatus("请求失败...")
+//                                    }
+//                                }
+//                                if let ret_code_int = Int(ret_code){
+//                                    failure(code: ret_code_int)
+//                                }else {
+//                                    failure(code: 0)
+//                                }
+//                            }
+//                            
+//                        }
+//                    }catch let error2 as NSError {
+//                        failure(code: -5)
+//                        Log(error2.description)
+//                    }
+//                }
+//            }
+//    }
+//    
+//    
+//    
+//    /**
+//     网络请求公用接口
+//     
+//     :param: dic                     应用级别参数
+//     :param: method                  接口信息
+//     :param: requsetingString        请求显示Text，nil时不显示
+//     :param: successString           请求成功显示Text，nil时不显示
+//     :param: failureString           请求失败时，且ShowServerfailureString为false或者系统返回理由为空时显示Text，而此时为nil时则返回“请求失败”
+//     :param: showServerfailureString 是否返回服务器返回请求失败理由
+//     :param: success                 返回成功字典
+//     :param: failure                 返回失败
+//     */
+//    class func postParams(dic dic:Dictionary<String,AnyObject>,method:String,requsetingString:String?,successString:String?,
+//        failureString:String?,showServerfailureString:Bool,success:SessionSuccessBlock,failure:SessionFailBlock) -> Request{
+//            return postParams(dic: dic, method: method, requsetingString: requsetingString, successString: successString, failureString: failureString, showNetActivity: true, showServerfailureString: showServerfailureString, success: success, failure: failure)
+//            
+//    }
+//    
+//    //    1230需要对topmodel进行瘦身
+//    class func getParams(dic dic:Dictionary<String,AnyObject>,subUrl:String,requsetingString:String?,successString:String?,
+//        failureString:String?,showServerfailureString:Bool,success:SessionSuccessBlock,failure:SessionFailBlock) -> Request{
+//            //风火轮转动
+//            UIApplication.sharedApplication().networkActivityIndicatorVisible = true
+//            
+//            //判断时候有请求文字
+//            if requsetingString == "" {
+//                SVProgressHUD.show()
+//            }else if requsetingString != nil{
+//                SVProgressHUD.showWithStatus(requsetingString, maskType: .Clear)
+//            }
+//            
+//            //网络请求
+//            return request(Method.GET, "\(BaseURL)\(subUrl)", parameters: dic, encoding:ParameterEncoding.URL).response { (request, response, data, error) -> Void in
+//                
+//                
+//                UIApplication.sharedApplication().networkActivityIndicatorVisible = false
+//                
+//                if response?.statusCode != 0 && response?.statusCode != 200{
+//                    if showServerfailureString {
+//                        SVProgressHUD.showErrorWithStatus("网络异常")
+//                    }
+//                    failure(code: -1)
+//                }else{
+//                    guard let data = data  else {
+//                        Log("无数据返回")
+//                        if error != nil{
+//                            if showServerfailureString {
+//                                SVProgressHUD.showErrorWithStatus("网络异常")
+//                            }
+//                            
+//                        }
+//                        failure(code: -2)
+//                        return
+//                    }
+//                    
+//                    
+//                    do {
+//                        if	let json = try NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableLeaves) as? [String : AnyObject]{
+//                            Log("\(json)")
+//                            guard let ret_code = json["code"] as? String else {
+//                                Log("返回数据无code")
+//                                failure(code: -3)
+//                                return
+//                            }
+//                            if ret_code == "0001" {
+//                                if let successString = successString {
+//                                    SVProgressHUD.showSuccessWithStatus(successString)
+//                                } else {
+//                                    SVProgressHUD.dismiss()
+//                                }
+//                                success(model: json)
+//                            }else {
+//                                
+//                                guard let ret_msg = json["msg"] as? String else{
+//                                    
+//                                    SVProgressHUD.showErrorWithStatus("请求失败...")
+//                                    if let ret_code_int = Int(ret_code){
+//                                        if ret_code_int == codeTokenUnvalible {
+//                                            //                                            UserModel.loginOut(userId: "\(UserModel.sharedUserModel.id)")
+//                                        } else {
+//                                            failure(code: ret_code_int)
+//                                        }
+//                                    }else {
+//                                        failure(code: -4)
+//                                    }
+//                                    return
+//                                }
+//                                if showServerfailureString {
+//                                    if ret_msg != "" {
+//                                        SVProgressHUD.showErrorWithStatus(ret_msg)
+//                                    } else if let failureString = failureString {
+//                                        SVProgressHUD.showErrorWithStatus(failureString)
+//                                    } else {
+//                                        SVProgressHUD.showErrorWithStatus("请求失败...")
+//                                    }
+//                                }
+//                                if let ret_code_int = Int(ret_code){
+//                                    failure(code: ret_code_int)
+//                                }else {
+//                                    failure(code: 0)
+//                                }
+//                            }
+//                            
+//                        }
+//                    }catch let error2 as NSError {
+//                        failure(code: -5)
+//                        Log(error2.description)
+//                    }
+//                    
+//                }
+//            }
+//            
+//    }
     /**
-     网络请求公用接口
-     
-     :param: dic                     应用级别参数
-     :param: method                  接口信息
-     :param: requsetingString        请求显示Text，nil时不显示
-     :param: successString           请求成功显示Text，nil时不显示
-     :param: failureString           请求失败时，且ShowServerfailureString为false或者系统返回理由为空时显示Text，而此时为nil时则返回“请求失败”
-     :param: showServerfailureString 是否返回服务器返回请求失败理由
-     :param: success                 返回成功字典
-     :param: failure                 返回失败
-     */
-    class func postParams(dic dic:Dictionary<String,AnyObject>,method:String,requsetingString:String?,successString:String?,
-        failureString:String?,showServerfailureString:Bool,success:SessionSuccessBlock,failure:SessionFailBlock) -> Request{
-            return postParams(dic: dic, method: method, requsetingString: requsetingString, successString: successString, failureString: failureString, showNetActivity: true, showServerfailureString: showServerfailureString, success: success, failure: failure)
-            
-    }
+    查看返回的错误id是不是特殊的错误id。这里指的特殊是，这些id不光要显示，而且客户端需要做出对应的操作
     
-    //    1230需要对topmodel进行瘦身
-    class func getParams(dic dic:Dictionary<String,AnyObject>,subUrl:String,requsetingString:String?,successString:String?,
-        failureString:String?,showServerfailureString:Bool,success:SessionSuccessBlock,failure:SessionFailBlock) -> Request{
-            //风火轮转动
-            UIApplication.sharedApplication().networkActivityIndicatorVisible = true
-            
-            //判断时候有请求文字
-            if requsetingString == "" {
-                SVProgressHUD.show()
-            }else if requsetingString != nil{
-                SVProgressHUD.showWithStatus(requsetingString, maskType: .Clear)
+    - parameter code: 需要查看的网络返回码
+    */
+    static let  SpecailCodes=[RequestErrCodeAlreadyLogin]
+    class func isSpecailCode(code:Int)->Bool{
+        for SpecailCode in SpecailCodes{
+            if code == SpecailCode{
+                return true
             }
-            
-            //网络请求
-            return request(Method.GET, "\(BaseURL)\(subUrl)", parameters: dic, encoding:ParameterEncoding.URL).response { (request, response, data, error) -> Void in
-                
-                
-                UIApplication.sharedApplication().networkActivityIndicatorVisible = false
-                
-                if response?.statusCode != 0 && response?.statusCode != 200{
-                    if showServerfailureString {
-                        SVProgressHUD.showErrorWithStatus("网络异常")
-                    }
-                    failure(code: -1)
-                }else{
-                    guard let data = data  else {
-                        Log("无数据返回")
-                        if error != nil{
-                            if showServerfailureString {
-                                SVProgressHUD.showErrorWithStatus("网络异常")
-                            }
-                            
-                        }
-                        failure(code: -2)
-                        return
-                    }
-                    
-                    
-                    do {
-                        if	let json = try NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableLeaves) as? [String : AnyObject]{
-                            Log("\(json)")
-                            guard let ret_code = json["code"] as? String else {
-                                Log("返回数据无code")
-                                failure(code: -3)
-                                return
-                            }
-                            if ret_code == "0001" {
-                                if let successString = successString {
-                                    SVProgressHUD.showSuccessWithStatus(successString)
-                                } else {
-                                    SVProgressHUD.dismiss()
-                                }
-                                success(model: json)
-                            }else {
-                                
-                                guard let ret_msg = json["msg"] as? String else{
-                                    
-                                    SVProgressHUD.showErrorWithStatus("请求失败...")
-                                    if let ret_code_int = Int(ret_code){
-                                        if ret_code_int == codeTokenUnvalible {
-                                            //                                            UserModel.loginOut(userId: "\(UserModel.sharedUserModel.id)")
-                                        } else {
-                                            failure(code: ret_code_int)
-                                        }
-                                    }else {
-                                        failure(code: -4)
-                                    }
-                                    return
-                                }
-                                if showServerfailureString {
-                                    if ret_msg != "" {
-                                        SVProgressHUD.showErrorWithStatus(ret_msg)
-                                    } else if let failureString = failureString {
-                                        SVProgressHUD.showErrorWithStatus(failureString)
-                                    } else {
-                                        SVProgressHUD.showErrorWithStatus("请求失败...")
-                                    }
-                                }
-                                if let ret_code_int = Int(ret_code){
-                                    failure(code: ret_code_int)
-                                }else {
-                                    failure(code: 0)
-                                }
-                            }
-                            
-                        }
-                    }catch let error2 as NSError {
-                        failure(code: -5)
-                        Log(error2.description)
-                    }
-                    
-                }
-            }
-            
+        }
+        return false
     }
-    
 }

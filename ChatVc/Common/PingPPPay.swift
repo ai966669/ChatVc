@@ -55,8 +55,8 @@ class PingPPPay: TopModel {
                     SVProgressHUD.showErrorWithStatus("支付异常，稍后再试")
                 }
             })
-            }) { (code) -> Void in
-                failure(code: code)
+            }) {(code,msg) -> Void in
+                failure(code: code,msg: msg)
         }
     }
 }

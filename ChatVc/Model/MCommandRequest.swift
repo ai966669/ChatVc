@@ -12,10 +12,9 @@ class MCommandRequest: TopModel {
     func getSystemTime(success:SessionSuccessBlock,failure:SessionFailBlock)->NSURLSessionTask{
         let params=unverisalProcess(Dictionary<String, String>())
         let request = TopModel.universalRequest(requestMethod:Method.GET,dic: params, urlMethod: URLSystemTime, success: { (model) -> Void in
-            var a = model as! [String : AnyObject]
             success(model: model)
-            }) { (code) -> Void in
-                failure(code: code)
+            }) { (code,msg) -> Void in
+                failure(code: code,msg: msg)
         }
         return  request.task
     }
@@ -24,8 +23,8 @@ class MCommandRequest: TopModel {
         let params=unverisalProcess(Dictionary<String, String>())
         let request = TopModel.universalRequest(requestMethod:Method.POST,dic: params, urlMethod: URLSystemUpToken, success: { (model) -> Void in
             success(model: model)
-            }) { (code) -> Void in
-                failure(code: code)
+            }) { (code,msg) -> Void in
+                failure(code: code,msg: msg)
         }
         return  request.task
     }
@@ -33,7 +32,7 @@ class MCommandRequest: TopModel {
         
         let aUIDevice=UIDevice.currentDevice()
         
-        var CFBundleShortVersionString=NSBundle.mainBundle().infoDictionary!["CFBundleShortVersionString"] as! String
+        let CFBundleShortVersionString=NSBundle.mainBundle().infoDictionary!["CFBundleShortVersionString"] as! String
         var  params :Dictionary<String, String>=["deviceId":"\(aUIDevice.identifierForVendor!.UUIDString)","deviceType":"\(aUIDevice.model)","os":"iOS","osVersion":"\(aUIDevice.systemVersion)","net":"4G","appVersion":"\(CFBundleShortVersionString)"]
         
         
@@ -43,7 +42,7 @@ class MCommandRequest: TopModel {
             if let modelInDic = model as? Dictionary<String,AnyObject>{
                 if let dataInDic = modelInDic["data"] as? Dictionary<String,AnyObject>{
                     
-                    var aMMenus:MUi = D3Json.jsonToModel(dataInDic, clazz: MUi.self)
+                    let aMMenus:MUi = D3Json.jsonToModel(dataInDic, clazz: MUi.self)
                     MUi.resetShareMMenus(aMMenus)
                     NSNotificationCenter.defaultCenter().postNotificationName(NotificationUIUpdate, object: nil)
                 }else{
@@ -52,8 +51,8 @@ class MCommandRequest: TopModel {
             }
             success(model: model)
             
-            }) { (code) -> Void in
-                failure(code: code)
+            }) { (code,msg) -> Void in
+                failure(code: code,msg: msg)
         }
         
         return request.task
@@ -65,8 +64,8 @@ class MCommandRequest: TopModel {
         let request = TopModel.universalRequest(requestMethod: Method.POST,dic: params, urlMethod: URLUserCode, success: { (model) -> Void in
             success(model: model)
             
-            }) { (code) -> Void in
-                failure(code: code)
+            }) { (code,msg) -> Void in
+                failure(code: code,msg: msg)
         }
         return request.task
     }

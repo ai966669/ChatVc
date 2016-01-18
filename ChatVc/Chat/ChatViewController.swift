@@ -126,6 +126,7 @@ class ChatViewController: UIViewController {
     func initTbvChatHistory(){
         aTableviewDelegateNzz.aTableviewDelegateNzzDelegate=self
         aTableviewDelegateNzz.initTableviewDelegateNzz(tbvChatHistory)
+        tbvChatHistory.keyboardDismissMode  =  UIScrollViewKeyboardDismissMode.OnDrag // UIScrollViewKeyboardDismissModeInteractive;
         initTbvChatHistoryGesture()
     }
     
@@ -138,12 +139,6 @@ class ChatViewController: UIViewController {
         gestureTap.numberOfTouchesRequired = 1
         
         tbvChatHistory.addGestureRecognizer(gestureTap)
-        
-        let gestureSwip=UISwipeGestureRecognizer(target: self, action: "keyboardWillHide")
-        
-        gestureSwip.direction=UISwipeGestureRecognizerDirection.Down
-        
-        tbvChatHistory.addGestureRecognizer(gestureSwip)
         
     }
     
@@ -457,15 +452,20 @@ extension ChatViewController{
                         
                     }else{
                         dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                            if let  extraInDic = HelpFromOc.dictionaryWithJsonString(message.extra)
+                            if let  extraInDic = HelpFromOc.dictionaryWithJsonString(aRCTextMessage.extra)
                                 as? Dictionary<String,AnyObject>{
-                                    if  (extraInDic["type"] != nil) {
-                                        let type =  extraInDic["type"] as! Int
+                                    
+                                    if let type = extraInDic["type"] as? Int
+                                    {
                                         if type == MsgTypeInTxtExtra.BulterChange.rawValue {
                                             if let targetId = extraInDic["targetId"] as? String{
                                                 Mbulter.shareMbulterManager().id=targetId
-                                                Mbulter.shareMbulterManager().nickname=(extraInDic["nickname"] as? String)!
-                                                Mbulter.shareMbulterManager().avatar=(extraInDic["avatar"] as? String)!
+                                                if let nickname = extraInDic["nickname"] as? String{
+                                                    Mbulter.shareMbulterManager().nickname=nickname
+                                                }
+                                                if let avatar = extraInDic["avatar"] as? String{
+                                                    Mbulter.shareMbulterManager().avatar=avatar
+                                                }
                                                 MRCIM.shareManager().deleteMsg(message.messageId)
                                             }
                                         }else if type == MsgTypeInTxtExtra.OrderMsg.rawValue {
@@ -672,21 +672,19 @@ extension ChatViewController{
                     }
                 }else if  msg.content is RCTextMessage {
                     /**
-                    *  文本消息可能是订单消息所以需要通过extra字段进行判断
-                    */
-                    if msg.extra == nil || msg.extra == ""{
-                        let aRCTextMessage = msg.content as! RCTextMessage
+                     *  文本消息可能是订单消息所以需要通过extra字段进行判断
+                     */
+                    let aRCTextMessage = msg.content as! RCTextMessage
+                    if aRCTextMessage.extra == nil || aRCTextMessage.extra == ""{
                         arrMMsgBasic.append(MMsgTxt().initMMsgTxt(txt: aRCTextMessage.content, aStatusOfSend: statusOfSend, aImgHeadUrlOrFilePath: "", aIsSend: aIsSend,aMsgId: msg.messageId))
                     }else{
-                        var extraInDic = HelpFromOc.dictionaryWithJsonString(msg.extra)
-                            as! Dictionary<String,AnyObject>
-                        if  extraInDic["type"] as? String != "" {
-                            let type =  extraInDic["type"] as! Int
-                            if type == MsgTypeInTxtExtra.OrderMsg.rawValue {
-                                arrMMsgBasic.append(MMsgOrder().initMMsgOrder(extraInDic, aStatusOfSend: statusOfSend, aImgHeadUrlOrFilePath: "", aIsSend: aIsSend, aMsgId: msg.messageId))
-                            }
+                        if let  extraInDic = HelpFromOc.dictionaryWithJsonString(aRCTextMessage.extra) as? Dictionary<String,AnyObject>{
+                                if let type =  extraInDic["type"] as? Int {
+                                    if type == MsgTypeInTxtExtra.OrderMsg.rawValue {
+                                        arrMMsgBasic.append(MMsgOrder().initMMsgOrder(extraInDic, aStatusOfSend: statusOfSend, aImgHeadUrlOrFilePath: "", aIsSend: aIsSend, aMsgId: msg.messageId))
+                                    }
+                                }
                         }
-                        
                     }
                 }else if  msg.content is RCLocationMessage{
                     /// 保存的消息是地址消息，处理同文本消息
@@ -704,7 +702,9 @@ extension ChatViewController{
             idOldestMsg = arrMsgsDB[arrMsgsDB.count-1].messageId
             
         }else{
-            SVProgressHUD.showInfoWithStatus("没有更多的消息了")
+            if aTableviewDelegateNzz.aMTableviewDelegateNzz.nbOfMsg != 0{
+                SVProgressHUD.showInfoWithStatus("没有更多的消息了")
+            }
         }
     }
 }

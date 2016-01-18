@@ -26,8 +26,8 @@ class MOrder: TopModel {
         let params = unverisalProcess(["id":"\(aOrderId)"])
         TopModel.universalRequest(requestMethod: Method.POST,dic: params, urlMethod: URLOrderDetail, success: { (model) -> Void in
             success(model: model)
-            }) { (code) -> Void in
-                failure(code: code)
+            }) { (code,msg) -> Void in
+                failure(code: code,msg: msg)
         }
         
     }

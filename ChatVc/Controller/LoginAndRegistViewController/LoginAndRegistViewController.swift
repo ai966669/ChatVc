@@ -52,6 +52,7 @@ class LoginAndRegistViewController: UIViewController {
         btnTryLogin.layer.masksToBounds=true
     }
     func setPlaceholderLabelTextColor(aUITextField:UITextField){
+        aUITextField.clearButtonMode=UITextFieldViewMode.Always
         aUITextField.setValue(UIColor.whiteColor().CGColor, forKeyPath: "_placeholderLabel.textColor")
     }
     func initLblLayer(aUIView:UIView){
@@ -79,7 +80,7 @@ class LoginAndRegistViewController: UIViewController {
                     SVProgressHUD.showSuccessWithStatus("验证码已经发送")
                     self.startCountDown()
                     }, failure: { (code) -> Void in
-                            print("验证码发送失败")
+                        print("验证码发送失败")
                 })
              
             }
@@ -114,8 +115,8 @@ class LoginAndRegistViewController: UIViewController {
                 if txtFldVertifyCode.hidden{
                     UserModel.shareManager().loginByPsw(txtFldCardNo.text!, psw: txtFldPsw.text!, success: { (model) -> Void in
                         
-                        }, failure: { (code) -> Void in
-                            if code == ErrNeedCode{
+                        }, failure: {  (code,msg) -> Void in
+                            if code == RequestErrNeedCode {
                                 self.showOrHideVertifyCode()
                                  self.startCountDown()
                             }

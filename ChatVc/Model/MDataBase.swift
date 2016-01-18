@@ -11,7 +11,7 @@ import UIKit
 class MDataBase {
     class func getLastestMsgId(userId:String,msgId:Int,count:Int)->[Int]{
         let con1 = databaseGet()
-        let sql1 = "SELECT id FROM RCT_MESSAGE  where  id<? and (target_id = ? or  sender_id = ?) ORDER BY id desc  LIMIT 10"
+        let sql1 = "SELECT id FROM RCT_MESSAGE  where  id<?  ORDER BY id desc  LIMIT 10"
         let binddata1=NSMutableArray()
         binddata1.addObject("\(msgId)")
         binddata1.addObject(userId)

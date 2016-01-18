@@ -14,7 +14,7 @@
 
 + (BOOL)checkComment:(NSString *)comment showGrayHUD:(BOOL)showHUD textToShow:(NSString *)text{
 	[SVProgressHUD showErrorWithStatus:@"这个方法没实现为什么还有呢"];
-	return false;
+	return false;xw
 }
 
 typedef NS_ENUM(NSInteger, typeOfHub) {

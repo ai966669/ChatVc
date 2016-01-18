@@ -248,7 +248,12 @@ enum MsgTypeInTxtExtra:Int{
     case  BulterChange = 2
     case  OrderMsg = 50
 }
-//订单列表
+/// 订单列表
 let DefaultTargetList="DefaultTargetList"
-//
+/// 融云key
 let RCIMAppKey="k51hidwq18o0b"
+//请求网路错误
+/// 该卡当前已有用户使用
+let RequestErrCodeAlreadyLogin=1018
+/// 登陆需要验证码
+let RequestErrNeedCode=1022

@@ -65,8 +65,8 @@ class UserModel: TopModel {
                 self.loginSuccess(model!)
                 success(model: model)
 
-            }) { (code) -> Void in
-                failure(code: code)
+            }) { (code,msg) -> Void in
+                failure(code: code,msg: msg)
         }
         
     }
@@ -79,8 +79,8 @@ class UserModel: TopModel {
             self.loginSuccess(model!)
             success(model: model)
             
-            }) { (code) -> Void in
-                failure(code: code)
+            }) { (code,msg) -> Void in
+                failure(code: code,msg: msg)
         }
         
     }
@@ -90,8 +90,8 @@ class UserModel: TopModel {
         let request = TopModel.universalRequest(requestMethod: Method.POST,dic: params, urlMethod: URLUserTokenLogin, success: { (model) -> Void in
                 UserModel.sharedUserModel.loginSuccess(model!)
                 success(model: model)
-            }) { (code) -> Void in
-                failure(code: code)
+            }) { (code,msg) -> Void in
+                failure(code: code,msg: msg)
         }
         return request.task
     }
@@ -118,6 +118,11 @@ class UserModel: TopModel {
             SVProgressHUD.showErrorWithStatus("发送位置错误，请重新下载")
         }
         initRCIM()
+    }
+    func loginFail(){
+        NSUserDefaults.standardUserDefaults().removeObjectForKey(UD_LastTimeSignToken)
+        NSUserDefaults.standardUserDefaults().removeObjectForKey(UD_LastTimeUserId)
+        NSUserDefaults.standardUserDefaults().removeObjectForKey(SG_QiniuUpToken)
     }
 
 }

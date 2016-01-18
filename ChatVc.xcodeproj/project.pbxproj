@@ -10,7 +10,6 @@
 		450A51281C337FC400CDEF34 /* MUpToFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 450A51271C337FC400CDEF34 /* MUpToFile.swift */; };
 		450A512C1C3383F700CDEF34 /* TopModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 450A51291C3383F700CDEF34 /* TopModel.swift */; };
 		450A512D1C3383F700CDEF34 /* D3Json.swift in Sources */ = {isa = PBXBuildFile; fileRef = 450A512A1C3383F700CDEF34 /* D3Json.swift */; };
-		450A512E1C3383F700CDEF34 /* PayTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 450A512B1C3383F700CDEF34 /* PayTool.swift */; };
 		450A51311C33848300CDEF34 /* CommonMethods.swift in Sources */ = {isa = PBXBuildFile; fileRef = 450A51301C33848300CDEF34 /* CommonMethods.swift */; };
 		450A51421C33854F00CDEF34 /* Alamofire.swift in Sources */ = {isa = PBXBuildFile; fileRef = 450A51341C33854F00CDEF34 /* Alamofire.swift */; };
 		450A51431C33854F00CDEF34 /* Download.swift in Sources */ = {isa = PBXBuildFile; fileRef = 450A51351C33854F00CDEF34 /* Download.swift */; };
@@ -42,7 +41,6 @@
 		456187CC1C1E9CA200AE5801 /* ZYQAssetPickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 456187C61C1E9CA200AE5801 /* ZYQAssetPickerController.m */; };
 		456187CD1C1E9CA200AE5801 /* RecordAndPlay.m in Sources */ = {isa = PBXBuildFile; fileRef = 456187C91C1E9CA200AE5801 /* RecordAndPlay.m */; };
 		456187DC1C1E9DB900AE5801 /* HelpFromOc.m in Sources */ = {isa = PBXBuildFile; fileRef = 456187DB1C1E9DB900AE5801 /* HelpFromOc.m */; };
-		458F9BF41C3A498B00F6D42D /* Pay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 458F9BF31C3A498B00F6D42D /* Pay.swift */; };
 		459357931C3ED2FE00C13A27 /* AddressTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4593578B1C3ED2FE00C13A27 /* AddressTableViewCell.swift */; };
 		459357941C3ED2FE00C13A27 /* AddressTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4593578C1C3ED2FE00C13A27 /* AddressTableViewCell.xib */; };
 		459357951C3ED2FE00C13A27 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4593578D1C3ED2FE00C13A27 /* Location.swift */; };
@@ -130,7 +128,6 @@
 		450A51271C337FC400CDEF34 /* MUpToFile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MUpToFile.swift; sourceTree = "<group>"; };
 		450A51291C3383F700CDEF34 /* TopModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TopModel.swift; sourceTree = "<group>"; };
 		450A512A1C3383F700CDEF34 /* D3Json.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = D3Json.swift; sourceTree = "<group>"; };
-		450A512B1C3383F700CDEF34 /* PayTool.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PayTool.swift; sourceTree = "<group>"; };
 		450A51301C33848300CDEF34 /* CommonMethods.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommonMethods.swift; sourceTree = "<group>"; };
 		450A51331C33854F00CDEF34 /* Alamofire.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Alamofire.h; sourceTree = "<group>"; };
 		450A51341C33854F00CDEF34 /* Alamofire.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Alamofire.swift; sourceTree = "<group>"; };
@@ -170,7 +167,6 @@
 		456187C91C1E9CA200AE5801 /* RecordAndPlay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecordAndPlay.m; sourceTree = "<group>"; };
 		456187DA1C1E9DB900AE5801 /* HelpFromOc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HelpFromOc.h; sourceTree = "<group>"; };
 		456187DB1C1E9DB900AE5801 /* HelpFromOc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HelpFromOc.m; sourceTree = "<group>"; };
-		458F9BF31C3A498B00F6D42D /* Pay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Pay.swift; sourceTree = "<group>"; };
 		4593578B1C3ED2FE00C13A27 /* AddressTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddressTableViewCell.swift; sourceTree = "<group>"; };
 		4593578C1C3ED2FE00C13A27 /* AddressTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddressTableViewCell.xib; sourceTree = "<group>"; };
 		4593578D1C3ED2FE00C13A27 /* Location.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
@@ -289,7 +285,6 @@
 				4593578A1C3ED2FE00C13A27 /* Location */,
 				450A51321C33854F00CDEF34 /* Alamofire2.0 */,
 				450A51301C33848300CDEF34 /* CommonMethods.swift */,
-				458F9BF31C3A498B00F6D42D /* Pay.swift */,
 				452E61E71C3BF33600E7B039 /* NZZCheckingOfInput.h */,
 				452E61E81C3BF33600E7B039 /* NZZCheckingOfInput.m */,
 				45441B071C44C2C900492B6A /* MNotification.swift */,
@@ -534,7 +529,6 @@
 			children = (
 				450A51291C3383F700CDEF34 /* TopModel.swift */,
 				450A512A1C3383F700CDEF34 /* D3Json.swift */,
-				450A512B1C3383F700CDEF34 /* PayTool.swift */,
 				450A51271C337FC400CDEF34 /* MUpToFile.swift */,
 				459EEE4D1C3235D500B93CFF /* UserModel.swift */,
 				450A51501C33B91E00CDEF34 /* MRCIM.swift */,
@@ -874,7 +868,6 @@
 				459EEE3A1C321A9100B93CFF /* ToolOfCellInChat.swift in Sources */,
 				45BBD9FB1C228E3D0038A6AC /* SGFileManage.swift in Sources */,
 				45441B0A1C44DBDA00492B6A /* MUi.swift in Sources */,
-				458F9BF41C3A498B00F6D42D /* Pay.swift in Sources */,
 				459EEE4A1C32322E00B93CFF /* MeViewController.swift in Sources */,
 				459EEE291C321A9100B93CFF /* CustomLayoutNzz.swift in Sources */,
 				459EEE211C321A9100B93CFF /* ModelOfMsgInCell.swift in Sources */,
@@ -922,7 +915,6 @@
 				4553CAEA1C37BA3500BFD327 /* WebViewController.swift in Sources */,
 				452E61E91C3BF33600E7B039 /* NZZCheckingOfInput.m in Sources */,
 				45B705561C1E660700B0E8C2 /* Default.swift in Sources */,
-				450A512E1C3383F700CDEF34 /* PayTool.swift in Sources */,
 				459357961C3ED2FE00C13A27 /* MAddress.swift in Sources */,
 				459EEE1E1C321A9100B93CFF /* AUITableView.swift in Sources */,
 				450A51491C33854F00CDEF34 /* Request.swift in Sources */,

@@ -31,10 +31,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                
 //                    self.setRootViewControllerIsChat()
                 
-                }, failure: { (code) -> Void in
+                }, failure: { (code,msg) -> Void in
                     //todo登录过期，重新登录的提示不出现，需要修改页面显示机制
-//                    self.setRootViewControllerIsLogin()
-                    
+                    if code == RequestErrCodeAlreadyLogin{
+                        self.setRootViewControllerIsLogin()
+                        SVProgressHUD.showErrorWithStatus(msg)
+                    }
+                    SVProgressHUD.showErrorWithStatus(msg)
             })
         }else{
             
