@@ -91,6 +91,7 @@ class UserModel: TopModel {
                 UserModel.sharedUserModel.loginSuccess(model!)
                 success(model: model)
             }) { (code,msg) -> Void in
+                NSUserDefaults.standardUserDefaults().removeObjectForKey(UD_LastTimeSignToken)
                 failure(code: code,msg: msg)
         }
         return request.task
@@ -117,6 +118,7 @@ class UserModel: TopModel {
         }else{
             SVProgressHUD.showErrorWithStatus("发送位置错误，请重新下载")
         }
+        
         initRCIM()
     }
     func loginFail(){
@@ -137,6 +139,10 @@ extension UserModel{
             success: { (userId)-> Void in
 //                注意此处的userid是融云的userid不是我们系统中的userid
                 print("登陆成功。当前登录的用户ID：\(userId)")
+                dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                    NSNotificationCenter.defaultCenter().postNotificationName(NotificationRCIMLoginSuccess, object: nil)
+                })
+                
                 UserModel.shareManager().idMine=userId
                 MRCIM.shareManager().becomeRCIMReceiver()
                 MNotification.shareInstance.initNotification()
@@ -161,13 +167,22 @@ extension UserModel{
         {
             appDelegate.setRootViewControllerIsLogin()
         }
-        //        登出融云
+        //登出融云
         MRCIM.shareManager().logout()
-        //        自动登陆token去掉
+        //自动登陆token去掉
         NSUserDefaults.standardUserDefaults().removeObjectForKey(UD_LastTimeSignToken)
         NSUserDefaults.standardUserDefaults().removeObjectForKey(UD_LastTimeUserId)
         NSUserDefaults.standardUserDefaults().removeObjectForKey(SG_QiniuUpToken)
-        //
+        //通知后台
+        
+
+        let  params :Dictionary<String, String>= unverisalProcess([:])
+        
+        TopModel.universalRequest(requestMethod: Method.POST, dic: params, urlMethod: URLUserLogout, success: { (model) -> Void in
+            
+            }) { (code, msg) -> Void in
+            
+        }
     }
     
 }

@@ -111,12 +111,38 @@ class MRCIM: NSObject {
      */
     var idOldestMsg = Int.max
     func getChatHistroy(count:Int)->[RCMessage]{
+//        get 6会有问题
+
+
+//        guard  let msg =  RCIMClient.sharedRCIMClient().getMessage(7) else{
+//            
+//        }
+
+//        do{
+//            try RCIMClient.sharedRCIMClient().getMessage(15)
+//        }
+//        catch{
+//            
+//        }
+//        guard let _ =  RCIMClient.sharedRCIMClient().getMessage(6) else{
+////            return 
+//            return []
+//        }
+        
+//        if let msg=RCIMClient.sharedRCIMClient().getMessage(15){
+//            print("asdf")
+//        }
+        
         /// 从本地融云消息库获得的消息数组，按从新到旧排列的 arrMsgsDB[0]为最新的消息
-        let msgIds=MDataBase.getLastestMsgId(UserModel.shareManager().idMine, msgId: idOldestMsg,count: count)
+        let msgIds=MDataBase.getLastestMsgId(idOldestMsg,count: count)
         var msgs=[RCMessage]()
         for msgId in msgIds{
             let msg =  RCIMClient.sharedRCIMClient().getMessage(msgId)
-            msgs.append(msg)
+            if (msg != nil){
+                msgs.append(msg)
+            }else{
+                print("\(msgId)罅隙不存在")
+            }
         }
         if msgIds.count != 0{
             idOldestMsg=msgIds[msgIds.count-1]

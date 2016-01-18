@@ -83,7 +83,9 @@ static int databaseIsReady=0;
     NSString *pathname=[doc objectAtIndex:0];
 
 //    NSString *filename=[pathname stringByAppendingString:[NSString stringWithFormat:@"k51hidwq18o0b/%@/storage",[UserModel shareManager].idMine]];
-        NSString *filename=[pathname stringByAppendingString:[NSString stringWithFormat:@"/k51hidwq18o0b/000000002/storage"]];
+    
+    NSString *filename=[pathname stringByAppendingString:[NSString stringWithFormat:@"/k51hidwq18o0b/%@/storage",[UserModel shareManager].idMine]];
+    
     NSLog(@"%@",[pathname stringByAppendingPathComponent:filename]);
     return filename;
 }

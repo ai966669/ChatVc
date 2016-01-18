@@ -107,6 +107,14 @@ class LoginAndRegistViewController: UIViewController {
             }
         }
     }
+    func setNew(){
+        txtFldCardNo.text=""
+        txtFldPsw.text=""
+        txtFldCardNo.text=""
+        if !txtFldVertifyCode.hidden{
+            showOrHideVertifyCode()
+        }
+    }
     @IBAction func tryLogin(sender: AnyObject) {
 //        onRCIMReceiveMessage()
         if NZZCheckingOfInput.checkNotNilOrNoValue(txtFldCardNo.text, showHUD: true, textToShow: "卡号不能为空"){
@@ -114,7 +122,7 @@ class LoginAndRegistViewController: UIViewController {
                 
                 if txtFldVertifyCode.hidden{
                     UserModel.shareManager().loginByPsw(txtFldCardNo.text!, psw: txtFldPsw.text!, success: { (model) -> Void in
-                        
+                        self.setNew()
                         }, failure: {  (code,msg) -> Void in
                             if code == RequestErrNeedCode {
                                 self.showOrHideVertifyCode()
@@ -124,7 +132,7 @@ class LoginAndRegistViewController: UIViewController {
                 }else{
                     if NZZCheckingOfInput.checkNotNilOrNoValue(txtFldVertifyCode.text, showHUD: true, textToShow: "验证码不能为空"){
                         UserModel.shareManager().loginByPswAndCode(txtFldCardNo.text!, psw: txtFldPsw.text!, success: { (model) -> Void in
-                            
+                            self.setNew()
                             }, aCode: txtFldVertifyCode.text!, failure: { (code) -> Void in
                                 
                         })

@@ -35,6 +35,13 @@ PODS:
   - Qiniu (7.0.16):
     - AFNetworking (~> 2.0)
     - HappyDNS (~> 0.2)
+  - ReactiveCocoa (2.5):
+    - ReactiveCocoa/UI (= 2.5)
+  - ReactiveCocoa/Core (2.5):
+    - ReactiveCocoa/no-arc
+  - ReactiveCocoa/no-arc (2.5)
+  - ReactiveCocoa/UI (2.5):
+    - ReactiveCocoa/Core
   - RongCloudIMKit (2.4.4)
   - RSKImageCropper (1.4.1)
   - SDWebImage (3.7.3):
@@ -53,6 +60,7 @@ DEPENDENCIES:
   - Pingpp/Wx (~> 2.1.4)
   - pop
   - Qiniu (~> 7.0)
+  - ReactiveCocoa
   - RongCloudIMKit (= 2.4.4)
   - RSKImageCropper
   - SDWebImage (~> 3.7)
@@ -69,6 +77,7 @@ SPEC CHECKSUMS:
   Pingpp: 08415163eb1791bc07d7d939f1648d2e36a30eda
   pop: bb773ae2c791ca2629de13b347e7a8b450fa6a57
   Qiniu: 51a8702cddc02b50867e10cef99291b9a8a006b1
+  ReactiveCocoa: e2db045570aa97c695e7aa97c2bcab222ae51f4a
   RongCloudIMKit: ea9fdf6ac74585c8fcf991b6ff2acc0be0f67ac2
   RSKImageCropper: 98ae426eb4eb11b733ff87f8e2542a480f4fa8e6
   SDWebImage: 1d2b1a1efda1ade1b00b6f8498865f8ddedc8a84

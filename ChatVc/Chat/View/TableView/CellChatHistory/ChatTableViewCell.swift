@@ -71,9 +71,11 @@ class ChatTableViewCell: UITableViewCell {
         self.aModelOfMsgCellBasic=aModelOfMsgCellBasic
         selectionStyle = UITableViewCellSelectionStyle.None
         //        发送状态设置
-//        if aModelOfMsgCellBasic.isSend{
-//            setBtnOfSendStatus(aModelOfMsgCellBasic.statusOfSend)
-//        }
+//        [RACObserve(self, aModelOfMsgCellBasic.timeCreate) subscribeNext:^(NSString *newName) {
+//            NSLog(@"aModelOfMsgCellBasic:%@", aModelOfMsgCellBasic.timeCreate);
+//            }];
+        
+        
         //        时间标签设置
         resetLblOftime(aModelOfMsgCellBasic.timeCreate)
         //        cell长宽设置

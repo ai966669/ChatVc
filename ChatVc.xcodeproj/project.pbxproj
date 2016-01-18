@@ -50,6 +50,7 @@
 		459357991C3ED2FE00C13A27 /* SearchAddressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 459357911C3ED2FE00C13A27 /* SearchAddressViewController.swift */; };
 		4593579A1C3ED2FE00C13A27 /* UserLocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 459357921C3ED2FE00C13A27 /* UserLocationViewController.swift */; };
 		4593579C1C3ED47E00C13A27 /* HWJNavControllerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4593579B1C3ED47E00C13A27 /* HWJNavControllerViewController.swift */; };
+		4597A5FC1C4CA72A00E296BF /* NZZListenerOfNetwork.m in Sources */ = {isa = PBXBuildFile; fileRef = 4597A5FB1C4CA72A00E296BF /* NZZListenerOfNetwork.m */; };
 		459EEE1D1C321A9100B93CFF /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 459EEDF31C321A9100B93CFF /* ChatViewController.swift */; };
 		459EEE1E1C321A9100B93CFF /* AUITableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 459EEDF51C321A9100B93CFF /* AUITableView.swift */; };
 		459EEE1F1C321A9100B93CFF /* MChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 459EEDFA1C321A9100B93CFF /* MChatView.swift */; };
@@ -176,6 +177,8 @@
 		459357911C3ED2FE00C13A27 /* SearchAddressViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchAddressViewController.swift; sourceTree = "<group>"; };
 		459357921C3ED2FE00C13A27 /* UserLocationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserLocationViewController.swift; sourceTree = "<group>"; };
 		4593579B1C3ED47E00C13A27 /* HWJNavControllerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HWJNavControllerViewController.swift; sourceTree = "<group>"; };
+		4597A5FA1C4CA72A00E296BF /* NZZListenerOfNetwork.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NZZListenerOfNetwork.h; sourceTree = "<group>"; };
+		4597A5FB1C4CA72A00E296BF /* NZZListenerOfNetwork.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NZZListenerOfNetwork.m; sourceTree = "<group>"; };
 		459EEDF31C321A9100B93CFF /* ChatViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
 		459EEDF51C321A9100B93CFF /* AUITableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AUITableView.swift; sourceTree = "<group>"; };
 		459EEDFA1C321A9100B93CFF /* MChatView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MChatView.swift; sourceTree = "<group>"; };
@@ -284,6 +287,8 @@
 				4525836D1C48D0B6009C7219 /* DataBase */,
 				4593578A1C3ED2FE00C13A27 /* Location */,
 				450A51321C33854F00CDEF34 /* Alamofire2.0 */,
+				4597A5FA1C4CA72A00E296BF /* NZZListenerOfNetwork.h */,
+				4597A5FB1C4CA72A00E296BF /* NZZListenerOfNetwork.m */,
 				450A51301C33848300CDEF34 /* CommonMethods.swift */,
 				452E61E71C3BF33600E7B039 /* NZZCheckingOfInput.h */,
 				452E61E81C3BF33600E7B039 /* NZZCheckingOfInput.m */,
@@ -920,6 +925,7 @@
 				450A51491C33854F00CDEF34 /* Request.swift in Sources */,
 				459EEE2E1C321A9100B93CFF /* Cell1ChatTableViewCell.swift in Sources */,
 				450A514B1C33854F00CDEF34 /* Result.swift in Sources */,
+				4597A5FC1C4CA72A00E296BF /* NZZListenerOfNetwork.m in Sources */,
 				45B705091C1E64BC00B0E8C2 /* AppDelegate.swift in Sources */,
 				450A51421C33854F00CDEF34 /* Alamofire.swift in Sources */,
 				45BBD9F51C228E3D0038A6AC /* Double+QuickTool.swift in Sources */,

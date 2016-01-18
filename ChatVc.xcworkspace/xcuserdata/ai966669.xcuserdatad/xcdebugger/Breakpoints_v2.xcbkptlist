@@ -74,11 +74,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ChatVc/Model/TopModel.swift"
-            timestampString = "474780478.492623"
+            timestampString = "474786985.683097"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "124"
-            endingLineNumber = "124"
+            startingLineNumber = "126"
+            endingLineNumber = "126"
             landmarkName = "addNeccessayParamUniversal(_:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -90,11 +90,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ChatVc/Model/TopModel.swift"
-            timestampString = "474780478.492623"
+            timestampString = "474786985.683097"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "118"
-            endingLineNumber = "118"
+            startingLineNumber = "120"
+            endingLineNumber = "120"
             landmarkName = "addNeccessayParamUniversal(_:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -153,14 +153,46 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "ChatVc/Chat/ChatViewController.swift"
-            timestampString = "474778242.251493"
+            filePath = "ChatVc/Model/UserModel.swift"
+            timestampString = "474794230.834033"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "429"
-            endingLineNumber = "429"
-            landmarkName = "onRCIMReceiveMessage(_:)"
+            startingLineNumber = "182"
+            endingLineNumber = "182"
+            landmarkName = "loginOut()"
             landmarkType = "5">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ChatVc.UserModel.(loginOut (ChatVc.UserModel) -&gt; () -&gt; ()).(closure #1)"
+                  moduleName = "ChatVc"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/ai966669/Desktop/%E5%85%B3%E4%BA%8EiOS/%E8%87%AA%E5%AE%9A%E4%B9%89%E6%8E%A7%E4%BB%B6/ChatVc/ChatVc/Model/UserModel.swift"
+                  timestampString = "474817404.111291"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "183"
+                  endingLineNumber = "183"
+                  offsetFromSymbolStart = "32">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ChatVc.UserModel.(loginOut (ChatVc.UserModel) -&gt; () -&gt; ()).(closure #2)"
+                  moduleName = "ChatVc"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/ai966669/Desktop/%E5%85%B3%E4%BA%8EiOS/%E8%87%AA%E5%AE%9A%E4%B9%89%E6%8E%A7%E4%BB%B6/ChatVc/ChatVc/Model/UserModel.swift"
+                  timestampString = "474817404.111454"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "185"
+                  endingLineNumber = "185"
+                  offsetFromSymbolStart = "52">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -169,14 +201,64 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "ChatVc/Controller/LoginAndRegistViewController/LoginAndRegistViewController.swift"
-            timestampString = "474781200.234197"
+            filePath = "ChatVc/Model/UserModel.swift"
+            timestampString = "474794230.834033"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "80"
-            endingLineNumber = "80"
-            landmarkName = "getVertifyCode()"
+            startingLineNumber = "184"
+            endingLineNumber = "184"
+            landmarkName = "loginOut()"
             landmarkType = "5">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ChatVc.UserModel.loginOut (ChatVc.UserModel)() -&gt; ()"
+                  moduleName = "ChatVc"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/ai966669/Desktop/%E5%85%B3%E4%BA%8EiOS/%E8%87%AA%E5%AE%9A%E4%B9%89%E6%8E%A7%E4%BB%B6/ChatVc/ChatVc/Model/UserModel.swift"
+                  timestampString = "474817404.112262"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "185"
+                  endingLineNumber = "185"
+                  offsetFromSymbolStart = "1740">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ChatVc.UserModel.(loginOut (ChatVc.UserModel) -&gt; () -&gt; ()).(closure #2)"
+                  moduleName = "ChatVc"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/ai966669/Desktop/%E5%85%B3%E4%BA%8EiOS/%E8%87%AA%E5%AE%9A%E4%B9%89%E6%8E%A7%E4%BB%B6/ChatVc/ChatVc/Model/UserModel.swift"
+                  timestampString = "474817404.112447"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "185"
+                  endingLineNumber = "185"
+                  offsetFromSymbolStart = "52">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.AddressBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            symbolName = "*0x1010b4774">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  usesParentBreakpointCondition = "Yes"
+                  offsetFromSymbolStart = "0">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -185,14 +267,14 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "ChatVc/Controller/LoginAndRegistViewController/LoginAndRegistViewController.swift"
-            timestampString = "474781201.390098"
+            filePath = "ChatVc/Model/Mbulter.swift"
+            timestampString = "474814552.47349"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "83"
-            endingLineNumber = "83"
-            landmarkName = "getVertifyCode()"
-            landmarkType = "5">
+            startingLineNumber = "15"
+            endingLineNumber = "15"
+            landmarkName = "Mbulter"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

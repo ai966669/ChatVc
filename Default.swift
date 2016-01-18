@@ -209,10 +209,10 @@ let ColorMsgSendBg = UIColor(red: 48.0/255.0, green: 50.0/255.0, blue: 62.0/255.
 //UIStoryboard中界面的标识
 let UIStoryboardIDChat="Chat"
 //通知名  
-//start加载完成，依赖start的ui页面开始渲染
+//start加载完成，依赖start的ui页面开始渲染。
 let NotificationUIUpdate="NotificationUiUpdate"
 //通知会话界面拉取聊天记录
-let NotificationLoadOldMsg="NSNotificationLoadOldMsg"
+let NotificationRCIMLoginSuccess="NotificationRCIMLoginSuccess"
 //收到消息
 let NotificationNewMsg="NotificationNewMsg"
 //收到文字，订单消息
@@ -221,6 +221,8 @@ let NotificationNewMsgTxtOrder="NSNotificationNewMsgTxt"
 let NotificationNewMsgVoice="NSNotificationNewMsgVoice"
 //收到图片消息
 let NotificationNewMsgImg="NSNotificationNewMsgImg"
+/// 切换客服
+let NotificationBulter="NotificationBulter"
 //没有时间戳
 let DefaultNoTime:Double=0
 //通知文本信息

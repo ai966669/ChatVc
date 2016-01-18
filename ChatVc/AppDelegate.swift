@@ -55,6 +55,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 print("start失败")
         }
         // Override point for customization after application launch.
+        
+        /**
+        添加网络监听
+        */
+        NZZListenerOfNetwork.startListenStatusOfNetwork()
         return true
     }
     func setRootViewControllerIsLogin(){

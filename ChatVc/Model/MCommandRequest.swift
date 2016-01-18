@@ -18,7 +18,7 @@ class MCommandRequest: TopModel {
         }
         return  request.task
     }
-
+    
     func getSystemUpToken(success:SessionSuccessBlock,failure:SessionFailBlock)->NSURLSessionTask{
         let params=unverisalProcess(Dictionary<String, String>())
         let request = TopModel.universalRequest(requestMethod:Method.POST,dic: params, urlMethod: URLSystemUpToken, success: { (model) -> Void in
@@ -32,8 +32,22 @@ class MCommandRequest: TopModel {
         
         let aUIDevice=UIDevice.currentDevice()
         
+        var net=""
+        let netInt=AFNetworkReachabilityManager.sharedManager().networkReachabilityStatus
+        
+        switch (netInt) {
+        case .Unknown:
+            net="Unknown"
+        case .NotReachable:
+            net="NotReachable"
+        case .ReachableViaWWAN:
+            net="WWAN"
+        case .ReachableViaWiFi:
+            net="WiFi"
+        }
+        
         let CFBundleShortVersionString=NSBundle.mainBundle().infoDictionary!["CFBundleShortVersionString"] as! String
-        var  params :Dictionary<String, String>=["deviceId":"\(aUIDevice.identifierForVendor!.UUIDString)","deviceType":"\(aUIDevice.model)","os":"iOS","osVersion":"\(aUIDevice.systemVersion)","net":"4G","appVersion":"\(CFBundleShortVersionString)"]
+        var  params :Dictionary<String, String>=["deviceId":"\(aUIDevice.identifierForVendor!.UUIDString)","deviceType":"\(aUIDevice.model)","os":"iOS","osVersion":"\(aUIDevice.systemVersion)","net":net,"appVersion":"\(CFBundleShortVersionString)"]
         
         
         params = specialProcess(params)

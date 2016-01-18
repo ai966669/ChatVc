@@ -10,28 +10,14 @@ import UIKit
 
 class Mbulter: TopModel {
 
-    var id:String = ""
-    var nickname = ""
-    var avatar = ""
-    private static var intanceMbulter:Mbulter?{
+    var id:String = ""{
         didSet{
-            if Mbulter.shareMbulterManager().id != ""{
-                UserModel.shareManager().targetId=Mbulter.shareMbulterManager().id
-//                var targetList=getTargetList()
-//                for target in targetList{
-//                    if target == Mbulter.shareMbulterManager().id{
-//                        return
-//                    }
-//                }
-//                targetList.append("a")
-//                var a=targetList
-//                a.append("a")
-                //0114 为什么targetList.append("a")报错 targetList.append("a"）
-//                let newtargetList = targetList.append("a") as! NSArray
-//                NSUserDefaults.standardUserDefaults().setValue(newtargetList, forKey: DefaultTargetList)
-            }
+            UserModel.shareManager().targetId=id
         }
     }
+    var nickname = ""
+    var avatar = ""
+    private static var intanceMbulter:Mbulter?
     static func shareMbulterManager()->Mbulter{
         if (intanceMbulter == nil){
             intanceMbulter = Mbulter()
@@ -54,7 +40,7 @@ class Mbulter: TopModel {
                     if let aMbulter:Mbulter = D3Json.jsonToModel(dataInDic, clazz: Mbulter.self){
                         Mbulter.intanceMbulter=aMbulter
                         if let _ = dataInDic["id"] as? String{
-                            NSNotificationCenter.defaultCenter().postNotificationName(NotificationLoadOldMsg, object: nil)
+//                            NSNotificationCenter.defaultCenter().postNotificationName(NotificationLoadOldMsg, object: nil)
                         }else{
                             SVProgressHUD.showErrorWithStatus(MsgShow.ErrAnalysisServerData2Dic)
                         }

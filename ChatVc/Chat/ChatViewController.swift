@@ -25,9 +25,25 @@ class ChatViewController: UIViewController {
     @IBOutlet var tbvNSLayoutConstraintTop: NSLayoutConstraint!
     var idOldestMsg:Int = -1
     let moreActionViewNSLayoutConstraintTopOriginValue:CGFloat=6
+    var alreadyLoad=false
+    //    用于下载刚收到图片，单独做一个变量是为了保持保持能下载
+    var imgVForDownLoad=UIImageView(frame: CGRectMake(0,0,0,0))
+    //    var nbImgAlreadyDownLoad=0
+    //    var nbImgNeedToDownLoad=0
+    //
+    //    let imgDownloadQueue = dispatch_queue_create("imgDownloadQueue", DISPATCH_QUEUE_CONCURRENT)
+    ////    存储下一个进程等待的信号
+    //    var  arrDispatch_semaphore_signal:[dispatch_semaphore_t]=[]
+    
+    
+    var  imgVs:[UIImageView]=[]
+    var  imgMsgId:[Int]=[]
+    var  imgMsgUrl:[String]=[]
     @IBOutlet var moreActionViewNSLayoutConstraintTop: NSLayoutConstraint!
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        
         tbvChatHistory.hidden=true
         btnHideMoreActionMenu.hidden=true
         initClv()
@@ -53,7 +69,7 @@ class ChatViewController: UIViewController {
         initNotification()
     }
     func initNotification(){
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "loadOldMsg", name: NotificationLoadOldMsg, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "loadOldMsg", name: NotificationRCIMLoginSuccess, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "onRCIMReceiveMessage:", name: NotificationNewMsg , object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "uIUpdate", name: NotificationUIUpdate , object: nil)
         
@@ -127,6 +143,7 @@ class ChatViewController: UIViewController {
         aTableviewDelegateNzz.aTableviewDelegateNzzDelegate=self
         aTableviewDelegateNzz.initTableviewDelegateNzz(tbvChatHistory)
         tbvChatHistory.keyboardDismissMode  =  UIScrollViewKeyboardDismissMode.OnDrag // UIScrollViewKeyboardDismissModeInteractive;
+        tbvChatHistory.separatorStyle = UITableViewCellSeparatorStyle.None
         initTbvChatHistoryGesture()
     }
     
@@ -288,6 +305,8 @@ extension  ChatViewController:InputVcDelegate{
     
     @IBAction func doSomething(sender: AnyObject) {
         
+        loginout()
+        
         //        let aOrderDetailViewController=UIStoryboard(name: "Chat", bundle: nil).instantiateViewControllerWithIdentifier("OrderDetailViewController") as! OrderDetailViewController
         //        aOrderDetailViewController.getOrderDetail(640)
         //        navigationController?.pushViewController(aOrderDetailViewController, animated: true)
@@ -407,7 +426,7 @@ extension  ChatViewController:InputVcDelegate{
     
     //Tom 百度地图
     func presentMapVC() {
-        //        ******1.百度地图回调直接执行
+        //******1.百度地图回调直接执行
         let mapVC = UserLocationViewController()
         mapVC.vcChat = self
         let nav = HWJNavControllerViewController(rootViewController: mapVC)
@@ -438,10 +457,33 @@ extension ChatViewController{
                 {
                     let aRCImageMessage = message.content as! RCImageMessage
                     if  aRCImageMessage.imageUrl != nil{
-                        //此处消息接收到还是要设置过，图片暂时用的是缩略图
-                        dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                            self.receiveMsgImg([aRCImageMessage.thumbnailImage],fullImgUrlOrPath: [aRCImageMessage.imageUrl],msgIds: [message.messageId])
-                        })
+                        if imgMsgId.count==0{
+                            imgMsgId.append(message.messageId)
+                            imgMsgUrl.append(aRCImageMessage.imageUrl)
+                            downLoadImg(0)
+                        }else{
+                            imgMsgId.append(message.messageId)
+                            imgMsgUrl.append(aRCImageMessage.imageUrl)
+                        }
+                        
+                        //                        //                        let UrlImgSource="http://img2.ultimavip.cn/"Mbulter.shareMbulterManager().id
+                        //                        //此处消息接收到还是要设置过，图片暂时用的是缩略图
+                        //                        dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                        //                            UIImageView().sd_setImageWithURL(NSURL(string:"\(UrlImgSource)"+aRCImageMessage.imageUrl), completed:{ (aImg, aNSError,_,_) -> Void in
+                        //                                if (aNSError == nil){
+                        //
+                        //                                    if let imgData =  UIImageJPEGRepresentation(aImg, 1){
+                        //                                        aRCImageMessage.imageUrl=msgIdToFilePath(message.messageId, isVoice: false)
+                        //                                        imgData.writeToFile(aRCImageMessage.imageUrl, atomically: true)
+                        //                                        print("收到的图片保存到\(aRCImageMessage.imageUrl)")
+                        //                                    }
+                        //
+                        //                                    dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                        //                                        self.receiveMsgImg([aImg],fullImgUrlOrPath: [aRCImageMessage.imageUrl],msgIds: [message.messageId])
+                        //                                    })
+                        //                                }
+                        //                            })
+                        //                        })
                     }
                 }else if message.content is RCTextMessage{
                     let aRCTextMessage = message.content as! RCTextMessage
@@ -630,15 +672,36 @@ extension ChatViewController:UITableViewDelegate,UITableViewDataSource{
             
             break;
         case 3:
-            UserModel.shareManager().loginOut()
+            //            UserModel.shareManager().loginOut()
             break;
         default:
             break;
         }
     }
 }
+
+
 // MARK: - 拉取聊天记录
 extension ChatViewController{
+    
+    func downLoadImg(nub:Int){
+        self.imgVForDownLoad.sd_setImageWithURL(NSURL(string:"\(UrlImgSource)"+self.imgMsgUrl[nub]), completed:{ (aImg, aNSError,_,_) -> Void in
+            if (aNSError == nil){
+                if let imgData =  UIImageJPEGRepresentation(aImg, 1){
+                    let path=msgIdToFilePath(self.imgMsgId[nub], isVoice: false)
+                    imgData.writeToFile(path, atomically: true)
+                    print("收到的图片保存到\(path)")
+                    self.receiveMsgImg([aImg],fullImgUrlOrPath: [path],msgIds: [self.imgMsgId[nub]])
+                }
+            }
+            if nub<self.imgMsgId.count-1{
+                self.downLoadImg(nub+1)
+            }else{
+                self.imgMsgId=[]
+                return
+            }
+        })
+    }
     //todo 创建一个将数据消息和MMsg互相转化的类
     func loadOldMsg(){
         //        每次拉取10条消息
@@ -653,23 +716,36 @@ extension ChatViewController{
                     statusOfSend = StatusOfSend.fail
                 }
                 let aIsSend=(UserModel.shareManager().idMine == msg.senderUserId)
+                var aTimeCreate:Int64=0
                 /**
                 *  获取消息时间
                 */
                 if aIsSend{
-                    arrTimeCreate.append(msg.sentTime/1000)
+                    aTimeCreate=msg.sentTime/1000
                 }else{
-                    arrTimeCreate.append(msg.receivedTime/1000)
+                    aTimeCreate=msg.receivedTime/1000
                 }
                 if msg.content is RCImageMessage
                 {
+                    //                    print("图片\(nbImgNeedToDownLoad)开始处理")
+                    //所有收到图片消息均根据消息id保存到了本地，所以可以根据下面的方法得到图片
                     let imgPath=msgIdToFilePath(msg.messageId, isVoice: false)
-                    //? 0106string不会为nil 返回string?时可能为string==nil不会报错，去掉？会报错，为什么
-                    if imgPath != "" {
-                        if let imgData = NSData(contentsOfFile: imgPath){
-                            arrMMsgBasic.append(MMsgImg().initMMsgImg(UIImage(data: imgData)!, aFullImgUrlOrPath: imgPath , aStatusOfSend: statusOfSend, aImgHeadUrlOrFilePath: "", aIsSend: aIsSend,aMsgId: msg.messageId))
-                        }
+                    let aRCImageMessage = msg.content as! RCImageMessage
+                    
+                    if let aImg = UIImage(contentsOfFile: imgPath){
+                        self.receiveMsgImg([aImg],fullImgUrlOrPath: [imgPath],msgIds: [msg.messageId])
                     }
+                    
+                    //                    if imgPath != "" {
+                    //                        if imgMsgId.count==0{
+                    //                            imgMsgId.append(msg.messageId)
+                    //                            imgMsgUrl.append(aRCImageMessage.imageUrl)
+                    //                            downLoadImg(0)
+                    //                        }else{
+                    //                            imgMsgId.append(msg.messageId)
+                    //                            imgMsgUrl.append(aRCImageMessage.imageUrl)
+                    //                        }
+                    //                    }
                 }else if  msg.content is RCTextMessage {
                     /**
                      *  文本消息可能是订单消息所以需要通过extra字段进行判断
@@ -677,35 +753,39 @@ extension ChatViewController{
                     let aRCTextMessage = msg.content as! RCTextMessage
                     if aRCTextMessage.extra == nil || aRCTextMessage.extra == ""{
                         arrMMsgBasic.append(MMsgTxt().initMMsgTxt(txt: aRCTextMessage.content, aStatusOfSend: statusOfSend, aImgHeadUrlOrFilePath: "", aIsSend: aIsSend,aMsgId: msg.messageId))
+                        arrTimeCreate.append(aTimeCreate)
                     }else{
                         if let  extraInDic = HelpFromOc.dictionaryWithJsonString(aRCTextMessage.extra) as? Dictionary<String,AnyObject>{
-                                if let type =  extraInDic["type"] as? Int {
-                                    if type == MsgTypeInTxtExtra.OrderMsg.rawValue {
-                                        arrMMsgBasic.append(MMsgOrder().initMMsgOrder(extraInDic, aStatusOfSend: statusOfSend, aImgHeadUrlOrFilePath: "", aIsSend: aIsSend, aMsgId: msg.messageId))
-                                    }
+                            if let type =  extraInDic["type"] as? Int {
+                                if type == MsgTypeInTxtExtra.OrderMsg.rawValue {
+                                    arrMMsgBasic.append(MMsgOrder().initMMsgOrder(extraInDic, aStatusOfSend: statusOfSend, aImgHeadUrlOrFilePath: "", aIsSend: aIsSend, aMsgId: msg.messageId))
+                                    arrTimeCreate.append(aTimeCreate)
                                 }
+                            }
                         }
                     }
                 }else if  msg.content is RCLocationMessage{
                     /// 保存的消息是地址消息，处理同文本消息
                     let aRCLocationMessage = msg.content as! RCLocationMessage
                     arrMMsgBasic.append(MMsgTxt().initMMsgTxt(txt: aRCLocationMessage.locationName, aStatusOfSend: statusOfSend, aImgHeadUrlOrFilePath: "", aIsSend: aIsSend,aMsgId: msg.messageId))
+                    arrTimeCreate.append(aTimeCreate)
                 }else if msg.content is RCVoiceMessage{
                     //                    保存的是语音消息，处理同文本消息
                     let aRCVoiceMessage = msg.content as! RCVoiceMessage
                     
                     msgIdToFilePath(msg.messageId, isVoice: true)
                     arrMMsgBasic.append(MMsgVoice().initMMsgVoice(NSNumber(integer: aRCVoiceMessage.duration).floatValue, aVoiceUrlOrPath: msgIdToFilePath(msg.messageId, isVoice: true) , aStatusOfSend: statusOfSend, aImgHeadUrlOrFilePath: "", aIsSend: aIsSend, aMsgId:  msg.messageId))
+                    arrTimeCreate.append(aTimeCreate)
                 }
             }
             aTableviewDelegateNzz.loadOldMsgs(arrMMsgBasic,timeCreates: arrTimeCreate)
             idOldestMsg = arrMsgsDB[arrMsgsDB.count-1].messageId
-            
         }else{
-            if aTableviewDelegateNzz.aMTableviewDelegateNzz.nbOfMsg != 0{
+            if alreadyLoad{
                 SVProgressHUD.showInfoWithStatus("没有更多的消息了")
             }
         }
+        alreadyLoad=true
     }
 }
 // MARK: - menuview代理实现

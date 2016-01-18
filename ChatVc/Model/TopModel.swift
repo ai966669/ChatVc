@@ -48,6 +48,8 @@ let URLUserTokenLogin="/user/token/login"
 //发起支付
 let URLOrderCreateCharge="/order/create/charge"
 
+ /// 登出
+let URLUserLogout="/user/logout"
 
 
 //获取订单详情

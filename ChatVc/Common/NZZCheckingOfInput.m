@@ -14,12 +14,12 @@
 
 + (BOOL)checkComment:(NSString *)comment showGrayHUD:(BOOL)showHUD textToShow:(NSString *)text{
 	[SVProgressHUD showErrorWithStatus:@"这个方法没实现为什么还有呢"];
-	return false;xw
+	return false;
 }
 
 typedef NS_ENUM(NSInteger, typeOfHub) {
     typeOfHubInfor          = 1,
-    typeOfHubError             =2,
+    typeOfHubError          = 2,
 };
 //    全角标点\u3000-\u301e\ufe10-\ufe19\ufe30-\ufe44\ufe50-\ufe6b\uff01-\uffee 中文\u4e00-\u9fa5
 + (BOOL)checkNickName:(NSString *)nickName showHUD:(BOOL)showHUD{
