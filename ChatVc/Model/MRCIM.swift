@@ -21,8 +21,30 @@ class MRCIM: NSObject {
         }
         return sharedMRCIM;
     }
+
+    func readyToSend()->SendMsgReadyStatus{
+        if Mbulter.shareMbulterManager().id == ""{
+            //登出操作
+            let appDelegate =  UIApplication.sharedApplication().delegate as! AppDelegate
+            if (appDelegate.aChatVc != nil){
+                if let chatVc = appDelegate.aChatVc?.viewControllers[0] as?ChatViewController{
+                    chatVc.loginout()
+                    SVProgressHUD.showErrorWithStatus("没有客服，请重新登陆")
+                }
+            }
+            return SendMsgReadyStatus.NoMbulter
+        }else {
+            print("发给\(Mbulter.shareMbulterManager().id)")
+            return SendMsgReadyStatus.Success
+        }
+    }
+    enum SendMsgReadyStatus{
+        case Success
+        case NoMbulter
+    }
     func sendMsgImg(aImageUrl:String,successBlock:(messageId:Int)->Void,errorBlock:(nErrorCode:RCErrorCode, messageId:Int)->Void){
-        if Mbulter.shareMbulterManager().id != ""{
+        
+        if readyToSend()==SendMsgReadyStatus.Success{
             let aRCImageMessage:RCImageMessage=RCImageMessage(image: nil)
             aRCImageMessage.full=false
             aRCImageMessage.imageUrl=aImageUrl
@@ -31,41 +53,42 @@ class MRCIM: NSObject {
                 }) { (aRCErrorCode, aInt) -> Void in
                     errorBlock(nErrorCode: aRCErrorCode, messageId: aInt)
             }
-        }else{
-            SVProgressHUD.showErrorWithStatus("请退出后重新登录")
         }
+        
     }
     
     func sendMsgTxt(txt:String,successBlock:(messageId:Int)->Void,errorBlock:(nErrorCode:RCErrorCode, messageId:Int)->Void){
-        if Mbulter.shareMbulterManager().id != ""{
-            let aRCTextMessage:RCTextMessage=RCTextMessage(content: txt)
-            
-            //        var dic = [
-            //            "type": 3,
-            //            "show": true,
-            //            "orderType": "ORD0001",
-            //            "name": "酒店",
-            //            "num": "OBC2015112022052411010000496",
-            //            "goodName": "如家快捷酒店(深圳宝安机场T3航站楼店)",
-            //            "status": 0,
-            //            "price": 100.23,
-            //            "orderId":640,
-            //            "created": "1448028523000"]
-            //
-            //        aRCTextMessage.extra = HelpFromOc.objectToJsonString(dic)
-            
+        let aRCTextMessage:RCTextMessage=RCTextMessage(content: txt)
+        
+        
+        if readyToSend()==SendMsgReadyStatus.Success{
             RCIM().sendMessage(RCConversationType.ConversationType_PRIVATE, targetId: UserModel.shareManager().targetId , content: aRCTextMessage, pushContent: txt, pushData: nil, success: { (aInt) -> Void in
                 successBlock(messageId: aInt)
                 }) { (aRCErrorCode, aInt) -> Void in
                     errorBlock(nErrorCode: aRCErrorCode, messageId: aInt)
             }
-        }else{
-            SVProgressHUD.showErrorWithStatus("请退出后重新登录")
         }
+        //                      if Mbulter.shareMbulterManager().id != ""{
+        //
+        //            //        var dic = [
+        //            //            "type": 3,
+        //            //            "show": true,
+        //            //            "orderType": "ORD0001",
+        //            //            "name": "酒店",
+        //            //            "num": "OBC2015112022052411010000496",
+        //            //            "goodName": "如家快捷酒店(深圳宝安机场T3航站楼店)",
+        //            //            "status": 0,
+        //            //            "price": 100.23,
+        //            //            "orderId":640,
+        //            //            "created": "1448028523000"]
+        //            //
+        //            //        aRCTextMessage.extra = HelpFromOc.objectToJsonString(dic)
+        
     }
     
     func sendMsgVoice(voiceUrl:String,aDuration:Int,successBlock:(messageId:Int)->Void,errorBlock:(nErrorCode:RCErrorCode, messageId:Int)->Void){
-        if Mbulter.shareMbulterManager().id != ""{
+        
+        if readyToSend()==SendMsgReadyStatus.Success{
             let aRCVoiceMessage:RCVoiceMessage=RCVoiceMessage(audio: nil, duration: aDuration)
             var dic = ["url": "\(voiceUrl)"]
             aRCVoiceMessage.extra = HelpFromOc.objectToJsonString(dic)
@@ -73,20 +96,20 @@ class MRCIM: NSObject {
                 successBlock(messageId: aInt)
                 }) { (aRCErrorCode, aInt) -> Void in
                     errorBlock(nErrorCode: aRCErrorCode, messageId: aInt)
-            }}else{
-            SVProgressHUD.showErrorWithStatus("请退出后重新登录")
+            }
         }
     }
     func sendMsgLocation(alocationName:String,aCLLocationCoordinate2D:CLLocationCoordinate2D,successBlock:(messageId:Int)->Void,errorBlock:(nErrorCode:RCErrorCode, messageId:Int)->Void){
-        if Mbulter.shareMbulterManager().id != ""{
+        
+        if readyToSend()==SendMsgReadyStatus.Success{
             let aRCLocationMessage=RCLocationMessage(locationImage: nil, location: aCLLocationCoordinate2D, locationName: alocationName)
             RCIM().sendMessage(RCConversationType.ConversationType_PRIVATE, targetId: UserModel.shareManager().targetId , content: aRCLocationMessage, pushContent: PushContentLocation, pushData: nil, success: { (aInt) -> Void in
                 successBlock(messageId: aInt)
                 }) { (aRCErrorCode, aInt) -> Void in
                     errorBlock(nErrorCode: aRCErrorCode, messageId: aInt)
-            }}else{
-            SVProgressHUD.showErrorWithStatus("请退出后重新登录")
+            }
         }
+        
     }
     func becomeRCIMReceiver(){
         RCIM.sharedRCIM().receiveMessageDelegate=self
@@ -111,27 +134,27 @@ class MRCIM: NSObject {
      */
     var idOldestMsg = Int.max
     func getChatHistroy(count:Int)->[RCMessage]{
-//        get 6会有问题
-
-
-//        guard  let msg =  RCIMClient.sharedRCIMClient().getMessage(7) else{
-//            
-//        }
-
-//        do{
-//            try RCIMClient.sharedRCIMClient().getMessage(15)
-//        }
-//        catch{
-//            
-//        }
-//        guard let _ =  RCIMClient.sharedRCIMClient().getMessage(6) else{
-////            return 
-//            return []
-//        }
+        //        get 6会有问题
         
-//        if let msg=RCIMClient.sharedRCIMClient().getMessage(15){
-//            print("asdf")
-//        }
+        
+        //        guard  let msg =  RCIMClient.sharedRCIMClient().getMessage(7) else{
+        //
+        //        }
+        
+        //        do{
+        //            try RCIMClient.sharedRCIMClient().getMessage(15)
+        //        }
+        //        catch{
+        //
+        //        }
+        //        guard let _ =  RCIMClient.sharedRCIMClient().getMessage(6) else{
+        ////            return
+        //            return []
+        //        }
+        
+        //        if let msg=RCIMClient.sharedRCIMClient().getMessage(15){
+        //            print("asdf")
+        //        }
         
         /// 从本地融云消息库获得的消息数组，按从新到旧排列的 arrMsgsDB[0]为最新的消息
         let msgIds=MDataBase.getLastestMsgId(idOldestMsg,count: count)
@@ -156,6 +179,13 @@ class MRCIM: NSObject {
     }
     func logout(){
         RCIM.sharedRCIM().logout()
+    }
+    func getNickNameByMsgId(aId:Int)->String{
+        if let aRCMessage=RCIMClient.sharedRCIMClient().getMessage(aId){
+            return Mbulter.shareMbulterManager().getNickNameById(aRCMessage.senderUserId)
+        }else{
+            return ""
+        }
     }
 }
 // MARK: - RCIMReceiveMessageDelegate

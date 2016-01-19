@@ -133,3 +133,33 @@ func msgIdToFilePath(msgId:Int,isVoice:Bool)->String{
         return     HelpFromOc.getMsgPath("Img\(msgId)", false)
     }
 }
+/**
+ 获取document中的文件路径，如果没有则从资源库中拷贝
+ 
+ - parameter fileNameInBundle: 资源文件名
+ - parameter fileType:         资源类型
+ 
+ - returns: 返回document路径
+ */
+func getDocumentFilePath(fileNameInBundle:String,fileType:String)->String{
+    let paths = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.UserDomainMask, true) as NSArray
+    let documentsDirectory =       paths[0] as! String
+    let pathPlist = documentsDirectory.stringByAppendingString("/\(fileNameInBundle)"+".\(fileType)")
+    let fileManager=NSFileManager.defaultManager()
+    if (!fileManager.fileExistsAtPath(pathPlist)){
+        if let bundlePath = NSBundle.mainBundle().pathForResource(fileNameInBundle, ofType: "plist") {
+            do{
+                let rCopy=try! fileManager.copyItemAtPath(bundlePath, toPath: pathPlist)
+                print("拷贝结果\(rCopy)")
+            }
+            print("copy")
+        } else {
+            print("GameData.plist not found. Please, make sure it is part of the bundle.")
+        }
+    } else {
+        print("GameData.plist already exits at path.")
+        // use this to delete file from documents directory
+        //fileManager.removeItemAtPath(path, error: nil)
+    }
+    return pathPlist
+}

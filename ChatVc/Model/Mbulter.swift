@@ -9,18 +9,33 @@
 import UIKit
 
 class Mbulter: TopModel {
-
+    static var namePlist="TargetId2NickName"
     var id:String = ""{
         didSet{
             UserModel.shareManager().targetId=id
+            Mbulter.shareMbulterManager().nickNames[id]=nickname
+            let dic:NSMutableDictionary = [Mbulter.namePlist:Mbulter.shareMbulterManager().nickNames]
+            dic.writeToFile(getDocumentFilePath(Mbulter.namePlist,fileType: "plist"), atomically: false)
         }
     }
     var nickname = ""
     var avatar = ""
+    var nickNames = Dictionary<String,String>()
     private static var intanceMbulter:Mbulter?
+    func getNickNameById(aId:String)->String{
+        if let nickname = Mbulter.shareMbulterManager().nickNames[aId]{
+         return nickname
+        }
+        return ""
+    }
     static func shareMbulterManager()->Mbulter{
         if (intanceMbulter == nil){
             intanceMbulter = Mbulter()
+            if  let plistData=NSMutableDictionary(contentsOfFile: getDocumentFilePath(namePlist,fileType: "plist")){
+                if let nickNames = plistData[namePlist] as? Dictionary<String,String>{
+                    intanceMbulter!.nickNames = nickNames
+                }
+            }
             return intanceMbulter!
         }else{
             return intanceMbulter!
@@ -63,4 +78,6 @@ class Mbulter: TopModel {
     static func getTargetList()->Array<String>{
         return NSUserDefaults.standardUserDefaults().valueForKey(DefaultTargetList) as! [String]
     }
+    
+    
 }

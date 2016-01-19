@@ -50,18 +50,6 @@ enum StatusOfPay:Int{
     case  tradeFinish=18//交易完成
     case  tradeFail=19//交易失败
 }
-func toStatusOfSend(aInt:Int)->StatusOfSend{
-    switch (aInt) {
-    case 0:
-        return StatusOfSend.success
-    case 1:
-        return StatusOfSend.fail
-    case 2:
-        return StatusOfSend.sending
-    default:
-        return StatusOfSend.success
-    }
-}
 
 enum StatusOfSend: Int{
     case success=0
@@ -73,13 +61,13 @@ enum StatusOfSend: Int{
 
 class ModelOfMsgCellBasic :NSObject{
         var timeCreate = ""
-        var statusOfSend:StatusOfSend=StatusOfSend.success
+        dynamic var statusOfSend = 0 //见StatusOfSend
         var sizeCell:CGSize=CGSizeMake(0, 0)
         var imgHeadUrlOrFilePath:String?
         var isSend=true
         var typeMsg=TypeOfMsg.TxtMine
         var msgId = -1
-        func initBasicCell(aTimeCreate:String,aIsSend:Bool,aStatusOfSend:StatusOfSend,aSizeCell:CGSize,aImgHeadUrlOrFilePath:String?,aTypeOfMsg:TypeOfMsg,aMsgId:Int)->ModelOfMsgCellBasic{
+    func initBasicCell(aTimeCreate:String,aIsSend:Bool,aStatusOfSend:Int,aSizeCell:CGSize,aImgHeadUrlOrFilePath:String?,aTypeOfMsg:TypeOfMsg,aMsgId:Int)->ModelOfMsgCellBasic{
             timeCreate=aTimeCreate
             statusOfSend=aStatusOfSend
             isSend=aIsSend
@@ -91,6 +79,17 @@ class ModelOfMsgCellBasic :NSObject{
             msgId=aMsgId
             return self
         }
+    func initBasicCellByAModelOfMsgCellBasic(aModelOfMsgCellBasic:ModelOfMsgCellBasic){
+        timeCreate=aModelOfMsgCellBasic.timeCreate
+        statusOfSend=aModelOfMsgCellBasic.statusOfSend
+        isSend=aModelOfMsgCellBasic.isSend
+        if (imgHeadUrlOrFilePath != nil){
+            imgHeadUrlOrFilePath=aModelOfMsgCellBasic.imgHeadUrlOrFilePath
+        }
+        sizeCell=aModelOfMsgCellBasic.sizeCell
+        typeMsg=aModelOfMsgCellBasic.typeMsg
+        msgId=aModelOfMsgCellBasic.msgId
+    }
 //        deinit{
 //            print("释放了")
 //        }
@@ -99,7 +98,8 @@ class ModelOfMsgCellBasic :NSObject{
         var txt:String=""
         func initModelOfMsgCellTxt(aTxt:String,aModelOfMsgCellBasic:ModelOfMsgCellBasic,aMsgId:Int)->ModelOfMsgCellTxt{
             txt=aTxt
-            initBasicCell(aModelOfMsgCellBasic.timeCreate,aIsSend: aModelOfMsgCellBasic.isSend,aStatusOfSend: aModelOfMsgCellBasic.statusOfSend,aSizeCell:aModelOfMsgCellBasic.sizeCell,aImgHeadUrlOrFilePath: aModelOfMsgCellBasic.imgHeadUrlOrFilePath,aTypeOfMsg:aModelOfMsgCellBasic.typeMsg,aMsgId:aMsgId)
+            
+            initBasicCellByAModelOfMsgCellBasic(aModelOfMsgCellBasic)
             return self
         }
     }
@@ -109,7 +109,7 @@ class ModelOfMsgCellBasic :NSObject{
         func initModelOfMsgCellImg(aImg:UIImage,aImgUrlOrPath:String,aModelOfMsgCellBasic:ModelOfMsgCellBasic,aMsgId:Int)->ModelOfMsgCellImg{
             imgUrlOrPath=aImgUrlOrPath
             img=aImg
-            initBasicCell(aModelOfMsgCellBasic.timeCreate,aIsSend: aModelOfMsgCellBasic.isSend,aStatusOfSend: aModelOfMsgCellBasic.statusOfSend,aSizeCell:aModelOfMsgCellBasic.sizeCell,aImgHeadUrlOrFilePath: aModelOfMsgCellBasic.imgHeadUrlOrFilePath,aTypeOfMsg:aModelOfMsgCellBasic.typeMsg,aMsgId:aMsgId)
+            initBasicCellByAModelOfMsgCellBasic(aModelOfMsgCellBasic)
             return self
         }
     }
@@ -121,7 +121,7 @@ class ModelOfMsgCellBasic :NSObject{
             txt=aTxt
             timeVoice=aTimeVoice
             voiceUrlOrPath=aVoiceUrlOrPath
-            initBasicCell(aModelOfMsgCellBasic.timeCreate,aIsSend: aModelOfMsgCellBasic.isSend, aStatusOfSend: aModelOfMsgCellBasic.statusOfSend,aSizeCell:aModelOfMsgCellBasic.sizeCell,aImgHeadUrlOrFilePath: aModelOfMsgCellBasic.imgHeadUrlOrFilePath,aTypeOfMsg:aModelOfMsgCellBasic.typeMsg,aMsgId:aMsgId)
+            initBasicCellByAModelOfMsgCellBasic(aModelOfMsgCellBasic)
             return self
         }
     }
@@ -150,7 +150,7 @@ class ModelOfMsgCellBasic :NSObject{
             price = aPrice
             created = aCreated
             orderId = aOrderId
-            initBasicCell(aModelOfMsgCellBasic.timeCreate,aIsSend: aModelOfMsgCellBasic.isSend, aStatusOfSend: aModelOfMsgCellBasic.statusOfSend,aSizeCell:aModelOfMsgCellBasic.sizeCell,aImgHeadUrlOrFilePath: aModelOfMsgCellBasic.imgHeadUrlOrFilePath,aTypeOfMsg:aModelOfMsgCellBasic.typeMsg,aMsgId:aMsgId)
+            initBasicCellByAModelOfMsgCellBasic(aModelOfMsgCellBasic)
             return self
         }
     }
@@ -173,6 +173,7 @@ class MMsgBasic{
     var imgHeadUrlOrFilePath:String=""
     var isSend=true
     var msgId = -1
+    var nameBulter:String?
 }
 class MMsgTxt:MMsgBasic {
     var txt:String=""

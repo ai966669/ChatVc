@@ -36,6 +36,10 @@ class UserModel: TopModel {
     var ttPs = ""
     //   token
     var token = ""
+    //   cardNum
+    var cardNum = ""
+    //  性别
+    var sex : Bool = false
     class func shareManager()->UserModel{
         
         struct Static {
@@ -139,11 +143,10 @@ extension UserModel{
             success: { (userId)-> Void in
 //                注意此处的userid是融云的userid不是我们系统中的userid
                 print("登陆成功。当前登录的用户ID：\(userId)")
+                UserModel.shareManager().idMine=userId
                 dispatch_async(dispatch_get_main_queue(), { () -> Void in
                     NSNotificationCenter.defaultCenter().postNotificationName(NotificationRCIMLoginSuccess, object: nil)
                 })
-                
-                UserModel.shareManager().idMine=userId
                 MRCIM.shareManager().becomeRCIMReceiver()
                 MNotification.shareInstance.initNotification()
                 Mbulter.shareMbulterManager().getChatTargetId()
@@ -184,6 +187,5 @@ extension UserModel{
             
         }
     }
-    
 }
 

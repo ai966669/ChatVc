@@ -54,7 +54,6 @@
 		459EEE1D1C321A9100B93CFF /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 459EEDF31C321A9100B93CFF /* ChatViewController.swift */; };
 		459EEE1E1C321A9100B93CFF /* AUITableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 459EEDF51C321A9100B93CFF /* AUITableView.swift */; };
 		459EEE1F1C321A9100B93CFF /* MChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 459EEDFA1C321A9100B93CFF /* MChatView.swift */; };
-		459EEE201C321A9100B93CFF /* ModelOfMsgSend.swift in Sources */ = {isa = PBXBuildFile; fileRef = 459EEDFB1C321A9100B93CFF /* ModelOfMsgSend.swift */; };
 		459EEE211C321A9100B93CFF /* ModelOfMsgInCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 459EEDFE1C321A9100B93CFF /* ModelOfMsgInCell.swift */; };
 		459EEE221C321A9100B93CFF /* MTableviewDelegateNzz.swift in Sources */ = {isa = PBXBuildFile; fileRef = 459EEDFF1C321A9100B93CFF /* MTableviewDelegateNzz.swift */; };
 		459EEE231C321A9100B93CFF /* ColCell1InputVc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 459EEE021C321A9100B93CFF /* ColCell1InputVc.swift */; };
@@ -101,6 +100,7 @@
 		45BBD9FA1C228E3D0038A6AC /* UIImageView+QuickTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45BBD9E91C228E3D0038A6AC /* UIImageView+QuickTool.swift */; };
 		45BBD9FB1C228E3D0038A6AC /* SGFileManage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45BBD9EA1C228E3D0038A6AC /* SGFileManage.swift */; };
 		45BBD9FC1C228E3D0038A6AC /* UITableViewController+Quick.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45BBD9EB1C228E3D0038A6AC /* UITableViewController+Quick.swift */; };
+		45C52F5D1C4E214B006E36D9 /* TargetId2NickName.plist in Resources */ = {isa = PBXBuildFile; fileRef = 45C52F5C1C4E214B006E36D9 /* TargetId2NickName.plist */; };
 		45F16A8F1C3F889D00592263 /* OrderDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45F16A8E1C3F889D00592263 /* OrderDetailViewController.swift */; };
 		45F16A931C3F8CED00592263 /* MOrder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45F16A921C3F8CED00592263 /* MOrder.swift */; };
 		45F16A951C3F924700592263 /* OrderDetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45F16A941C3F924700592263 /* OrderDetailTableViewCell.swift */; };
@@ -182,7 +182,6 @@
 		459EEDF31C321A9100B93CFF /* ChatViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
 		459EEDF51C321A9100B93CFF /* AUITableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AUITableView.swift; sourceTree = "<group>"; };
 		459EEDFA1C321A9100B93CFF /* MChatView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MChatView.swift; sourceTree = "<group>"; };
-		459EEDFB1C321A9100B93CFF /* ModelOfMsgSend.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModelOfMsgSend.swift; sourceTree = "<group>"; };
 		459EEDFE1C321A9100B93CFF /* ModelOfMsgInCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModelOfMsgInCell.swift; sourceTree = "<group>"; };
 		459EEDFF1C321A9100B93CFF /* MTableviewDelegateNzz.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MTableviewDelegateNzz.swift; sourceTree = "<group>"; };
 		459EEE021C321A9100B93CFF /* ColCell1InputVc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColCell1InputVc.swift; sourceTree = "<group>"; };
@@ -236,6 +235,7 @@
 		45BBD9E91C228E3D0038A6AC /* UIImageView+QuickTool.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImageView+QuickTool.swift"; sourceTree = "<group>"; };
 		45BBD9EA1C228E3D0038A6AC /* SGFileManage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SGFileManage.swift; sourceTree = "<group>"; };
 		45BBD9EB1C228E3D0038A6AC /* UITableViewController+Quick.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITableViewController+Quick.swift"; sourceTree = "<group>"; };
+		45C52F5C1C4E214B006E36D9 /* TargetId2NickName.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = TargetId2NickName.plist; sourceTree = "<group>"; };
 		45F16A8E1C3F889D00592263 /* OrderDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderDetailViewController.swift; sourceTree = "<group>"; };
 		45F16A921C3F8CED00592263 /* MOrder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MOrder.swift; sourceTree = "<group>"; };
 		45F16A941C3F924700592263 /* OrderDetailTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderDetailTableViewCell.swift; sourceTree = "<group>"; };
@@ -428,7 +428,6 @@
 			children = (
 				459EEDF91C321A9100B93CFF /* KeyBoard */,
 				459EEDFA1C321A9100B93CFF /* MChatView.swift */,
-				459EEDFB1C321A9100B93CFF /* ModelOfMsgSend.swift */,
 				459EEDFC1C321A9100B93CFF /* TableView */,
 			);
 			path = Model;
@@ -585,6 +584,7 @@
 		45B704FC1C1E64BC00B0E8C2 = {
 			isa = PBXGroup;
 			children = (
+				45C52F5C1C4E214B006E36D9 /* TargetId2NickName.plist */,
 				45B705071C1E64BC00B0E8C2 /* BlackMagic */,
 				45B7051C1C1E64BC00B0E8C2 /* ChatVcTests */,
 				45B705271C1E64BC00B0E8C2 /* ChatVcUITests */,
@@ -783,6 +783,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				45C52F5D1C4E214B006E36D9 /* TargetId2NickName.plist in Resources */,
 				450A51451C33854F00CDEF34 /* Info.plist in Resources */,
 				459EEE2C1C321A9100B93CFF /* MsgWantSendCollectionViewCell.xib in Resources */,
 				459357941C3ED2FE00C13A27 /* AddressTableViewCell.xib in Resources */,
@@ -931,7 +932,6 @@
 				45BBD9F51C228E3D0038A6AC /* Double+QuickTool.swift in Sources */,
 				45441B081C44C2C900492B6A /* MNotification.swift in Sources */,
 				45F16A8F1C3F889D00592263 /* OrderDetailViewController.swift in Sources */,
-				459EEE201C321A9100B93CFF /* ModelOfMsgSend.swift in Sources */,
 				45BBD9F61C228E3D0038A6AC /* Int+QuickTool.swift in Sources */,
 				450A51441C33854F00CDEF34 /* Error.swift in Sources */,
 				450A514F1C33854F00CDEF34 /* Validation.swift in Sources */,

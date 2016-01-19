@@ -250,7 +250,7 @@ extension  ChatViewController:InputVcDelegate{
                                     print("发送失败")
                                     
                                     self.sendImg(imgsData, nbOfImg: nbOfImg+1, originNb: originNb)
-                            })
+                                })
                         }
                     }else{
                         funcFail()
@@ -727,25 +727,14 @@ extension ChatViewController{
                 }
                 if msg.content is RCImageMessage
                 {
-                    //                    print("图片\(nbImgNeedToDownLoad)开始处理")
+                    //print("图片\(nbImgNeedToDownLoad)开始处理")
                     //所有收到图片消息均根据消息id保存到了本地，所以可以根据下面的方法得到图片
                     let imgPath=msgIdToFilePath(msg.messageId, isVoice: false)
                     let aRCImageMessage = msg.content as! RCImageMessage
-                    
                     if let aImg = UIImage(contentsOfFile: imgPath){
-                        self.receiveMsgImg([aImg],fullImgUrlOrPath: [imgPath],msgIds: [msg.messageId])
+                        arrMMsgBasic.append(MMsgImg().initMMsgImg(aImg, aFullImgUrlOrPath: imgPath, aStatusOfSend: StatusOfSend.success, aImgHeadUrlOrFilePath: "", aIsSend: true, aMsgId: msg.messageId))
+                        arrTimeCreate.append(aTimeCreate)
                     }
-                    
-                    //                    if imgPath != "" {
-                    //                        if imgMsgId.count==0{
-                    //                            imgMsgId.append(msg.messageId)
-                    //                            imgMsgUrl.append(aRCImageMessage.imageUrl)
-                    //                            downLoadImg(0)
-                    //                        }else{
-                    //                            imgMsgId.append(msg.messageId)
-                    //                            imgMsgUrl.append(aRCImageMessage.imageUrl)
-                    //                        }
-                    //                    }
                 }else if  msg.content is RCTextMessage {
                     /**
                      *  文本消息可能是订单消息所以需要通过extra字段进行判断
@@ -770,7 +759,7 @@ extension ChatViewController{
                     arrMMsgBasic.append(MMsgTxt().initMMsgTxt(txt: aRCLocationMessage.locationName, aStatusOfSend: statusOfSend, aImgHeadUrlOrFilePath: "", aIsSend: aIsSend,aMsgId: msg.messageId))
                     arrTimeCreate.append(aTimeCreate)
                 }else if msg.content is RCVoiceMessage{
-                    //                    保存的是语音消息，处理同文本消息
+                    // 保存的是语音消息，处理同文本消息
                     let aRCVoiceMessage = msg.content as! RCVoiceMessage
                     
                     msgIdToFilePath(msg.messageId, isVoice: true)

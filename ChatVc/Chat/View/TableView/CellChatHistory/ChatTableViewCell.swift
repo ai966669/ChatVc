@@ -36,31 +36,15 @@ class ChatTableViewCell: UITableViewCell {
     @IBOutlet var btnOfSendStatus: UIButton!
     @IBOutlet var imgHead: UIImageView!
     dynamic var aModelOfMsgCellBasic:ModelOfMsgCellBasic!
-//        {
-//        didSet{
-////            superclass
-////            superclass
-////xx            如何通过发通知的方式直接在修改statusOfSend时修改cell的发送状态
-//            print("superclass:\(superclass)")
-//            
-//            var a=superclass// as! ChatTableViewCell
-////            print("\(a.imgHead)")
-//            setBtnOfSendStatus(aModelOfMsgCellBasic.statusOfSend)
-//            print("发送状态变为\(aModelOfMsgCellBasic.statusOfSend)")
-//        }
-//    }
     @IBOutlet var imageCover:UIImageView!
     
-    override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
-        print("adsf")
-    }
     override func awakeFromNib() {
         super.awakeFromNib()
         setBtnOfSendStatusEvent()
-//        var onceToken=dispatch_once_t()
-//        dispatch_once(&onceToken) { () -> Void in
-//
-//        }
+        //        var onceToken=dispatch_once_t()
+        //        dispatch_once(&onceToken) { () -> Void in
+        //
+        //        }
         // Initialization code
     }
     deinit{
@@ -71,11 +55,9 @@ class ChatTableViewCell: UITableViewCell {
         self.aModelOfMsgCellBasic=aModelOfMsgCellBasic
         selectionStyle = UITableViewCellSelectionStyle.None
         //        发送状态设置
-//        [RACObserve(self, aModelOfMsgCellBasic.timeCreate) subscribeNext:^(NSString *newName) {
-//            NSLog(@"aModelOfMsgCellBasic:%@", aModelOfMsgCellBasic.timeCreate);
-//            }];
+        self.addObserver(self, forKeyPath: "aModelOfMsgCellBasic.statusOfSend", options: NSKeyValueObservingOptions.New, context: nil)
         
-        
+        self.addObserver(self, forKeyPath: "btnOfSendStatus.hidden", options: NSKeyValueObservingOptions.New, context: nil)
         //        时间标签设置
         resetLblOftime(aModelOfMsgCellBasic.timeCreate)
         //        cell长宽设置
@@ -84,8 +66,6 @@ class ChatTableViewCell: UITableViewCell {
         backgroundColor=BackGroundColor
         //        cell类型
         selectionStyle = UITableViewCellSelectionStyle.None
-        self.addObserver(self, forKeyPath: "aModelOfMsgCellBasic", options: NSKeyValueObservingOptions.New, context: nil)
-        
     }
     func resetLblOftime(timeCreate:String){
         if timeCreate==""{
@@ -129,14 +109,16 @@ class ChatTableViewCell: UITableViewCell {
     }
     
     func setImageHead(){
-        if imgHead != nil{
-            if let str = aModelOfMsgCellBasic?.imgHeadUrlOrFilePath {
-                imgHead.sd_setImageWithURL(NSURL(string: str), placeholderImage: UIImage(named: str), options: SDWebImageOptions.CacheMemoryOnly)
-            }else{
-                let imgName =  aModelOfMsgCellBasic.isSend ? DefaultHeadImgUser:DefaultHeadImgManager
-                imgHead.image = UIImage(named: imgName)
-            }
-        }
+        let imgName =  aModelOfMsgCellBasic.isSend ? DefaultHeadImgUser:DefaultHeadImgManager
+        imgHead.image = UIImage(named: imgName)
+//        if imgHead != nil{
+//            if let str = aModelOfMsgCellBasic?.imgHeadUrlOrFilePath {
+//                imgHead.sd_setImageWithURL(NSURL(string: str), placeholderImage: UIImage(named: str), options: SDWebImageOptions.CacheMemoryOnly)
+//            }else{
+//                let imgName =  aModelOfMsgCellBasic.isSend ? DefaultHeadImgUser:DefaultHeadImgManager
+//                imgHead.image = UIImage(named: imgName)
+//            }
+//        }
     }
     
     func setMsgLayer(viewSetLayer:UIView){
@@ -146,13 +128,13 @@ class ChatTableViewCell: UITableViewCell {
             let aUILongPressGestureRecognizer=UILongPressGestureRecognizer(target: self, action: "showMenu:")
             imageCover.addGestureRecognizer(aUILongPressGestureRecognizer)
             
-
+            
             
             var aSize =  CGSize()
             
             if aModelOfMsgCellBasic.typeMsg == TypeOfMsg.ImgMine ||
                 aModelOfMsgCellBasic.typeMsg == TypeOfMsg.ImgMine{
-                
+                    
                     aSize = CGSizeMake(aModelOfMsgCellBasic.sizeCell.width, aModelOfMsgCellBasic.sizeCell.height)
                     
                     imageCover.backgroundColor=UIColor.clearColor()
@@ -169,13 +151,13 @@ class ChatTableViewCell: UITableViewCell {
                 let aImgVR = UIImageView(image:UIImage(named: "mmsright")?.resizableImageWithCapInsets(UIEdgeInsetsMake(28,10,10,15)))
                 aImgVR.layer.frame=CGRect(origin: CGPointZero, size: aSize)
                 imageCover.layer.mask=aImgVR.layer
-                if (lblBulterName != nil){
-                    lblBulterName.text="黑卡管家"+"\(Mbulter.shareMbulterManager().nickname)"
-                }
             }else{
                 let aImgVL = UIImageView(image:UIImage(named: "mmsleft")?.resizableImageWithCapInsets(UIEdgeInsetsMake(28,15,10,10)))
                 aImgVL.layer.frame=CGRect(origin: CGPointZero, size: aSize)
                 imageCover.layer.mask=aImgVL.layer
+                if (lblBulterName != nil){
+                    lblBulterName.text="黑卡管家"+"\(Mbulter.shareMbulterManager().nickname)"
+                }
             }
         }
         
@@ -189,22 +171,23 @@ class ChatTableViewCell: UITableViewCell {
     func setBtnOfSendStatusEvent(){
         if btnOfSendStatus != nil{
             if (animotionOfBtnOfSendStatus == nil){
-                //注意reSend方法一定要在子类中实现，如果有
                 btnOfSendStatus.addTarget(self, action: "reSend", forControlEvents: UIControlEvents.TouchUpInside)
             }
         }
     }
     func reSend(){
-        if let tbl=superview?.superview as? UITableView{
-            if let aNSIndexPath = tbl.indexPathForCell(self){
-                print("点击了第\(aNSIndexPath.row)行")
-                aChatTableViewCellDelegate.ReSend(aNSIndexPath)
-    
+        if aModelOfMsgCellBasic.statusOfSend == 1{
+            if let tbl=superview?.superview as? UITableView{
+                if let aNSIndexPath = tbl.indexPathForCell(self) {
+                    print("点击了第\(aNSIndexPath.row)行")
+                    
+                    aChatTableViewCellDelegate.ReSend(aNSIndexPath)
+                }else{
+                    SVProgressHUD.showErrorWithStatus("重发失败")
+                }
             }else{
                 SVProgressHUD.showErrorWithStatus("重发失败")
             }
-        }else{
-            SVProgressHUD.showErrorWithStatus("重发失败")
         }
     }
     override func setSelected(selected: Bool, animated: Bool) {
@@ -218,9 +201,16 @@ extension ChatTableViewCell{
         angle=angle+50.0
         btnOfSendStatus.transform = CGAffineTransformMakeRotation(angle * CGFloat((M_PI / 180.0)));
     }
-    func setBtnOfSendStatus(oneStatusOfSend:StatusOfSend){
+    override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
+        if keyPath == "aModelOfMsgCellBasic.statusOfSend"{
+            print("aModelOfMsgCellBasic.statusOfSend:\(aModelOfMsgCellBasic.statusOfSend)")
+            setBtnOfSendStatus()
+        }
+    }
+    
+    private func setBtnOfSendStatus(){
         if btnOfSendStatus != nil{
-            switch (oneStatusOfSend) {
+            switch (StatusOfSend(rawValue: aModelOfMsgCellBasic.statusOfSend)!) {
             case StatusOfSend.sending:
                 if (animotionOfBtnOfSendStatus != nil){
                     animotionOfBtnOfSendStatus?.invalidate()
@@ -240,12 +230,16 @@ extension ChatTableViewCell{
                 btnOfSendStatus.hidden=false
                 break;
             case StatusOfSend.success:
+                
                 if (animotionOfBtnOfSendStatus != nil){
-//？为什么在的时候btnOfSendStatus会隐藏失败
+                    //？为什么在的时候btnOfSendStatus会隐藏失败//为什么会出现btnOfSendStatus不隐藏的情况
                     animotionOfBtnOfSendStatus?.invalidate()
                     animotionOfBtnOfSendStatus=nil
                 }
                 btnOfSendStatus.hidden=true
+                //0119需要设置后才会出现
+                btnOfSendStatus.setNeedsDisplay()
+                print("btnOfSendStatus状态：\(btnOfSendStatus.hidden)")
                 break;
             }
         }

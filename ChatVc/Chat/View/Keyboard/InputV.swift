@@ -922,7 +922,7 @@ extension InputV:UICollectionViewDelegate,UICollectionViewDataSource,UICollectio
                 //var constrains = self.view.constraints
                 //self.removeConstraint(txtViewOfMsgNSLayoutConstraint)
                 //heightOfUnderView比txtViewOfMsg高15
-                print("\(newsize.height)")
+//                print("\(newsize.height)")
 //               当txtViewOfMsg变化时UnderView的高度也会变化
                 heightOfUnderView = newsize.height + heightThanViewUnder
                 if effectView != nil {

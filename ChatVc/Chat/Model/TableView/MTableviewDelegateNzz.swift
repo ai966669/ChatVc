@@ -67,8 +67,7 @@ class MTableviewDelegateNzz: NSObject {
             //todo        缩略图不存在的情况
             
         }
-        
-        let aModelOfMsgCellImg:ModelOfMsgCellImg=ModelOfMsgCellImg().initModelOfMsgCellImg(aMMsgImg.thumbnailImage!,aImgUrlOrPath: aMMsgImg.fullImgUrlOrPath, aModelOfMsgCellBasic: ModelOfMsgCellBasic().initBasicCell(timeCreateInTxt, aIsSend: aMMsgImg.isSend, aStatusOfSend: aMMsgImg.statusOfSend, aSizeCell: cellSize, aImgHeadUrlOrFilePath: aMMsgImg.imgHeadUrlOrFilePath, aTypeOfMsg: aTypeOfMsg,aMsgId: aMMsgImg.msgId),aMsgId: aMMsgImg.msgId)
+        let aModelOfMsgCellImg:ModelOfMsgCellImg=ModelOfMsgCellImg().initModelOfMsgCellImg(aMMsgImg.thumbnailImage!,aImgUrlOrPath: aMMsgImg.fullImgUrlOrPath, aModelOfMsgCellBasic: ModelOfMsgCellBasic().initBasicCell(timeCreateInTxt, aIsSend: aMMsgImg.isSend, aStatusOfSend: aMMsgImg.statusOfSend.rawValue , aSizeCell: cellSize, aImgHeadUrlOrFilePath: aMMsgImg.imgHeadUrlOrFilePath, aTypeOfMsg: aTypeOfMsg,aMsgId: aMMsgImg.msgId),aMsgId: aMMsgImg.msgId)
         
         funLater(aTypeOfMsg: aTypeOfMsg,aTimeVisiable: aTimeVisiable,aModelOfMsgCellBasic: aModelOfMsgCellImg)
     }
@@ -98,7 +97,7 @@ class MTableviewDelegateNzz: NSObject {
         let size = ToolOfCellInChat.getSizeByStringAndDefaultFont(aMMsgTxt.txt)
 //        let sizeInCludeInset=CGSizeMake(size.width+MsgTxtUIEdgeInsetsMakeLeft*2, size.height)
         
-        let aModelOfMsgCellTxt =  ModelOfMsgCellTxt().initModelOfMsgCellTxt(aMMsgTxt.txt, aModelOfMsgCellBasic:ModelOfMsgCellBasic().initBasicCell(timeCreateInTxt, aIsSend: aMMsgTxt.isSend, aStatusOfSend: aMMsgTxt.statusOfSend,aSizeCell: size, aImgHeadUrlOrFilePath: aMMsgTxt.imgHeadUrlOrFilePath, aTypeOfMsg: aTypeOfMsg, aMsgId: aMMsgTxt.msgId),aMsgId: aMMsgTxt.msgId)
+        let aModelOfMsgCellTxt =  ModelOfMsgCellTxt().initModelOfMsgCellTxt(aMMsgTxt.txt, aModelOfMsgCellBasic:ModelOfMsgCellBasic().initBasicCell(timeCreateInTxt, aIsSend: aMMsgTxt.isSend, aStatusOfSend: aMMsgTxt.statusOfSend.rawValue,aSizeCell: size, aImgHeadUrlOrFilePath: aMMsgTxt.imgHeadUrlOrFilePath, aTypeOfMsg: aTypeOfMsg, aMsgId: aMMsgTxt.msgId),aMsgId: aMMsgTxt.msgId)
         
         funLater(aTypeOfMsg: aTypeOfMsg,aTimeVisiable: aTimeVisiable,aModelOfMsgCellBasic: aModelOfMsgCellTxt)
     }
@@ -122,7 +121,7 @@ class MTableviewDelegateNzz: NSObject {
             aTypeOfMsg=TypeOfMsg.VoiceOfCustomer
         }
         
-        let aModelOfMsgCellVoice:ModelOfMsgCellVoice=ModelOfMsgCellVoice().initModelOfMsgCellVoice(ModelOfMsgCellBasic().initBasicCell(timeCreateInTxt, aIsSend: aMMsgVoice.isSend, aStatusOfSend: aMMsgVoice.statusOfSend, aSizeCell: size, aImgHeadUrlOrFilePath: aMMsgVoice.imgHeadUrlOrFilePath,aTypeOfMsg: aTypeOfMsg,aMsgId: aMMsgVoice.msgId), aTimeVoice: aMMsgVoice.timeVoice, aVoiceUrlOrPath: aMMsgVoice.voiceUrlOrPath,aMsgId: aMMsgVoice.msgId,aTxt: txt)
+        let aModelOfMsgCellVoice:ModelOfMsgCellVoice=ModelOfMsgCellVoice().initModelOfMsgCellVoice(ModelOfMsgCellBasic().initBasicCell(timeCreateInTxt, aIsSend: aMMsgVoice.isSend, aStatusOfSend: aMMsgVoice.statusOfSend.rawValue, aSizeCell: size, aImgHeadUrlOrFilePath: aMMsgVoice.imgHeadUrlOrFilePath,aTypeOfMsg: aTypeOfMsg,aMsgId: aMMsgVoice.msgId), aTimeVoice: aMMsgVoice.timeVoice, aVoiceUrlOrPath: aMMsgVoice.voiceUrlOrPath,aMsgId: aMMsgVoice.msgId,aTxt: txt)
         
         funLater(aTypeOfMsg: aTypeOfMsg,aTimeVisiable: aTimeVisiable,aModelOfMsgCellBasic: aModelOfMsgCellVoice)
     }
@@ -141,7 +140,7 @@ class MTableviewDelegateNzz: NSObject {
         let size = ToolOfCellInChat.getSizeByStringAndDefaultFont(txtShow)
         
         
-        let aModelOfMsgCellOrder = ModelOfMsgCellOrder().initModelOfMsgCellOrder(ModelOfMsgCellBasic().initBasicCell(timeCreateInTxt, aIsSend: aMMsgOrder.isSend, aStatusOfSend: aMMsgOrder.statusOfSend, aSizeCell: size, aImgHeadUrlOrFilePath: aMMsgOrder.imgHeadUrlOrFilePath, aTypeOfMsg: aTypeOfMsg, aMsgId: aMMsgOrder.msgId), aMsgId: aMMsgOrder.msgId, aTxt: txtShow, aType: aMMsgOrder.type, aShow: aMMsgOrder.show, aOrderType: aMMsgOrder.orderType, aName: aMMsgOrder.name, aNum: aMMsgOrder.num, aGoodName: aMMsgOrder.goodName, aStatus: aMMsgOrder.status, aPrice: aMMsgOrder.price, aCreated: aMMsgOrder.created,aOrderId: aMMsgOrder.orderId)
+        let aModelOfMsgCellOrder = ModelOfMsgCellOrder().initModelOfMsgCellOrder(ModelOfMsgCellBasic().initBasicCell(timeCreateInTxt, aIsSend: aMMsgOrder.isSend, aStatusOfSend: aMMsgOrder.statusOfSend.rawValue, aSizeCell: size, aImgHeadUrlOrFilePath: aMMsgOrder.imgHeadUrlOrFilePath, aTypeOfMsg: aTypeOfMsg, aMsgId: aMMsgOrder.msgId), aMsgId: aMMsgOrder.msgId, aTxt: txtShow, aType: aMMsgOrder.type, aShow: aMMsgOrder.show, aOrderType: aMMsgOrder.orderType, aName: aMMsgOrder.name, aNum: aMMsgOrder.num, aGoodName: aMMsgOrder.goodName, aStatus: aMMsgOrder.status, aPrice: aMMsgOrder.price, aCreated: aMMsgOrder.created,aOrderId: aMMsgOrder.orderId)
         
         
         funLater(aTypeOfMsg: aTypeOfMsg,aTimeVisiable: aTimeVisiable,aModelOfMsgCellBasic: aModelOfMsgCellOrder)
@@ -158,10 +157,10 @@ class MTableviewDelegateNzz: NSObject {
         }else if chatHistory[nubOfMsg] is ModelOfMsgCellImg {
             let  aModelOfMsgCellImg=chatHistory[nubOfMsg] as! ModelOfMsgCellImg
             aModelOfMsgCellImg.imgUrlOrPath=filePathOrUrl
-            aModelOfMsgCellImg.statusOfSend=aStatusOfSend
+            aModelOfMsgCellImg.statusOfSend=aStatusOfSend.rawValue
         }else if chatHistory[nubOfMsg] is ModelOfMsgCellTxt {
             let  aModelOfMsgCellTxt=chatHistory[nubOfMsg] as! ModelOfMsgCellTxt
-            aModelOfMsgCellTxt.statusOfSend=aStatusOfSend
+            aModelOfMsgCellTxt.statusOfSend=aStatusOfSend.rawValue
         }
     }
 }

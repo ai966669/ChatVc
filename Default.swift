@@ -223,6 +223,8 @@ let NotificationNewMsgVoice="NSNotificationNewMsgVoice"
 let NotificationNewMsgImg="NSNotificationNewMsgImg"
 /// 切换客服
 let NotificationBulter="NotificationBulter"
+/// 登出
+let NotificationLoginOut="NotificationBulter"
 //没有时间戳
 let DefaultNoTime:Double=0
 //通知文本信息

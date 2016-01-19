@@ -51,7 +51,7 @@ class TableviewDelegateNzz : NSObject, UITableViewDelegate, UITableViewDataSourc
         aTableView=tableView
         registCell()
         initObserve()
-        
+        tableView.setNeedsDisplay()
     }
     func initObserve(){
         NSNotificationCenter.defaultCenter().addObserver(self, selector:  "addMsgGetNotification", name: NotificationShowGetHongbaoView, object: nil)
@@ -227,15 +227,17 @@ extension TableviewDelegateNzz {
     }
     func resetFilePathAndMsgIdAndSendStatus(filePathOrUrl:String,msgId:Int,nubOfMsg:Int,aStatusOfSend:StatusOfSend){
         aMTableviewDelegateNzz.resetFilePathAndMsgId(filePathOrUrl, msgId: msgId, nubOfMsg: nubOfMsg,aStatusOfSend: aStatusOfSend)
-        print("\(nubOfMsg)修改发送状态为\(aStatusOfSend)")
+//        print("\(nubOfMsg)修改发送状态为\(aStatusOfSend)")
         
-        if let cell =  aTableView.cellForRowAtIndexPath(NSIndexPath(forRow: nubOfMsg, inSection: 0)) as? ChatTableViewCell{
-            dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                cell.setBtnOfSendStatus(aStatusOfSend)
-            })
-        }else{
-            print("这个cell不在屏幕上")
-        }
+//        if let cell =  aTableView.cellForRowAtIndexPath(NSIndexPath(forRow: nubOfMsg, inSection: 0)) as? ChatTableViewCell{
+//            dispatch_async(dispatch_get_main_queue(), { () -> Void in
+//                print("cell.btnOfSendStatus.hidden:\(cell.btnOfSendStatus.hidden)")
+//                cell.setBtnOfSendStatus()
+//
+//            })
+//        }else{
+//            print("这个cell不在屏幕上")
+//        }
     }
     /**
      在tablview下方同时添加多条消息
