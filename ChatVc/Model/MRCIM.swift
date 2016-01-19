@@ -180,9 +180,10 @@ class MRCIM: NSObject {
     func logout(){
         RCIM.sharedRCIM().logout()
     }
-    func getNickNameByMsgId(aId:Int)->String{
+   class func getNickNameByMsgId(aId:Int)->String{
+
         if let aRCMessage=RCIMClient.sharedRCIMClient().getMessage(aId){
-            return Mbulter.shareMbulterManager().getNickNameById(aRCMessage.senderUserId)
+            return Mbulter.getNickNameById(aRCMessage.senderUserId)
         }else{
             return ""
         }

@@ -50,7 +50,7 @@
                         </connections>
                     </button>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="黑卡管家001" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nVt-kd-i8s">
-                        <rect key="frame" x="66" y="6" width="69" height="16"/>
+                        <rect key="frame" x="62" y="6" width="69" height="16"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="16" id="GLC-WK-n9O"/>
                         </constraints>
@@ -75,7 +75,7 @@
                     <constraint firstItem="VfQ-ZK-5Rq" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="-2" id="5z6-58-Map"/>
                     <constraint firstItem="VfQ-ZK-5Rq" firstAttribute="top" secondItem="XTF-cp-vwX" secondAttribute="top" constant="-6" id="9qP-dF-rcy"/>
                     <constraint firstItem="Q3r-UZ-bZL" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="DrX-kQ-W79"/>
-                    <constraint firstItem="nVt-kd-i8s" firstAttribute="leading" secondItem="VfQ-ZK-5Rq" secondAttribute="trailing" constant="16" id="GZy-fJ-N8I"/>
+                    <constraint firstItem="nVt-kd-i8s" firstAttribute="leading" secondItem="VfQ-ZK-5Rq" secondAttribute="trailing" constant="12" id="GZy-fJ-N8I"/>
                     <constraint firstItem="Q3r-UZ-bZL" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="-8" id="GwL-XT-5nM"/>
                     <constraint firstItem="RZ8-Pg-gYS" firstAttribute="bottom" secondItem="XTF-cp-vwX" secondAttribute="bottom" id="I68-st-ZAa"/>
                     <constraint firstItem="RZ8-Pg-gYS" firstAttribute="top" secondItem="VfQ-ZK-5Rq" secondAttribute="top" constant="16" id="P4i-d6-Bqf"/>

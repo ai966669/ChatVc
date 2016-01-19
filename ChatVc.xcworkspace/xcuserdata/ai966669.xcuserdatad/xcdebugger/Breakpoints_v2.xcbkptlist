@@ -187,13 +187,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "ChatVc/Model/Mbulter.swift"
-            timestampString = "474886201.971796"
+            filePath = "ChatVc/Chat/View/TableView/CellChatHistory/ChatTableViewCell.swift"
+            timestampString = "474894817.635874"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "57"
-            endingLineNumber = "57"
-            landmarkName = "getChatTargetId()"
+            startingLineNumber = "184"
+            endingLineNumber = "184"
+            landmarkName = "reSend()"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -204,7 +204,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ChatVc/Model/Mbulter.swift"
-            timestampString = "474886201.971796"
+            timestampString = "474893770.970156"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "35"
@@ -220,13 +220,29 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ChatVc/Model/Mbulter.swift"
-            timestampString = "474886252.8413"
+            timestampString = "474893809.279607"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "15"
-            endingLineNumber = "15"
-            landmarkName = "Mbulter"
-            landmarkType = "3">
+            startingLineNumber = "56"
+            endingLineNumber = "56"
+            landmarkName = "getChatTargetId()"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ChatVc/Chat/View/TableView/CellChatHistory/ChatTableViewCell.swift"
+            timestampString = "474894817.635874"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "160"
+            endingLineNumber = "160"
+            landmarkName = "setMsgLayer(_:)"
+            landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -236,12 +252,28 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ChatVc/Chat/ChatViewController.swift"
-            timestampString = "474886831.72395"
+            timestampString = "474895651.691002"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "505"
-            endingLineNumber = "505"
+            startingLineNumber = "451"
+            endingLineNumber = "451"
             landmarkName = "onRCIMReceiveMessage(_:)"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ChatVc/Common/MNotification.swift"
+            timestampString = "474895074.756913"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "38"
+            endingLineNumber = "38"
+            landmarkName = "sendLocalNotificationWhenAppIsInBackground(_:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

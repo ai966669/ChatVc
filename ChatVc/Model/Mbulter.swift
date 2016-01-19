@@ -10,6 +10,7 @@ import UIKit
 
 class Mbulter: TopModel {
     static var namePlist="TargetId2NickName"
+    var nickname = ""
     var id:String = ""{
         didSet{
             UserModel.shareManager().targetId=id
@@ -18,13 +19,12 @@ class Mbulter: TopModel {
             dic.writeToFile(getDocumentFilePath(Mbulter.namePlist,fileType: "plist"), atomically: false)
         }
     }
-    var nickname = ""
     var avatar = ""
     var nickNames = Dictionary<String,String>()
     private static var intanceMbulter:Mbulter?
-    func getNickNameById(aId:String)->String{
+    class func getNickNameById(aId:String)->String{
         if let nickname = Mbulter.shareMbulterManager().nickNames[aId]{
-         return nickname
+            return nickname
         }
         return ""
     }
@@ -52,7 +52,7 @@ class Mbulter: TopModel {
         let request = TopModel.universalRequest(requestMethod: Method.POST,dic: params, urlMethod: URLUserChatObject, success: { (model) -> Void in
             if let rInDic = model  as? Dictionary<String,AnyObject>{
                 if let dataInDic = rInDic["data"] as? Dictionary<String,AnyObject> {
-                    if let aMbulter:Mbulter = D3Json.jsonToModel(dataInDic, clazz: Mbulter.self){
+                    if let aMbulter:Mbulter = D3Json.jsonToModel(dataInDic, clazz: Mbulter.self){ 
                         Mbulter.intanceMbulter=aMbulter
                         if let _ = dataInDic["id"] as? String{
 //                            NSNotificationCenter.defaultCenter().postNotificationName(NotificationLoadOldMsg, object: nil)

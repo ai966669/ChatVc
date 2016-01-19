@@ -111,14 +111,14 @@ class ChatTableViewCell: UITableViewCell {
     func setImageHead(){
         let imgName =  aModelOfMsgCellBasic.isSend ? DefaultHeadImgUser:DefaultHeadImgManager
         imgHead.image = UIImage(named: imgName)
-//        if imgHead != nil{
-//            if let str = aModelOfMsgCellBasic?.imgHeadUrlOrFilePath {
-//                imgHead.sd_setImageWithURL(NSURL(string: str), placeholderImage: UIImage(named: str), options: SDWebImageOptions.CacheMemoryOnly)
-//            }else{
-//                let imgName =  aModelOfMsgCellBasic.isSend ? DefaultHeadImgUser:DefaultHeadImgManager
-//                imgHead.image = UIImage(named: imgName)
-//            }
-//        }
+        //        if imgHead != nil{
+        //            if let str = aModelOfMsgCellBasic?.imgHeadUrlOrFilePath {
+        //                imgHead.sd_setImageWithURL(NSURL(string: str), placeholderImage: UIImage(named: str), options: SDWebImageOptions.CacheMemoryOnly)
+        //            }else{
+        //                let imgName =  aModelOfMsgCellBasic.isSend ? DefaultHeadImgUser:DefaultHeadImgManager
+        //                imgHead.image = UIImage(named: imgName)
+        //            }
+        //        }
     }
     
     func setMsgLayer(viewSetLayer:UIView){
@@ -156,7 +156,12 @@ class ChatTableViewCell: UITableViewCell {
                 aImgVL.layer.frame=CGRect(origin: CGPointZero, size: aSize)
                 imageCover.layer.mask=aImgVL.layer
                 if (lblBulterName != nil){
-                    lblBulterName.text="黑卡管家"+"\(Mbulter.shareMbulterManager().nickname)"
+                    
+                    var nickName =  MRCIM.getNickNameByMsgId(aModelOfMsgCellBasic.msgId)
+                    if nickName == ""{
+                        nickName="黑卡管家"
+                    }
+                    lblBulterName.text = nickName
                 }
             }
         }
@@ -203,8 +208,11 @@ extension ChatTableViewCell{
     }
     override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
         if keyPath == "aModelOfMsgCellBasic.statusOfSend"{
-            print("aModelOfMsgCellBasic.statusOfSend:\(aModelOfMsgCellBasic.statusOfSend)")
-            setBtnOfSendStatus()
+            dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                // 更新界面
+                self.setBtnOfSendStatus()
+                
+            })
         }
     }
     
@@ -238,8 +246,12 @@ extension ChatTableViewCell{
                 }
                 btnOfSendStatus.hidden=true
                 //0119需要设置后才会出现
-                btnOfSendStatus.setNeedsDisplay()
-                print("btnOfSendStatus状态：\(btnOfSendStatus.hidden)")
+                //                dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                //                      // 更新界面
+                //                    self.btnOfSendStatus.hidden=true
+                //                    self.btnOfSendStatus.setNeedsDisplay()
+                //                  
+                //                })
                 break;
             }
         }

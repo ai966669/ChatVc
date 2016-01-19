@@ -25,7 +25,7 @@ class ChatViewController: UIViewController {
     @IBOutlet var tbvNSLayoutConstraintTop: NSLayoutConstraint!
     var idOldestMsg:Int = -1
     let moreActionViewNSLayoutConstraintTopOriginValue:CGFloat=6
-    var alreadyLoad=false
+//    var alreadyLoad=false
     //    用于下载刚收到图片，单独做一个变量是为了保持保持能下载
     var imgVForDownLoad=UIImageView(frame: CGRectMake(0,0,0,0))
     //    var nbImgAlreadyDownLoad=0
@@ -54,6 +54,11 @@ class ChatViewController: UIViewController {
             self.initTbvChatHistory()
             self.tbvChatHistory.hidden=false
             self.initMoreAction()
+//            if #available(iOS 9.0, *) {
+//                self.tbvChatHistory.setNeedsFocusUpdate()
+//            } else {
+//                // Fallback on earlier versions
+//            }
         }
         
         navigationController!.navigationBar.barTintColor=ColorNav
@@ -730,7 +735,6 @@ extension ChatViewController{
                     //print("图片\(nbImgNeedToDownLoad)开始处理")
                     //所有收到图片消息均根据消息id保存到了本地，所以可以根据下面的方法得到图片
                     let imgPath=msgIdToFilePath(msg.messageId, isVoice: false)
-                    let aRCImageMessage = msg.content as! RCImageMessage
                     if let aImg = UIImage(contentsOfFile: imgPath){
                         arrMMsgBasic.append(MMsgImg().initMMsgImg(aImg, aFullImgUrlOrPath: imgPath, aStatusOfSend: StatusOfSend.success, aImgHeadUrlOrFilePath: "", aIsSend: true, aMsgId: msg.messageId))
                         arrTimeCreate.append(aTimeCreate)
@@ -769,12 +773,13 @@ extension ChatViewController{
             }
             aTableviewDelegateNzz.loadOldMsgs(arrMMsgBasic,timeCreates: arrTimeCreate)
             idOldestMsg = arrMsgsDB[arrMsgsDB.count-1].messageId
-        }else{
-            if alreadyLoad{
-                SVProgressHUD.showInfoWithStatus("没有更多的消息了")
-            }
         }
-        alreadyLoad=true
+//        else{
+//            if alreadyLoad{
+//                SVProgressHUD.showInfoWithStatus("没有更多的消息了")
+//            }
+//        }
+//        alreadyLoad=true
     }
 }
 // MARK: - menuview代理实现
