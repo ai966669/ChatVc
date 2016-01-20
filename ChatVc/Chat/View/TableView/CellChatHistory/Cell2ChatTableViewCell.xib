@@ -43,7 +43,7 @@
                         </constraints>
                     </imageView>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="b8X-Dd-jH1">
-                        <rect key="frame" x="237" y="28" width="60" height="30"/>
+                        <rect key="frame" x="257" y="28" width="60" height="30"/>
                         <state key="normal" title="点击支付"/>
                         <connections>
                             <action selector="showOrderDetail:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="IO8-XK-ivk"/>
@@ -85,7 +85,7 @@
                     <constraint firstItem="dhh-Tq-Bcg" firstAttribute="centerY" secondItem="VfQ-ZK-5Rq" secondAttribute="centerY" id="XQY-m8-fbJ"/>
                     <constraint firstItem="RZ8-Pg-gYS" firstAttribute="leading" secondItem="VfQ-ZK-5Rq" secondAttribute="trailing" constant="2" id="XT6-hk-7Ul"/>
                     <constraint firstItem="XTF-cp-vwX" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="4" id="XqR-iY-hFB"/>
-                    <constraint firstItem="b8X-Dd-jH1" firstAttribute="leading" secondItem="XTF-cp-vwX" secondAttribute="trailing" constant="-120" id="bcJ-7D-hrG"/>
+                    <constraint firstItem="b8X-Dd-jH1" firstAttribute="leading" secondItem="XTF-cp-vwX" secondAttribute="trailing" constant="-100" id="bcJ-7D-hrG"/>
                     <constraint firstItem="XTF-cp-vwX" firstAttribute="top" secondItem="nVt-kd-i8s" secondAttribute="bottom" constant="2" id="cev-2A-rP5"/>
                     <constraint firstItem="b8X-Dd-jH1" firstAttribute="centerY" secondItem="XTF-cp-vwX" secondAttribute="centerY" id="eQE-Nb-8oM"/>
                     <constraint firstItem="XTF-cp-vwX" firstAttribute="trailing" secondItem="RZ8-Pg-gYS" secondAttribute="trailing" constant="-15" id="h3A-Sd-hNG"/>

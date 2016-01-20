@@ -21,6 +21,7 @@ class MOrder: TopModel {
     var created = ""
     var payType = 0
     var code:Int = 0
+    var id = -1
     func getOrderDetail(aOrderId:Int64,success:SessionSuccessBlock,failure:SessionFailBlock){
         print("\(HelpFromOc.getDeveicePlatform())")
         let params = unverisalProcess(["id":"\(aOrderId)"])

@@ -121,7 +121,11 @@ static NSString *pathOfDoc;
     if (jsonString == nil) {
         return nil;
     }
+    //整形转化为Int时显示Int64，但是内部数据还是Int类型（如下判断）需要测试超过int类型的数据是否还能通过这个方法进行转换
     
+//    if aOrderId is Int64{
+//        
+//    }
     NSData *jsonData = [jsonString dataUsingEncoding:NSUTF8StringEncoding];
     NSError *err;
     NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:jsonData

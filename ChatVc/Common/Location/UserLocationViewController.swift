@@ -161,9 +161,6 @@ class UserLocationViewController: UIViewController {
         //nowTableView.separatorStyle = UITableViewCellSeparatorStyle.None
         scrollV.addSubview(nowTableView)
         
-        
-        
-        
         //常用位置列表
         hisTableView = UITableView(frame:  CGRectMake(0,0, width, scrollV.frame.size.height), style: UITableViewStyle.Grouped)
         
@@ -174,8 +171,6 @@ class UserLocationViewController: UIViewController {
         
         //nzzxg        scrollV.addSubview(hisTableView)
         isGeoSearch = true
-        
-        
         
 //        getData()
         
@@ -189,7 +184,7 @@ class UserLocationViewController: UIViewController {
             vc.city = city
         }
         vc.vcChat = vcChat
-        //        vc.modalTransitionStyle = UIModalTransitionStyle.FlipHorizontal
+        //vc.modalTransitionStyle = UIModalTransitionStyle.FlipHorizontal
         navigationController?.pushViewController(vc, animated: true)
     }
     deinit {
@@ -290,8 +285,6 @@ class UserLocationViewController: UIViewController {
             nowTableView.reloadData()
         }
     }
-    
-    
     
     //常用位置调用的方法
     func buttonClick(button: UIButton){
@@ -399,52 +392,6 @@ class UserLocationViewController: UIViewController {
             SVProgressHUD.showInfoWithStatus("取消地址发送吗")
         }
     }
-//    func getAddress2Str(mAddress: MAddress) -> String {
-//        var strAddress = ""
-//        if let province = DataBase.getProvince(mAddress.province){
-//            strAddress += province.name
-//        }
-//        if let city = DataBase.getCity(mAddress.city) {
-//            strAddress += city.name
-//        }
-//        if let county = DataBase.getCounty(mAddress.county) {
-//            strAddress += county.name
-//        }
-//        strAddress += mAddress.address
-//        
-//        return strAddress
-//        
-//    }
-//    func getAddressStr(mAddress: MAddress) -> String {
-//        var strAddress = ""
-//        switch mAddress.type {
-//        case 0:
-//            strAddress += "未知："
-//        case 1:
-//            strAddress += "家里："
-//        case 2:
-//            strAddress += "公司："
-//        case 3:
-//            strAddress += "其他："
-//        default:
-//            strAddress += "未知："
-//            break
-//        }
-//        if let province = DataBase.getProvince(mAddress.province){
-//            strAddress += province.name
-//        }
-//        if let city = DataBase.getCity(mAddress.city) {
-//            strAddress += city.name
-//        }
-//        if let county = DataBase.getCounty(mAddress.county) {
-//            strAddress += county.name
-//        }
-//        strAddress += mAddress.address
-//        
-//        return strAddress
-//        
-//    }
-    
     
     /*
     // MARK: - Navigation

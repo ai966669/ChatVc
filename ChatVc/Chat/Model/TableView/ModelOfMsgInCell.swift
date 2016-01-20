@@ -168,7 +168,7 @@ enum  TypeMMsgTxt {
     case Txt
     case Img
 }
-class MMsgBasic{
+class MMsgBasic:NSObject{
     var statusOfSend=StatusOfSend.success
     var imgHeadUrlOrFilePath:String=""
     var isSend=true
@@ -231,46 +231,13 @@ class MMsgOrder:MMsgBasic{
     var price : Float = 0
     var created : Double = 0
     var orderId:Int64 = 0
+    
+    override func setValue(value: AnyObject?, forUndefinedKey key: String) {
+        print("没有forUndefinedKey----value:\(value) key:\(key)");
+    }
+
     func initMMsgOrder(extraDic:Dictionary<String,AnyObject>,aStatusOfSend:StatusOfSend,aImgHeadUrlOrFilePath:String?,aIsSend:Bool,aMsgId:Int)->MMsgOrder{
-        if let aType = extraDic["type"] as? Int{
-            type=aType
-        }
-        if let aShow = extraDic["show"] as? Bool{
-            show=aShow
-        }
-        if let aOrderType = extraDic["orderType"] as? String{
-            orderType=aOrderType
-        }
-        if let aName = extraDic["name"] as? String{
-            name=aName
-        }
-        if let aNum = extraDic["num"] as? String{
-            num=aNum
-        }
-        if let aGoodName = extraDic["goodName"] as? String{
-            goodName=aGoodName
-        }
-        if let aStatus = extraDic["status"] as? Int{
-            status=aStatus
-        }
-        if let aPrice = extraDic["price"] as? Float{
-            price=aPrice
-        }
-        if let aCreated = extraDic["created"] as? Double{
-            created=aCreated
-        }
-        if let aOrderId = extraDic["orderId"] as? Int64{
-            orderId = aOrderId
-        }
-        // aMMsgOrderWithoutBasic.type
-        //        show=aMMsgOrderWithoutBasic.show
-        //        orderType=aMMsgOrderWithoutBasic.orderType
-        //        name=aMMsgOrderWithoutBasic.name
-        //        num=aMMsgOrderWithoutBasic.name
-        //        goodName=aMMsgOrderWithoutBasic.goodName
-        //        status=aMMsgOrderWithoutBasic.status
-        //        price=aMMsgOrderWithoutBasic.price
-        //        created=aMMsgOrderWithoutBasic.created
+        self.setValuesForKeysWithDictionary(extraDic)
         statusOfSend=aStatusOfSend
         if (aImgHeadUrlOrFilePath != "" && aImgHeadUrlOrFilePath != nil){
             imgHeadUrlOrFilePath = aImgHeadUrlOrFilePath!

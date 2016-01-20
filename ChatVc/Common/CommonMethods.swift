@@ -157,7 +157,7 @@ func getDocumentFilePath(fileNameInBundle:String,fileType:String)->String{
             print("GameData.plist not found. Please, make sure it is part of the bundle.")
         }
     } else {
-        print("GameData.plist already exits at path.")
+        print("/\(fileNameInBundle)"+".\(fileType) already exits at path.")
         // use this to delete file from documents directory
         //fileManager.removeItemAtPath(path, error: nil)
     }

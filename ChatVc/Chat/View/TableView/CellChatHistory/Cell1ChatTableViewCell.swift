@@ -307,7 +307,7 @@ extension Cell1ChatTableViewCell{
     
     @IBAction func showOrderDetail(sender: AnyObject) {
         if (aModelOfMsgCellOrder != nil) {
-            aChatTableViewCellDelegate.showOrderDetail(640)
+            aChatTableViewCellDelegate.showOrderDetail((aModelOfMsgCellOrder?.orderId)!)
         }
     }
 }

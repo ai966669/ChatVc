@@ -312,20 +312,6 @@ extension  ChatViewController:InputVcDelegate{
         
         loginout()
         
-        //        let aOrderDetailViewController=UIStoryboard(name: "Chat", bundle: nil).instantiateViewControllerWithIdentifier("OrderDetailViewController") as! OrderDetailViewController
-        //        aOrderDetailViewController.getOrderDetail(640)
-        //        navigationController?.pushViewController(aOrderDetailViewController, animated: true)
-        
-        //                显示支付界面
-        //        aNZZVcOfPay=NZZVcOfPay(nibName: "NZZVcOfPay", bundle: nil)
-        //        aNZZVcOfPay.aNZZVcOfPayDelegate=self
-        //        view.addSubview(aNZZVcOfPay.view)
-        //        UIView.animateWithDuration(0.25, animations: { [weak self]() -> Void in
-        //
-        //            self?.aNZZVcOfPay.view.frame.origin=CGPointMake(0, 0)
-        //
-        //            })
-        
         
         //  修改bundle
         
@@ -604,28 +590,28 @@ extension ChatViewController{
 }
 
 // MARK: - 支付代理实现
-extension ChatViewController:NZZVcOfPayDelegate{
-    func payCancel() {
-        SVProgressHUD.showInfoWithStatus("交易取消")
-    }
-    func payNow(channel: SGPaymentChannel, amount: Float) {
-        
-        PingPPPay().askCharge("966", oneChannel: channel, success: { (model) -> Void in
-            print("获取支付凭证成功")
-            }, failure: { (code) -> Void in
-                print("获取支付凭证失败")
-            }, onePaySuccess: { () -> Void in
-                print("支付成功")
-            }, onePayCancel: { () -> Void in
-                //        SVProgressHUD.showErrorWithStatus("支付取消")
-            }) { () -> Void in
-                print("支付失败")
-        }
-        SVProgressHUD.showInfoWithStatus("支付完成")
-        
-    }
-    
-}
+//extension ChatViewController:NZZVcOfPayDelegate{
+//    func payCancel() {
+//        SVProgressHUD.showInfoWithStatus("交易取消")
+//    }
+//    func payNow(channel: SGPaymentChannel, amount: Float) {
+//        
+//        PingPPPay().askCharge("966", oneChannel: channel, success: { (model) -> Void in
+//            print("获取支付凭证成功")
+//            }, failure: { (code) -> Void in
+//                print("获取支付凭证失败")
+//            }, onePaySuccess: { () -> Void in
+//                print("支付成功")
+//            }, onePayCancel: { () -> Void in
+//                //        SVProgressHUD.showErrorWithStatus("支付取消")
+//            }) { () -> Void in
+//                print("支付失败")
+//        }
+//        SVProgressHUD.showInfoWithStatus("支付完成")
+//        
+//    }
+//    
+//}
 // MARK: - moreAciton 表格代理实现
 extension ChatViewController:UITableViewDelegate,UITableViewDataSource{
     
@@ -751,7 +737,8 @@ extension ChatViewController{
                         if let  extraInDic = HelpFromOc.dictionaryWithJsonString(aRCTextMessage.extra) as? Dictionary<String,AnyObject>{
                             if let type =  extraInDic["type"] as? Int {
                                 if type == MsgTypeInTxtExtra.OrderMsg.rawValue {
-                                    arrMMsgBasic.append(MMsgOrder().initMMsgOrder(extraInDic, aStatusOfSend: statusOfSend, aImgHeadUrlOrFilePath: "", aIsSend: aIsSend, aMsgId: msg.messageId))
+                                    let aMMsgOrder=MMsgOrder()
+                                    arrMMsgBasic.append(aMMsgOrder.initMMsgOrder(extraInDic, aStatusOfSend: statusOfSend, aImgHeadUrlOrFilePath: "", aIsSend: aIsSend, aMsgId: msg.messageId))
                                     arrTimeCreate.append(aTimeCreate)
                                 }
                             }

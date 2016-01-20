@@ -202,18 +202,20 @@ extension OrderDetailViewController:NZZVcOfPayDelegate{
     }
     func payNow(channel: SGPaymentChannel, amount: Float) {
         if aMOrder != nil{
-            PingPPPay().askCharge("966", oneChannel: channel, success: { (model) -> Void in
+            PingPPPay().askCharge("\(aMOrder!.id)", oneChannel: channel, success: { (model) -> Void in
                 print("获取支付凭证成功")
                 }, failure: { (code) -> Void in
-                    print("获取支付凭证失败")
+//                    SVProgressHUD.showInfoWithStatus("获取支付凭证成功")
                 }, onePaySuccess: { () -> Void in
-                    print("支付成功")
+                    SVProgressHUD.showInfoWithStatus("支付成功")
+                    if let aOrderDetailTableViewCell = self.tbOrderDetail.cellForRowAtIndexPath(NSIndexPath.init(forRow: 4, inSection: 0)) as? OrderDetailTableViewCell{
+                        aOrderDetailTableViewCell.content.text="已支付"
+                    }
                 }, onePayCancel: { () -> Void in
                     //SVProgressHUD.showErrorWithStatus("支付取消")
                 }) { () -> Void in
                     print("支付失败")
             }
-            SVProgressHUD.showInfoWithStatus("支付完成")
         }
         
     }
