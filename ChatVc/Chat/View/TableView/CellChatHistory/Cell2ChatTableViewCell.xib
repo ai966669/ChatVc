@@ -43,7 +43,8 @@
                         </constraints>
                     </imageView>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="b8X-Dd-jH1">
-                        <rect key="frame" x="257" y="28" width="60" height="30"/>
+                        <rect key="frame" x="257" y="27" width="64" height="32"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
                         <state key="normal" title="点击支付"/>
                         <connections>
                             <action selector="showOrderDetail:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="IO8-XK-ivk"/>

@@ -230,7 +230,7 @@ class MMsgOrder:MMsgBasic{
     var status = 0
     var price : Float = 0
     var created : Double = 0
-    var orderId:Int64 = 0
+    var id:Int64 = 0
     
     override func setValue(value: AnyObject?, forUndefinedKey key: String) {
         print("没有forUndefinedKey----value:\(value) key:\(key)");
@@ -238,6 +238,7 @@ class MMsgOrder:MMsgBasic{
 
     func initMMsgOrder(extraDic:Dictionary<String,AnyObject>,aStatusOfSend:StatusOfSend,aImgHeadUrlOrFilePath:String?,aIsSend:Bool,aMsgId:Int)->MMsgOrder{
         self.setValuesForKeysWithDictionary(extraDic)
+//        orderId = NSNumber(integer: extraDic["id"] as! Int).longLongValue
         statusOfSend=aStatusOfSend
         if (aImgHeadUrlOrFilePath != "" && aImgHeadUrlOrFilePath != nil){
             imgHeadUrlOrFilePath = aImgHeadUrlOrFilePath!

@@ -18,7 +18,7 @@ protocol ChatTableViewCellDelegate:NSObjectProtocol{
     func ShowMenu(aNSIndexPath: NSIndexPath,aUILongPressGestureRecognizer:UILongPressGestureRecognizer)
     func showOrderDetail(orderId:Int64)
 }
-let heightToBot:CGFloat=10
+let heightToBot:CGFloat=20
 class ChatTableViewCell: UITableViewCell {
     var isAlreadyShowMenuView=false
     /// 当前弹出menu的cell的row
@@ -133,7 +133,7 @@ class ChatTableViewCell: UITableViewCell {
             var aSize =  CGSize()
             
             if aModelOfMsgCellBasic.typeMsg == TypeOfMsg.ImgMine ||
-                aModelOfMsgCellBasic.typeMsg == TypeOfMsg.ImgMine{
+                aModelOfMsgCellBasic.typeMsg == TypeOfMsg.ImgOfCustomer{
                     
                     aSize = CGSizeMake(aModelOfMsgCellBasic.sizeCell.width, aModelOfMsgCellBasic.sizeCell.height)
                     
@@ -144,7 +144,12 @@ class ChatTableViewCell: UITableViewCell {
                 }else{
                     imageCover.backgroundColor=ColorMsgGetBg
                 }
+//               100是点击支付按钮的宽度，需要将底色放在按钮下面
+                if aModelOfMsgCellBasic.typeMsg == TypeOfMsg.OrderCustomer{
+                    aSize = CGSizeMake(aModelOfMsgCellBasic.sizeCell.width+MsgTxtUIEdgeInsetsMakeL+MsgTxtUIEdgeInsetsMakeR+100, aModelOfMsgCellBasic.sizeCell.height+MsgTxtUIEdgeInsetsMakeT+MsgTxtUIEdgeInsetsMakeB)
+                }else{
                 aSize = CGSizeMake(aModelOfMsgCellBasic.sizeCell.width+MsgTxtUIEdgeInsetsMakeL+MsgTxtUIEdgeInsetsMakeR, aModelOfMsgCellBasic.sizeCell.height+MsgTxtUIEdgeInsetsMakeT+MsgTxtUIEdgeInsetsMakeB)
+                }
             }
             
             if aModelOfMsgCellBasic.isSend{
@@ -250,7 +255,7 @@ extension ChatTableViewCell{
                 //                      // 更新界面
                 //                    self.btnOfSendStatus.hidden=true
                 //                    self.btnOfSendStatus.setNeedsDisplay()
-                //                  
+                //
                 //                })
                 break;
             }

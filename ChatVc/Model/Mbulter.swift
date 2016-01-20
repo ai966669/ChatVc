@@ -14,16 +14,16 @@ class Mbulter: TopModel {
     var id:String = ""{
         didSet{
             UserModel.shareManager().targetId=id
-            Mbulter.shareMbulterManager().nickNames[id]=nickname
-            let dic:NSMutableDictionary = [Mbulter.namePlist:Mbulter.shareMbulterManager().nickNames]
+            Mbulter.nickNames[id]=nickname
+            let dic:NSMutableDictionary = [Mbulter.namePlist:Mbulter.nickNames]
             dic.writeToFile(getDocumentFilePath(Mbulter.namePlist,fileType: "plist"), atomically: false)
         }
     }
     var avatar = ""
-    var nickNames = Dictionary<String,String>()
+    static var nickNames = Dictionary<String,String>()
     private static var intanceMbulter:Mbulter?
     class func getNickNameById(aId:String)->String{
-        if let nickname = Mbulter.shareMbulterManager().nickNames[aId]{
+        if let nickname = Mbulter.nickNames[aId]{
             return nickname
         }
         return ""
@@ -33,16 +33,17 @@ class Mbulter: TopModel {
             intanceMbulter = Mbulter()
             if  let plistData=NSMutableDictionary(contentsOfFile: getDocumentFilePath(namePlist,fileType: "plist")){
                 if let nickNames = plistData[namePlist] as? Dictionary<String,String>{
-                    intanceMbulter!.nickNames = nickNames
+                    Mbulter.nickNames = nickNames
                 }
             }
             return intanceMbulter!
         }else{
+            print("\( Mbulter.nickNames)")
             return intanceMbulter!
         }
     }
     static func resetMbulter(aMbulter:Mbulter){
-            intanceMbulter=aMbulter
+        intanceMbulter=aMbulter
     }
     /**
      从服务器获取聊天对象

@@ -9,7 +9,9 @@
 import UIKit
 
 class ChatViewController: UIViewController {
-    
+    deinit{
+        print("asdfffff")
+    }
     @IBOutlet var moreActionMenuNSLayoutConstraintHeight: NSLayoutConstraint!
     var aInputV:InputV!
     var aTableviewDelegateNzz=TableviewDelegateNzz()
@@ -86,6 +88,7 @@ class ChatViewController: UIViewController {
     func initMoreAction(){
         moreActionMenu.delegate=self
         moreActionMenu.dataSource=self
+        moreActionMenu.scrollEnabled=false
         moreActionMenu.separatorColor=UIColor(hexString: "#5c5c5c")
         viewMoreAction.alpha=1
         viewMoreAction.hidden=true
@@ -338,7 +341,14 @@ extension  ChatViewController:InputVcDelegate{
                 })
         }
     }
-    func sendLocation(addressStr:String,pt:CLLocationCoordinate2D){
+    func sendLocation(imgLoc:UIImage?,addressStr:String,pt:CLLocationCoordinate2D){
+//        let imgPath=msgIdToFilePath(101, isVoice: false) as String
+//        
+//        let imgData=UIImageJPEGRepresentation(imgLoc!, 1.0)
+//        
+//        imgData!.writeToFile(imgPath, atomically: true)
+        
+
         //        发送地址，通过融云发送地址信息
         aTableviewDelegateNzz.addAnewMsgTxt(MMsgTxt().initMMsgTxt(txt: addressStr, aStatusOfSend: StatusOfSend.success, aImgHeadUrlOrFilePath: DefaultHeadImgUser, aIsSend: true,aMsgId: -1))
         
@@ -426,7 +436,6 @@ extension  ChatViewController:InputVcDelegate{
     
     func loginout(){
         aTableviewDelegateNzz.reset()
-        UserModel.shareManager().loginOut()
     }
 }
 
@@ -448,7 +457,10 @@ extension ChatViewController{
                 {
                     let aRCImageMessage = message.content as! RCImageMessage
                     if  aRCImageMessage.imageUrl != nil{
+                        print("放入\(imgMsgId.count)")
+                        print("得\(aRCImageMessage.imageUrl)")
                         if imgMsgId.count==0{
+                            print("从0开始")
                             imgMsgId.append(message.messageId)
                             imgMsgUrl.append(aRCImageMessage.imageUrl)
                             downLoadImg(0)
@@ -456,25 +468,6 @@ extension ChatViewController{
                             imgMsgId.append(message.messageId)
                             imgMsgUrl.append(aRCImageMessage.imageUrl)
                         }
-                        
-                        //                        //                        let UrlImgSource="http://img2.ultimavip.cn/"Mbulter.shareMbulterManager().id
-                        //                        //此处消息接收到还是要设置过，图片暂时用的是缩略图
-                        //                        dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                        //                            UIImageView().sd_setImageWithURL(NSURL(string:"\(UrlImgSource)"+aRCImageMessage.imageUrl), completed:{ (aImg, aNSError,_,_) -> Void in
-                        //                                if (aNSError == nil){
-                        //
-                        //                                    if let imgData =  UIImageJPEGRepresentation(aImg, 1){
-                        //                                        aRCImageMessage.imageUrl=msgIdToFilePath(message.messageId, isVoice: false)
-                        //                                        imgData.writeToFile(aRCImageMessage.imageUrl, atomically: true)
-                        //                                        print("收到的图片保存到\(aRCImageMessage.imageUrl)")
-                        //                                    }
-                        //
-                        //                                    dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                        //                                        self.receiveMsgImg([aImg],fullImgUrlOrPath: [aRCImageMessage.imageUrl],msgIds: [message.messageId])
-                        //                                    })
-                        //                                }
-                        //                            })
-                        //                        })
                     }
                 }else if message.content is RCTextMessage{
                     let aRCTextMessage = message.content as! RCTextMessage
@@ -484,7 +477,7 @@ extension ChatViewController{
                         })
                         
                     }else{
-                        dispatch_async(dispatch_get_main_queue(), { () -> Void in
+//                        dispatch_async(dispatch_get_main_queue(), { () -> Void in
                             if let  extraInDic = HelpFromOc.dictionaryWithJsonString(aRCTextMessage.extra)
                                 as? Dictionary<String,AnyObject>{
                                     
@@ -492,10 +485,10 @@ extension ChatViewController{
                                     {
                                         if type == MsgTypeInTxtExtra.BulterChange.rawValue {
                                             if let targetId = extraInDic["targetId"] as? String{
-                                                Mbulter.shareMbulterManager().id=targetId
                                                 if let nickname = extraInDic["nickname"] as? String{
                                                     Mbulter.shareMbulterManager().nickname=nickname
                                                 }
+                                                Mbulter.shareMbulterManager().id=targetId
                                                 if let avatar = extraInDic["avatar"] as? String{
                                                     Mbulter.shareMbulterManager().avatar=avatar
                                                 }
@@ -506,7 +499,7 @@ extension ChatViewController{
                                         }
                                     }
                             }
-                        })
+//                        })
                     }
                     
                     
@@ -526,8 +519,9 @@ extension ChatViewController{
         
         if let extraInDic = HelpFromOc.dictionaryWithJsonString(extraStr)
             as? Dictionary<String,AnyObject>{
-                
-                aTableviewDelegateNzz.addAnewMsgOrder(MMsgOrder().initMMsgOrder(extraInDic, aStatusOfSend: StatusOfSend.success, aImgHeadUrlOrFilePath: DefaultHeadImgUser, aIsSend: false, aMsgId: msgId))
+                 dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                self.aTableviewDelegateNzz.addAnewMsgOrder(MMsgOrder().initMMsgOrder(extraInDic, aStatusOfSend: StatusOfSend.success, aImgHeadUrlOrFilePath: DefaultHeadImgUser, aIsSend: false, aMsgId: msgId))
+                })
         }
         
     }
@@ -580,7 +574,8 @@ extension ChatViewController{
             viewMoreAction.hidden=false
             btnHideMoreActionMenu.hidden=false
             moreActionViewNSLayoutConstraintTop.constant = moreActionViewNSLayoutConstraintTopOriginValue + view.bounds.origin.y
-            moreActionMenuNSLayoutConstraintHeight.constant =  CGFloat(MUi.shareManager().menus.count * 44 + 20)
+            moreActionMenuNSLayoutConstraintHeight.constant =  moreActionMenu.contentSize.height+8
+            //CGFloat(MUi.shareManager().menus.count * 44 + 20)
         }else{
             viewMoreAction.hidden=true
             btnHideMoreActionMenu.hidden=true
@@ -640,6 +635,10 @@ extension ChatViewController:UITableViewDelegate,UITableViewDataSource{
         cell.lblMoreActionMenu.text =  MUi.shareManager().menus[indexPath.row].name
         // Configure the cell...
         cell.selectionStyle = UITableViewCellSelectionStyle.None;
+        if indexPath.row == MUi.shareManager().menus.count-1{
+            cell.lineBot.hidden=true
+        }
+            
         return cell
     }
     
@@ -676,19 +675,23 @@ extension ChatViewController:UITableViewDelegate,UITableViewDataSource{
 extension ChatViewController{
     
     func downLoadImg(nub:Int){
-        self.imgVForDownLoad.sd_setImageWithURL(NSURL(string:"\(UrlImgSource)"+self.imgMsgUrl[nub]), completed:{ (aImg, aNSError,_,_) -> Void in
+        print("对\(nub)操作")
+        self.imgVForDownLoad.sd_setImageWithURL(NSURL(string:"\(UrlImgSource)"+self.imgMsgUrl[nub]), completed:{ (aImg, aNSError,_,imageURL) -> Void in
             if (aNSError == nil){
+                print("取：\(imageURL)")
                 if let imgData =  UIImageJPEGRepresentation(aImg, 1){
-                    let path=msgIdToFilePath(self.imgMsgId[nub], isVoice: false)
+                    let path = msgIdToFilePath(self.imgMsgId[nub], isVoice: false)
                     imgData.writeToFile(path, atomically: true)
-                    print("收到的图片保存到\(path)")
                     self.receiveMsgImg([aImg],fullImgUrlOrPath: [path],msgIds: [self.imgMsgId[nub]])
                 }
             }
             if nub<self.imgMsgId.count-1{
+                print("准备对\(nub+1)操作")
                 self.downLoadImg(nub+1)
             }else{
                 self.imgMsgId=[]
+                self.imgMsgUrl=[]
+                print("初始化")
                 return
             }
         })
@@ -722,7 +725,7 @@ extension ChatViewController{
                     //所有收到图片消息均根据消息id保存到了本地，所以可以根据下面的方法得到图片
                     let imgPath=msgIdToFilePath(msg.messageId, isVoice: false)
                     if let aImg = UIImage(contentsOfFile: imgPath){
-                        arrMMsgBasic.append(MMsgImg().initMMsgImg(aImg, aFullImgUrlOrPath: imgPath, aStatusOfSend: StatusOfSend.success, aImgHeadUrlOrFilePath: "", aIsSend: true, aMsgId: msg.messageId))
+                        arrMMsgBasic.append(MMsgImg().initMMsgImg(aImg, aFullImgUrlOrPath: imgPath, aStatusOfSend: StatusOfSend.success, aImgHeadUrlOrFilePath: "", aIsSend: aIsSend, aMsgId: msg.messageId))
                         arrTimeCreate.append(aTimeCreate)
                     }
                 }else if  msg.content is RCTextMessage {

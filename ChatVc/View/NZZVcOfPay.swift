@@ -27,6 +27,8 @@ class NZZVcOfPay: UIViewController {
             }
         }
     }
+    
+    @IBOutlet var viewLinePaySecond: UIView!
     @IBOutlet var iconOfSecondChoice: UIImageView!
     @IBOutlet var iconOfFirstChoice: UIImageView!
     @IBOutlet var titleOfFirstChoice: UILabel!
@@ -74,6 +76,7 @@ class NZZVcOfPay: UIViewController {
 //            detailOfSecondChoice.hidden=true
             btnOfSecondChoice.hidden=true
             statusOfSecondChoice.hidden=true
+            viewLinePaySecond.hidden=true
         }
         viewUnder.userInteractionEnabled=true
         

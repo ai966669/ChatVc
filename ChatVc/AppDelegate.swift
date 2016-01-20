@@ -15,6 +15,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var aLoginAndRegistVc:UINavigationController?
     var aChatVc:UINavigationController?
     var isBackGround=false
+    //    所有意外登出操作都调用这里进行登出
+    func loginOutUnexpected(msgShow:String){
+        UserModel.shareManager().loginOut()
+        //登出操作
+        if (aChatVc != nil){
+            aChatVc?.popToRootViewControllerAnimated(false)
+            if let chatVc = aChatVc?.viewControllers[0] as? ChatViewController{
+                chatVc.loginout()
+            }
+//            为什么此处不设置会奔溃
+            aChatVc=nil
+        }
+        self.setRootViewControllerIsLogin()
+        SVProgressHUD.showErrorWithStatus(msgShow)
+    }
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         UserModel.shareManager().initRCIM()
         //window界面初始化
@@ -33,11 +48,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 
                 }, failure: { (code,msg) -> Void in
                     //todo登录过期，重新登录的提示不出现，需要修改页面显示机制
-                    if code == RequestErrCodeAlreadyLogin{
-                        self.setRootViewControllerIsLogin()
-                        SVProgressHUD.showErrorWithStatus(msg)
-                    }
-                    SVProgressHUD.showErrorWithStatus(msg)
+                    
+//                    self.setRootViewControllerIsLogin()
+//                    SVProgressHUD.showErrorWithStatus(msg)
+//                    if code == RequestErrCodeAlreadyLogin{
+//                        self.setRootViewControllerIsLogin()
+//                        SVProgressHUD.showErrorWithStatus(msg)
+//                    }
+//                    SVProgressHUD.showErrorWithStatus(msg)
             })
         }else{
             
@@ -215,12 +233,12 @@ extension AppDelegate{
     
     func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject]) {
         RCIMClient.sharedRCIMClient().recordRemoteNotificationEvent(userInfo)
-                SVProgressHUD.showSuccessWithStatus("1111111111111111111111111")
+//                SVProgressHUD.showSuccessWithStatus("1111111111111111111111111")
     }
     
    //  彻底关闭后，滑动离线通知进入app时运行
     func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject], fetchCompletionHandler completionHandler: (UIBackgroundFetchResult) -> Void) {
-        SVProgressHUD.showSuccessWithStatus("22222222222222222222222222")
+//        SVProgressHUD.showSuccessWithStatus("22222222222222222222222222")
     }
 
    //  后台运行时，滑动通知进入app时运行
@@ -232,7 +250,7 @@ extension AppDelegate{
 //            
 //            }
 //        }
-        SVProgressHUD.showSuccessWithStatus("333333333333333333333333")
+//        SVProgressHUD.showSuccessWithStatus("333333333333333333333333")
         RCIMClient.sharedRCIMClient().recordLocalNotificationEvent(notification)
         AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
         AudioServicesPlaySystemSound(1007);

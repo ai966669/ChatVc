@@ -12,6 +12,7 @@ class MoreActionTableViewCell: UITableViewCell {
 
     @IBOutlet var imgMoreActionMenu: UIImageView!
     @IBOutlet var lblMoreActionMenu: UILabel!
+    @IBOutlet var lineBot: UIView!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

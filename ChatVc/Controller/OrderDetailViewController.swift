@@ -15,13 +15,14 @@ class OrderDetailViewController: UIViewController {
     var aNZZVcOfPay:NZZVcOfPay!
     var aOrderId = -1
     var aMOrder:MOrder?
-    var imgNameCell=["orderNo","goodDetail","orderPrice","orderStatus","phoneNub","orderTime"]
-    var txtNameCell=["订单编号","订单类型","商品详情","金额","订单状态","手机号","时间"]
+    
+    var imgNameCell=["orderNo","goodDetail","","orderPrice","orderStatus","phoneNub","orderTime"]
+    var txtNameCell=["编号","类型","商品详情","金额","状态","手机号","时间"]
     var contentCell :[String]=[]
     @IBOutlet var tbOrderDetail: UITableView!
     override func viewDidLoad() {
         super.viewDidLoad()
-                self.extendedLayoutIncludesOpaqueBars = true
+        self.extendedLayoutIncludesOpaqueBars = true
         //设置title
         let aUILabel:UILabel=UILabel(frame: CGRectMake(0, 0, 100, 30))
         aUILabel.textColor=UIColor.whiteColor()
@@ -38,7 +39,7 @@ class OrderDetailViewController: UIViewController {
         tbOrderDetail.delegate=self
         tbOrderDetail.layer.masksToBounds=true
         tbOrderDetail.layer.cornerRadius = 4
-        tbOrderDetail.layer.borderWidth = 1
+        tbOrderDetail.layer.borderWidth = 0.5
         tbOrderDetail.layer.borderColor=UIColor(hexString: "#6a6a6a").CGColor
         tbOrderDetail.layer.masksToBounds=true
         tbOrderDetail.layer.cornerRadius = 4
@@ -64,8 +65,8 @@ class OrderDetailViewController: UIViewController {
                         self.contentCell.append("\(self.aMOrder!.phone)")
                         self.contentCell.append("\(self.aMOrder!.created)")
                     }
-//0113price用float就会出问题
-                    self.imgNameCell.insert("\(self.aMOrder!.type)", atIndex: 2)
+                    //0113price用float就会出问题
+                    //self.imgNameCell.insert("\(self.aMOrder!.type)", atIndex: 2)
                     self.tbOrderDetail.reloadData()
                 }
             }
@@ -92,23 +93,20 @@ class OrderDetailViewController: UIViewController {
     
     @IBAction func showPayView(sender: AnyObject) {
         if contentCell.count != 0{
-            if contentCell[4] != "已支付"{
-                //显示支付界面
-                aNZZVcOfPay=NZZVcOfPay(nibName: "NZZVcOfPay", bundle: nil)
-                aNZZVcOfPay.aNZZVcOfPayDelegate=self
+            //显示支付界面
+            aNZZVcOfPay=NZZVcOfPay(nibName: "NZZVcOfPay", bundle: nil)
+            aNZZVcOfPay.aNZZVcOfPayDelegate=self
+            view.addSubview(aNZZVcOfPay.view)
+            UIView.animateWithDuration(0.25, animations: { [weak self]() -> Void in
                 
-                view.addSubview(aNZZVcOfPay.view)
-                UIView.animateWithDuration(0.25, animations: { [weak self]() -> Void in
-                    
-                    self?.aNZZVcOfPay.view.frame.origin=CGPointMake(0, 0)
-                    if (self!.aMOrder != nil){
-                        print("\(self!.aMOrder?.price)")
-//                        print("\(NSNumber(float: (self!.aMOrder?.price)!))")
-                        self!.aNZZVcOfPay.amountOrigin = 0.01
-                        //                    NSNumber(float: (self!.aMOrder?.price)!).doubleValue
-                    }
-                    })
-            }
+                self?.aNZZVcOfPay.view.frame.origin=CGPointMake(0, 0)
+                if (self!.aMOrder != nil){
+                    print("\(self!.aMOrder?.price)")
+                    //                        print("\(NSNumber(float: (self!.aMOrder?.price)!))")
+                    self!.aNZZVcOfPay.amountOrigin = 0.01
+                    //                    NSNumber(float: (self!.aMOrder?.price)!).doubleValue
+                }
+                })
         }
     }
     
@@ -139,13 +137,17 @@ extension OrderDetailViewController:UITableViewDelegate,UITableViewDataSource{
         let textView=UITextView(frame: CGRectMake(0, 0, 0, 0))
         textView.font=UIFont.systemFontOfSize(18.0)
         textView.text=str
-        return  textView.sizeThatFits(CGSizeMake(120, CGFloat.max)).height
+        return  textView.sizeThatFits(CGSizeMake(150, CGFloat.max)).height
     }
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
         let cell =    tableView.dequeueReusableCellWithIdentifier("OrderDetailTableViewCell") as! OrderDetailTableViewCell
-        cell.img.sd_setImageWithURL(NSURL(string: "\(UrlImgSource)\(imgNameCell[indexPath.row])@3x"), placeholderImage: UIImage(named: "orderNo"))
-        //        UIImage(named: imgNameCell[indexPath.row] as! String)
+        if indexPath.row == 2
+        {
+            cell.img.sd_setImageWithURL(NSURL(string: "\(UrlImgSource)\(aMOrder!.type)@3x.png"), placeholderImage: UIImage(named: "orderNo"))
+        }else{
+            cell.img.image = UIImage(named: imgNameCell[indexPath.row])
+        }
         cell.title.text = txtNameCell[indexPath.row]
         if indexPath.row==4 {
             if aMOrder?.payType != -1{
@@ -154,9 +156,11 @@ extension OrderDetailViewController:UITableViewDelegate,UITableViewDataSource{
                     cell.content.text = "未支付"
                 }else{
                     cell.content.text = "已支付"
+                    cell.content.textColor = UIColor.greenColor()
                     btnTryPay.backgroundColor=ColorBtnCanUnSelect
                     //0112 titleLabel为什么设置好后，点击又变回去了
                     btnTryPay.setTitle("已支付", forState: UIControlState.Normal)
+                    btnTryPay.userInteractionEnabled=false
                 }
             }else{
                 btnTryPay.hidden=true
@@ -171,47 +175,38 @@ extension OrderDetailViewController:UITableViewDelegate,UITableViewDataSource{
         
         return cell
     }
-    //
-    //    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-    //
-    //        let aWebViewController=UIStoryboard(name: "Chat", bundle: nil).instantiateViewControllerWithIdentifier("WebViewController") as! WebViewController
-    //        navigationController?.pushViewController(aWebViewController, animated: true)
-    //
-    //        showMoreActionMenu()
-    //        //        switch (indexPath.row) {
-    //        //        case 0:
-    //        //
-    //        //            break;
-    //        //        case 1:
-    //        //
-    //        //            break;
-    //        //
-    //        //        case 2:
-    //        //
-    //        //            break;
-    //        //
-    //        //        default:
-    //        //            break;
-    //        //        }
-    //    }
 }
 // MARK: - 支付代理实现
 extension OrderDetailViewController:NZZVcOfPayDelegate{
     func payCancel() {
-//        SVProgressHUD.showInfoWithStatus("交易取消")
+        //        SVProgressHUD.showInfoWithStatus("交易取消")
+    }
+    func showSuccessPay(){
+        SVProgressHUD.showInfoWithStatus("支付成功")
+    }
+    func showCancelPay(){
+        SVProgressHUD.showInfoWithStatus("支付取消")
     }
     func payNow(channel: SGPaymentChannel, amount: Float) {
         if aMOrder != nil{
             PingPPPay().askCharge("\(aMOrder!.id)", oneChannel: channel, success: { (model) -> Void in
                 print("获取支付凭证成功")
                 }, failure: { (code) -> Void in
-//                    SVProgressHUD.showInfoWithStatus("获取支付凭证成功")
+                    //                    SVProgressHUD.showInfoWithStatus("获取支付凭证成功")
                 }, onePaySuccess: { () -> Void in
-                    SVProgressHUD.showInfoWithStatus("支付成功")
+                    NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: "showSuccessPay", userInfo: nil, repeats: false)
                     if let aOrderDetailTableViewCell = self.tbOrderDetail.cellForRowAtIndexPath(NSIndexPath.init(forRow: 4, inSection: 0)) as? OrderDetailTableViewCell{
-                        aOrderDetailTableViewCell.content.text="已支付"
+                        dispatch_async(dispatch_get_main_queue()) { () -> Void in
+                            aOrderDetailTableViewCell.content.text="已支付"
+                            aOrderDetailTableViewCell.content.textColor = UIColor.greenColor()
+                            self.btnTryPay.backgroundColor=ColorBtnCanUnSelect
+                            self.btnTryPay.userInteractionEnabled=false
+                            //0112 titleLabel为什么设置好后，点击又变回去了
+                            self.btnTryPay.setTitle("已支付", forState: UIControlState.Normal)
+                        }
                     }
                 }, onePayCancel: { () -> Void in
+                    NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: "showCancelPay", userInfo: nil, repeats: false)
                     //SVProgressHUD.showErrorWithStatus("支付取消")
                 }) { () -> Void in
                     print("支付失败")

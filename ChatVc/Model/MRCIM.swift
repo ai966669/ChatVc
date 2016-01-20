@@ -26,12 +26,13 @@ class MRCIM: NSObject {
         if Mbulter.shareMbulterManager().id == ""{
             //登出操作
             let appDelegate =  UIApplication.sharedApplication().delegate as! AppDelegate
-            if (appDelegate.aChatVc != nil){
-                if let chatVc = appDelegate.aChatVc?.viewControllers[0] as?ChatViewController{
-                    chatVc.loginout()
-                    SVProgressHUD.showErrorWithStatus("没有客服，请重新登陆")
-                }
-            }
+            appDelegate.loginOutUnexpected("未获取到客服，请重新登陆")
+//            if (appDelegate.aChatVc != nil){
+//                if let chatVc = appDelegate.aChatVc?.viewControllers[0] as?ChatViewController{
+//                    chatVc.loginout()
+//                    SVProgressHUD.showErrorWithStatus("没有客服，请重新登陆")
+//                }
+//            }
             return SendMsgReadyStatus.NoMbulter
         }else {
             print("发给\(Mbulter.shareMbulterManager().id)")
@@ -113,6 +114,7 @@ class MRCIM: NSObject {
     }
     func becomeRCIMReceiver(){
         RCIM.sharedRCIM().receiveMessageDelegate=self
+        RCIM.sharedRCIM().disableMessageAlertSound=true
     }
     func getLastReciveMsgId()->Int64{
         let LatestMsgs = RCIMClient.sharedRCIMClient().getLatestMessages(RCConversationType.ConversationType_PRIVATE, targetId: UserModel.shareManager().targetId, count: 1) as! [RCMessage]
@@ -175,12 +177,14 @@ class MRCIM: NSObject {
     }
     
     func deleteMsg(msgId:Int){
+        
         RCIMClient.sharedRCIMClient().deleteMessages([msgId])
     }
+    
     func logout(){
         RCIM.sharedRCIM().logout()
     }
-   class func getNickNameByMsgId(aId:Int)->String{
+    class func getNickNameByMsgId(aId:Int)->String{
 
         if let aRCMessage=RCIMClient.sharedRCIMClient().getMessage(aId){
             return Mbulter.getNickNameById(aRCMessage.senderUserId)
@@ -188,11 +192,15 @@ class MRCIM: NSObject {
             return ""
         }
     }
+    
 }
 // MARK: - RCIMReceiveMessageDelegate
 extension MRCIM:RCIMReceiveMessageDelegate{
     func onRCIMReceiveMessage(message: RCMessage!, left: Int32) {
         UserModel.shareManager().targetId=message.senderUserId
         NSNotificationCenter.defaultCenter().postNotificationName(NotificationNewMsg, object: ["msg":message])
+    }
+    func onRCIMCustomAlertSound(message: RCMessage!) -> Bool {
+        return true
     }
 }

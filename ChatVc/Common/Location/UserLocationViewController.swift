@@ -383,8 +383,8 @@ class UserLocationViewController: UIViewController {
 //            vcChat?.myInputVc.txtViewOfMsg.text = sendNowAddress
 //            vcChat?.myInputVc.calumateAndUpdateUITxtViewOfMsg()
 //            vcChat?.myInputVc.txtViewOfMsg.becomeFirstResponder()
-            
-            vcChat?.sendLocation(sendNowAddress, pt: info.pt)
+           
+            vcChat?.sendLocation(mapView.takeSnapshot(),addressStr: sendNowAddress, pt: info.pt)
             dismissViewControllerAnimated(true, completion: nil)
         }else{
             let aUIAlertView=UIAlertView(title: "提示", message: "没有选择地址,确定取消发送吗", delegate: self, cancelButtonTitle: "取消发送", otherButtonTitles: "继续选择")

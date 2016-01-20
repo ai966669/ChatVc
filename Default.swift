@@ -259,5 +259,12 @@ let RCIMAppKey="k51hidwq18o0b"
 //请求网路错误
 /// 该卡当前已有用户使用
 let RequestErrCodeAlreadyLogin=1018
+//  请登录
+let RequestErrCodeLoginPlease=1002
+//  登录过期，请重新登录
+let RequestErrCodeLoginExpire=1013
+//用户不存在
+let RequestErrCodeNoUser=1014
 /// 登陆需要验证码
 let RequestErrNeedCode=1022
+

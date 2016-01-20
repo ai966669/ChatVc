@@ -204,26 +204,34 @@ extension TableviewDelegateNzz {
     /**
      插入数据并滚动到最后一条
      */
-    func insertAndScrolltoLastCell(){
+    func insertAndScrolltoLastCell(isSend:Bool){
         let aNSIndexPath:NSIndexPath=NSIndexPath.init(forRow: aMTableviewDelegateNzz.nbOfMsg-1, inSection: 0)
         aTableView.insertRowsAtIndexPaths([aNSIndexPath], withRowAnimation: UITableViewRowAnimation.Bottom)
         aTableView.scrollToRowAtIndexPath(NSIndexPath(forRow:aMTableviewDelegateNzz.nbOfMsg-1, inSection: 0), atScrollPosition: UITableViewScrollPosition.Bottom, animated: true)
+        if !isSend{
+            AudioServicesPlaySystemSound(1012)
+        }
     }
+    
+    //收到消息震动
+//    if Group.shareGroup?.groupType == -1{
+//    AudioServicesPlaySystemSound(1012)
+//    }
     func addAnewMsgTxt(aMMsgTxt:MMsgTxt){
         aMTableviewDelegateNzz.addMsgTxt(aMMsgTxt,timeCreate: DefaultNoTime, funLater: aMTableviewDelegateNzz.appendMsg)
-        insertAndScrolltoLastCell()
+        insertAndScrolltoLastCell(aMMsgTxt.isSend)
     }
     func addAnewMsgVoice(aMMsgVoice:MMsgVoice){
         aMTableviewDelegateNzz.addMsgVoice(aMMsgVoice,timeCreate: DefaultNoTime, funLater: aMTableviewDelegateNzz.appendMsg)
-        insertAndScrolltoLastCell()
+        insertAndScrolltoLastCell(aMMsgVoice.isSend)
     }
     func  addAnewMsgImg(aMMsgImg:MMsgImg){
         aMTableviewDelegateNzz.addMsgImg(aMMsgImg,timeCreate: DefaultNoTime, funLater: aMTableviewDelegateNzz.appendMsg)
-        insertAndScrolltoLastCell()
+        insertAndScrolltoLastCell(aMMsgImg.isSend)
     }
     func addAnewMsgOrder(aMMsgOrder:MMsgOrder){
         aMTableviewDelegateNzz.addMsgOrder(aMMsgOrder,timeCreate: DefaultNoTime, funLater: aMTableviewDelegateNzz.appendMsg)
-        insertAndScrolltoLastCell()
+        insertAndScrolltoLastCell(aMMsgOrder.isSend)
     }
     func resetFilePathAndMsgIdAndSendStatus(filePathOrUrl:String,msgId:Int,nubOfMsg:Int,aStatusOfSend:StatusOfSend){
         aMTableviewDelegateNzz.resetFilePathAndMsgId(filePathOrUrl, msgId: msgId, nubOfMsg: nubOfMsg,aStatusOfSend: aStatusOfSend)

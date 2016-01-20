@@ -244,7 +244,7 @@ extension SearchAddressViewController: UITableViewDelegate,UITableViewDataSource
                 aPt.getValue(&aCLLocationCoordinate2D)
                 
                 let adds="\(result?.cityList[indexPath.row] as! String)\(result?.districtList[indexPath.row] as! String)\(result?.keyList[indexPath.row] as! String)"
-                vcChat?.sendLocation(adds, pt: aCLLocationCoordinate2D)
+                vcChat?.sendLocation(nil,addressStr:adds, pt: aCLLocationCoordinate2D)
 //                vcChat?.myInputVc.txtViewOfMsg.text = "\(result!.cityList[indexPath.row])\(result!.districtList[indexPath.row])\(result!.keyList[indexPath.row])"
                // vcChat?.myInputVc.calumateAndUpdateUITxtViewOfMsg()
              //   vcChat?.myInputVc.txtViewOfMsg.becomeFirstResponder()

@@ -140,7 +140,7 @@ class MTableviewDelegateNzz: NSObject {
         let size = ToolOfCellInChat.getSizeByStringAndDefaultFont(txtShow)
         
         
-        let aModelOfMsgCellOrder = ModelOfMsgCellOrder().initModelOfMsgCellOrder(ModelOfMsgCellBasic().initBasicCell(timeCreateInTxt, aIsSend: aMMsgOrder.isSend, aStatusOfSend: aMMsgOrder.statusOfSend.rawValue, aSizeCell: size, aImgHeadUrlOrFilePath: aMMsgOrder.imgHeadUrlOrFilePath, aTypeOfMsg: aTypeOfMsg, aMsgId: aMMsgOrder.msgId), aMsgId: aMMsgOrder.msgId, aTxt: txtShow, aType: aMMsgOrder.type, aShow: aMMsgOrder.show, aOrderType: aMMsgOrder.orderType, aName: aMMsgOrder.name, aNum: aMMsgOrder.num, aGoodName: aMMsgOrder.goodName, aStatus: aMMsgOrder.status, aPrice: aMMsgOrder.price, aCreated: aMMsgOrder.created,aOrderId: aMMsgOrder.orderId)
+        let aModelOfMsgCellOrder = ModelOfMsgCellOrder().initModelOfMsgCellOrder(ModelOfMsgCellBasic().initBasicCell(timeCreateInTxt, aIsSend: aMMsgOrder.isSend, aStatusOfSend: aMMsgOrder.statusOfSend.rawValue, aSizeCell: size, aImgHeadUrlOrFilePath: aMMsgOrder.imgHeadUrlOrFilePath, aTypeOfMsg: aTypeOfMsg, aMsgId: aMMsgOrder.msgId), aMsgId: aMMsgOrder.msgId, aTxt: txtShow, aType: aMMsgOrder.type, aShow: aMMsgOrder.show, aOrderType: aMMsgOrder.orderType, aName: aMMsgOrder.name, aNum: aMMsgOrder.num, aGoodName: aMMsgOrder.goodName, aStatus: aMMsgOrder.status, aPrice: aMMsgOrder.price, aCreated: aMMsgOrder.created,aOrderId: aMMsgOrder.id)
         
         
         funLater(aTypeOfMsg: aTypeOfMsg,aTimeVisiable: aTimeVisiable,aModelOfMsgCellBasic: aModelOfMsgCellOrder)
@@ -154,6 +154,7 @@ class MTableviewDelegateNzz: NSObject {
         if chatHistory[nubOfMsg]is ModelOfMsgCellVoice{
             let  aModelOfMsgCellVoice=chatHistory[nubOfMsg] as! ModelOfMsgCellVoice
             aModelOfMsgCellVoice.voiceUrlOrPath=filePathOrUrl
+            aModelOfMsgCellVoice.statusOfSend=aStatusOfSend.rawValue
         }else if chatHistory[nubOfMsg] is ModelOfMsgCellImg {
             let  aModelOfMsgCellImg=chatHistory[nubOfMsg] as! ModelOfMsgCellImg
             aModelOfMsgCellImg.imgUrlOrPath=filePathOrUrl

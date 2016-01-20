@@ -19,6 +19,7 @@
                 <outlet property="titleOfFirstChoice" destination="Ah7-il-BQy" id="TwF-Zh-pyL"/>
                 <outlet property="titleOfSecondChoice" destination="yGk-JR-IFh" id="f9K-fp-46t"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+                <outlet property="viewLinePaySecond" destination="tQk-eS-bUy" id="3Y2-kd-5e8"/>
                 <outlet property="viewUnder" destination="GXG-li-y4r" id="d0F-BR-Orb"/>
             </connections>
         </placeholder>
