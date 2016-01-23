@@ -15,7 +15,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var aLoginAndRegistVc:UINavigationController?
     var aChatVc:UINavigationController?
     var isBackGround=false
-    //    所有意外登出操作都调用这里进行登出
+    //    所有意外登出操作都调用这里进行登出        界面跳转都在这里处理
     func loginOutUnexpected(msgShow:String){
         UserModel.shareManager().loginOut()
         //登出操作
@@ -24,7 +24,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             if let chatVc = aChatVc?.viewControllers[0] as? ChatViewController{
                 chatVc.loginout()
             }
-//            为什么此处不设置会奔溃
+            //0121            为什么此处不设置会奔溃 ，奔溃是因为setRootViewControllerIsChat时，此时的aChatVc不为空，但作为RootViewController会失败。具体原因还要找
+//xx 1.完成地图发送图片 2.完成0121等几天遇到的问题，学            
             aChatVc=nil
         }
         self.setRootViewControllerIsLogin()

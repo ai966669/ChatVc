@@ -162,6 +162,7 @@ class TopModel: NSObject {
     class func universalRequest(requestMethod requestMethod:Method,dic:Dictionary<String,AnyObject>,urlMethod:String,success:SessionSuccessBlock,failure:SessionFailBlock) -> Request {
         //网络请求
         var aurlMethod=urlMethod
+        print("\(aurlMethod)")
         return request(requestMethod, "\(BaseURL)\(interfaceVersion)\(urlMethod)", parameters: dic, encoding:ParameterEncoding.URL).response { (request, response, data, error) -> Void in
             UIApplication.sharedApplication().networkActivityIndicatorVisible = false
             if response?.statusCode != 0 && response?.statusCode != 200{
@@ -202,7 +203,7 @@ class TopModel: NSObject {
                             if let ret_code_int = Int(ret_code){
 //                                判断是否是需要特殊操作的返回码，如果是返回要显示的字段和需要显示的消息
                                 
-                                if  !isSpecailCode(ret_code_int) {
+                                if  isSpecailCode(ret_code_int) {
                                     
                                     var msg = ""
                                     if let inputErrors = json["inputErrors"]  as? String {
@@ -482,7 +483,7 @@ class TopModel: NSObject {
     
     - parameter code: 需要查看的网络返回码
     */
-    static let  SpecailCodes=[RequestErrCodeAlreadyLogin,RequestErrCodeLoginExpire,RequestErrCodeLoginPlease,RequestErrCodeNoUser]
+    static let  SpecailCodes=[RequestErrCodeAlreadyLogin,RequestErrCodeLoginExpire,RequestErrCodeLoginPlease,RequestErrCodeNoUser,RequestErrUnActive]
     class func isSpecailCode(code:Int)->Bool{
         for SpecailCode in SpecailCodes{
             if code == SpecailCode{

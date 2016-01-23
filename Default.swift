@@ -267,4 +267,5 @@ let RequestErrCodeLoginExpire=1013
 let RequestErrCodeNoUser=1014
 /// 登陆需要验证码
 let RequestErrNeedCode=1022
-
+/// 请先激活卡
+let RequestErrUnActive=1006

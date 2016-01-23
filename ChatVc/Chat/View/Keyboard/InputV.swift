@@ -263,17 +263,15 @@ class InputV: UIView {
         self.btnOfVoice.hidden = isText
         self.layoutIfNeeded()
         backgroundColor = UIColor.clearColor()
-        if #available(iOS 8.0, *) {
+//        if #available(iOS 8.0, *) {
             viewUnder.backgroundColor = UIColor.clearColor()
             let viewStyle = UIBlurEffect(style: UIBlurEffectStyle.ExtraLight)
             effectView = UIVisualEffectView(effect: viewStyle)
             effectView!.frame = CGRectMake(0, 0, UIScreen.mainScreen().bounds.size.width, viewUnder.bounds.size.height)
             viewUnder.addSubview(effectView!)
-            
-            
-        }else {
-            viewUnder.backgroundColor = UIColor(red: 0.0/255.0, green: 0.0/255.0, blue: 0.0/255.0, alpha: 0.6)
-        }
+//        }else {
+//            viewUnder.backgroundColor = UIColor(red: 0.0/255.0, green: 0.0/255.0, blue: 0.0/255.0, alpha: 0.6)
+//        }
         
         btnOfSend.backgroundColor = ColorTopic
         initNotification()

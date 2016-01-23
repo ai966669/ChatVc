@@ -66,9 +66,9 @@ class UserModel: TopModel {
         let params = specialProcess(["deviceId":(UIDevice.currentDevice().identifierForVendor?.UUIDString)!,"cardNum":cardNum,"password":psw])
         
         TopModel.universalRequest(requestMethod: Method.POST,dic: params, urlMethod: URLUserLogin, success: { (model) -> Void in
-                self.loginSuccess(model!)
-                success(model: model)
-
+            self.loginSuccess(model!)
+            success(model: model)
+            
             }) { (code,msg) -> Void in
                 failure(code: code,msg: msg)
         }
@@ -92,8 +92,8 @@ class UserModel: TopModel {
     func loginByToken(success:SessionSuccessBlock,failure:SessionFailBlock)->NSURLSessionTask{
         let  params :Dictionary<String, String>= unverisalProcess([:])
         let request = TopModel.universalRequest(requestMethod: Method.POST,dic: params, urlMethod: URLUserTokenLogin, success: { (model) -> Void in
-                UserModel.sharedUserModel.loginSuccess(model!)
-                success(model: model)
+            UserModel.sharedUserModel.loginSuccess(model!)
+            success(model: model)
             }) { (code,msg) -> Void in
                 NSUserDefaults.standardUserDefaults().removeObjectForKey(UD_LastTimeSignToken)
                 failure(code: code,msg: msg)
@@ -130,7 +130,7 @@ class UserModel: TopModel {
         NSUserDefaults.standardUserDefaults().removeObjectForKey(UD_LastTimeUserId)
         NSUserDefaults.standardUserDefaults().removeObjectForKey(SG_QiniuUpToken)
     }
-
+    
 }
 //
 extension UserModel{
@@ -141,7 +141,7 @@ extension UserModel{
         RCIM.sharedRCIM().initWithAppKey(RCIMAppKey)
         RCIM.sharedRCIM().connectWithToken(UserModel.sharedUserModel.token,
             success: { (userId)-> Void in
-//                注意此处的userid是融云的userid不是我们系统中的userid
+                //                注意此处的userid是融云的userid不是我们系统中的userid
                 print("登陆成功。当前登录的用户ID：\(userId)")
                 UserModel.shareManager().idMine=userId
                 dispatch_async(dispatch_get_main_queue(), { () -> Void in
@@ -160,16 +160,11 @@ extension UserModel{
         })
     }
     
-   
+    
     /**
      登出操作
      */
     func  loginOut(){
-        //界面跳转
-        if  let appDelegate = UIApplication.sharedApplication().delegate as? AppDelegate
-        {
-            appDelegate.setRootViewControllerIsLogin()
-        }
         //登出融云
         MRCIM.shareManager().logout()
         //自动登陆token去掉
@@ -177,15 +172,51 @@ extension UserModel{
         NSUserDefaults.standardUserDefaults().removeObjectForKey(UD_LastTimeUserId)
         NSUserDefaults.standardUserDefaults().removeObjectForKey(SG_QiniuUpToken)
         //通知后台
-        
-
         let  params :Dictionary<String, String>= unverisalProcess([:])
-        
-        TopModel.universalRequest(requestMethod: Method.POST, dic: params, urlMethod: URLUserLogout, success: { (model) -> Void in
-            
-            }) { (code, msg) -> Void in
-            
+        /**
+        *  此处判断token是否为空，是为了防止在意外状况下登出时，发起登出操作会返回需要登出的操作。而这个登出请求会触发此处logoutout,第一次触发，又会触发一次因为意外而产生的再一次logout，于是又会触发登出请求。为了防止这样的死循环，又为了确实在正常状况下需要发起登出操作，做了如下判断
+        */
+        if token != ""{
+            TopModel.universalRequest(requestMethod: Method.POST, dic: params, urlMethod: URLUserLogout, success: { (model) -> Void in
+                
+                }) { (code, msg) -> Void in
+                    
+            }
         }
+        //重置数据
+        resetData()
+    }
+    func resetData(){
+        // 发送消息时的targetId，消息接收方
+        targetId=""  //:String?
+        //   黑卡id
+        id=""
+        //  融云id
+        idMine=""
+        //用户名称
+        name = ""
+        //    昵称
+        nickname = ""
+        //    头像地址
+        avatar = ""
+        //    邮箱
+        email = ""
+        //    手机
+        phone = ""
+        //    身份证号
+        identityCard=""
+        //    qq
+        qq = ""
+        //    12306用户名
+        ttName = ""
+        //    12306密码
+        ttPs = ""
+        //   token
+        token = ""
+        //   cardNum
+        cardNum = ""
+        //  性别
+        sex  = false
     }
 }
 

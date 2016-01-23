@@ -17,7 +17,7 @@ class OrderDetailViewController: UIViewController {
     var aMOrder:MOrder?
     
     var imgNameCell=["orderNo","goodDetail","","orderPrice","orderStatus","phoneNub","orderTime"]
-    var txtNameCell=["编号","类型","商品详情","金额","状态","手机号","时间"]
+    var txtNameCell=["编号","类型","商品详情","金额","状态","手机","时间"]
     var contentCell :[String]=[]
     @IBOutlet var tbOrderDetail: UITableView!
     override func viewDidLoad() {
@@ -92,6 +92,7 @@ class OrderDetailViewController: UIViewController {
     
     
     @IBAction func showPayView(sender: AnyObject) {
+//        (UIApplication.sharedApplication().delegate as! AppDelegate).loginOutUnexpected("意外登出")
         if contentCell.count != 0{
             //显示支付界面
             aNZZVcOfPay=NZZVcOfPay(nibName: "NZZVcOfPay", bundle: nil)
@@ -157,10 +158,11 @@ extension OrderDetailViewController:UITableViewDelegate,UITableViewDataSource{
                 }else{
                     cell.content.text = "已支付"
                     cell.content.textColor = UIColor.greenColor()
-                    btnTryPay.backgroundColor=ColorBtnCanUnSelect
-                    //0112 titleLabel为什么设置好后，点击又变回去了
-                    btnTryPay.setTitle("已支付", forState: UIControlState.Normal)
-                    btnTryPay.userInteractionEnabled=false
+                    btnTryPay.hidden=true
+//                    btnTryPay.backgroundColor=ColorBtnCanUnSelect
+//                    //0112 titleLabel为什么设置好后，点击又变回去了
+//                    btnTryPay.setTitle("已支付", forState: UIControlState.Normal)
+//                    btnTryPay.userInteractionEnabled=false
                 }
             }else{
                 btnTryPay.hidden=true
@@ -199,10 +201,11 @@ extension OrderDetailViewController:NZZVcOfPayDelegate{
                         dispatch_async(dispatch_get_main_queue()) { () -> Void in
                             aOrderDetailTableViewCell.content.text="已支付"
                             aOrderDetailTableViewCell.content.textColor = UIColor.greenColor()
-                            self.btnTryPay.backgroundColor=ColorBtnCanUnSelect
-                            self.btnTryPay.userInteractionEnabled=false
-                            //0112 titleLabel为什么设置好后，点击又变回去了
-                            self.btnTryPay.setTitle("已支付", forState: UIControlState.Normal)
+                            self.btnTryPay.hidden=true
+//                            self.btnTryPay.backgroundColor=ColorBtnCanUnSelect
+//                            self.btnTryPay.userInteractionEnabled=false
+//                            //0112 titleLabel为什么设置好后，点击又变回去了
+//                            self.btnTryPay.setTitle("已支付", forState: UIControlState.Normal)
                         }
                     }
                 }, onePayCancel: { () -> Void in
