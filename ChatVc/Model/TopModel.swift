@@ -483,6 +483,7 @@ class TopModel: NSObject {
     
     - parameter code: 需要查看的网络返回码
     */
+    //在chatvc中的提交
     static let  SpecailCodes=[RequestErrCodeAlreadyLogin,RequestErrCodeLoginExpire,RequestErrCodeLoginPlease,RequestErrCodeNoUser,RequestErrUnActive]
     class func isSpecailCode(code:Int)->Bool{
         for SpecailCode in SpecailCodes{
