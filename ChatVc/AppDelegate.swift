@@ -91,6 +91,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         window?.rootViewController = aLoginAndRegistVc
         
+        
+        
     }
     func setRootViewControllerIsChat()
     {
