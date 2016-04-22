@@ -478,12 +478,6 @@ class TopModel: NSObject {
 //            }
 //            
 //    }
-    
-//cadnel修改 
-//cadel修改2
-    
-    
-//    asd
     /**
     查看返回的错误id是不是特殊的错误id。这里指的特殊是，这些id不光要显示，而且客户端需要做出对应的操作
     
