@@ -253,6 +253,8 @@ enum MsgTypeInTxtExtra:Int{
     case  OrderMsg = 50
 }
 
+
+
 /// 订单列表
 let DefaultTargetList="DefaultTargetList"
 /// 融云key
