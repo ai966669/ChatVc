@@ -252,6 +252,7 @@ enum MsgTypeInTxtExtra:Int{
     case  BulterChange = 2
     case  OrderMsg = 50
 }
+
 /// 订单列表
 let DefaultTargetList="DefaultTargetList"
 /// 融云key
