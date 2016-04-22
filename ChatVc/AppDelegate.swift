@@ -90,9 +90,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         aLoginAndRegistVc?.navigationController?.navigationBar.hidden=true
         }
         window?.rootViewController = aLoginAndRegistVc
-        
-        
-        
+        //master
     }
     func setRootViewControllerIsChat()
     {
